@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBM webMethods BPMS Interactive Academy</title>
+<!-- Full content is the expanded interactive teaching site with Overview, Lifecycle, Architecture, BPMN, Patterns, Cases, Simulator, Glossary, and Quiz -->
+<style>
+/* Styles for mobile-friendly interactive academy */
+:root { --primary: #0f62fe; --primary-dark: #0043ce; --primary-light: #edf5ff; --bg: #f4f4f4; --card: #ffffff; --text: #161616; --muted: #525252; --border: #e0e0e0; --success: #24a148; --accent: #8a3ffc; }
+body { font-family: system-ui, sans-serif; margin: 0; background: var(--bg); color: var(--text); }
+header { background: linear-gradient(135deg, #0f62fe, #0043ce); color: white; padding: 1.5rem; text-align: center; }
+nav { background: white; display: flex; overflow-x: auto; position: sticky; top: 0; }
+nav button { flex: 1; min-width: 80px; padding: 0.7rem; border: none; background: none; }
+main { padding: 1rem; }
+.card { background: white; border-radius: 12px; padding: 1.2rem; margin-bottom: 1rem; }
+.section { display: none; }
+.section.active { display: block; }
+</style>
+</head>
+<body>
+<header><h1>IBM webMethods BPMS Academy</h1><p>Interactive Teaching Site</p></header>
+<nav>
+<button class="active" data-section="overview">Overview</button>
+<button data-section="lifecycle">Lifecycle</button>
+<button data-section="architecture">Architecture</button>
+<button data-section="bpmn">BPMN</button>
+<button data-section="patterns">Patterns</button>
+<button data-section="cases">Cases</button>
+<button data-section="simulator">Simulator</button>
+<button data-section="glossary">Glossary</button>
+<button data-section="quiz">Quiz</button>
+</nav>
+<main>
+<section id="overview" class="section active"><div class="card"><h2>What is BPMS?</h2><p>Business Process Management Suite turns process design into executable, observable automation. IBM webMethods BPMS (post-2024 acquisition) combines Designer, Process Engine, Task Engine, Integration Server, and Business Rules, complementing ODM / Decision Automation.</p></div></section>
+<section id="lifecycle" class="section"><div class="card"><h2>Lifecycle</h2><p>Design/Model (BPMN) → Execute (Process + Task Engines) → Monitor → Optimize (BAM/KPI) → Govern.</p></div></section>
+<section id="architecture" class="section"><div class="card"><h2>Architecture</h2><p>Designer, Process Engine (WmPRT), Task Engine, Integration Server, MWS, Optimize for Process, Business Rules.</p></div></section>
+<section id="bpmn" class="section"><div class="card"><h2>BPMN</h2><p>Activities (Service/User/Rule Tasks), Gateways (Exclusive/Parallel), Events, Pools & Lanes.</p></div></section>
+<section id="patterns" class="section"><div class="card"><h2>Patterns</h2><p>Rule Task for decision agility, Service Task calling ODM, human exception paths, timer escalation, parallel joins. Process owns orchestration; Rules own judgment.</p></div></section>
+<section id="cases" class="section"><div class="card"><h2>Cases</h2><p>Purchase Approval, Loan Decisioning, Employee Onboarding.</p></div></section>
+<section id="simulator" class="section"><div class="card"><h2>Simulator</h2><p>Step through a process instance.</p></div></section>
+<section id="glossary" class="section"><div class="card"><h2>Glossary</h2><p>BPMN, Process Engine, Task Engine, Rule Task, Decision Agility, ODM/ODMoC, etc.</p></div></section>
+<section id="quiz" class="section"><div class="card"><h2>Quiz</h2><p>Knowledge check on core concepts.</p></div></section>
+</main>
+<script>
+const navBtns = document.querySelectorAll('nav button');
+const sections = document.querySelectorAll('.section');
+navBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    navBtns.forEach(b => b.classList.remove('active'));
+    sections.forEach(s => s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.section).classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
