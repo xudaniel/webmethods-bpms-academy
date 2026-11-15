@@ -3,6 +3,17 @@
 All notable changes to the IBM webMethods BPMS Academy. Author: **Daniel Yuanpeng Xu**.
 Versions follow [Semantic Versioning](https://semver.org/).
 
+## [1.2.0] — 2026-11-15
+
+Plain words for beginners. **Author: Daniel Yuanpeng Xu.**
+
+### Added
+- **Tap any term to understand it:** 36 key terms (BPMN, Integration Server, My webMethods, Hot Deploy, quality of service…) are underlined across the course and the reading version, once per card. Tapping one gives a one-line plain-English explanation, the technical definition from the glossary and a link to the full glossary; on a phone it opens as a bottom sheet. Quizzes, buttons, links, headings and diagrams are left alone (#38).
+- **🌱 Beginner mode:** a switch in the header, remembered on the device. The tab bar and ☰ menu show the 10 beginner sections; each opens with an *In plain words* box; the 7 advanced sections say they can wait and link back to Start here; Previous / Next skip them (#38).
+
+### Fixed
+- Three duplicate glossary entries (Hot Deploy, Process Aware, Rule task); the glossary now has 33 terms.
+
 ## [1.1.0] — 2026-11-15
 
 Learn by role, by picture and by doing, on any phone. **Author: Daniel Yuanpeng Xu.**
@@ -67,5 +78,6 @@ See the [product requirements](docs/PRD.md).
 ## [0.1.0] — 2026-11-14
 - Initial interactive course: architecture, lifecycle, BPMN, patterns, cases, simulator, Agent Scan Lab, market, glossary and quiz (PR #1).
 
+[1.2.0]: https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.2.0
 [1.1.0]: https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.1.0
 [1.0.0]: https://github.com/xudaniel/webmethods-bpms-academy/releases/tag/v1.0.0
