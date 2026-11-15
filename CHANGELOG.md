@@ -12,6 +12,9 @@ Versions follow [Semantic Versioning](https://semver.org/).
 - **Role cheat sheets** that print on their own, and **self-checks** with 12 questions across the four roles (#19).
 - **Teach a class:** a 3-hour workshop agenda, a print list and facilitator tips (#20).
 
+- **Phone guide** on Start here and in both READMEs: save to the Home Screen on iPhone (iOS 26) and Android, finding your way, offline, text size, PDF. A QR code is shown on large screens (#24).
+- **Mobile experience:** a ☰ Sections menu, Previous/Next on every section, a back-to-top button (plus Contents in the reading version), collapsible troubleshooting entries, larger tap targets, a compact header, iPhone safe areas, a scroll shadow on the tab bar, and pages that open at the top. Install as an app (manifest, icons, theme colour) and work offline (network-first service worker) (#25).
+
 ### Fixed
 - Restored `js/app.js`, which commit 5620be7 had overwritten and which broke the live site. Knowledge topics can now show diagrams, and a missing image hides itself (#21, PR #22).
 

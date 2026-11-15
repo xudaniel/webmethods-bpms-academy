@@ -1,0 +1,16 @@
+{
+  "name": "IBM webMethods BPMS Academy",
+  "short_name": "BPMS Academy",
+  "description": "Independent course and cited knowledge base on IBM webMethods BPMS, by Daniel Yuanpeng Xu. Not affiliated with IBM.",
+  "start_url": "./index.html#start",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f4f4",
+  "theme_color": "#0f62fe",
+  "lang": "en",
+  "icons": [
+    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "assets/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

@@ -22,6 +22,7 @@ Static HTML, CSS and JavaScript. No build step, no backend, no tracking. Open `i
 
 ## Contents
 
+0. [Using it on your phone](#-using-it-on-your-phone)
 1. [Who this is for](#who-this-is-for)
 2. [What you will learn](#what-you-will-learn)
 3. [Curriculum](#curriculum)
@@ -41,6 +42,30 @@ Static HTML, CSS and JavaScript. No build step, no backend, no tracking. Open `i
 17. [Sources](#sources)
 
 ---
+
+## 📱 Using it on your phone
+
+The site is built for phones first. To get the most out of it, save it as an app:
+
+<img src="assets/qr-site.png" alt="QR code for the live site" width="132" align="right">
+
+**iPhone (Safari)**
+1. Open <https://xudaniel.github.io/webmethods-bpms-academy/> in Safari. On a laptop, scan the QR code with your phone camera.
+2. Tap **Share**, or tap **⋯** next to the address bar and then Share.
+3. Scroll down and tap **Add to Home Screen**. If it isn't there, tap **Edit Actions** at the bottom of the list and add it.
+4. Keep **Open as Web App** on, then tap **Add**.
+
+**Android (Chrome)**
+1. Open the site in Chrome.
+2. Tap **⋮** at the top right → **Add to home screen**.
+3. Choose **Install** (or **Install app**) and confirm.
+
+**Finding your way on a phone**
+- **☰ Sections** (top left) opens every section, grouped as Start, Do, Learn and Teach. You can also swipe the tab bar sideways.
+- Every section ends with **Previous / Next**. The round **↑** button returns to the top. In the reading version, **Contents** jumps back to the table of contents.
+- **Offline:** after your first visit, the saved app opens without a connection. Lab progress is stored on your phone only.
+- **Text size:** use your browser's text-size setting or pinch to zoom. The layout reflows, with no sideways scrolling at 360 px.
+- **Read or save a PDF:** open the **Reading version**, then use your browser's Share or Print option.
 
 ## Who this is for
 
@@ -337,6 +362,9 @@ webmethods-bpms-academy/
 ├── README.md           # English README
 ├── README.zh-CN.md     # Chinese README (中文说明)
 ├── CHANGELOG.md        # release history
+├── manifest.webmanifest # install as an app (name, icons, theme colour)
+├── sw.js               # offline support (network first, cache fallback)
+├── assets/             # app icons and the QR code
 ├── docs/
 │   └── PRD.md          # product requirements document
 ├── css/
@@ -348,6 +376,7 @@ webmethods-bpms-academy/
 │   ├── howto.js        # How to use: role guides, beginner path, customer demo script
 │   ├── lab.js          # Hands-on lab: first process in 30 minutes
 │   ├── support.js      # Troubleshooting, role cheat sheets and self-checks, teach a class
+│   ├── mobile.js       # Phone guide, sections menu, previous/next, back to top, offline registration
 │   ├── explainer.js    # "Start here" content (author's view items labelled)
 │   ├── explainer-app.js# "Start here" interactions: toggle, sorting game, decision guard, timeline
 │   └── read.js         # renders the reading version from the same content files
@@ -389,7 +418,7 @@ playwright install chromium
 python3 tests/smoke_test.py
 ```
 
-The test serves the site locally, opens every section at phone width (390 × 844), checks the IBM webMethods title, knowledge counter, family table and cited knowledge topics, the beginner path, every how-to guide, the demo script and the hands-on lab with its progress tracker, troubleshooting search and filters, a role self-check and the class agenda, exercises the Start-here interactions, runs the simulator to completion and the Agent Scan Lab on the synthetic sample, checks that `read.html` has five diagrams, a complete quiz and answer key and all sections filled, and fails on any JavaScript error.
+The test serves the site locally, opens every section at phone width (390 × 844), checks the IBM webMethods title, knowledge counter, family table and cited knowledge topics, the beginner path, every how-to guide, the demo script and the hands-on lab with its progress tracker, troubleshooting search and filters, a role self-check and the class agenda, exercises the Start-here interactions, runs the simulator to completion and the Agent Scan Lab on the synthetic sample, checks that `read.html` has five diagrams, a complete quiz and answer key and all sections filled, checks the phone guide, the sections menu, Previous/Next on every section, back to top, no horizontal overflow at 360 px in any section, and that the manifest icons and service worker exist, and fails on any JavaScript error.
 
 ## Design principles
 
