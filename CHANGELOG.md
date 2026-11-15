@@ -3,7 +3,20 @@
 All notable changes to the IBM webMethods BPMS Academy. Author: **Daniel Yuanpeng Xu**.
 Versions follow [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [1.1.0] — 2026-11-15
+
+Learn by role, by picture and by doing, on any phone. **Author: Daniel Yuanpeng Xu.**
+
+### Highlights
+- **Who are you?** 7 roles with personal paths, and **IBM webMethods BPMS in one picture**, a clickable map.
+- **Hands-on lab:** your first process in 30 minutes.
+- **Troubleshooting** with 16 problems, **role cheat sheets** and **self-checks**, and a **Teach a class** plan.
+- **Phone app with offline mode**, a Sections menu, Previous / Next, and reading times everywhere.
+- **14 diagrams**, including an interactive quality-of-service diagram, plus **badges** and **Did you know?**
+- **Author credit** in both READMEs, the PRD and `CITATION.cff`.
+
+### Changed
+- **README (EN + 中文) rewritten around today's site:** what you can do in five minutes, who it's for, what's inside (grouped by purpose), the curriculum in site order, a refreshed roadmap and design principles, and current screenshots (#36).
 
 ### Added
 - **Hands-on lab: your first process in 30 minutes.** 8 stages to build, enable, run and monitor a purchase-approval process, with checkpoints, cited steps, a pitfalls table, a practice path without an environment, and a level-up exercise. Progress is saved in the learner's browser. A printable lab sheet is in the reading version (#16).
@@ -54,4 +67,5 @@ See the [product requirements](docs/PRD.md).
 ## [0.1.0] — 2026-11-14
 - Initial interactive course: architecture, lifecycle, BPMN, patterns, cases, simulator, Agent Scan Lab, market, glossary and quiz (PR #1).
 
+[1.1.0]: https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.1.0
 [1.0.0]: https://github.com/xudaniel/webmethods-bpms-academy/releases/tag/v1.0.0
