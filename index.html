@@ -3,56 +3,127 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IBM webMethods BPMS Interactive Academy</title>
-<!-- Full content is the expanded interactive teaching site with Overview, Lifecycle, Architecture, BPMN, Patterns, Cases, Simulator, Glossary, and Quiz -->
-<style>
-/* Styles for mobile-friendly interactive academy */
-:root { --primary: #0f62fe; --primary-dark: #0043ce; --primary-light: #edf5ff; --bg: #f4f4f4; --card: #ffffff; --text: #161616; --muted: #525252; --border: #e0e0e0; --success: #24a148; --accent: #8a3ffc; }
-body { font-family: system-ui, sans-serif; margin: 0; background: var(--bg); color: var(--text); }
-header { background: linear-gradient(135deg, #0f62fe, #0043ce); color: white; padding: 1.5rem; text-align: center; }
-nav { background: white; display: flex; overflow-x: auto; position: sticky; top: 0; }
-nav button { flex: 1; min-width: 80px; padding: 0.7rem; border: none; background: none; }
-main { padding: 1rem; }
-.card { background: white; border-radius: 12px; padding: 1.2rem; margin-bottom: 1rem; }
-.section { display: none; }
-.section.active { display: block; }
-</style>
+<title>webMethods BPMS Academy — interactive course</title>
+<meta name="description" content="Independent interactive course on IBM webMethods BPMS: architecture, BPMN, decision automation patterns, agent-era patterns, and market context from public sources.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230f62fe'/%3E%3Cpath d='M7 16h6l3-6 3 12 3-6h3' stroke='white' stroke-width='2.5' fill='none'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-<header><h1>IBM webMethods BPMS Academy</h1><p>Interactive Teaching Site</p></header>
-<nav>
-<button class="active" data-section="overview">Overview</button>
-<button data-section="lifecycle">Lifecycle</button>
-<button data-section="architecture">Architecture</button>
-<button data-section="bpmn">BPMN</button>
-<button data-section="patterns">Patterns</button>
-<button data-section="cases">Cases</button>
-<button data-section="simulator">Simulator</button>
-<button data-section="glossary">Glossary</button>
-<button data-section="quiz">Quiz</button>
+<header>
+  <h1>webMethods BPMS Academy</h1>
+  <p>Architecture, BPMN, decision automation and agent-era patterns — interactive, public sources only</p>
+</header>
+<nav aria-label="Sections">
+  <button data-section="overview">Overview</button>
+  <button data-section="lifecycle">Lifecycle</button>
+  <button data-section="architecture">Architecture</button>
+  <button data-section="bpmn">BPMN</button>
+  <button data-section="patterns">Patterns</button>
+  <button data-section="cases">Cases</button>
+  <button data-section="simulator">Simulator</button>
+  <button data-section="scan">Agent Scan Lab</button>
+  <button data-section="market">Market</button>
+  <button data-section="glossary">Glossary</button>
+  <button data-section="quiz">Quiz</button>
 </nav>
 <main>
-<section id="overview" class="section active"><div class="card"><h2>What is BPMS?</h2><p>Business Process Management Suite turns process design into executable, observable automation. IBM webMethods BPMS (post-2024 acquisition) combines Designer, Process Engine, Task Engine, Integration Server, and Business Rules, complementing ODM / Decision Automation.</p></div></section>
-<section id="lifecycle" class="section"><div class="card"><h2>Lifecycle</h2><p>Design/Model (BPMN) → Execute (Process + Task Engines) → Monitor → Optimize (BAM/KPI) → Govern.</p></div></section>
-<section id="architecture" class="section"><div class="card"><h2>Architecture</h2><p>Designer, Process Engine (WmPRT), Task Engine, Integration Server, MWS, Optimize for Process, Business Rules.</p></div></section>
-<section id="bpmn" class="section"><div class="card"><h2>BPMN</h2><p>Activities (Service/User/Rule Tasks), Gateways (Exclusive/Parallel), Events, Pools & Lanes.</p></div></section>
-<section id="patterns" class="section"><div class="card"><h2>Patterns</h2><p>Rule Task for decision agility, Service Task calling ODM, human exception paths, timer escalation, parallel joins. Process owns orchestration; Rules own judgment.</p></div></section>
-<section id="cases" class="section"><div class="card"><h2>Cases</h2><p>Purchase Approval, Loan Decisioning, Employee Onboarding.</p></div></section>
-<section id="simulator" class="section"><div class="card"><h2>Simulator</h2><p>Step through a process instance.</p></div></section>
-<section id="glossary" class="section"><div class="card"><h2>Glossary</h2><p>BPMN, Process Engine, Task Engine, Rule Task, Decision Agility, ODM/ODMoC, etc.</p></div></section>
-<section id="quiz" class="section"><div class="card"><h2>Quiz</h2><p>Knowledge check on core concepts.</p></div></section>
+  <section id="overview" class="section">
+    <div class="card">
+      <h2>What is a BPMS?</h2>
+      <p class="lead">A Business Process Management Suite turns a process drawn in BPMN into running, observable automation: systems are called automatically, people get tasks in an inbox, decisions come from rules, and every step leaves an audit trail.</p>
+      <p>IBM webMethods BPMS (part of IBM since the 2024 acquisition of webMethods from Software AG) combines <strong>Designer</strong>, the <strong>Process Engine</strong> inside Integration Server, the <strong>Task Engine</strong> on My webMethods Server, <strong>Business Rules</strong>, and <strong>Monitor/Optimize</strong>. It is commonly paired with <strong>IBM ODM</strong> for governed decisions.</p>
+    </div>
+    <div class="card">
+      <h3>The one idea to remember</h3>
+      <p><strong>The process owns orchestration; rules own judgment; people own exceptions.</strong> In the agent era a fourth role appears: <strong>agents propose</strong> — reading documents, drafting actions — while rules and people stay accountable.</p>
+    </div>
+    <div class="card">
+      <h3>How to use this site</h3>
+      <div class="grid">
+        <button class="tile" onclick="location.hash='architecture'"><strong>Learn the parts</strong><small>Architecture, lifecycle, BPMN</small></button>
+        <button class="tile" onclick="location.hash='simulator'"><strong>Run a process</strong><small>Step a loan through rules and a human task</small></button>
+        <button class="tile" onclick="location.hash='scan'"><strong>Find agent candidates</strong><small>Score process history in the browser</small></button>
+        <button class="tile" onclick="location.hash='market'"><strong>See the market</strong><small>Where orchestration spending goes</small></button>
+      </div>
+    </div>
+    <p class="callout">Independent learning resource. Not an official IBM site and not affiliated with or endorsed by IBM. Product names are trademarks of their owners. All facts come from public sources listed under Market and in the README; no customer or internal data is used.</p>
+  </section>
+
+  <section id="lifecycle" class="section">
+    <div class="card"><h2>Process lifecycle</h2><p>Click a stage.</p><div class="grid" id="lifecycle-steps"></div><div id="lifecycle-detail"></div></div>
+    <div class="card"><h3>Release lifecycle you should know</h3><div class="table-wrap"><table id="dates"></table></div>
+      <p class="sources">Upgrade deadlines are when customers re-evaluate platforms. Source: IBM webMethods support lifecycle page.</p></div>
+  </section>
+
+  <section id="architecture" class="section">
+    <div class="card"><h2>Architecture</h2><p>Click a component.</p><div class="grid" id="arch-grid"></div><div id="arch-detail"></div></div>
+    <div class="card"><h3>Process Audit tables (where history lives)</h3><div class="table-wrap"><table><tr><th>Table</th><th>What it holds</th></tr><tbody id="audit-tables"></tbody></table></div>
+      <p class="sources">What gets written depends on the logging level set per process. Human-task history in 10.15 comes from the Task Engine audit, not these tables, unless task logging is switched on.</p></div>
+  </section>
+
+  <section id="bpmn" class="section"><div class="card"><h2>BPMN essentials</h2><div id="bpmn-groups"></div></div></section>
+
+  <section id="patterns" class="section">
+    <div class="card"><h2>Patterns</h2>
+      <div class="row"><label for="pattern-filter">Show</label>
+        <select id="pattern-filter"><option value="all">All patterns</option><option value="classic">Classic</option><option value="agent era">Agent era</option></select></div></div>
+    <div id="pattern-list"></div>
+  </section>
+
+  <section id="cases" class="section"><div class="card"><h2>Worked cases</h2><p>Each case shows the flow and the design lesson.</p></div><div id="case-list"></div></section>
+
+  <section id="simulator" class="section">
+    <div class="card"><h2>Loan process simulator</h2>
+      <p>Set the application, start an instance and step through it. The rule task decides <em>approve</em>, <em>decline</em> or <em>refer</em>; only referrals go to a person. The log shows the kind of rows the Process Audit database would hold.</p>
+      <div class="row">
+        <label>Loan amount <input type="number" id="sim-amount" value="40000" min="1000" step="1000"></label>
+        <label>Credit score <input type="number" id="sim-score" value="690" min="300" max="850"></label>
+        <label>Annual income <input type="number" id="sim-income" value="90000" min="1000" step="1000"></label>
+      </div>
+      <div class="row"><button class="btn" id="sim-start">Start instance</button><button class="btn secondary" id="sim-next" disabled>Next step</button></div>
+      <div class="steps" id="sim-steps"></div>
+      <div class="row" id="sim-human" style="display:none"><strong>Underwriter task in inbox:</strong>
+        <button class="btn" data-v="APPROVE">Approve</button><button class="btn secondary" data-v="DECLINE">Decline</button></div>
+      <div class="log" id="sim-log"></div>
+      <p class="sources">Rules used: score &lt; 580 → decline; score ≥ 720 and loan/income ≤ 35% → approve; otherwise refer. Illustrative only.</p>
+    </div>
+  </section>
+
+  <section id="scan" class="section">
+    <div class="card"><h2>Agent Scan Lab</h2>
+      <p>Years of BPMS history show where people approve almost everything, wait long, or repeat the same decision. This lab scores each step and classifies it as an <strong>ODM rule candidate</strong>, an <strong>agent candidate</strong>, <strong>keep human</strong> or an <strong>integration fix</strong>. Everything runs in your browser; nothing is uploaded.</p>
+      <div class="row"><button class="btn" id="scan-sample">Run on synthetic logistics data</button>
+        <label class="btn secondary" for="scan-file">Load your CSV…</label><input type="file" id="scan-file" accept=".csv" style="display:none"></div>
+      <details><summary>CSV format</summary>
+        <p>One row per completed step instance: <code>process, step, step_type, start_ts, end_ts, wait_min, work_min, outcome, input_key, loop_count, error</code>. <code>step_type</code> is <code>user_task</code>, <code>service</code> or <code>gateway</code>. <code>input_key</code> is a hash of the business fields that drive the decision. Typical sources: <code>PRA_PROCESS_STEP</code> and <code>PRA_STEP_LOGGED_FIELD</code> for steps, the Task Engine audit for user tasks. Use anonymised exports only.</p>
+        <p>Rules: determinism ≥ 80% → rule candidate; ≥ 90% one outcome and ≤ 15 min work → agent (rubber-stamp); wait ≥ 24 h and ≥ 70% one outcome → agent (triage + human approve); service error ≥ 5% → integration fix.</p>
+      </details>
+      <div id="scan-out"></div>
+      <p class="sources">Synthetic data is generated to contain these patterns, so the sample result only shows how the method works.</p>
+    </div>
+  </section>
+
+  <section id="market" class="section">
+    <div class="card"><h2>Where the market is going</h2>
+      <h3>Analyst sizes disagree</h3>
+      <div class="table-wrap"><table><tr><th>Firm</th><th>BPM market</th><th>Outlook</th></tr><tbody id="market-sizing"></tbody></table></div>
+      <h3>Signals (2026)</h3><ul id="market-signals"></ul>
+      <h3>Takeaways</h3><ul id="market-takeaways"></ul>
+    </div>
+    <div class="card"><h3>Sources</h3><ol class="sources" id="source-list"></ol></div>
+  </section>
+
+  <section id="glossary" class="section">
+    <div class="card"><h2>Glossary</h2><input type="text" id="glossary-search" placeholder="Search terms…" style="width:100%;margin-bottom:.6rem">
+      <div class="table-wrap"><table id="glossary-list"></table></div></div>
+  </section>
+
+  <section id="quiz" class="section">
+    <div class="card"><h2>Knowledge check</h2><p id="quiz-score">Score: 0 / 0</p><div id="quiz-list"></div></div>
+  </section>
 </main>
-<script>
-const navBtns = document.querySelectorAll('nav button');
-const sections = document.querySelectorAll('.section');
-navBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    navBtns.forEach(b => b.classList.remove('active'));
-    sections.forEach(s => s.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById(btn.dataset.section).classList.add('active');
-  });
-});
-</script>
+<footer>Independent learning resource · not affiliated with IBM · <a href="https://github.com/Xudaniel/webmethods-bpms-academy">source on GitHub</a></footer>
+<script src="js/content.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
