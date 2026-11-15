@@ -188,6 +188,17 @@ Every step shows where to click and cites public documentation. A **progress tra
 - **Role cheat sheets with self-checks:** under each How to use guide there is a one-page cheat sheet (key actions with where to do them, plus three golden rules). Each sheet prints on its own. A 3-question self-check gives instant feedback, for 12 questions across the four roles. All four sheets are in section 7 of the reading version.
 - **Teach a class** (`#teach`, section 8; *Author's view*): a 3-hour workshop agenda linked to the site's sections, what to print, and facilitator tips for customer and user classes.
 
+### Diagrams, reading times and progress
+
+- **Reading time** at the top of every section (about 200 words a minute, plus a little per diagram; hands-on sections also show their hands-on time), in the ☰ Sections menu, and for every chapter of the reading version. A total is shown for the whole course.
+- **Diagrams** (original SVG, no IBM artwork) in both versions:
+  - An **interactive quality-of-service** diagram: toggle the three Process Engine settings and watch what you gain and lose.
+  - **Process vs rules**, and **Changing a rule with Hot Deploy**.
+  - Role diagrams under each How to use guide: **task lifecycle**, **build pipeline**, **instance states**.
+  - The lab's **BPMN process with an animated token**, a **"process won't start" flowchart**, and the **workshop timeline**.
+  - `tools/build_diagrams.js` writes the standalone SVG files used by the knowledge base.
+- **Progress and badges:** sections explored (out of 17) and eight badges with a small celebration, plus a **Did you know?** fact from the knowledge base. The badges are Explorer, Agent tamer, Simulator, Scanner, Fixer, Role ready, Lab finisher and Quiz ace. Everything is saved only in your browser.
+
 ## Core concepts at a glance
 
 ```mermaid
@@ -364,7 +375,7 @@ webmethods-bpms-academy/
 ├── CHANGELOG.md        # release history
 ├── manifest.webmanifest # install as an app (name, icons, theme colour)
 ├── sw.js               # offline support (network first, cache fallback)
-├── assets/             # app icons and the QR code
+├── assets/             # app icons, QR code, diagrams (SVG)
 ├── docs/
 │   └── PRD.md          # product requirements document
 ├── css/
@@ -376,12 +387,15 @@ webmethods-bpms-academy/
 │   ├── howto.js        # How to use: role guides, beginner path, customer demo script
 │   ├── lab.js          # Hands-on lab: first process in 30 minutes
 │   ├── support.js      # Troubleshooting, role cheat sheets and self-checks, teach a class
+│   ├── diagrams.js     # Original SVG diagrams (interactive QoS, role diagrams, lab BPMN, flowchart, timeline)
+│   ├── fun.js          # Reading times, explorer progress, badges, did-you-know
 │   ├── mobile.js       # Phone guide, sections menu, previous/next, back to top, offline registration
 │   ├── explainer.js    # "Start here" content (author's view items labelled)
 │   ├── explainer-app.js# "Start here" interactions: toggle, sorting game, decision guard, timeline
 │   └── read.js         # renders the reading version from the same content files
 │   └── app.js          # navigation, simulator, scan lab, glossary search, quiz
 ├── tools/
+│   ├── build_diagrams.js # writes assets/diagrams/*.svg from js/diagrams.js
 │   ├── agent_scan.py   # Python version of the scan
 │   └── make_synthetic.py
 └── tests/
