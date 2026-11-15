@@ -2,7 +2,16 @@
 
 [English](README.md) | **中文**
 
-**作者：Daniel Yuanpeng Xu** —— 业务流程与决策自动化领域的产品经理。本项目的构思、课程设计、分析框架以及所有标注为「作者观点」的内容，均由 Daniel Yuanpeng Xu 完成。
+<p>
+  <a href="https://github.com/Xudaniel"><img alt="Author: Daniel Yuanpeng Xu" src="https://img.shields.io/badge/author-Daniel_Yuanpeng_Xu-0f62fe?style=for-the-badge"></a>
+  <a href="https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.0.0"><img alt="Release v1.0.0" src="https://img.shields.io/badge/release-v1.0.0-24a148?style=for-the-badge"></a>
+  <a href="https://xudaniel.github.io/webmethods-bpms-academy/"><img alt="Live site" src="https://img.shields.io/badge/live-open_the_course-8a3ffc?style=for-the-badge"></a>
+</p>
+
+> ### ✍️ 作者：**Daniel Yuanpeng Xu**
+> 本学院由 Daniel 一手打造：课程设计、知识库、角色教程、动手实验、示意图、PRD 以及所有「作者观点」，都由他构思、设计、主导、审定并发布，每个版本也由他维护。他是业务流程与决策自动化领域的产品经理，常驻多伦多。
+>
+> **[GitHub @Xudaniel](https://github.com/Xudaniel)** · **[LinkedIn](https://www.linkedin.com/in/danielxuvision/)** · [关于作者](#关于作者) · [如何引用](#如何引用)
 
 **一份附出处的知识库加一门可互动、适配手机的课程：讲解 IBM webMethods BPMS 的 Process Engine、Task Engine、Business Rules、执行历史、BPMN，以及流程平台如何与 AI agent 协同工作。**
 
@@ -12,7 +21,7 @@
 
 **两种学习方式：**
 - **互动版**（`index.html`）：栏目切换、滑块、模拟器、扫描实验室和小游戏。
-- **阅读版**（`read.html`）：整门课放在一页里，附五张图和带答案的测验。不用点来点去，也可以直接打印成 PDF。
+- **阅读版**（`read.html`）：整门课放在一页里，包含全部示意图、所有教程和带答案的测验。不用点来点去，也可以直接打印成 PDF。
 
 > **独立学习资源。** 标注为「作者观点」（*Author's view*）的部分，是作者 Daniel Yuanpeng Xu 基于其在流程与决策自动化产品上的产品经理经验所写的个人观点，不代表任何雇主或厂商的立场，也不包含任何雇主内部数据。
 >
@@ -40,7 +49,9 @@
 15. [设计原则](#设计原则)
 16. [后续计划](#后续计划)
 17. [参与贡献](#参与贡献)
-18. [资料来源](#资料来源)
+18. [关于作者](#关于作者)
+19. [如何引用](#如何引用)
+20. [资料来源](#资料来源)
 
 ---
 
@@ -460,6 +471,22 @@ python3 tests/smoke_test.py
 
 欢迎提交 issue 和 pull request。请保持改动小而聚焦，新增事实需附公开出处，提交前运行 `tests/smoke_test.py`，并且不要包含机密或客户数据。
 
+## 关于作者
+
+**Daniel Yuanpeng Xu** 是 IBM webMethods BPMS 学院的作者和产品负责人，也是业务流程与决策自动化领域的产品经理，常驻多伦多。
+
+产品方向、目标读者和范围都由他确定。公开资料由他挑选并核实，「作者观点」中的分析框架由他撰写，每一次改动和每一个版本也都由他主导和审定。本学院是他的个人独立作品，与 IBM 无隶属关系，也未获 IBM 背书。
+
+- GitHub：[@Xudaniel](https://github.com/Xudaniel)
+- LinkedIn：[Daniel Xu](https://www.linkedin.com/in/danielxuvision/)
+- 产品需求文档：[docs/PRD.md](docs/PRD.md)
+
+## 如何引用
+
+> Xu, Daniel Yuanpeng (2026). *IBM webMethods BPMS Academy* (Version 1.0.0) [Interactive course]. https://github.com/xudaniel/webmethods-bpms-academy
+
+点 GitHub 页面上的 **Cite this repository** 按钮（来自 [`CITATION.cff`](CITATION.cff)），就能拿到 APA 和 BibTeX 格式的引用。复用或改编本项目内容时，请注明作者 **Daniel Yuanpeng Xu**，并附上本仓库链接。
+
 ## 资料来源
 
 **产品文档**
@@ -504,6 +531,6 @@ python3 tests/smoke_test.py
 
 ---
 
-© 2026 Daniel Yuanpeng Xu。尚未选择开源许可证，默认著作权保护适用。如需复用本项目内容，请提交 issue 联系。
+**作者与维护者：[Daniel Yuanpeng Xu](https://github.com/Xudaniel)** · [LinkedIn](https://www.linkedin.com/in/danielxuvision/)
 
-**作者：** Daniel Yuanpeng Xu · [github.com/Xudaniel](https://github.com/Xudaniel)
+© 2026 Daniel Yuanpeng Xu。保留所有权利。本项目尚未选择开源许可证，默认受著作权保护。如需复用，请先提交 issue 联系，并注明作者 Daniel Yuanpeng Xu。

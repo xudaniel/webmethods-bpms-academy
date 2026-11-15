@@ -2,7 +2,16 @@
 
 **English** | [中文](README.zh-CN.md)
 
-**Author: Daniel Yuanpeng Xu** — product manager in business-process and decision automation. Concept, curriculum, frameworks and all *Author's view* content are by Daniel Yuanpeng Xu.
+<p>
+  <a href="https://github.com/Xudaniel"><img alt="Author: Daniel Yuanpeng Xu" src="https://img.shields.io/badge/author-Daniel_Yuanpeng_Xu-0f62fe?style=for-the-badge"></a>
+  <a href="https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.0.0"><img alt="Release v1.0.0" src="https://img.shields.io/badge/release-v1.0.0-24a148?style=for-the-badge"></a>
+  <a href="https://xudaniel.github.io/webmethods-bpms-academy/"><img alt="Live site" src="https://img.shields.io/badge/live-open_the_course-8a3ffc?style=for-the-badge"></a>
+</p>
+
+> ### ✍️ Created by **Daniel Yuanpeng Xu**
+> Daniel conceived, designed, directed, reviewed and published this academy: the curriculum, the knowledge base, the role guides, the hands-on lab, the diagrams, the PRD and every *Author's view*. He maintains every release. He is a product manager in business process and decision automation, based in Toronto.
+>
+> **[GitHub @Xudaniel](https://github.com/Xudaniel)** · **[LinkedIn](https://www.linkedin.com/in/danielxuvision/)** · [About the author](#about-the-author) · [How to cite](#how-to-cite)
 
 **A cited knowledge base and interactive, mobile-friendly course on IBM webMethods BPMS — the Process Engine, Task Engine, Business Rules, execution history, BPMN, and how process platforms work alongside AI agents.**
 
@@ -12,7 +21,7 @@ Static HTML, CSS and JavaScript. No build step, no backend, no tracking. Open `i
 
 **Two ways to learn:**
 - **Interactive version** (`index.html`) — tabs, sliders, a simulator, a scan lab and games.
-- **Reading version** (`read.html`) — the whole course on one page with five diagrams and a quiz with answer key. No clicking required; prints cleanly to PDF.
+- **Reading version** (`read.html`) — the whole course on one page, with all the diagrams, every guide, and a quiz with answer key. No clicking required; prints cleanly to PDF.
 
 > **Independent learning resource.** Sections marked *Author's view* are the personal opinions of the author, Daniel Yuanpeng Xu, drawn from experience as a product manager on process and decision-automation products; they are not the position of any employer or vendor and contain no employer-internal data.
 >
@@ -39,7 +48,9 @@ Static HTML, CSS and JavaScript. No build step, no backend, no tracking. Open `i
 14. [Design principles](#design-principles)
 15. [Roadmap](#roadmap)
 16. [Contributing](#contributing)
-17. [Sources](#sources)
+17. [About the author](#about-the-author)
+18. [How to cite](#how-to-cite)
+19. [Sources](#sources)
 
 ---
 
@@ -460,6 +471,22 @@ The test serves the site locally, opens every section at phone width (390 × 844
 
 Issues and pull requests are welcome. Please keep changes small, cite public sources for any new facts, run `tests/smoke_test.py` before opening a PR, and do not include confidential or customer data.
 
+## About the author
+
+**Daniel Yuanpeng Xu** created the IBM webMethods BPMS Academy and is its product owner. He is a product manager in business process and decision automation, based in Toronto.
+
+He set the product direction, defined the audiences and scope, chose and checked the public sources, wrote the *Author's view* frameworks, and directed and reviewed every change and release. The academy is his independent work. It is not affiliated with or endorsed by IBM.
+
+- GitHub: [@Xudaniel](https://github.com/Xudaniel)
+- LinkedIn: [Daniel Xu](https://www.linkedin.com/in/danielxuvision/)
+- Product requirements: [docs/PRD.md](docs/PRD.md)
+
+## How to cite
+
+> Xu, Daniel Yuanpeng (2026). *IBM webMethods BPMS Academy* (Version 1.0.0) [Interactive course]. https://github.com/xudaniel/webmethods-bpms-academy
+
+GitHub's **Cite this repository** button (from [`CITATION.cff`](CITATION.cff)) gives the same citation in APA and BibTeX. If you reuse or adapt any material, please credit **Daniel Yuanpeng Xu** and link to this repository.
+
 ## Sources
 
 **Product documentation**
@@ -504,6 +531,6 @@ Every step in the site links to its source; the main ones:
 
 ---
 
-© 2026 Daniel Yuanpeng Xu. No open-source license has been chosen yet, so default copyright applies. Open an issue if you would like to reuse the material.
+**Created and maintained by [Daniel Yuanpeng Xu](https://github.com/Xudaniel)** · [LinkedIn](https://www.linkedin.com/in/danielxuvision/)
 
-**Author:** Daniel Yuanpeng Xu · [github.com/Xudaniel](https://github.com/Xudaniel)
+© 2026 Daniel Yuanpeng Xu. All rights reserved. No open-source license has been chosen yet, so default copyright applies. To reuse the material, open an issue, and always credit Daniel Yuanpeng Xu.

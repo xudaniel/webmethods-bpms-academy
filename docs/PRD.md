@@ -1,6 +1,9 @@
 # IBM webMethods BPMS Academy — Product Requirements (v1.0)
 
-**Author and product owner:** Daniel Yuanpeng Xu · **Status:** Released as v1.0.0 · **Date:** 15 Nov 2026
+> ### ✍️ Author and product owner: **Daniel Yuanpeng Xu**
+> Daniel created the IBM webMethods BPMS Academy. He conceived, designed, directed, reviewed and published the curriculum, the knowledge base, the guides, the diagrams, the lab, this PRD and every *Author's view*, and he maintains every release. [GitHub @Xudaniel](https://github.com/Xudaniel) · [LinkedIn](https://www.linkedin.com/in/danielxuvision/)
+
+**Status:** Released as v1.0.0 · **Date:** 15 Nov 2026
 **Live site:** <https://xudaniel.github.io/webmethods-bpms-academy/> · **Changelog:** [CHANGELOG.md](../CHANGELOG.md)
 
 > Independent learning resource. Not an official IBM site, and not affiliated with or endorsed by IBM. This document uses public information only.
@@ -80,6 +83,7 @@
 - **Absolute dates.** For example, "Oct 2027", never "next year".
 - **Version caveat.** Menu paths follow public documentation, and labels can differ by version.
 - **Privacy by design.** No analytics, cookies or network calls. Uploaded CSVs stay in the browser.
+- **Authorship and attribution.** Daniel Yuanpeng Xu is credited as the author on every page, both READMEs, this PRD, every pull request and release, and in `CITATION.cff`. Anyone who reuses the material must credit him.
 
 ## 8. Success measures
 
@@ -130,5 +134,12 @@ Because the site collects no analytics by design, success is measured from outsi
 3. **Domain:** keep `github.io`, or use a custom domain?
 4. **Chinese interface:** is it needed for v1.2, or are the Chinese READMEs enough for now?
 
+## 13. Author
+
+**Daniel Yuanpeng Xu** is the author and product owner. He is a product manager in business process and decision automation, based in Toronto. He set the product direction, defined the audiences and scope, chose and verified the public sources, wrote the *Author's view* frameworks, directed and reviewed every change, and decides each release. The academy is his independent work and is not affiliated with or endorsed by IBM.
+
+- **Contact:** [GitHub @Xudaniel](https://github.com/Xudaniel) · [LinkedIn](https://www.linkedin.com/in/danielxuvision/)
+- **Cite as:** Xu, Daniel Yuanpeng (2026). *IBM webMethods BPMS Academy* (v1.0.0). https://github.com/xudaniel/webmethods-bpms-academy
+
 ---
-© 2026 Daniel Yuanpeng Xu
+© 2026 Daniel Yuanpeng Xu · Author and product owner · All rights reserved

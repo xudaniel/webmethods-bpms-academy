@@ -15,6 +15,7 @@ Versions follow [Semantic Versioning](https://semver.org/).
 - **Phone guide** on Start here and in both READMEs: save to the Home Screen on iPhone (iOS 26) and Android, finding your way, offline, text size, PDF. A QR code is shown on large screens (#24).
 - **Mobile experience:** a ☰ Sections menu, Previous/Next on every section, a back-to-top button (plus Contents in the reading version), collapsible troubleshooting entries, larger tap targets, a compact header, iPhone safe areas, a scroll shadow on the tab bar, and pages that open at the top. Install as an app (manifest, icons, theme colour) and work offline (network-first service worker) (#25).
 
+- **Authorship:** a "Created by Daniel Yuanpeng Xu" block at the top of both READMEs, plus About the author, How to cite, and `CITATION.cff` (GitHub's *Cite this repository*). The PRD gets an author callout, an attribution principle and an Author section (#34).
 - **Who are you?** A role picker on Start here with 7 personal paths of 3–5 deep-linked steps. Steps tick themselves off, a "Your path: Next →" link appears at the end of each section, and the reading version gets a "Which chapters should I read?" table (#31).
 - **IBM webMethods BPMS in one picture:** a clickable, numbered map from model to audit history, with *Enable for execution* highlighted as the step beginners miss (#32).
 - **Reading time** on every section, in the Sections menu and on every chapter of the reading version, with a course total (#27).
