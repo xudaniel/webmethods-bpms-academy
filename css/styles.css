@@ -61,3 +61,14 @@ input[type=range] { width: 100%; }
 .byline { font-size: .85rem; color: var(--muted); border-left: 3px solid var(--accent); padding-left: .6rem; }
 footer { text-align: center; font-size: .8rem; color: var(--muted); padding: 1.5rem 1rem 2rem; }
 @media (max-width: 600px) { header h1 { font-size: 1.25rem; } main { padding: .7rem; } .card { padding: .9rem; } }
+
+/* knowledge base */
+.kb-stat { cursor: default; text-align: center; }
+.kb-stat strong { display: block; font-size: 1.6rem; color: #0f62fe; }
+.kb-facts { padding-left: 1.2rem; }
+.kb-facts li { margin: .35rem 0; }
+.kb-topic { scroll-margin-top: 4rem; }
+#kb-counter { grid-template-columns: repeat(3, 1fr); gap: .5rem; }
+#kb-counter .kb-stat { padding: .5rem .3rem; }
+#kb-counter .kb-stat strong { font-size: 1.3rem; }
+#kb-counter .kb-stat small { font-size: .72rem; }

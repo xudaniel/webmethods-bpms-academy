@@ -1,10 +1,10 @@
-# webMethods BPMS 学院
+# IBM webMethods BPMS 学院
 
 [English](README.md) | **中文**
 
 **作者：Daniel Yuanpeng Xu** —— 业务流程与决策自动化领域的产品经理。本项目的构思、课程设计、分析框架以及所有标注为「作者观点」的内容，均由 Daniel Yuanpeng Xu 完成。
 
-**一门可互动、适配手机的课程：讲解 IBM webMethods BPMS 的架构、BPMN、决策自动化，以及流程平台如何与 AI agent 协同工作。**
+**一份附出处的知识库加一门可互动、适配手机的课程：讲解 IBM webMethods BPMS 的 Process Engine、Task Engine、Business Rules、执行历史、BPMN，以及流程平台如何与 AI agent 协同工作。**
 
 纯静态 HTML、CSS 和 JavaScript。无需构建，无后端，无任何追踪。直接打开 `index.html`，或通过 GitHub Pages 发布即可。
 
@@ -23,19 +23,20 @@
 1. [适合谁](#适合谁)
 2. [学完能做到什么](#学完能做到什么)
 3. [课程安排](#课程安排)
-4. [从这里开始：面向大众的互动讲解](#从这里开始面向大众的互动讲解)
-5. [核心概念一览](#核心概念一览)
-6. [互动工具](#互动工具)
-7. [Agent 时代的设计模式](#agent-时代的设计模式)
-8. [市场背景](#市场背景)
-9. [快速开始](#快速开始)
-10. [项目结构](#项目结构)
-11. [如何修改内容](#如何修改内容)
-12. [测试](#测试)
-13. [设计原则](#设计原则)
-14. [后续计划](#后续计划)
-15. [参与贡献](#参与贡献)
-16. [资料来源](#资料来源)
+4. [IBM webMethods 知识库](#ibm-webmethods-知识库)
+5. [从这里开始：面向大众的互动讲解](#从这里开始面向大众的互动讲解)
+6. [核心概念一览](#核心概念一览)
+7. [互动工具](#互动工具)
+8. [Agent 时代的设计模式](#agent-时代的设计模式)
+9. [市场背景](#市场背景)
+10. [快速开始](#快速开始)
+11. [项目结构](#项目结构)
+12. [如何修改内容](#如何修改内容)
+13. [测试](#测试)
+14. [设计原则](#设计原则)
+15. [后续计划](#后续计划)
+16. [参与贡献](#参与贡献)
+17. [资料来源](#资料来源)
 
 ---
 
@@ -52,20 +53,23 @@
 
 ## 学完能做到什么
 
-1. 说出 webMethods BPMS 的主要运行组件，并解释各自的作用。
+1. 说出 BPMS 方案中 IBM webMethods 的主要组件，并解释各自的作用。
 2. 区分 **Process Engine 数据库**（实时状态）和 **Process Audit 数据库**（历史记录），并知道人工任务的历史存在哪里。
 3. 读懂并设计包含任务、网关、事件和泳道的 BPMN 模型。
-4. 判断一段逻辑应该放在流程里、规则任务或决策服务里，还是交给人。
-5. 运用三个 agent 时代的模式：*agent 提建议、规则做判断、流程来执行*；*人工审批入口*；*决策日志*。
-6. 用执行历史打分，找出适合写成 ODM 规则或交给 agent 的步骤，并说明这种分析的局限。
-7. 解释为什么升级期限和监管（欧盟 AI 法案）会影响这个市场的采购决定。
+4. 为 Process Engine 选择服务质量设置（Optimize Locally、Volatile Transition Documents、Volatile Tracking），并说明各自牺牲了什么。
+5. 用 webMethods Business Rules 建模决策：规则项目、规则集、决策表、决策树和事件规则。
+6. 判断一段逻辑应该放在流程里、规则任务或决策服务里，还是交给人。
+7. 运用三个 agent 时代的模式：*agent 提建议、规则做判断、流程来执行*；*人工审批入口*；*决策日志*。
+8. 用执行历史打分，找出适合写成 ODM 规则或交给 agent 的步骤，并说明这种分析的局限。
+9. 解释为什么升级期限和监管（欧盟 AI 法案）会影响这个市场的采购决定。
 
 ## 课程安排
 
 | # | 栏目 | 形式 | 收获 |
 | --- | --- | --- | --- |
 | 0 | **从这里开始**（Start here） | 六个动手步骤 | 面向大众的浅显讲解：有无 BPMS 的对比、每项工作该由谁负责、带实时策略滑块的 agent 决策关卡、驱动市场的时间线、市场真正在哪里、agent 时代的五个想法 |
-| 1 | **概览**（Overview） | 阅读 | 核心理念：流程负责编排，规则负责判断，人负责例外，agent 负责提建议 |
+| 1 | **概览**（Overview） | 阅读 + 产品家族表 | 核心理念（流程负责编排，规则负责判断，人负责例外，agent 负责提建议）和 IBM webMethods 一览 |
+| 1a | **知识库**（Knowledge base） | 附出处的参考资料 | 版本、Process Engine 与 QoS、执行历史、Task Engine、Business Rules、设计清单——35 条引用事实 |
 | 2 | **生命周期**（Lifecycle） | 可点击的阶段 + 版本日期表 | 建模 → 实现 → 构建上传 → 执行 → 监控 → 优化 → 治理；10.15 的支持日期 |
 | 3 | **架构**（Architecture） | 可点击的组件图 | Designer、Process Engine（WmPRT）、Task Engine、两个数据库、规则/ODM、Monitor/Optimize；`PRA_*` 表 |
 | 4 | **BPMN** | 参考表 | 活动、网关、事件、池与泳道 |
@@ -74,10 +78,25 @@
 | 7 | **模拟器**（Simulator） | 互动 | 让一笔贷款走完规则任务和核保人工任务，同步看到审计风格的日志 |
 | 8 | **Agent 扫描实验室**（Agent Scan Lab） | 互动 | 根据历史数据给流程步骤分类；可用模拟数据，也可上传自己的 CSV |
 | 9 | **市场**（Market） | 阅读 + 出处 | 各家市场规模估算、Gartner BOAT、竞争对手动态、监管日期 |
-| 10 | **术语表**（Glossary） | 可搜索 | 16 个核心术语 |
-| 11 | **测验**（Quiz） | 10 道题 | 即时反馈、附解析和得分 |
+| 10 | **术语表**（Glossary） | 可搜索 | 23 个术语，含 QoS 和 Business Rules 术语 |
+| 11 | **测验**（Quiz） | 14 道题 | 即时反馈、附解析和得分 |
 
 每个栏目都有自己的网址片段（例如 `#simulator`），可以直接分享链接。网站界面目前为英文。
+
+## IBM webMethods 知识库
+
+**知识库**栏目（互动版 `#knowledge`，阅读版第 3 章）是一份讲清 IBM webMethods BPMS 实际怎么运作的参考资料，共 **6 个主题、35 条事实，每条都链接到 IBM 或 Software AG 的公开文档**，每个主题后附一段实践建议。
+
+| 主题 | 学到什么 |
+| --- | --- |
+| 版本与生命周期 | 10.15（2022 年 10 月正式发布；2027 年 10 月结束维护，2028 年 10 月结束支持；最后一个支持 AIX 和 z/Linux 的版本）、11.1（2024 年 9 月）、12.1（Java 21、Jakarta EE 10、FIPS 140-3、容器化） |
+| Process Engine 运行与服务质量（QoS） | 转移文档；速度与可靠性的取舍；**Optimize Locally**（默认开）、**Volatile Transition Documents**（默认开）、**Volatile Tracking**（默认关）；Universal Messaging 作为 JMS 提供方；Broker 已弃用 |
+| 执行历史与审计 | Process Engine 数据库与 Process Audit 数据库（`PRA_*` 表）、日志级别、10.15 中人工任务历史存在哪里 |
+| Task Engine 与人工工作 | My webMethods Server 上的任务收件箱、`getTaskAudit`、任务归档 |
+| webMethods Business Rules | 规则项目、规则集、决策表、决策树、事件规则；Data/Service/Process 动作；部署到 Integration Server 和 My webMethods Server |
+| 实践设计清单 | 设计评审和升级时用的十项检查 |
+
+**IBM webMethods 一览。** 概览页（阅读版第 2 章）列出 BPMS 项目里会接触到的产品家族组件：Integration Server、Designer、My webMethods Server、Process Engine、Task Engine、Business Rules、Universal Messaging、Monitor/Optimize 和 IBM webMethods Hybrid Integration。「从这里开始」页顶部有**知识一览**计数器（主题、引用事实、组件、来源、术语、测验题数）。
 
 ## 从这里开始：面向大众的互动讲解
 
@@ -100,12 +119,12 @@
 
 | 特点 | 说明 |
 | --- | --- |
-| 一页读完 | 15 个编号章节，附目录，从「为什么重要」到资料来源 |
+| 一页读完 | 16 个编号章节（含 IBM webMethods 知识库），附目录，从「为什么重要」到资料来源 |
 | 五张静态图 | 架构图 · 执行历史存在哪里 · 2022–2028 时间线 · agent 决策关卡 · 贷款流程 BPMN 图。用内嵌 SVG 绘制，不依赖 JavaScript |
-| 测验 | 10 道题连同选项完整列出，最后附答案和解析 |
+| 测验 | 14 道题连同选项完整列出，最后附答案和解析 |
 | 实例 | 决策关卡策略套用到五个案例的结果、模拟器的审计日志、扫描实验室的模拟结果表 |
 | 可直接打印 | 专门的打印样式：去掉导航，图表不跨页，打印出资料链接。约 17 页 Letter 纸 |
-| 内容同源 | 文字来自 `js/content.js` 和 `js/explainer.js`，阅读版和互动版永远保持一致 |
+| 内容同源 | 文字来自 `js/content.js`、`js/knowledge.js` 和 `js/explainer.js`，阅读版和互动版永远保持一致 |
 
 ## 核心概念一览
 
@@ -270,6 +289,7 @@ webmethods-bpms-academy/
 │   └── read.css          # 阅读版：图示和打印样式
 ├── js/
 │   ├── content.js        # 课程内容和资料来源
+│   ├── knowledge.js      # IBM webMethods 知识库：产品家族、附出处的主题、补充术语和测验
 │   ├── explainer.js      # 「从这里开始」的内容（作者观点已标注）
 │   ├── explainer-app.js  # 「从这里开始」的互动逻辑
 │   ├── app.js            # 导航、模拟器、扫描实验室、术语搜索、测验
@@ -299,6 +319,8 @@ webmethods-bpms-academy/
 | `quiz` | `{ q, a: string[], c: 正确选项序号, e: 解析 }[]` | 测验 |
 | `sources` | `[标题, 链接][]` | 市场 → 资料来源 |
 
+知识库在 `js/knowledge.js` 的 `window.KNOWLEDGE` 里：`family`（`[组件, 作用][]`）、`topics`（`{ id, title, summary, facts[], practice, sources: 编号[] }[]`）、`glossary`、`quiz` 和带编号的 `sources`。其中的术语、测验题和来源会自动并入主课程。
+
 内容规则：每个事实都要附公开出处；日期一律写绝对日期（如「2027 年 10 月」，不写「明年」）；不得加入客户名称、收入数字或任何非公开资料。
 
 ## 测试
@@ -309,7 +331,7 @@ playwright install chromium
 python3 tests/smoke_test.py
 ```
 
-测试会在本地启动网站，以手机宽度（390 × 844）打开每个栏目，操作「从这里开始」的各项互动，把模拟器跑完，并用模拟数据运行扫描实验室；同时检查 `read.html` 有五张图、测验与答案数量一致、各章节都有内容。出现任何 JavaScript 错误即判为失败。
+测试会在本地启动网站，以手机宽度（390 × 844）打开每个栏目，检查标题以 IBM webMethods 开头、知识计数器、产品家族表和附出处的知识主题，操作「从这里开始」的各项互动，把模拟器跑完，并用模拟数据运行扫描实验室；同时检查 `read.html` 有五张图、测验与答案数量一致、各章节都有内容。出现任何 JavaScript 错误即判为失败。
 
 ## 设计原则
 
@@ -326,6 +348,7 @@ python3 tests/smoke_test.py
 - [ ] 扫描实验室支持调整门槛并导出结果 CSV
 - [ ] 新增从 Business Rules 迁移到 ODM 决策服务的模块
 - [ ] 网站界面中文版
+- [ ] 知识库：Monitor/Optimize、部署与升级主题
 
 ## 参与贡献
 
@@ -339,6 +362,18 @@ python3 tests/smoke_test.py
 - [Task Engine `getTaskAudit`](https://documentation.softwareag.com/webmethods/task_engine/wtn10-7/10-7_Task_Engine_webhelp/task-engine-webhelp/te_web_taskaudit.html)
 - [10.15 默认关闭任务写入 Process Audit — IBM 文档](https://www.ibm.com/docs/en/SSHZPA_10.15.0/te_users_guide/co-disable_enable_task_logging_in_processes.html)
 - [任务归档](https://documentation.softwareag.com/webmethods/compendiums/v10-7/C_Digital_Event_Comm/intsagdes-compendium/co-about-task-archiving.html)
+
+**Process Engine、Business Rules 与版本**
+- [Process Engine 性能与服务质量调优](https://documentation.softwareag.com/webmethods/compendiums/v10-3/C_Run_BPs_and_CAs/runbpca-compendium/to-concepts_2.html)
+- [服务质量设置](https://documentation.softwareag.com/webmethods/wmsuites/wmsuite10-1/C_Run_BPs_and_CAs/runbpca-compendium/to-tuning_3.html)
+- [配置 Process Engine 设置 — IBM 11.1 文档](https://www.ibm.com/docs/en/SSLMF12_11.1/ta-configuring_monitoring_configuring_settings.html)
+- [关于 webMethods Business Rules — Designer 10.15](https://documentation.softwareag.com/webmethods/designer/sdf10-15/webhelp/sdf-webhelp/sdf-webhelp/proc.about.webmethods.business.rules.html)
+- [规则开发术语 — Designer 10.7](https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/co-rules_terminology.html)
+- [规则开发概览 — Designer 10.7](https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/co-intro_business_rules.html)
+- [IBM webMethods Integration 12.1 生命周期 — IBM](https://www.ibm.com/support/pages/ibm-webmethods-integration121)
+- [IBM webMethods 12.1：从传统集成走向 AI 就绪架构 — IBM 社区](https://community.ibm.com/community/user/blogs/noboru-tanaka/2026/07/23/ibm-webmethods12-ai-led-integration-arc)
+- [IBM webMethods 11.1 发布说明（副本）](https://www.scribd.com/document/818628366/webmethods-release-notes)
+- [IBM webMethods Hybrid Integration 发布 — IBM](https://www.ibm.com/new/announcements/introducing-webmethods-hybrid-integration)
 
 **生命周期与监管**
 - [webMethods 支持生命周期 — IBM](https://www.ibm.com/support/pages/node/7180543)

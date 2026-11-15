@@ -1,6 +1,7 @@
 /* Reading version: long-form layout, static SVG diagrams, print styles */
 .read main { max-width: 860px; }
 .byline-head { font-size: .85rem; opacity: .85; }
+nav.toc { position: static; display: block; overflow: visible; border-bottom: 0; z-index: auto; }
 .toc ol { columns: 2; column-gap: 2rem; padding-left: 1.2rem; margin: 0; }
 .toc li { margin-bottom: .25rem; }
 @media (max-width: 600px) { .toc ol { columns: 1; } }

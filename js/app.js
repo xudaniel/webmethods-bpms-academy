@@ -236,5 +236,33 @@
   // ---------- sources ----------
   $("source-list").innerHTML = A.sources.map(([t, u]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a></li>`).join("");
 
+  // ---------- IBM webMethods knowledge base ----------
+  const K = window.KNOWLEDGE;
+  if (K) {
+    const src = (n) => K.sources[n];
+    const srcLinks = (ns) => ns.map((n) => `<a href="${esc(src(n)[1])}" target="_blank" rel="noopener">${esc(src(n)[0])}</a>`).join(" · ");
+    const factCount = K.topics.reduce((t, x) => t + x.facts.length, 0);
+    $("kb-counter").innerHTML = [
+      [K.topics.length, "knowledge topics"], [factCount, "cited facts"],
+      [K.family.length, "IBM webMethods components"], [Object.keys(K.sources).length, "public sources"],
+      [A.glossary.length, "glossary terms"], [A.quiz.length, "quiz questions"]
+    ].map(([n, l]) => `<div class="tile kb-stat"><strong>${n}</strong><small>${esc(l)}</small></div>`).join("");
+    $("quiz-count-tile").textContent = A.quiz.length + " questions";
+    $("kb-family").innerHTML = "<tr><th>Component</th><th>What it does in a BPMS solution</th></tr>" +
+      K.family.map(([n, d]) => `<tr><td><strong>${esc(n)}</strong></td><td>${esc(d)}</td></tr>`).join("");
+    $("kb-family-src").innerHTML = "Sources: " + srcLinks(K.familySources.concat([9, 17]));
+    $("kb-tabs").innerHTML = K.topics.map((t) => `<button class="tile" data-kb="${t.id}"><strong>${esc(t.title)}</strong></button>`).join("");
+    $("kb-topics").innerHTML = K.topics.map((t) => `<div class="card kb-topic" id="kb-${t.id}">
+      <h3>${esc(t.title)}</h3><p class="lead">${esc(t.summary)}</p>
+      <ul class="kb-facts">${t.facts.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
+      <p class="callout"><strong>In practice:</strong> ${esc(t.practice)}</p>
+      ${t.sources.length ? `<p class="sources">Sources: ${srcLinks(t.sources)}</p>` : `<p class="sources">Synthesis of the topics above; author's practitioner view.</p>`}
+    </div>`).join("");
+    $("kb-tabs").addEventListener("click", (e) => {
+      const b = e.target.closest("[data-kb]"); if (!b) return;
+      document.getElementById("kb-" + b.dataset.kb).scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
+
   show(location.hash.slice(1) || "start");
 })();
