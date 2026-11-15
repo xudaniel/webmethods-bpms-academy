@@ -3,7 +3,7 @@
 > ### ✍️ Author and product owner: **Daniel Yuanpeng Xu**
 > Daniel created the IBM webMethods BPMS Academy. He conceived, designed, directed, reviewed and published the curriculum, the knowledge base, the guides, the diagrams, the lab, this PRD and every *Author's view*, and he maintains every release. [GitHub @Xudaniel](https://github.com/Xudaniel) · [LinkedIn](https://www.linkedin.com/in/danielxuvision/)
 
-**Status:** Released as v1.0.0 · **Date:** 15 Nov 2026
+**Status:** v1.0.0 scope released 15 Nov 2026 · **Current release:** [v1.1.0](https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.1.0) (see §14)
 **Live site:** <https://xudaniel.github.io/webmethods-bpms-academy/> · **Changelog:** [CHANGELOG.md](../CHANGELOG.md)
 
 > Independent learning resource. Not an official IBM site, and not affiliated with or endorsed by IBM. This document uses public information only.
@@ -139,7 +139,17 @@ Because the site collects no analytics by design, success is measured from outsi
 **Daniel Yuanpeng Xu** is the author and product owner. He is a product manager in business process and decision automation, based in Toronto. He set the product direction, defined the audiences and scope, chose and verified the public sources, wrote the *Author's view* frameworks, directed and reviewed every change, and decides each release. The academy is his independent work and is not affiliated with or endorsed by IBM.
 
 - **Contact:** [GitHub @Xudaniel](https://github.com/Xudaniel) · [LinkedIn](https://www.linkedin.com/in/danielxuvision/)
-- **Cite as:** Xu, Daniel Yuanpeng (2026). *IBM webMethods BPMS Academy* (v1.0.0). https://github.com/xudaniel/webmethods-bpms-academy
+- **Cite as:** Xu, Daniel Yuanpeng (2026). *IBM webMethods BPMS Academy* (v1.1.0). https://github.com/xudaniel/webmethods-bpms-academy
+
+## 14. Release history
+
+| Version | Date | What shipped |
+| --- | --- | --- |
+| 1.1.0 | 2026-11-15 | Role paths and a clickable one-picture map; hands-on lab; troubleshooting, cheat sheets and self-checks; teach-a-class plan; phone app with offline mode; reading times; 14 diagrams; badges; author credit; README rewritten |
+| 1.0.0 | 2026-11-15 | How-to guides by role, beginner path, customer demo, cited knowledge base, PRD, changelog |
+| 0.3.0 | 2026-11-14 | Reading version |
+| 0.2.0 | 2026-11-14 | Start-here explainer, author credit, Chinese README |
+| 0.1.0 | 2026-11-14 | Interactive course, simulator, Agent Scan Lab, market |
 
 ---
 © 2026 Daniel Yuanpeng Xu · Author and product owner · All rights reserved
