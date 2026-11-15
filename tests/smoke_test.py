@@ -34,7 +34,7 @@ async def main():
             if not await page.is_visible(f"#{s}") or len(await page.inner_text(f"#{s}")) < 200:
                 failures.append(f"section {s} empty or hidden")
         # Knowledge base (issues #7, #8): IBM branding, counter, family, cited topics
-        if "v1.1.0" not in await page.inner_text("#version"):
+        if "v1.2.0" not in await page.inner_text("#version"):
             failures.append("footer should show the release version")
         if not (await page.title()).startswith("IBM webMethods"):
             failures.append("title should lead with IBM webMethods")
@@ -171,6 +171,27 @@ async def main():
         await page.wait_for_timeout(300)
         if await page.evaluate("location.hash") != "#trouble" or not await page.evaluate("document.querySelector('#trouble details.dg-more').open"):
             failures.append("map 'Enable' box should open the won't-start flowchart")
+        # Plain words and Beginner mode (issue #38)
+        await page.evaluate("location.hash='lab'")
+        await page.wait_for_timeout(150)
+        if await page.locator("#lab .term").count() < 8:
+            failures.append("lab should underline key terms")
+        await page.click("#lab .term[data-t=enable] >> nth=0")
+        if not await page.is_visible("#term-pop") or "on-switch" not in await page.inner_text("#term-pop"):
+            failures.append("tapping a term should explain it in plain words")
+        await page.keyboard.press("Escape")
+        if await page.is_visible("#term-pop"):
+            failures.append("Escape should close the term explanation")
+        if await page.locator("#glossary-list .term, .quiz-q .term").count() != 0:
+            failures.append("glossary and quiz text should not be underlined")
+        await page.click("#bm-toggle")
+        if await page.is_visible("nav button[data-section=market]") or not await page.is_visible("#lab .plain-box"):
+            failures.append("Beginner mode should hide advanced tabs and show plain-words boxes")
+        if "Troubleshooting" not in await page.inner_text("#lab .prevnext") or "Teach" in await page.inner_text("#trouble .prevnext"):
+            failures.append("Beginner mode previous/next should skip advanced sections")
+        await page.click("#bm-toggle")
+        if not await page.is_visible("nav button[data-section=market]"):
+            failures.append("turning Beginner mode off should restore every tab")
         # Mobile experience (issues #24, #25): menu, previous/next, back to top, phone guide, no overflow at 360 px
         if "Add to Home Screen" not in await page.inner_text("#phone-guide-body"):
             failures.append("phone guide missing iPhone steps")
@@ -224,6 +245,8 @@ async def main():
             failures.append("read.html lab sheet missing")
         if await page2.locator("#r-roles h3").count() != 4 or await page2.locator("#r-demo li").count() != 6:
             failures.append("read.html how-to guides or demo script missing")
+        if await page2.locator("main .term").count() < 40:
+            failures.append("read.html should underline key terms")
         if await page2.locator("#r-kb h3").count() < 6 or await page2.locator("#r-family tr").count() < 8:
             failures.append("read.html knowledge base or family table missing")
         for sel in ["#r-kb-count", "#r-arch-list", "#r-pat", "#r-gloss", "#r-guard-table", "#r-src"]:

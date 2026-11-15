@@ -176,7 +176,8 @@ window.KNOWLEDGE = {
 (function () {
   const A = window.ACADEMY, K = window.KNOWLEDGE;
   if (!A || !K) return;
-  A.glossary.push(...K.glossary);
+  const terms = new Set(A.glossary.map((g) => g[0].toLowerCase()));
+  K.glossary.forEach((g) => { if (!terms.has(g[0].toLowerCase())) { A.glossary.push(g); terms.add(g[0].toLowerCase()); } });
   A.glossary.sort((a, b) => a[0].localeCompare(b[0]));
   A.quiz.push(...K.quiz);
   const have = new Set(A.sources.map((s) => s[1]));
