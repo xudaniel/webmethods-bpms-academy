@@ -147,6 +147,30 @@ async def main():
             failures.append("explorer progress missing")
         if len(await page.inner_text("#dyk-text")) < 20:
             failures.append("did-you-know fact missing")
+        # Role paths and the map (issues #31, #32)
+        await page.evaluate("location.hash='start'")
+        await page.wait_for_timeout(100)
+        if await page.locator("#role-chips .role-chip").count() != 7:
+            failures.append("role picker should offer 7 roles")
+        await page.click(".role-chip[data-r=dev]")
+        if "Hands-on lab" not in await page.inner_text("#beginner-path"):
+            failures.append("developer path missing the lab")
+        await page.click("#beginner-path a[data-step='2']")
+        await page.wait_for_timeout(250)
+        if await page.evaluate("location.hash") != "#howto" or await page.evaluate("document.querySelector('#howto-tabs .tile.selected').dataset.role") != "dev":
+            failures.append("path step did not open the developer guide")
+        if "Next: Hands-on lab" not in await page.inner_text("#howto .path-next"):
+            failures.append("path next-step banner missing")
+        await page.evaluate("location.hash='start'")
+        await page.wait_for_timeout(100)
+        if await page.locator("#beginner-path li.done-step").count() < 1:
+            failures.append("path step not ticked")
+        if await page.locator("#bpms-map a.map-node").count() != 9:
+            failures.append("map should have 9 clickable boxes")
+        await page.click("#bpms-map a.map-node[data-k=enable]")
+        await page.wait_for_timeout(300)
+        if await page.evaluate("location.hash") != "#trouble" or not await page.evaluate("document.querySelector('#trouble details.dg-more').open"):
+            failures.append("map 'Enable' box should open the won't-start flowchart")
         # Mobile experience (issues #24, #25): menu, previous/next, back to top, phone guide, no overflow at 360 px
         if "Add to Home Screen" not in await page.inner_text("#phone-guide-body"):
             failures.append("phone guide missing iPhone steps")
@@ -184,6 +208,10 @@ async def main():
         page2 = await browser.new_page(viewport={"width": 390, "height": 844})
         page2.on("pageerror", lambda e: errors.append("read.html: " + str(e)))
         await page2.goto("http://127.0.0.1:8765/read.html")
+        if await page2.locator("#r-paths tr").count() != 8 or await page2.locator("#r-why figure svg").count() < 1:
+            failures.append("read.html role table or map missing")
+        if "interactive version" in (await page2.inner_text("#r-paths")).replace("Run a process (interactive version)", ""):
+            failures.append("read.html role table should use chapter numbers")
         if await page2.locator("figure svg").count() < 13:
             failures.append("read.html should have at least 13 diagrams (5 original + new)")
         if await page2.locator("main section.card .readtime").count() < 20 or await page2.locator("nav.toc .readtime.total").count() != 1:

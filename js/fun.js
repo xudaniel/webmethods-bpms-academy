@@ -18,6 +18,7 @@
   const handsOn = { lab: () => (window.LAB ? window.LAB.stages.reduce((n, s) => n + s.min, 0) : 30), simulator: () => 5, scan: () => 5, quiz: () => 10 };
 
   const times = {};
+  window.READTIMES = times;
   if (!isRead) {
     let total = 0;
     document.querySelectorAll("main > .section").forEach((sec) => {

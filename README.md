@@ -165,6 +165,11 @@ The **How to use** section (`#howto`, section 4 of the reading version) has step
 
 **Customer demo script (10 minutes, author's view).** Six beats: what to click, what to say, and which customer question each beat answers. It runs from "why a process platform" through a safe AI agent and a live process run to "how fast can the business change a policy". Open it from the *Show a customer* tab, or from the link on the Start page.
 
+### Pick your role, and the whole product in one picture
+
+- **Who are you?** At the top of Start here, pick New here, Customer, Business user, Process developer, Business analyst, Operations or Trainer. You get a **3–5 step path** instead of 17 sections, with what each step is for and its reading time. Each step opens the right place (a role guide, knowledge topic or troubleshooting area) and ticks itself off. At the end of each section, a **Your path: Next →** link takes you on. The reading version has a **Which chapters should I read?** table.
+- **IBM webMethods BPMS in one picture:** a numbered map from *Model → Build and upload → Enable* (highlighted as the step beginners miss) *→ Process Engine runs it → people work tasks / rules decide → Monitor and fix → audit history*, plus where AI agents fit. **Tap any box** to jump to the matching guide.
+
 ### Hands-on lab: your first process in 30 minutes
 
 The **Hands-on lab** section (`#lab`, section 5 of the reading version) connects the role guides into one exercise. You build a small purchase-approval process: a message start event, an "Approve request" user task, an exclusive gateway, and Approved / Rejected end events.
@@ -388,6 +393,7 @@ webmethods-bpms-academy/
 │   ├── lab.js          # Hands-on lab: first process in 30 minutes
 │   ├── support.js      # Troubleshooting, role cheat sheets and self-checks, teach a class
 │   ├── diagrams.js     # Original SVG diagrams (interactive QoS, role diagrams, lab BPMN, flowchart, timeline)
+│   ├── path.js         # Role picker with personal paths, clickable one-picture map
 │   ├── fun.js          # Reading times, explorer progress, badges, did-you-know
 │   ├── mobile.js       # Phone guide, sections menu, previous/next, back to top, offline registration
 │   ├── explainer.js    # "Start here" content (author's view items labelled)
