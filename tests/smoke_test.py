@@ -187,6 +187,12 @@ async def main():
         if not await page.evaluate("document.querySelector('#b-workers').open"):
             failures.append("Next lesson should open lesson 2")
         await page.click("#basics-reset")
+        # More diagrams (issue #44): every section that teaches a structure has a picture
+        for key, sec in [("arch-map", "architecture"), ("lifecycle-loop", "lifecycle"), ("bpmn-gateways", "bpmn"), ("bpmn-lanes", "bpmn"),
+                         ("agent-pattern", "patterns"), ("case-0", "cases"), ("case-1", "cases"), ("case-2", "cases"), ("sim-loan", "simulator"),
+                         ("scan-method", "scan"), ("decision-table", "decisions")]:
+            if await page.locator(f'#{sec} figure[data-dg="{key}"] svg').count() != 1:
+                failures.append(f"diagram {key} missing in {sec}")
         # Hotfix (issue #41): index.html must be the real page, and the Decision lab must work
         html = open("index.html", encoding="utf-8").read()
         if len(html) < 10000 or "$(cat" in html:
@@ -275,6 +281,8 @@ async def main():
             failures.append("read.html lab sheet missing")
         if await page2.locator("#r-roles h3").count() != 4 or await page2.locator("#r-demo li").count() != 6:
             failures.append("read.html how-to guides or demo script missing")
+        if await page2.locator('figure[data-dg="lifecycle-loop"], figure[data-dg="bpmn-gateways"], figure[data-dg="bpmn-lanes"], figure[data-dg="agent-pattern"], figure[data-dg="scan-method"], figure[data-dg^="case-"]').count() != 7:
+            failures.append("read.html should show the 7 new diagrams")
         if await page2.locator("#r-basics figure.dg").count() != 7 or "Answer key" not in await page2.inner_text("#r-basics"):
             failures.append("read.html Basics 101 chapter missing pictures or answer key")
         if await page2.locator("main .term").count() < 40:

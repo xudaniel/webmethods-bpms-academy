@@ -222,7 +222,183 @@
     ].join(""), sa)
   };
 
-  D["qos"] = { title: "Quality of service: guaranteed or fast?", caption: "Toggle the three Process Engine settings. Defaults: Optimize Locally on, Volatile Transition Documents on, Volatile Tracking off." };
+  // ---------- More diagrams (#44) ----------
+  const cyl = (cx, y, rx, h, cls, lines) => `<path d="M${cx - rx},${y} v${h} a${rx},10 0 0 0 ${2 * rx},0 v-${h} z" class="bx ${cls}"/><ellipse cx="${cx}" cy="${y}" rx="${rx}" ry="10" class="bx ${cls}"/>` +
+    lines.map((l, i) => `<text x="${cx}" y="${y + 24 + i * 15}" class="t${i === 0 ? " b" : ""}" font-size="12">${esc(l)}</text>`).join("");
+  const gw = (x, y, sym) => `<polygon points="${x},${y - 18} ${x + 18},${y} ${x},${y + 18} ${x - 18},${y}" class="gw"/>` +
+    (sym === "o" ? `<circle cx="${x}" cy="${y}" r="7" fill="none" stroke="#b28600" stroke-width="2"/>` : `<text x="${x}" y="${y + 5}" class="t" font-size="15">${sym}</text>`);
+  const wrap = (s, n) => { const out = []; let line = ""; String(s).split(" ").forEach((w) => { if ((line + " " + w).trim().length > n) { out.push(line.trim()); line = w; } else line += " " + w; }); if (line.trim()) out.push(line.trim()); return out; };
+
+  D["arch-map"] = {
+    title: "IBM webMethods BPMS: the parts and where they run",
+    caption: "Models are built in Designer and uploaded to Integration Server, where the Process Engine runs them and calls the rules. Human work goes to the Task Engine on My webMethods Server. The engine keeps live state in its own database and writes history to the Process Audit database, which Monitor reads.",
+    draw: (sa) => svg("am", 340, 400, "Architecture", [
+      box(70, 6, 200, 46, "soft head", ["Designer", "model, services, tasks, rules"], 13),
+      arrow("am", "M170,52 V80", { label: "build and upload", lx: 178, ly: 71, anchor: "start" }),
+      `<rect x="6" y="82" width="328" height="104" rx="12" class="bx soft"/><text x="16" y="99" class="note">Integration Server</text>`,
+      box(16, 106, 150, 70, "hl head", ["Process Engine", "(WmPRT)", "runs instances"], 12),
+      box(174, 106, 150, 70, "agent head", ["Business Rules", "rule tasks,", "decision tables"], 12),
+      arrow("am", "M75,186 V210"), arrow("am", "M265,186 V210"),
+      cyl(75, 222, 60, 42, "", ["Process Engine DB", "live state"]),
+      cyl(265, 222, 60, 42, "warn", ["Process Audit DB", "history (PRA_*)"]),
+      arrow("am", "M160,186 V320", { label: "user tasks", lx: 165, ly: 292, anchor: "start" }),
+      arrow("am", "M265,276 V320", { label: "reads", lx: 271, ly: 292, anchor: "start" }),
+      `<rect x="6" y="298" width="328" height="96" rx="12" class="bx soft"/><text x="16" y="315" class="note">My webMethods Server</text>`,
+      box(16, 324, 150, 60, "hl head", ["Task Engine", "inboxes, delegation"], 12),
+      box(174, 324, 150, 60, "ok head", ["Monitor", "status, resubmit"], 12)
+    ].join(""), sa)
+  };
+
+  D["lifecycle-loop"] = {
+    title: "The process lifecycle is a loop",
+    caption: "Model, implement, build and upload, execute, monitor, optimize, govern, then start again with what you learned. Most improvements are a rule change or a new model version.",
+    draw: (sa) => {
+      const L = [["Model", "draw the BPMN"], ["Implement", "services, tasks, rules"], ["Build & upload", "send to the server"], ["Execute", "the engines run it"],
+        ["Monitor", "watch, resubmit"], ["Optimize", "KPIs, bottlenecks"], ["Govern", "versions, audit, retention"]];
+      const pos = [[10, 30], [10, 104], [10, 178], [10, 252], [180, 252], [180, 178], [180, 104]];
+      return svg("ll", 340, 312, "Process lifecycle", [
+        ...L.map(([t, d], i) => box(pos[i][0], pos[i][1], 150, 50, (i === 3 ? "hl" : i === 4 ? "ok" : "soft") + " head", [`${i + 1}. ${t}`, d], 12)),
+        arrow("ll", "M85,80 V102"), arrow("ll", "M85,154 V176"), arrow("ll", "M85,228 V250"),
+        arrow("ll", "M160,277 H178"), arrow("ll", "M255,252 V230"), arrow("ll", "M255,178 V156"),
+        arrow("ll", "M255,104 V14 H85 V28", { label: "improve and repeat", lx: 170, ly: 10 })
+      ].join(""), sa);
+    }
+  };
+
+  D["bpmn-gateways"] = {
+    title: "Three gateways, three behaviours",
+    caption: "Exclusive (×) takes exactly one path. Parallel (+) runs every path, and the closing + waits for all of them. Inclusive (○) takes one or more paths, depending on the conditions.",
+    draw: (sa) => {
+      const row = (y, sym, name, what, outs, join) => [
+        `<text x="6" y="${y - (outs.length - 1) * 17 - 22}" class="note"><tspan font-weight="600" fill="#161616">${esc(name)}</tspan>  ${esc(what)}</text>`,
+        gw(30, y, sym),
+        ...outs.map((o, i) => {
+          const oy = y + (i - (outs.length - 1) / 2) * 34;
+          return `<path d="M48,${y} L70,${oy} H86" class="ln" marker-end="url(#ah-bg)"/>` + box(88, oy - 14, 110, 28, "soft", [o], 12) +
+            (join ? `<path d="M198,${oy} H220 L246,${y}" class="ln"/>` : "");
+        }),
+        join ? gw(264, y, sym) + `<path d="M282,${y} H300" class="ln" marker-end="url(#ah-bg)"/>` + box(302, y - 14, 34, 28, "soft", ["…"], 12) : ""
+      ].join("");
+      return svg("bg", 340, 300, "BPMN gateways", [
+        row(58, "×", "Exclusive", "exactly one path", ["Approve", "Reject"], false),
+        row(144, "+", "Parallel", "all paths, then wait", ["Check credit", "Check ID"], true),
+        row(244, "o", "Inclusive", "one or more paths", ["Email", "SMS", "Letter"], false)
+      ].join(""), sa);
+    }
+  };
+
+  D["bpmn-lanes"] = {
+    title: "Lanes show who does what",
+    caption: "One pool, three lanes. Every time an arrow crosses a lane line, the work changes hands: from the requester to the manager, then to a system.",
+    draw: (sa) => svg("bl", 340, 262, "Pool and lanes", [
+      `<rect x="4" y="6" width="332" height="250" rx="8" class="bx soft"/>`,
+      `<path d="M4,89 H336 M4,172 H336 M70,6 V256" class="ln dash"/>`,
+      `<text x="37" y="52" class="t b" font-size="12">Requester</text><text x="37" y="135" class="t b" font-size="12">Manager</text><text x="37" y="218" class="t b" font-size="12">System</text>`,
+      `<circle cx="88" cy="48" r="11" class="ev"/>`, `<path d="M99,48 H108" class="ln" marker-end="url(#ah-bl)"/>`,
+      box(110, 28, 92, 40, "soft", ["Submit", "request"], 12),
+      `<path d="M156,68 V108" class="ln" marker-end="url(#ah-bl)"/>`,
+      box(110, 110, 92, 40, "hl", ["Approve", "(user task)"], 12),
+      `<path d="M202,130 H250 V190" class="ln" marker-end="url(#ah-bl)"/>`,
+      box(204, 192, 92, 40, "soft", ["Create", "order"], 12),
+      `<path d="M296,212 H318 V62" class="ln" marker-end="url(#ah-bl)"/>`,
+      `<circle cx="318" cy="48" r="11" class="ev endok"/>`,
+      `<text x="302" y="52" class="note" text-anchor="end">done</text>`
+    ].join(""), sa)
+  };
+
+  D["agent-pattern"] = {
+    title: "Agent proposes, rules decide, process executes",
+    caption: "The AI agent reads and proposes; policy in the rules answers allow, refer or deny; the process carries out the answer or puts a person in the loop. Every decision is logged.",
+    draw: (sa) => svg("ap", 340, 372, "Agent-era pattern", [
+      box(70, 6, 200, 38, "soft", ["Event or document arrives"], 13),
+      arrow("ap", "M170,44 V66"),
+      box(70, 68, 200, 50, "warn head", ["🤖 AI agent", "reads, extracts, proposes"], 13),
+      arrow("ap", "M170,118 V140", { label: "proposal", lx: 178, ly: 133, anchor: "start" }),
+      box(70, 142, 200, 50, "agent head", ["⚖️ Rules (policy)", "allow · refer · deny"], 13),
+      arrow("ap", "M120,192 L58,228", { label: "allow", lx: 72, ly: 206 }),
+      arrow("ap", "M170,192 V228", { label: "refer", lx: 190, ly: 214 }),
+      arrow("ap", "M220,192 L282,228", { label: "deny", lx: 268, ly: 206 }),
+      box(6, 230, 104, 54, "ok head", ["Process", "executes"], 12),
+      box(118, 230, 104, 54, "hl head", ["Person", "approves", "(user task)"], 12),
+      box(230, 230, 104, 54, "bad head", ["Decline", "and notify"], 12),
+      `<path d="M58,284 V306 M170,284 V306 M282,284 V306" class="ln dash"/>`,
+      box(6, 308, 328, 56, "soft head", ["📒 Decision log", "inputs · rule version · outcome · approver"], 12)
+    ].join(""), sa)
+  };
+
+  D["sim-loan"] = {
+    title: "The simulator's loan process",
+    caption: "Credit data is fetched, the eligibility rule decides, and only referrals wait for an underwriter. These are the same thresholds the simulator uses.",
+    draw: (sa) => svg("sl", 340, 400, "Loan process", [
+      `<circle cx="170" cy="20" r="11" class="ev"/><text x="188" y="24" class="note">Application received</text>`,
+      arrow("sl", "M170,31 V44"),
+      box(70, 46, 200, 40, "soft", ["Fetch credit data (service)"], 13),
+      arrow("sl", "M170,86 V110"),
+      box(30, 112, 280, 64, "agent head", ["Rule: eligibility", "score < 580 → decline; score ≥ 720 and", "loan/income ≤ 35% → approve; else refer"], 12),
+      arrow("sl", "M170,176 V188"),
+      gw(170, 208, "×"),
+      arrow("sl", "M188,208 H260 V236", { label: "refer", lx: 226, ly: 200 }),
+      box(190, 238, 140, 46, "hl", ["Underwriter review", "(user task)"], 12),
+      arrow("sl", "M152,208 H70 V298", { label: "approve or decline", lx: 76, ly: 252, anchor: "start" }),
+      arrow("sl", "M260,284 V322 H222"),
+      box(20, 300, 200, 44, "soft", ["Send decision (service)"], 13),
+      arrow("sl", "M120,344 V364"),
+      `<circle cx="120" cy="378" r="12" class="ev endok"/>`
+    ].join(""), sa)
+  };
+
+  D["decision-table"] = {
+    title: "Anatomy of a decision table",
+    caption: "Conditions on the left (IF), result on the right (THEN). In this lab the rows are checked from the top, and the first matching row gives the result.",
+    draw: (sa) => {
+      const rows = [["< 580", "any", "DECLINE", "bad"], ["≥ 720", "≤ 35%", "APPROVE", "ok"], ["otherwise", "", "REFER", "warn"]];
+      return svg("dt", 340, 214, "Decision table", [
+        `<text x="114" y="18" class="lbl" text-anchor="middle">IF (conditions)</text><text x="282" y="18" class="lbl" text-anchor="middle">THEN (result)</text>`,
+        box(6, 26, 106, 34, "soft head", ["Credit score"], 12), box(116, 26, 106, 34, "soft head", ["Loan / income"], 12), box(230, 26, 104, 34, "agent head", ["Outcome"], 12),
+        ...rows.map(([a, b, c, cls], i) => { const y = 66 + i * 40; return box(6, y, 106, 34, "", [a], 13) + box(116, y, 106, 34, "", [b || "—"], 13) + box(230, y, 104, 34, cls + " head", [c], 13); }),
+        `<text x="170" y="204" class="note" text-anchor="middle">Change a number here: the process itself stays the same.</text>`
+      ].join(""), sa);
+    }
+  };
+
+  D["scan-method"] = {
+    title: "How the Agent Scan Lab sorts steps",
+    caption: "Each user-task step in the history is scored, then checked from the top: the first class that fits wins. Service steps with 5% or more errors are flagged as integration fixes instead.",
+    draw: (sa) => {
+      const ladder = [["agent", "Rule candidate (ODM)", "same inputs → same outcome, ≥ 80%"], ["warn", "Agent candidate: rubber-stamp", "one outcome ≥ 90%, work ≤ 15 min"],
+        ["warn", "Agent candidate: triage + approve", "wait ≥ 24 h, one outcome ≥ 70%"], ["soft", "Keep human", "none of the above"]];
+      return svg("sm", 340, 404, "Scan method", [
+        box(40, 6, 260, 44, "soft head", ["Process history", "step rows, outcomes, times"], 12),
+        arrow("sm", "M170,50 V70"),
+        box(40, 72, 260, 44, "hl head", ["Score each user-task step", "outcomes, repeat rate, work, wait"], 12),
+        arrow("sm", "M170,116 V138"),
+        ...ladder.map(([cls, t, d], i) => box(30, 140 + i * 64, 280, 46, cls + " head", [t, d], 12) +
+          (i < 3 ? arrow("sm", `M170,${186 + i * 64} V${202 + i * 64}`, { label: "else", lx: 178, ly: 198 + i * 64, anchor: "start" }) : ""))
+      ].join(""), sa);
+    }
+  };
+
+  // Worked cases: one flow per case, coloured by who does each step
+  (root.ACADEMY && root.ACADEMY.cases ? root.ACADEMY.cases : []).forEach((c, ci) => {
+    const kind = (s) => /^Agent|agent/.test(s) ? "warn" : /^Rule|rule/i.test(s) ? "agent" : /approval|review|user task/i.test(s) ? "hl" : "soft";
+    D["case-" + ci] = {
+      title: c.name + " as a flow",
+      caption: "Grey: systems. Blue: people. Purple: rules. Yellow: AI agent. " + c.lesson,
+      draw: (sa) => {
+        let y = 34; const parts = [`<circle cx="170" cy="14" r="10" class="ev"/>`];
+        c.flow.forEach((s, i) => {
+          const lines = wrap(s, 30), h = 18 + lines.length * 16;
+          parts.push(arrow("c" + ci, `M170,${y - 10} V${y - 2}`), box(40, y, 260, h, kind(s), lines, 13));
+          y += h + 18;
+        });
+        parts.push(arrow("c" + ci, `M170,${y - 18} V${y - 4}`), `<circle cx="170" cy="${y + 8}" r="11" class="ev endok"/>`);
+        return svg("c" + ci, 340, y + 24, c.name, parts.join(""), sa);
+      }
+    };
+  });
+
+  D["qos"] =
+ { title: "Quality of service: guaranteed or fast?", caption: "Toggle the three Process Engine settings. Defaults: Optimize Locally on, Volatile Transition Documents on, Volatile Tracking off." };
 
   // Interactive QoS widget (HTML + SVG bar)
   function qosWidget(still) {
@@ -293,6 +469,18 @@
     const trc = document.getElementById("tr-count");
     if (trc) trc.insertAdjacentHTML("afterend", `<details class="dg-more"><summary>Show the flowchart: the process won't start</summary>${fig("trouble-flow")}</details>`);
     after(document.querySelector("#teach .table-wrap"), `<div id="teach-timeline"></div>`);
+    // More diagrams (#44)
+    const q = (sel) => document.querySelector(sel);
+    after(q("#architecture .card p"), fig("arch-map"));
+    after(q("#lifecycle .card p"), fig("lifecycle-loop"));
+    const bh = (re) => [...document.querySelectorAll("#bpmn-groups h3")].find((h) => re.test(h.textContent));
+    if (bh(/Gateways/)) after(bh(/Gateways/).nextElementSibling, fig("bpmn-gateways"));
+    if (bh(/Swimlanes/)) after(bh(/Swimlanes/).nextElementSibling, fig("bpmn-lanes"));
+    after(q("#patterns .card .row"), fig("agent-pattern"));
+    document.querySelectorAll("#case-list > .card .steps").forEach((el, i) => { if (D["case-" + i]) after(el, fig("case-" + i)); });
+    after(q("#simulator .card p"), fig("sim-loan"));
+    after(q("#scan .card p"), fig("scan-method"));
+    after(q("#decisions .card .lead"), fig("decision-table"));
   } else {
     const h3 = (re) => [...document.querySelectorAll("#r-kb h3, #r-roles h3")].find((h) => re.test(h.textContent));
     const afterPara = (h, html) => { if (h && h.nextElementSibling) h.nextElementSibling.insertAdjacentHTML("afterend", html); };
@@ -304,6 +492,13 @@
     afterPara(h3(/Operations/), fig("instance-states"));
     const lf = document.getElementById("r-lab-flow"); if (lf) lf.parentElement.insertAdjacentHTML("afterend", fig("lab-process", true));
     const tr = document.getElementById("r-tr"); if (tr) tr.insertAdjacentHTML("beforebegin", fig("trouble-flow"));
+    // More diagrams (#44)
+    const rl = document.getElementById("r-life"); if (rl) rl.insertAdjacentHTML("afterend", fig("lifecycle-loop"));
+    const rb = document.getElementById("r-bpmn-body"); if (rb) rb.insertAdjacentHTML("beforeend", fig("bpmn-gateways") + fig("bpmn-lanes"));
+    const rp = document.getElementById("r-pat"); if (rp) rp.insertAdjacentHTML("afterend", fig("agent-pattern"));
+    const rc = document.getElementById("r-case-list");
+    if (rc) rc.querySelectorAll("h3").forEach((h, i) => { if (D["case-" + i] && !/Loan/.test(h.textContent)) h.nextElementSibling.insertAdjacentHTML("afterend", fig("case-" + i)); });
+    const rs = document.querySelector("#r-scan .table-wrap"); if (rs) rs.insertAdjacentHTML("afterend", fig("scan-method"));
     const ta = document.getElementById("r-teach-agenda"); if (ta) ta.closest(".table-wrap").insertAdjacentHTML("afterend", `<div id="teach-timeline"></div>`);
     document.querySelectorAll('.qos[data-still="1"]').forEach(wireQos);
   }

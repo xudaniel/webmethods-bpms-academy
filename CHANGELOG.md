@@ -3,6 +3,21 @@
 All notable changes to the IBM webMethods BPMS Academy. Author: **Daniel Yuanpeng Xu**.
 Versions follow [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+- **11 more diagrams** (#44), original and sized for phones:
+  - **Architecture:** where each part runs.
+  - **Lifecycle:** a 7-stage loop.
+  - **BPMN:** exclusive, parallel and inclusive gateways; a pool with lanes.
+  - **Patterns:** agent proposes, rules decide, process executes, with a decision log.
+  - **Cases:** one flow per worked case, coloured by who does each step.
+  - **Simulator:** the loan process with its thresholds.
+  - **Decision lab:** the anatomy of a decision table.
+  - **Agent Scan Lab:** how steps are sorted.
+
+  The course and the reading version now have 26 diagrams each.
+
 ## [1.3.0] — 2026-11-15
 
 More fundamental: learn the ideas before the product. **Author: Daniel Yuanpeng Xu.**
