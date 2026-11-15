@@ -91,3 +91,7 @@ footer { text-align: center; font-size: .8rem; color: var(--muted); padding: 1.5
 .lab-progress .bar span { display: block; height: 100%; width: 0; background: #24a148; transition: width .2s; }
 button.link { background: none; border: 0; color: #0f62fe; text-decoration: underline; cursor: pointer; padding: 0; font: inherit; }
 .done input:checked + span { text-decoration: line-through; opacity: .6; }
+
+/* knowledge diagrams */
+.kb-fig { margin: .6rem 0; }
+.kb-fig img { max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px; }
