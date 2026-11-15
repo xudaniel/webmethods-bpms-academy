@@ -3,6 +3,26 @@
 All notable changes to the IBM webMethods BPMS Academy. Author: **Daniel Yuanpeng Xu**.
 Versions follow [Semantic Versioning](https://semver.org/).
 
+## [1.3.0] — 2026-11-15
+
+More fundamental: learn the ideas before the product. **Author: Daniel Yuanpeng Xu.**
+
+### Added
+- **Basics 101**, a new section right after Start here (#40). Seven 2-minute lessons for complete beginners:
+  1. a process is a recipe (model vs instance);
+  2. who does each step (a system, a person or a rule);
+  3. five BPMN shapes;
+  4. keep decisions out of the drawing;
+  5. people get tasks in an inbox;
+  6. the engine runs it, and the audit trail remembers it;
+  7. from drawing to running, with a table mapping each idea to its IBM webMethods name.
+
+  Each lesson has a plain story, three points, a picture, one check question with an explanation and *Try again*, and links to go deeper. Four new original diagrams. Progress is saved in the browser, and a new 🧱 **Basics done** badge rewards passing all seven checks. The reading version gets chapter 3 with an answer key (22 chapters, 18 diagrams). The "New here" path now starts with Basics 101.
+- **Decision lab** (#41): move a decision table's limits and test an application, compare changing a rule with changing the process, and review rules-configuration pitfalls.
+
+### Fixed
+- **Live site restored** (#41, PR #42). Direct commits to `main` had overwritten `index.html` with `$(cat /tmp/index.html)` and left a syntax error in `js/decision-lab.js`. The smoke test now fails if `index.html` is truncated. The v1.2.0 tag points at that broken commit; use v1.3.0.
+
 ## [1.2.0] — 2026-11-15
 
 Plain words for beginners. **Author: Daniel Yuanpeng Xu.**
@@ -78,6 +98,7 @@ See the [product requirements](docs/PRD.md).
 ## [0.1.0] — 2026-11-14
 - Initial interactive course: architecture, lifecycle, BPMN, patterns, cases, simulator, Agent Scan Lab, market, glossary and quiz (PR #1).
 
+[1.3.0]: https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.3.0
 [1.2.0]: https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.2.0
 [1.1.0]: https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.1.0
 [1.0.0]: https://github.com/xudaniel/webmethods-bpms-academy/releases/tag/v1.0.0

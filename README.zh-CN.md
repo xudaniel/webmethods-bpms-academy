@@ -4,7 +4,7 @@
 
 <p>
   <a href="https://github.com/Xudaniel"><img alt="Author: Daniel Yuanpeng Xu" src="https://img.shields.io/badge/author-Daniel_Yuanpeng_Xu-0f62fe?style=for-the-badge"></a>
-  <a href="https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.2.0"><img alt="Release v1.2.0" src="https://img.shields.io/badge/release-v1.2.0-24a148?style=for-the-badge"></a>
+  <a href="https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.3.0"><img alt="Release v1.3.0" src="https://img.shields.io/badge/release-v1.3.0-24a148?style=for-the-badge"></a>
   <a href="https://xudaniel.github.io/webmethods-bpms-academy/"><img alt="Live site" src="https://img.shields.io/badge/live-open_the_course-8a3ffc?style=for-the-badge"></a>
   <img alt="Works offline" src="https://img.shields.io/badge/phone-installable_·_offline-161616?style=for-the-badge">
 </p>
@@ -16,7 +16,7 @@
 
 **按你真正会用到的方式学 IBM webMethods BPMS。** 这是一门免费的课程，优先为手机设计。选好你的角色，就能拿到一条 3–5 步的专属路线；先用一张图看懂整个产品，再动手学：流程模拟器、30 分钟动手实验，以及每个角色的分步教程。每条事实都附有公开文档出处。
 
-**[▶ 打开课程](https://xudaniel.github.io/webmethods-bpms-academy/)** · [阅读版](https://xudaniel.github.io/webmethods-bpms-academy/read.html) · 当前版本 **[v1.2.0](https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.2.0)** · [更新日志](CHANGELOG.md) · [产品需求文档（PRD，英文）](docs/PRD.md)
+**[▶ 打开课程](https://xudaniel.github.io/webmethods-bpms-academy/)** · [阅读版](https://xudaniel.github.io/webmethods-bpms-academy/read.html) · 当前版本 **[v1.3.0](https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.3.0)** · [更新日志](CHANGELOG.md) · [产品需求文档（PRD，英文）](docs/PRD.md)
 
 <p>
   <img src="assets/screenshots/role-picker.png" width="240" alt="选择角色，获得专属学习路线">
@@ -62,6 +62,7 @@
 | | 你可以…… | 在哪里 |
 | --- | --- | --- |
 | 👋 | **选你的角色**（新手、客户、业务用户、流程开发、业务分析师、运维、讲师），拿到一条会自动打勾的 3–5 步路线 | [从这里开始](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
+| 🧱 | **先学基础**：7 节 2 分钟小课（流程与实例、每一步谁来做、五个 BPMN 图形、规则与流程分开、人工任务、引擎与审计记录、从画图到运行），每节配一张图和一道题 | [基础 101](https://xudaniel.github.io/webmethods-bpms-academy/#basics) |
 | 🌱 | **每个术语都看得懂**：点任意带下划线的术语（BPMN、IS、MWS、Hot Deploy……），弹出一句大白话解释；打开**新手模式**，只显示最先需要的 10 个栏目 | 全站 |
 | 🗺️ | **用一张图看懂整个产品**：从建模到审计记录，点任意一个框就跳到对应教程 | [从这里开始](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
 | 🎛️ | **动手调设置**：切换服务质量设置，看各自换来什么、牺牲什么；或者调 AI agent 的审批额度，看决策日志怎么变 | [知识库](https://xudaniel.github.io/webmethods-bpms-academy/#knowledge) · [从这里开始](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
@@ -88,6 +89,7 @@
 ## 网站里有什么
 
 ### 开始：你的路线和全局图
+- **基础 101**，给完全零基础的人：7 节小课讲清每个流程平台背后的概念。每节有一个通俗小故事、三个要点、一张图、一道自测题和「深入了解」链接；最后一节把每个概念对应到 IBM webMethods 的产品名。进度保存在你的浏览器里。
 - **你是谁？** 7 个角色，每个角色一条 3–5 步路线。每步写明目的和阅读时间，点一下直达对应的教程、知识主题或故障排查分类，看过自动打勾。路线经过的每个栏目，最后都有「你的路线：下一步 →」。
 - **一张图看懂 IBM webMethods BPMS：** 带编号、可点击的总图，从「建模 → 构建上传 → **启用**」（新手最容易漏的一步）「→ Process Engine → 人处理任务 / 规则做判断 → 监控与修复 → 审计历史」，并标出 AI agent 在哪里参与。
 - **六个动手小步骤**，面向大众：有无 BPMS 的对比、每项工作该由谁负责、用规则手册管住 AI agent（见[从这里开始：面向大众的互动讲解](#从这里开始面向大众的互动讲解)）。
@@ -105,9 +107,11 @@
 | 规则引擎配置与 Rule Task | 规则引擎在哪里运行（WmBusinessRules）、如何配置 Rule Task、Process Aware 决策表、事件规则与 JMS 触发器、热部署 |
 | 实践设计清单 | 设计评审和升级时用的十项检查 |
 
-**示意图**都是原创 SVG，不使用 IBM 素材，阅读版共 14 张，包括：**服务质量互动图**、流程与规则的分工、Hot Deploy 路径、任务生命周期、构建流程、实例状态、带**令牌动画**的实验流程图、「流程不启动」排查流程图，以及工作坊时间轴。此外还有架构、BPMN、设计模式、实例、市场，以及 33 个术语和 22 道测验题。
+**示意图**都是原创 SVG，不使用 IBM 素材，阅读版共 18 张，包括：基础 101 的四张图（模型与实例、每一步谁来做、五个 BPMN 图形、引擎与审计记录）；**服务质量互动图**、流程与规则的分工、Hot Deploy 路径、任务生命周期、构建流程、实例状态、带**令牌动画**的实验流程图、「流程不启动」排查流程图，以及工作坊时间轴。此外还有架构、BPMN、设计模式、实例、市场，以及 33 个术语和 22 道测验题。
 
 ### 做：分步教程、动手实验和故障排查
+**决策实验室**：调整决策表的阈值，测试一笔申请（通过、转人工或拒绝）；对比「改规则」和「改流程」各要多久；并列出常见的规则配置陷阱。
+
 **如何使用**按角色划分。每一步写明菜单路径并附官方出处，最后告诉你「怎么确认做成了」。每个角色还配有可打印的**速查卡**和 3 道**自测题**：
 
 | 角色 | 教程 | 关键步骤 |
@@ -138,39 +142,41 @@
 
 ### 给新手的大白话
 - **点任意带下划线的术语**（课程和阅读版都有），弹出一句大白话解释、技术定义和术语表链接；手机上从屏幕底部弹出。测验题不加下划线，照样考得到你。
-- **🌱 新手模式**（页头开关，记在你的设备上）：标签栏和 ☰ 菜单只显示 10 个新手栏目；每个栏目开头有一段「In plain words」通俗说明；进阶栏目会提示可以先跳过，「上一节 / 下一节」也会自动跳过它们。
+- **🌱 新手模式**（页头开关，记在你的设备上）：标签栏和 ☰ 菜单只显示 12 个新手栏目；每个栏目开头有一段「In plain words」通俗说明；进阶栏目会提示可以先跳过，「上一节 / 下一节」也会自动跳过它们。
 
 ### 学得下去
 - **⏱ 阅读时间：** 每个栏目、「☰ Sections」菜单和阅读版的每一章都标注阅读时间。整门课大约 40 分钟读完。
-- **学习进度和徽章：** 显示已浏览的栏目数（共 17 个）；8 枚徽章解锁时有小小的庆祝动画；还有「你知道吗？」小知识。这些都只保存在你的浏览器里。
+- **学习进度和徽章：** 显示已浏览的栏目数（共 19 个）；9 枚徽章解锁时有小小的庆祝动画；还有「你知道吗？」小知识。这些都只保存在你的浏览器里。
 
 ## 课程安排（按网站顺序）
 
 | # | 栏目 | 形式 | 用来做什么 |
 | --- | --- | --- | --- |
 | 1 | **从这里开始**（Start here） | 角色选择、总图、六个动手步骤 | 找到你的路线，看懂全局，理解流程平台为什么对 AI agent 很重要 |
-| 2 | **概览**（Overview） | 阅读 + 产品家族表 | 核心理念，以及 IBM webMethods 一览（9 个组件） |
-| 3 | **知识库**（Knowledge base） | 附出处的参考 + 互动图 | 7 个主题、42 条事实，讲清产品实际怎么运作 |
-| 4 | **如何使用**（How to use） | 角色教程、速查卡、自测、演示脚本 | 四类角色的日常操作，以及如何给客户演示 |
-| 5 | **动手实验**（Hands-on lab） | 30 分钟练习，带进度记录 | 构建、启用、运行并监控你的第一个流程 |
-| 6 | **故障排查**（Troubleshooting） | 搜索 + 流程图 | 症状 → 先检查什么 → 怎么解决 → 在哪里操作 |
-| 7 | **讲课**（Teach a class） | 工作坊方案 + 时间轴 | 给用户或客户上的 3 小时课 |
-| 8 | **生命周期**（Lifecycle） | 可点击的阶段 + 版本表 | 建模 → 实现 → 构建上传 → 执行 → 监控 → 优化 → 治理；各版本的支持日期 |
-| 9 | **架构**（Architecture） | 可点击的组件图 | 引擎、数据库和 `PRA_*` 审计表 |
-| 10 | **BPMN** | 参考表 | 活动、网关、事件、池和泳道 |
-| 11 | **设计模式**（Patterns） | 可筛选卡片 | 四个经典模式和三个 agent 时代的模式 |
-| 12 | **实例**（Cases） | 流程图 | 采购审批、贷款决策、物流异常 |
-| 13 | **模拟器**（Simulator） | 互动 | 让一个贷款实例经过规则任务和核保人任务，并查看审计日志 |
-| 14 | **Agent 扫描实验室** | 互动 | 从流程历史里找出适合写成规则或交给 agent 的步骤（模拟数据或你的 CSV） |
-| 15 | **市场**（Market） | 阅读 + 出处 | 市场规模、分析机构观点、竞争信号、监管日期 |
-| 16 | **术语表**（Glossary） | 可搜索 | 33 个术语；全站带下划线的术语都能点开看大白话解释 |
-| 17 | **测验**（Quiz） | 22 道题 | 即时反馈并计分 |
+| 2 | **基础 101**（Basics 101） | 7 节小课，每节配图和一道题 | 零基础讲清每个流程平台背后的概念，再对应到 IBM webMethods 的名字 |
+| 3 | **概览**（Overview） | 阅读 + 产品家族表 | 核心理念，以及 IBM webMethods 一览（9 个组件） |
+| 4 | **知识库**（Knowledge base） | 附出处的参考 + 互动图 | 7 个主题、42 条事实，讲清产品实际怎么运作 |
+| 5 | **如何使用**（How to use） | 角色教程、速查卡、自测、演示脚本 | 四类角色的日常操作，以及如何给客户演示 |
+| 6 | **动手实验**（Hands-on lab） | 30 分钟练习，带进度记录 | 构建、启用、运行并监控你的第一个流程 |
+| 7 | **决策实验室**（Decision lab） | 互动决策表 + 对比 | 改规则阈值、测试一笔申请，看规则为什么比流程改得快 |
+| 8 | **故障排查**（Troubleshooting） | 搜索 + 流程图 | 症状 → 先检查什么 → 怎么解决 → 在哪里操作 |
+| 9 | **讲课**（Teach a class） | 工作坊方案 + 时间轴 | 给用户或客户上的 3 小时课 |
+| 10 | **生命周期**（Lifecycle） | 可点击的阶段 + 版本表 | 建模 → 实现 → 构建上传 → 执行 → 监控 → 优化 → 治理；各版本的支持日期 |
+| 11 | **架构**（Architecture） | 可点击的组件图 | 引擎、数据库和 `PRA_*` 审计表 |
+| 12 | **BPMN** | 参考表 | 活动、网关、事件、池和泳道 |
+| 13 | **设计模式**（Patterns） | 可筛选卡片 | 四个经典模式和三个 agent 时代的模式 |
+| 14 | **实例**（Cases） | 流程图 | 采购审批、贷款决策、物流异常 |
+| 15 | **模拟器**（Simulator） | 互动 | 让一个贷款实例经过规则任务和核保人任务，并查看审计日志 |
+| 16 | **Agent 扫描实验室** | 互动 | 从流程历史里找出适合写成规则或交给 agent 的步骤（模拟数据或你的 CSV） |
+| 17 | **市场**（Market） | 阅读 + 出处 | 市场规模、分析机构观点、竞争信号、监管日期 |
+| 18 | **术语表**（Glossary） | 可搜索 | 33 个术语；全站带下划线的术语都能点开看大白话解释 |
+| 19 | **测验**（Quiz） | 22 道题 | 即时反馈并计分 |
 
 每个栏目都有自己的链接（例如 [`#lab`](https://xudaniel.github.io/webmethods-bpms-academy/#lab)），底部还有「上一页 / 下一页」。
 
 ## 阅读版
 
-[`read.html`](https://xudaniel.github.io/webmethods-bpms-academy/read.html) 适合想从头读到尾的读者，手机、离线、纸面都能读。共 **21 章**，附目录和每章阅读时间、按角色的「我该读哪几章？」对照表、**14 张示意图**，以及全部教程、速查卡和故障排查，还有带勾选框的实验练习单和附答案的测验。可以直接打印。阅读版和互动版的文字来自同一组文件，两边不会出现不一致。
+[`read.html`](https://xudaniel.github.io/webmethods-bpms-academy/read.html) 适合想从头读到尾的读者，手机、离线、纸面都能读。共 **22 章**，附目录和每章阅读时间、按角色的「我该读哪几章？」对照表、**18 张示意图**，以及全部教程、速查卡和故障排查，还有带勾选框的实验练习单和附答案的测验。可以直接打印。阅读版和互动版的文字来自同一组文件，两边不会出现不一致。
 
 ## 📱 在手机上使用
 
@@ -399,6 +405,8 @@ webmethods-bpms-academy/
 │   ├── diagrams.js       # 原创 SVG 示意图（服务质量互动图、角色图、实验 BPMN、排查流程图、时间轴）
 │   ├── path.js           # 角色选择与个人路线、可点击的全流程总图
 │   ├── words.js          # 点术语看大白话解释、新手模式
+│   ├── basics.js         # 基础 101：七节基础课和自测
+│   ├── decision-lab.js   # 决策实验室：决策表、改规则与改流程对比、规则配置陷阱
 │   ├── fun.js            # 阅读时间、学习进度、徽章、「你知道吗」
 │   ├── mobile.js         # 手机指南、栏目菜单、上一页/下一页、回到顶部、离线支持
 │   ├── explainer.js      # 「从这里开始」的内容（作者观点已标注）
@@ -466,6 +474,8 @@ python3 tests/smoke_test.py
 - [ ] 从 webMethods Business Rules 迁移到 IBM ODM 决策服务的模块
 - [ ] 扫描实验室：可调整门槛，可导出 CSV
 
+**v1.3.0 已完成：** 基础 101、决策实验室。
+
 **v1.2.0 已完成：** 点术语看大白话解释、新手模式。
 
 **v1.1.0 已完成：** 角色路线、全流程总图、动手实验、故障排查、速查卡与自测、讲课方案、手机 App 与离线使用、阅读时间、14 张示意图、徽章，以及作者署名。详见[更新日志](CHANGELOG.md)。
@@ -486,7 +496,7 @@ python3 tests/smoke_test.py
 
 ## 如何引用
 
-> Xu, Daniel Yuanpeng (2026). *IBM webMethods BPMS Academy* (Version 1.2.0) [Interactive course]. https://github.com/xudaniel/webmethods-bpms-academy
+> Xu, Daniel Yuanpeng (2026). *IBM webMethods BPMS Academy* (Version 1.3.0) [Interactive course]. https://github.com/xudaniel/webmethods-bpms-academy
 
 点 GitHub 页面上的 **Cite this repository** 按钮（来自 [`CITATION.cff`](CITATION.cff)），就能拿到 APA 和 BibTeX 格式的引用。复用或改编本项目内容时，请注明作者 **Daniel Yuanpeng Xu**，并附上本仓库链接。
 

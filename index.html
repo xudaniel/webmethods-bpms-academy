@@ -23,6 +23,7 @@
 </header>
 <nav aria-label="Sections">
   <button data-section="start">Start here</button>
+  <button data-section="basics">Basics 101</button>
   <button data-section="overview">Overview</button>
   <button data-section="knowledge">Knowledge base</button>
   <button data-section="howto">How to use</button>
@@ -126,6 +127,16 @@
         <button class="tile" onclick="location.hash='quiz'"><strong>Test yourself</strong><small id="quiz-count-tile">Quiz</small></button>
       </div>
     </div>
+  </section>
+
+  <section id="basics" class="section">
+    <div class="card">
+      <h2>Basics 101: the ideas behind every process platform</h2>
+      <p class="lead" id="basics-intro"></p>
+      <div class="lab-progress"><div class="bar"><span id="basics-bar"></span></div><span id="basics-count"></span> <button class="link" id="basics-reset" type="button">Reset</button></div>
+    </div>
+    <div id="basics-lessons"></div>
+    <div class="card" id="basics-done" hidden><h3>🎉 You know the basics</h3><p>Next, pick a path: <a href="#lab">build your first process in the hands-on lab</a>, <a href="#decisions">play with a decision table</a>, or <a href="#start">choose your role on Start here</a>.</p></div>
   </section>
 
   <section id="overview" class="section">
@@ -293,7 +304,7 @@
     <div class="card"><h2>Knowledge check</h2><p id="quiz-score">Score: 0 / 0</p><div id="quiz-list"></div></div>
   </section>
 </main>
-<footer>Created by <strong>Daniel Yuanpeng Xu</strong> · <a href="https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.2.0" id="version">v1.2.0</a> · © 2026 · independent learning resource · not affiliated with IBM · <a href="read.html">reading version</a> · <a href="https://github.com/Xudaniel/webmethods-bpms-academy">source on GitHub</a></footer>
+<footer>Created by <strong>Daniel Yuanpeng Xu</strong> · <a href="https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.3.0" id="version">v1.3.0</a> · © 2026 · independent learning resource · not affiliated with IBM · <a href="read.html">reading version</a> · <a href="https://github.com/Xudaniel/webmethods-bpms-academy">source on GitHub</a></footer>
 <script src="js/content.js"></script>
 <script src="js/knowledge.js"></script>
 <script src="js/howto.js"></script>
@@ -301,6 +312,7 @@
 <script src="js/support.js"></script>
 <script src="js/explainer.js"></script>
 <script src="js/explainer-app.js"></script>
+<script src="js/basics.js"></script>
 <script src="js/app.js"></script>
 <script src="js/decision-lab.js"></script>
 <script src="js/mobile.js"></script>

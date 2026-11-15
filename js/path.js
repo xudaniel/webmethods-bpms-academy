@@ -2,10 +2,10 @@
 // Choice and progress stay in this browser only.
 window.PATHS = {
   roles: [
-    { id: "new", icon: "🌱", name: "New here", intro: "No webMethods experience needed. Five short stops, about 15 minutes.",
+    { id: "new", icon: "🌱", name: "New here", intro: "No webMethods experience needed. Five short stops, about 30 minutes.",
       steps: [
         { go: "start", t: "Start here: the six hands-on steps", why: "What a BPMS does, and why AI agents need one." },
-        { go: "overview", t: "IBM webMethods at a glance", why: "The product family in one table." },
+        { go: "basics", t: "Basics 101", why: "Seven short lessons: processes, tasks, rules and the engine." },
         { go: "simulator", t: "Run a process", why: "Watch a loan move through a rule and a human task." },
         { go: "howto", role: "user", t: "How to use: business user", why: "The everyday work: accept and complete tasks." },
         { go: "quiz", t: "Quiz", why: "Check what stuck." }
@@ -109,7 +109,7 @@ window.PATHS = {
     const why = document.getElementById("r-why");
     if (why) {
       const fig = `<figure class="dg" data-dg="map">${mapSvg((m) => "#" + m.r)}<figcaption><strong>IBM webMethods BPMS in one picture.</strong> From model to audit trail; each box links to the chapter that explains it.</figcaption></figure>`;
-      const rid = { start: "r-why", overview: "r-overview", knowledge: "r-knowledge", howto: "r-howto", lab: "r-lab", trouble: "r-trouble", teach: "r-teach",
+      const rid = { start: "r-why", overview: "r-overview", basics: "r-basics", knowledge: "r-knowledge", howto: "r-howto", lab: "r-lab", trouble: "r-trouble", teach: "r-teach",
         quiz: "r-quiz", glossary: "r-glossary", cases: "r-cases", market: "r-market", patterns: "r-patterns", architecture: "r-arch" };
       const chap = (go) => {
         const sec = document.getElementById(rid[go] || ""), h = sec && sec.querySelector("h2"), m = h && h.textContent.match(/^(\d+)\./);
