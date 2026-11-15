@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>webMethods BPMS Academy — reading version</title>
+<meta name="author" content="Daniel Yuanpeng Xu">
+<meta name="description" content="Read-only, printable version of the webMethods BPMS Academy by Daniel Yuanpeng Xu: diagrams, the full course text and a self-check quiz with answer key.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230f62fe'/%3E%3Cpath d='M7 16h6l3-6 3 12 3-6h3' stroke='white' stroke-width='2.5' fill='none'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/read.css">
+</head>
+<body class="read">
+<header>
+  <h1>webMethods BPMS Academy</h1>
+  <p>Reading version — the whole course on one page, with diagrams and a self-check quiz</p>
+  <p class="byline-head">by Daniel Yuanpeng Xu</p>
+</header>
+<main>
+  <div class="card no-print">
+    <p>Prefer to click and explore? <a href="index.html">Open the interactive version</a>. This page has no tabs, sliders or games — just read, look at the diagrams, and test yourself at the end. It prints cleanly (Ctrl/Cmd + P).</p>
+  </div>
+  <noscript><p class="callout">The diagrams below work without JavaScript. The course text and quiz are filled in from the same files as the interactive site, so please enable JavaScript to see them, or read the <a href="README.md">README</a>.</p></noscript>
+
+  <nav class="toc card" aria-label="Contents">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#r-why">Why this matters</a></li>
+      <li><a href="#r-overview">What a BPMS is</a></li>
+      <li><a href="#r-arch">Architecture</a></li>
+      <li><a href="#r-history">Where execution history lives</a></li>
+      <li><a href="#r-lifecycle">Lifecycle and release dates</a></li>
+      <li><a href="#r-bpmn">BPMN essentials</a></li>
+      <li><a href="#r-patterns">Patterns</a></li>
+      <li><a href="#r-guard">Agents need a rulebook</a></li>
+      <li><a href="#r-cases">Worked cases</a></li>
+      <li><a href="#r-scan">Finding agent candidates in process history</a></li>
+      <li><a href="#r-market">Where the market is going</a></li>
+      <li><a href="#r-ideas">Five ideas for the agent era</a></li>
+      <li><a href="#r-glossary">Glossary</a></li>
+      <li><a href="#r-quiz">Self-check quiz and answer key</a></li>
+      <li><a href="#r-sources">Sources</a></li>
+    </ol>
+  </nav>
+
+  <article>
+    <section id="r-why" class="card">
+      <h2>1. Why this matters</h2>
+      <p>Every organisation runs processes — approvals, claims, onboarding, shipment exceptions. A <strong>BPMS</strong> is the software that makes those processes run on rails: it routes the work, applies the rules, puts tasks in front of the right people, and records what happened. AI agents are now arriving, and they need exactly those rails.</p>
+      <p><strong>One request, two worlds.</strong></p>
+      <div id="r-story"></div>
+      <p><strong>Who owns which job.</strong> The process <em>orchestrates</em>, rules <em>judge</em>, people <em>handle exceptions</em>, and agents <em>read and propose</em>.</p>
+      <div class="table-wrap"><table id="r-sort"><tr><th>Job</th><th>Best owner</th><th>Why</th></tr></table></div>
+    </section>
+
+    <section id="r-overview" class="card">
+      <h2>2. What a BPMS is</h2>
+      <p>A Business Process Management Suite turns a process drawn in BPMN into running, observable automation: systems are called automatically, people get tasks in an inbox, decisions come from rules, and every step leaves an audit trail.</p>
+      <p>IBM webMethods BPMS (part of IBM since the 2024 acquisition of webMethods from Software AG) combines Designer, the Process Engine inside Integration Server, the Task Engine on My webMethods Server, Business Rules, and Monitor/Optimize. It is commonly paired with IBM ODM for governed decisions.</p>
+    </section>
+
+    <section id="r-arch" class="card">
+      <h2>3. Architecture</h2>
+      <figure>
+        <svg viewBox="0 0 720 370" role="img" aria-labelledby="fig1t">
+          <title id="fig1t">webMethods BPMS architecture</title>
+          <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#525252"/></marker></defs>
+          <rect x="10" y="140" width="130" height="70" rx="8" class="box"/>
+          <text x="75" y="170" class="t">Designer</text><text x="75" y="190" class="s">BPMN, services,</text><text x="75" y="203" class="s">tasks, rules</text>
+          <rect x="190" y="110" width="200" height="130" rx="10" class="group"/>
+          <text x="290" y="130" class="s">Integration Server</text>
+          <rect x="215" y="145" width="150" height="70" rx="8" class="box hl"/>
+          <text x="290" y="175" class="t">Process Engine</text><text x="290" y="195" class="s">(WmPRT)</text>
+          <line x1="140" y1="175" x2="213" y2="175" class="ln" marker-end="url(#ah)"/>
+          <text x="177" y="167" class="s">upload</text>
+          <rect x="450" y="20" width="160" height="56" rx="8" class="box"/><text x="530" y="45" class="t">IS services</text><text x="530" y="63" class="s">adapters, APIs</text>
+          <rect x="450" y="100" width="160" height="56" rx="8" class="box"/><text x="530" y="125" class="t">Task Engine</text><text x="530" y="143" class="s">human tasks (MWS)</text>
+          <rect x="450" y="180" width="160" height="56" rx="8" class="box"/><text x="530" y="205" class="t">Rules / ODM</text><text x="530" y="223" class="s">decisions</text>
+          <line x1="365" y1="160" x2="448" y2="50" class="ln" marker-end="url(#ah)"/>
+          <line x1="365" y1="175" x2="448" y2="128" class="ln" marker-end="url(#ah)"/>
+          <line x1="365" y1="190" x2="448" y2="206" class="ln" marker-end="url(#ah)"/>
+          <path d="M188,290 v54 a62,12 0 0 0 124,0 v-54 z" class="db"/><ellipse cx="250" cy="290" rx="62" ry="12" class="db"/>
+          <text x="250" y="316" class="s">Process Engine DB</text><text x="250" y="331" class="s">live state</text>
+          <path d="M338,290 v54 a62,12 0 0 0 124,0 v-54 z" class="db hl"/><ellipse cx="400" cy="290" rx="62" ry="12" class="db hl"/>
+          <text x="400" y="316" class="s">Process Audit DB</text><text x="400" y="331" class="s">PRA_* history</text>
+          <line x1="270" y1="240" x2="255" y2="276" class="ln" marker-end="url(#ah)"/>
+          <line x1="320" y1="240" x2="390" y2="276" class="ln" marker-end="url(#ah)"/>
+          <rect x="560" y="290" width="140" height="50" rx="8" class="box"/><text x="630" y="312" class="t">Monitor</text><text x="630" y="328" class="s">/ Optimize</text>
+          <line x1="462" y1="312" x2="558" y2="314" class="ln" marker-end="url(#ah)"/>
+        </svg>
+        <figcaption>Figure 1. Models are built in Designer and uploaded; the Process Engine inside Integration Server runs them, calling services, human tasks and rules, and writes history to the Process Audit database.</figcaption>
+      </figure>
+      <div id="r-arch-list"></div>
+    </section>
+
+    <section id="r-history" class="card">
+      <h2>4. Where execution history lives</h2>
+      <figure>
+        <svg viewBox="0 0 720 210" role="img" aria-labelledby="fig2t">
+          <title id="fig2t">Three stores of execution data</title>
+          <g>
+            <path d="M25,40 v120 a95,16 0 0 0 190,0 v-120 z" class="db"/><ellipse cx="120" cy="40" rx="95" ry="16" class="db"/>
+            <text x="120" y="75" class="t">Process Engine DB</text><text x="120" y="100" class="s">private, real-time state</text><text x="120" y="120" class="s">used by the engine only</text>
+          </g>
+          <g>
+            <path d="M265,40 v120 a95,16 0 0 0 190,0 v-120 z" class="db hl"/><ellipse cx="360" cy="40" rx="95" ry="16" class="db hl"/>
+            <text x="360" y="75" class="t">Process Audit DB</text><text x="360" y="100" class="s">process &amp; step status,</text><text x="360" y="117" class="s">transitions, logged fields,</text><text x="360" y="134" class="s">errors (PRA_* tables)</text>
+          </g>
+          <g>
+            <path d="M505,40 v120 a95,16 0 0 0 190,0 v-120 z" class="db"/><ellipse cx="600" cy="40" rx="95" ry="16" class="db"/>
+            <text x="600" y="75" class="t">Task Engine audit</text><text x="600" y="100" class="s">assignments, actions,</text><text x="600" y="117" class="s">outcomes per task;</text><text x="600" y="134" class="s">optional archive</text>
+          </g>
+          <text x="360" y="202" class="s">Analyse history from the Process Audit DB and the Task Engine audit — never the live engine store.</text>
+        </svg>
+        <figcaption>Figure 2. In 10.15, task status is not written to the Process Audit tables by default, so human-task detail comes from the Task Engine audit.</figcaption>
+      </figure>
+      <div class="table-wrap"><table id="r-audit"><tr><th>Table</th><th>What it holds</th></tr></table></div>
+    </section>
+
+    <section id="r-lifecycle" class="card">
+      <h2>5. Lifecycle and release dates</h2>
+      <ol id="r-life"></ol>
+      <div class="table-wrap"><table id="r-dates"><tr><th>Release event</th><th>Date</th></tr></table></div>
+      <figure>
+        <svg viewBox="0 0 720 150" role="img" aria-labelledby="fig3t">
+          <title id="fig3t">Timeline 2022 to 2028</title>
+          <line x1="30" y1="70" x2="700" y2="70" stroke="#8d8d8d" stroke-width="2"/>
+          <g class="tl"><circle cx="40" cy="70" r="7"/><text x="40" y="50" class="s">Oct 2022</text><text x="40" y="95" class="s">10.15 GA</text></g>
+          <g class="tl"><circle cx="150" cy="70" r="7"/><text x="150" y="50" class="s">2024</text><text x="150" y="95" class="s">IBM acquires</text><text x="150" y="109" class="s">webMethods</text></g>
+          <g class="tl"><circle cx="260" cy="70" r="7"/><text x="260" y="50" class="s">2026</text><text x="260" y="95" class="s">12.1 available</text></g>
+          <g class="tl"><circle cx="360" cy="70" r="7"/><text x="360" y="50" class="s">Sep 2026</text><text x="360" y="95" class="s">Gartner BOAT</text><text x="360" y="109" class="s">MQ</text></g>
+          <g class="tl hot"><circle cx="480" cy="70" r="9"/><text x="480" y="50" class="s b">Oct 2027</text><text x="480" y="95" class="s">10.15 end of</text><text x="480" y="109" class="s">maintenance</text></g>
+          <g class="tl hot"><circle cx="580" cy="70" r="9"/><text x="580" y="50" class="s b">2 Dec 2027</text><text x="580" y="95" class="s">EU AI Act</text><text x="580" y="109" class="s">Annex III</text></g>
+          <g class="tl"><circle cx="680" cy="70" r="7"/><text x="680" y="50" class="s">Oct 2028</text><text x="680" y="95" class="s">10.15 end of</text><text x="680" y="109" class="s">support</text></g>
+        </svg>
+        <figcaption>Figure 3. Upgrade deadlines and regulation decide when organisations re-evaluate their process platforms.</figcaption>
+      </figure>
+    </section>
+
+    <section id="r-bpmn" class="card"><h2>6. BPMN essentials</h2><div id="r-bpmn-body"></div></section>
+
+    <section id="r-patterns" class="card"><h2>7. Patterns</h2><div id="r-pat"></div></section>
+
+    <section id="r-guard" class="card">
+      <h2>8. Agents need a rulebook <span class="pill">Author's view</span></h2>
+      <figure>
+        <svg viewBox="0 0 720 230" role="img" aria-labelledby="fig4t">
+          <title id="fig4t">Agent proposes, rules decide, process executes</title>
+          <defs><marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#525252"/></marker></defs>
+          <rect x="10" y="85" width="140" height="60" rx="8" class="box agent"/><text x="80" y="110" class="t">AI agent</text><text x="80" y="128" class="s">reads, proposes</text>
+          <line x1="150" y1="115" x2="218" y2="115" class="ln" marker-end="url(#ah2)"/>
+          <rect x="220" y="80" width="150" height="70" rx="8" class="box hl"/><text x="295" y="108" class="t">Rules (ODM)</text><text x="295" y="128" class="s">allow / refer / deny</text>
+          <line x1="370" y1="100" x2="458" y2="40" class="ln" marker-end="url(#ah2)"/>
+          <line x1="370" y1="115" x2="458" y2="115" class="ln" marker-end="url(#ah2)"/>
+          <line x1="370" y1="130" x2="458" y2="190" class="ln" marker-end="url(#ah2)"/>
+          <rect x="460" y="15" width="150" height="50" rx="8" class="box ok"/><text x="535" y="45" class="t">Process executes</text>
+          <rect x="460" y="90" width="150" height="50" rx="8" class="box warn"/><text x="535" y="113" class="t">Person approves</text><text x="535" y="129" class="s">BPMS user task</text>
+          <rect x="460" y="165" width="150" height="50" rx="8" class="box bad"/><text x="535" y="195" class="t">Denied</text>
+          <rect x="630" y="70" width="80" height="90" rx="8" class="box"/><text x="670" y="105" class="t">Log</text><text x="670" y="123" class="s">rule ver.,</text><text x="670" y="137" class="s">inputs,</text><text x="670" y="151" class="s">approver</text>
+          <line x1="610" y1="40" x2="640" y2="70" class="ln dash"/><line x1="610" y1="115" x2="628" y2="115" class="ln dash"/><line x1="610" y1="190" x2="640" y2="160" class="ln dash"/>
+        </svg>
+        <figcaption>Figure 4. The agent is good at reading and proposing; rules hold the money limits; people handle what the rules refer; everything is logged.</figcaption>
+      </figure>
+      <p><strong>Example policy.</strong> An agent proposes a customer credit after a shipping delay. Rules: no credit if the delay is under 4 hours; auto-approve up to $500 (key accounts up to $1,000); anything above goes to a person.</p>
+      <div class="table-wrap"><table id="r-guard-table"><tr><th>Case</th><th>Agent proposes</th><th>Rules decide</th></tr></table></div>
+    </section>
+
+    <section id="r-cases" class="card">
+      <h2>9. Worked cases</h2>
+      <figure>
+        <svg viewBox="0 0 720 200" role="img" aria-labelledby="fig5t">
+          <title id="fig5t">Loan decisioning process in BPMN</title>
+          <defs><marker id="ah3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#525252"/></marker></defs>
+          <circle cx="25" cy="80" r="14" class="ev"/>
+          <rect x="55" y="55" width="105" height="50" rx="8" class="box"/><text x="107" y="78" class="s">Fetch credit</text><text x="107" y="92" class="s">data (service)</text>
+          <rect x="185" y="55" width="105" height="50" rx="8" class="box hl"/><text x="237" y="78" class="s">Eligibility</text><text x="237" y="92" class="s">(rule task)</text>
+          <polygon points="340,80 360,60 380,80 360,100" class="gw"/><text x="360" y="85" class="s b">×</text>
+          <rect x="430" y="125" width="120" height="50" rx="8" class="box warn"/><text x="490" y="148" class="s">Underwriter</text><text x="490" y="162" class="s">review (user task)</text>
+          <rect x="590" y="55" width="100" height="50" rx="8" class="box"/><text x="640" y="78" class="s">Send decision</text><text x="640" y="92" class="s">(service)</text>
+          <circle cx="710" cy="80" r="8" class="ev end"/>
+          <line x1="39" y1="80" x2="53" y2="80" class="ln" marker-end="url(#ah3)"/>
+          <line x1="160" y1="80" x2="183" y2="80" class="ln" marker-end="url(#ah3)"/>
+          <line x1="290" y1="80" x2="338" y2="80" class="ln" marker-end="url(#ah3)"/>
+          <line x1="380" y1="80" x2="588" y2="80" class="ln" marker-end="url(#ah3)"/><text x="480" y="72" class="s">approve / decline</text>
+          <polyline points="360,100 360,150 428,150" class="ln" fill="none" marker-end="url(#ah3)"/><text x="395" y="142" class="s">refer</text>
+          <polyline points="550,150 640,150 640,107" class="ln" fill="none" marker-end="url(#ah3)"/>
+          <line x1="690" y1="80" x2="700" y2="80" class="ln"/>
+        </svg>
+        <figcaption>Figure 5. Loan decisioning: a rule task decides approve, decline or refer; only referrals reach a person.</figcaption>
+      </figure>
+      <div id="r-case-list"></div>
+      <h3>Simulator walkthrough</h3>
+      <p>The interactive simulator runs this loan process. With a loan of $40,000, a credit score of 690 and income of $90,000 (loan/income 44%), the rule refers the case to an underwriter. The Process Audit history looks like this:</p>
+      <pre class="log">PRA_PROCESS       inst=LN-1234  status=STARTED
+PRA_PROCESS_STEP  inst=LN-1234  step="Application received"  status=COMPLETED
+PRA_PROCESS_STEP  inst=LN-1234  step="Fetch credit data"  status=COMPLETED
+PRA_PROCESS_STEP  inst=LN-1234  step="Rule: eligibility"  status=COMPLETED  outcome=REFER
+PRA_STEP_LOGGED_FIELD inst=LN-1234  field=reason  value="Score 690, loan/income 44% → needs underwriter"
+PRA_PROCESS_STEP  inst=LN-1234  step="Underwriter review"  status=TASK_QUEUED  inbox=Underwriters
+PRA_PROCESS_STEP  inst=LN-1234  step="Underwriter review"  status=COMPLETED  outcome=APPROVE
+PRA_PROCESS_STEP  inst=LN-1234  step="Send decision"  status=COMPLETED  final=APPROVE
+PRA_PROCESS       inst=LN-1234  status=COMPLETED</pre>
+      <p class="sources">Illustrative rows; real column names and values differ by version and logging level.</p>
+    </section>
+
+    <section id="r-scan" class="card">
+      <h2>10. Finding agent candidates in process history</h2>
+      <p>Years of BPMS history show where people approve almost everything, wait for days, or make the same decision for the same inputs. Score each step on volume, human work time, waiting time, how often the most common outcome occurs, and <em>determinism</em> — whether the same inputs almost always produce the same outcome.</p>
+      <div class="table-wrap"><table>
+        <tr><th>Class</th><th>Rule</th><th>Meaning</th></tr>
+        <tr><td>Rule candidate (ODM)</td><td>User task, determinism ≥ 80%</td><td>A rule nobody wrote down</td></tr>
+        <tr><td>Agent candidate (rubber-stamp)</td><td>≥ 90% one outcome, ≤ 15 min work</td><td>Agent prepares, rule or person confirms</td></tr>
+        <tr><td>Agent candidate (triage + approve)</td><td>Wait ≥ 24 h, ≥ 70% one outcome</td><td>Agent triages, person approves</td></tr>
+        <tr><td>Integration fix</td><td>Service step, errors ≥ 5%</td><td>Fix the integration first</td></tr>
+        <tr><td>Keep human</td><td>Everything else</td><td>High variance or high stakes</td></tr>
+      </table></div>
+      <h3>Example result (synthetic logistics data, 6 months)</h3>
+      <div class="table-wrap"><table>
+        <tr><th>Step</th><th>Class</th><th>Volume / month</th><th>Hours saved / month*</th></tr>
+        <tr><td>Review delay claim</td><td>Agent (rubber-stamp)</td><td>1,800</td><td>216</td></tr>
+        <tr><td>Assign carrier credit</td><td>Rule candidate (ODM)</td><td>900</td><td>96</td></tr>
+        <tr><td>Classify customs documents</td><td>Agent (triage + approve)</td><td>600</td><td>80</td></tr>
+        <tr><td>Customs release approval</td><td>Rule candidate (ODM)</td><td>600</td><td>48</td></tr>
+        <tr><td>Call TMS update</td><td>Integration fix (7% errors)</td><td>2,700</td><td>–</td></tr>
+        <tr><td>Escalate to manager</td><td>Keep human</td><td>120</td><td>–</td></tr>
+      </table></div>
+      <p class="sources">*Placeholder automatable shares (rules 80%, rubber-stamp 60%, triage 40%). The synthetic data was generated to contain these patterns; the table shows the method, not real-world results.</p>
+    </section>
+
+    <section id="r-market" class="card">
+      <h2>11. Where the market is going</h2>
+      <div class="table-wrap"><table id="r-sizing"><tr><th>Firm</th><th>BPM market</th><th>Outlook</th></tr></table></div>
+      <h3>Signals (2026)</h3><ul id="r-signals"></ul>
+      <h3>Where the market really is <span class="pill">Author's view</span></h3><div id="r-view"></div>
+    </section>
+
+    <section id="r-ideas" class="card"><h2>12. Five ideas for the agent era <span class="pill">Author's view</span></h2><ol id="r-idea-list"></ol></section>
+
+    <section id="r-glossary" class="card"><h2>13. Glossary</h2><dl id="r-gloss"></dl></section>
+
+    <section id="r-quiz" class="card">
+      <h2>14. Self-check quiz</h2>
+      <p>Answer on paper or in your head, then check the key below.</p>
+      <ol id="r-q"></ol>
+      <h3 class="page-break">Answer key</h3>
+      <ol id="r-a"></ol>
+    </section>
+
+    <section id="r-sources" class="card"><h2>15. Sources</h2><ol class="sources" id="r-src"></ol></section>
+  </article>
+
+  <p class="callout">Independent learning resource by Daniel Yuanpeng Xu. Not an official IBM site and not affiliated with or endorsed by IBM or Software AG. <em>Author's view</em> sections are personal opinions. All facts come from the public sources listed; no customer or employer-internal data is used.</p>
+</main>
+<footer>Created by <strong>Daniel Yuanpeng Xu</strong> · © 2026 · <a href="index.html">interactive version</a> · <a href="https://github.com/Xudaniel/webmethods-bpms-academy">source on GitHub</a></footer>
+<script src="js/content.js"></script>
+<script src="js/explainer.js"></script>
+<script src="js/read.js"></script>
+</body>
+</html>

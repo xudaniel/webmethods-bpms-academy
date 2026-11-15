@@ -59,6 +59,17 @@ async def main():
         await page.click("#scan-sample")
         if "Rule candidate" not in await page.inner_text("#scan-out"):
             failures.append("scan lab produced no rule candidate")
+        # Reading version (issue #5): all text rendered, five diagrams, quiz + key
+        page2 = await browser.new_page(viewport={"width": 390, "height": 844})
+        page2.on("pageerror", lambda e: errors.append("read.html: " + str(e)))
+        await page2.goto("http://127.0.0.1:8765/read.html")
+        if await page2.locator("figure svg").count() != 5:
+            failures.append("read.html should have 5 diagrams")
+        if await page2.locator("#r-q > li").count() != await page2.locator("#r-a > li").count() or await page2.locator("#r-a > li").count() < 10:
+            failures.append("read.html quiz and answer key mismatch")
+        for sel in ["#r-arch-list", "#r-pat", "#r-gloss", "#r-guard-table", "#r-src"]:
+            if len(await page2.inner_text(sel)) < 50:
+                failures.append(f"read.html {sel} empty")
         await browser.close()
     srv.shutdown()
     problems = failures + [f"js error: {e}" for e in errors]

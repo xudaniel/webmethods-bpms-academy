@@ -4,22 +4,7 @@
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
   // 1. Before / after: one request with and without a BPMS
-  const story = {
-    without: [
-      "Email arrives in a shared inbox",
-      "Someone forwards it to a manager",
-      "Manager is on leave; nobody notices",
-      "Customer chases after 5 days",
-      "Approval found in a chat message — no record of why"
-    ],
-    with: [
-      "Request starts a process instance",
-      "Rule checks the amount and picks the approver",
-      "Task lands in the approver's inbox with all context",
-      "Timer escalates after 48 h to a deputy",
-      "Decision, approver and reason are in the audit trail"
-    ]
-  };
+  const story = X.story;
   function renderStory(mode) {
     document.querySelectorAll("#ex-toggle button").forEach((b) => b.classList.toggle("selected", b.dataset.mode === mode));
     $("ex-story").innerHTML = `<div class="steps">${story[mode].map((s, i) => `${i ? '<span class="arrow">→</span>' : ""}<span class="step ${mode === "with" ? "done" : ""}">${esc(s)}</span>`).join("")}</div>
