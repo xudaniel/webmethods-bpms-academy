@@ -8,6 +8,8 @@
 
 纯静态 HTML、CSS 和 JavaScript。无需构建，无后端，无任何追踪。直接打开 `index.html`，或通过 GitHub Pages 发布即可。
 
+**当前版本：[v1.0.0](https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.0.0)** · [在线网站](https://xudaniel.github.io/webmethods-bpms-academy/) · [产品需求文档（PRD，英文）](docs/PRD.md) · [更新日志](CHANGELOG.md)
+
 **两种学习方式：**
 - **互动版**（`index.html`）：栏目切换、滑块、模拟器、扫描实验室和小游戏。
 - **阅读版**（`read.html`）：整门课放在一页里，附五张图和带答案的测验。不用点来点去，也可以直接打印成 PDF。
@@ -307,6 +309,9 @@ webmethods-bpms-academy/
 ├── read.html             # 阅读版：一页读完，附图和带答案的测验
 ├── README.md             # 英文说明
 ├── README.zh-CN.md       # 中文说明（本文件）
+├── CHANGELOG.md          # 版本更新日志
+├── docs/
+│   └── PRD.md            # 产品需求文档（英文）
 ├── css/
 │   ├── styles.css        # 布局、组件、手机适配
 │   └── read.css          # 阅读版：图示和打印样式
