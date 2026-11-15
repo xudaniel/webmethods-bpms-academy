@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use or adapt this material, please cite it and credit the author, Daniel Yuanpeng Xu."
+title: "IBM webMethods BPMS Academy"
+abstract: "Independent, mobile-first course and cited knowledge base on IBM webMethods BPMS for beginners, customers and everyday users. Not affiliated with or endorsed by IBM."
+type: software
+authors:
+  - family-names: "Xu"
+    given-names: "Daniel Yuanpeng"
+    alias: "Xudaniel"
+version: "1.0.0"
+date-released: "2026-11-15"
+url: "https://xudaniel.github.io/webmethods-bpms-academy/"
+repository-code: "https://github.com/xudaniel/webmethods-bpms-academy"
+keywords:
+  - "IBM webMethods"
+  - "BPMS"
+  - "BPMN"
+  - "business rules"
+  - "process automation"
+  - "AI agents"
