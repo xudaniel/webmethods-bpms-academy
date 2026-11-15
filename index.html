@@ -21,6 +21,8 @@
   <button data-section="knowledge">Knowledge base</button>
   <button data-section="howto">How to use</button>
   <button data-section="lab">Hands-on lab</button>
+  <button data-section="trouble">Troubleshooting</button>
+  <button data-section="teach">Teach a class</button>
   <button data-section="lifecycle">Lifecycle</button>
   <button data-section="architecture">Architecture</button>
   <button data-section="bpmn">BPMN</button>
@@ -168,6 +170,28 @@
     <div class="card"><h3>No environment? Practise here</h3><ul id="lab-practice"></ul><p class="callout"><strong>Level up:</strong> <span id="lab-levelup"></span></p></div>
   </section>
 
+  <section id="trouble" class="section">
+    <div class="card">
+      <h2>Troubleshooting</h2>
+      <p class="lead">Something not working? Find the symptom, check the likely causes, then apply the fix. Every entry links to the official documentation.</p>
+      <input type="search" id="tr-search" placeholder="Search symptoms, e.g. 'inbox', 'Hot Deploy', 'resubmit'" aria-label="Search troubleshooting">
+      <div class="row" id="tr-areas"></div>
+      <p class="sources" id="tr-count"></p>
+    </div>
+    <div id="tr-list"></div>
+  </section>
+
+  <section id="teach" class="section">
+    <div class="card">
+      <h2>Teach a class <span class="pill">Author's view</span></h2>
+      <p class="lead" id="teach-title"></p>
+      <p id="teach-audience"></p>
+      <div class="table-wrap"><table id="teach-agenda"></table></div>
+    </div>
+    <div class="card"><h3>Print before the class</h3><ul id="teach-print"></ul></div>
+    <div class="card"><h3>Facilitator tips</h3><ul id="teach-tips"></ul></div>
+  </section>
+
   <section id="lifecycle" class="section">
     <div class="card"><h2>Process lifecycle</h2><p>Click a stage.</p><div class="grid" id="lifecycle-steps"></div><div id="lifecycle-detail"></div></div>
     <div class="card"><h3>Release lifecycle you should know</h3><div class="table-wrap"><table id="dates"></table></div>
@@ -246,6 +270,7 @@
 <script src="js/knowledge.js"></script>
 <script src="js/howto.js"></script>
 <script src="js/lab.js"></script>
+<script src="js/support.js"></script>
 <script src="js/explainer.js"></script>
 <script src="js/explainer-app.js"></script>
 <script src="js/app.js"></script>

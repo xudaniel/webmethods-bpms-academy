@@ -93,6 +93,24 @@
     $("r-lab-levelup").textContent = LB.levelup;
   }
 
+  // Troubleshooting, cheat sheets, teach a class
+  const SP = window.SUPPORT;
+  if (SP) {
+    const sl = (k) => { const x = SP.src(k); return x ? `<a href="${esc(x[1])}" target="_blank" rel="noopener">${esc(x[0])}</a>` : ""; };
+    $("r-tr").innerHTML = SP.areas.map((ar) => `<h3>${esc(ar)}</h3>` + SP.trouble.filter((t) => t.area === ar).map((t) =>
+      `<p><strong>${esc(t.s)}</strong></p><ul>${t.check.map((c) => `<li>${esc(c)}</li>`).join("")}</ul>
+       <p><em>Fix:</em> ${esc(t.fix)} <code>${esc(t.where)}</code> <span class="sources">(${t.src.map(sl).filter(Boolean).join(" · ")})</span></p>`).join("")).join("");
+    $("r-ch").innerHTML = SP.cheats.map((c, i) => `<h3>7.${i + 1} ${esc(c.role)}</h3>
+      <table>${c.actions.map(([x, w]) => `<tr><td><strong>${esc(x)}</strong></td><td><code>${esc(w)}</code></td></tr>`).join("")}</table>
+      <p><strong>Golden rules:</strong> ${c.rules.map(esc).join(" · ")}</p>
+      <p><strong>Self-check:</strong></p><ol>${c.check.map((q) => `<li>${esc(q.q)} <em>Answer: ${esc(q.a[q.c])}.</em> ${esc(q.e)}</li>`).join("")}</ol>`).join("");
+    $("r-teach-intro").textContent = SP.klass.title + ". " + SP.klass.audience;
+    $("r-teach-agenda").innerHTML = "<tr><th>Time</th><th>Min</th><th>Module</th><th>How to run it</th></tr>" +
+      SP.klass.agenda.map(([t, m, n, sec, how]) => `<tr><td>${esc(t)}</td><td>${m}</td><td>${esc(n)}</td><td>${esc(how)}</td></tr>`).join("");
+    $("r-teach-print").innerHTML = SP.klass.print.map((x) => `<li>${esc(x)}</li>`).join("");
+    $("r-teach-tips").innerHTML = SP.klass.tips.map((x) => `<li>${esc(x)}</li>`).join("");
+  }
+
   // 13. Glossary
   $("r-gloss").innerHTML = A.glossary.map(([t, d]) => `<dt>${esc(t)}</dt><dd>${esc(d)}</dd>`).join("");
 

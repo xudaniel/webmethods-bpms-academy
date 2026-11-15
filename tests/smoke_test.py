@@ -7,7 +7,7 @@ Usage:  pip install playwright && playwright install chromium
 import asyncio, functools, http.server, sys, threading
 from playwright.async_api import async_playwright
 
-SECTIONS = ["start", "overview", "knowledge", "howto", "lab", "lifecycle", "architecture", "bpmn", "patterns", "cases",
+SECTIONS = ["start", "overview", "knowledge", "howto", "lab", "trouble", "teach", "lifecycle", "architecture", "bpmn", "patterns", "cases",
             "simulator", "scan", "market", "glossary", "quiz"]
 
 class QuietHandler(http.server.SimpleHTTPRequestHandler):
@@ -69,6 +69,28 @@ async def main():
         await page.click("#lab-reset")
         if not (await page.inner_text("#lab-count")).startswith("0 /"):
             failures.append("lab reset did not clear progress")
+        # Troubleshooting, cheat sheets, teach (issues #18-#20)
+        await page.click("nav button[data-section=trouble]")
+        total = await page.locator("#tr-list .trouble").count()
+        if total < 12:
+            failures.append("troubleshooting should list at least 12 problems")
+        await page.fill("#tr-search", "hot deploy")
+        if not 0 < await page.locator("#tr-list .trouble").count() < total:
+            failures.append("troubleshooting search did not filter")
+        await page.fill("#tr-search", "")
+        await page.click("#tr-areas [data-area='Tasks']")
+        if await page.locator("#tr-list .trouble").count() >= total:
+            failures.append("troubleshooting area filter did not filter")
+        await page.click("nav button[data-section=howto]")
+        await page.click("#howto-tabs [data-role=ops]")
+        if await page.locator("#howto-body .cheat-sheet").count() != 1:
+            failures.append("cheat sheet missing under role guide")
+        await page.click("#howto-body .self-check .quiz-q >> nth=0 >> button >> nth=1")
+        if "1 / 3" not in await page.inner_text("#sc-score"):
+            failures.append("role self-check did not score")
+        await page.click("nav button[data-section=teach]")
+        if "180" not in await page.inner_text("#teach-agenda"):
+            failures.append("teach agenda should total 180 minutes")
         await page.click("nav button[data-section=start]")
         await page.click("#ex-toggle button[data-mode=with]")
         if "audit trail" not in await page.inner_text("#ex-story"):
@@ -103,6 +125,8 @@ async def main():
             failures.append("read.html should have 5 diagrams")
         if await page2.locator("#r-q > li").count() != await page2.locator("#r-a > li").count() or await page2.locator("#r-a > li").count() < 10:
             failures.append("read.html quiz and answer key mismatch")
+        if await page2.locator("#r-ch h3").count() != 4 or await page2.locator("#r-tr h3").count() != 4 or await page2.locator("#r-teach-agenda tr").count() < 9:
+            failures.append("read.html troubleshooting, cheat sheets or teach section missing")
         if await page2.locator("#r-lab-stages h3").count() != 8:
             failures.append("read.html lab sheet missing")
         if await page2.locator("#r-roles h3").count() != 4 or await page2.locator("#r-demo li").count() != 6:
