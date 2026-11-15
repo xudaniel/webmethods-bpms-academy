@@ -8,6 +8,8 @@
 
 Static HTML, CSS and JavaScript. No build step, no backend, no tracking. Open `index.html` or publish with GitHub Pages.
 
+**Current release: [v1.0.0](https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.0.0)** · [Live site](https://xudaniel.github.io/webmethods-bpms-academy/) · [Product requirements (PRD)](docs/PRD.md) · [Changelog](CHANGELOG.md)
+
 **Two ways to learn:**
 - **Interactive version** (`index.html`) — tabs, sliders, a simulator, a scan lab and games.
 - **Reading version** (`read.html`) — the whole course on one page with five diagrams and a quiz with answer key. No clicking required; prints cleanly to PDF.
@@ -308,6 +310,9 @@ webmethods-bpms-academy/
 ├── read.html           # reading version: one page, diagrams, quiz with answer key
 ├── README.md           # English README
 ├── README.zh-CN.md     # Chinese README (中文说明)
+├── CHANGELOG.md        # release history
+├── docs/
+│   └── PRD.md          # product requirements document
 ├── css/
 │   ├── styles.css      # layout, components, mobile breakpoints
 │   └── read.css        # reading version: diagrams and print styles
