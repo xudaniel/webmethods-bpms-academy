@@ -117,6 +117,36 @@ async def main():
         await page.click("#scan-sample")
         if "Rule candidate" not in await page.inner_text("#scan-out"):
             failures.append("scan lab produced no rule candidate")
+        # Reading time, diagrams, fun (issues #27-#29)
+        n_sec = await page.locator("main > .section").count()
+        if await page.locator("main > .section > .readtime").count() != n_sec:
+            failures.append("every section should show a reading time")
+        if await page.locator("#menu-sheet .menu-item .rt").count() < 15:
+            failures.append("menu should show reading times")
+        if await page.locator("#kb-engine .qos").count() != 1:
+            failures.append("interactive QoS diagram missing")
+        await page.evaluate("location.hash='knowledge'")
+        await page.click("#kb-engine [data-q=vt]")
+        if "Not visible in Monitor" not in await page.inner_text("#kb-engine .qos-out"):
+            failures.append("QoS diagram did not react to Volatile Tracking")
+        if await page.locator("#kb-topics img[src$='.svg']").count() != 2:
+            failures.append("knowledge SVG diagrams not rendered")
+        await page.evaluate("location.hash='lab'")
+        if await page.locator("#lab figure.dg svg").count() != 1:
+            failures.append("lab BPMN diagram missing")
+        if await page.locator("#trouble figure.dg").count() != 1 or await page.locator("#teach .tl-seg").count() < 8:
+            failures.append("troubleshooting flowchart or workshop timeline missing")
+        await page.evaluate("location.hash='howto'")
+        for role in ["user", "dev", "analyst", "ops"]:
+            await page.click(f"#howto-tabs [data-role={role}]")
+            if await page.locator("#howto-body figure.dg").count() != 1:
+                failures.append(f"how-to {role} diagram missing")
+        if await page.locator("#fun-badges .badge.earned").count() < 1:
+            failures.append("no badge unlocked after changing the agent policy")
+        if "sections explored" not in await page.inner_text("#fun-count"):
+            failures.append("explorer progress missing")
+        if len(await page.inner_text("#dyk-text")) < 20:
+            failures.append("did-you-know fact missing")
         # Mobile experience (issues #24, #25): menu, previous/next, back to top, phone guide, no overflow at 360 px
         if "Add to Home Screen" not in await page.inner_text("#phone-guide-body"):
             failures.append("phone guide missing iPhone steps")
@@ -154,8 +184,10 @@ async def main():
         page2 = await browser.new_page(viewport={"width": 390, "height": 844})
         page2.on("pageerror", lambda e: errors.append("read.html: " + str(e)))
         await page2.goto("http://127.0.0.1:8765/read.html")
-        if await page2.locator("figure svg").count() != 5:
-            failures.append("read.html should have 5 diagrams")
+        if await page2.locator("figure svg").count() < 13:
+            failures.append("read.html should have at least 13 diagrams (5 original + new)")
+        if await page2.locator("main section.card .readtime").count() < 20 or await page2.locator("nav.toc .readtime.total").count() != 1:
+            failures.append("read.html reading times missing")
         if await page2.locator("#r-q > li").count() != await page2.locator("#r-a > li").count() or await page2.locator("#r-a > li").count() < 10:
             failures.append("read.html quiz and answer key mismatch")
         if await page2.locator("#r-ch h3").count() != 4 or await page2.locator("#r-tr h3").count() != 4 or await page2.locator("#r-teach-agenda tr").count() < 9:
