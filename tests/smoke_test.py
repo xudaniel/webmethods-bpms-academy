@@ -7,7 +7,7 @@ Usage:  pip install playwright && playwright install chromium
 import asyncio, functools, http.server, sys, threading
 from playwright.async_api import async_playwright
 
-SECTIONS = ["overview", "lifecycle", "architecture", "bpmn", "patterns", "cases",
+SECTIONS = ["start", "overview", "lifecycle", "architecture", "bpmn", "patterns", "cases",
             "simulator", "scan", "market", "glossary", "quiz"]
 
 class QuietHandler(http.server.SimpleHTTPRequestHandler):
@@ -33,6 +33,19 @@ async def main():
             await page.click(f"nav button[data-section={s}]")
             if not await page.is_visible(f"#{s}") or len(await page.inner_text(f"#{s}")) < 200:
                 failures.append(f"section {s} empty or hidden")
+        await page.click("nav button[data-section=start]")
+        await page.click("#ex-toggle button[data-mode=with]")
+        if "audit trail" not in await page.inner_text("#ex-story"):
+            failures.append("explainer before/after toggle")
+        await page.click("#ex-sort .quiz-q >> nth=0 >> button[data-o=process]")
+        if "1 / 1" not in await page.inner_text("#ex-sort-score"):
+            failures.append("explainer sorting game")
+        await page.fill("#ex-limit", "3000")
+        if "rule_version=v2" not in await page.inner_text("#ex-guard-log"):
+            failures.append("explainer decision guard did not re-evaluate")
+        await page.click("#ex-timeline .tile >> nth=4")
+        if "end of maintenance" not in await page.inner_text("#ex-timeline-detail"):
+            failures.append("explainer timeline")
         await page.click("nav button[data-section=simulator]")
         await page.click("#sim-start")
         for _ in range(3):
