@@ -24,19 +24,20 @@
 2. [学完能做到什么](#学完能做到什么)
 3. [课程安排](#课程安排)
 4. [IBM webMethods 知识库](#ibm-webmethods-知识库)
-5. [从这里开始：面向大众的互动讲解](#从这里开始面向大众的互动讲解)
-6. [核心概念一览](#核心概念一览)
-7. [互动工具](#互动工具)
-8. [Agent 时代的设计模式](#agent-时代的设计模式)
-9. [市场背景](#市场背景)
-10. [快速开始](#快速开始)
-11. [项目结构](#项目结构)
-12. [如何修改内容](#如何修改内容)
-13. [测试](#测试)
-14. [设计原则](#设计原则)
-15. [后续计划](#后续计划)
-16. [参与贡献](#参与贡献)
-17. [资料来源](#资料来源)
+5. [如何使用 IBM webMethods BPMS](#如何使用-ibm-webmethods-bpms)
+6. [从这里开始：面向大众的互动讲解](#从这里开始面向大众的互动讲解)
+7. [核心概念一览](#核心概念一览)
+8. [互动工具](#互动工具)
+9. [Agent 时代的设计模式](#agent-时代的设计模式)
+10. [市场背景](#市场背景)
+11. [快速开始](#快速开始)
+12. [项目结构](#项目结构)
+13. [如何修改内容](#如何修改内容)
+14. [测试](#测试)
+15. [设计原则](#设计原则)
+16. [后续计划](#后续计划)
+17. [参与贡献](#参与贡献)
+18. [资料来源](#资料来源)
 
 ---
 
@@ -48,6 +49,9 @@
 | 刚接触 webMethods BPM 的开发者 | BPMN 基础、运行时组件，以及执行数据存在哪里 |
 | 售前与顾问 | 实例、设计模式，以及一套可重复使用的方法，用来在现有系统里找出自动化和 agent 的机会 |
 | 学习流程自动化的学生 | 动手的模拟器和测验，把 BPMN 图和真实运行的流程实例对应起来 |
+| **初学者** | 15 分钟入门路线、通俗讲解和术语表 |
+| **客户与潜在客户** | 10 分钟的引导式演示，看清 IBM webMethods BPMS 的价值和深度 |
+| **业务用户、开发、分析师和运维** | 按角色划分的「如何使用」操作教程，附官方文档链接 |
 
 不需要任何 webMethods 基础，懂一点工作流概念会更容易上手。
 
@@ -69,7 +73,8 @@
 | --- | --- | --- | --- |
 | 0 | **从这里开始**（Start here） | 六个动手步骤 | 面向大众的浅显讲解：有无 BPMS 的对比、每项工作该由谁负责、带实时策略滑块的 agent 决策关卡、驱动市场的时间线、市场真正在哪里、agent 时代的五个想法 |
 | 1 | **概览**（Overview） | 阅读 + 产品家族表 | 核心理念（流程负责编排，规则负责判断，人负责例外，agent 负责提建议）和 IBM webMethods 一览 |
-| 1a | **知识库**（Knowledge base） | 附出处的参考资料 | 版本、Process Engine 与 QoS、执行历史、Task Engine、Business Rules、设计清单——35 条引用事实 |
+| 1a | **知识库**（Knowledge base） | 附出处的参考资料 | 版本、Process Engine 与 QoS、执行历史、Task Engine、Business Rules、规则引擎配置、设计清单——42 条引用事实 |
+| 1b | **如何使用**（How to use） | 分步教程 | 业务用户、流程开发、业务分析师、运维四类角色，外加 10 分钟客户演示脚本 |
 | 2 | **生命周期**（Lifecycle） | 可点击的阶段 + 版本日期表 | 建模 → 实现 → 构建上传 → 执行 → 监控 → 优化 → 治理；10.15 的支持日期 |
 | 3 | **架构**（Architecture） | 可点击的组件图 | Designer、Process Engine（WmPRT）、Task Engine、两个数据库、规则/ODM、Monitor/Optimize；`PRA_*` 表 |
 | 4 | **BPMN** | 参考表 | 活动、网关、事件、池与泳道 |
@@ -78,14 +83,14 @@
 | 7 | **模拟器**（Simulator） | 互动 | 让一笔贷款走完规则任务和核保人工任务，同步看到审计风格的日志 |
 | 8 | **Agent 扫描实验室**（Agent Scan Lab） | 互动 | 根据历史数据给流程步骤分类；可用模拟数据，也可上传自己的 CSV |
 | 9 | **市场**（Market） | 阅读 + 出处 | 各家市场规模估算、Gartner BOAT、竞争对手动态、监管日期 |
-| 10 | **术语表**（Glossary） | 可搜索 | 23 个术语，含 QoS 和 Business Rules 术语 |
-| 11 | **测验**（Quiz） | 14 道题 | 即时反馈、附解析和得分 |
+| 10 | **术语表**（Glossary） | 可搜索 | 33 个术语，含 QoS、Business Rules 和日常操作术语 |
+| 11 | **测验**（Quiz） | 20 道题 | 即时反馈、附解析和得分 |
 
 每个栏目都有自己的网址片段（例如 `#simulator`），可以直接分享链接。网站界面目前为英文。
 
 ## IBM webMethods 知识库
 
-**知识库**栏目（互动版 `#knowledge`，阅读版第 3 章）是一份讲清 IBM webMethods BPMS 实际怎么运作的参考资料，共 **6 个主题、35 条事实，每条都链接到 IBM 或 Software AG 的公开文档**，每个主题后附一段实践建议。
+**知识库**栏目（互动版 `#knowledge`，阅读版第 3 章）是一份讲清 IBM webMethods BPMS 实际怎么运作的参考资料，共 **7 个主题、42 条事实，每条都链接到 IBM 或 Software AG 的公开文档**，每个主题后附一段实践建议。
 
 | 主题 | 学到什么 |
 | --- | --- |
@@ -94,9 +99,27 @@
 | 执行历史与审计 | Process Engine 数据库与 Process Audit 数据库（`PRA_*` 表）、日志级别、10.15 中人工任务历史存在哪里 |
 | Task Engine 与人工工作 | My webMethods Server 上的任务收件箱、`getTaskAudit`、任务归档 |
 | webMethods Business Rules | 规则项目、规则集、决策表、决策树、事件规则；Data/Service/Process 动作；部署到 Integration Server 和 My webMethods Server |
+| 规则引擎配置与 Rule Task | 规则引擎在哪里运行（WmBusinessRules）、如何配置 Rule Task、Process Aware 决策表、事件规则与 JMS 触发器、热部署 |
 | 实践设计清单 | 设计评审和升级时用的十项检查 |
 
 **IBM webMethods 一览。** 概览页（阅读版第 2 章）列出 BPMS 项目里会接触到的产品家族组件：Integration Server、Designer、My webMethods Server、Process Engine、Task Engine、Business Rules、Universal Messaging、Monitor/Optimize 和 IBM webMethods Hybrid Integration。「从这里开始」页顶部有**知识一览**计数器（主题、引用事实、组件、来源、术语、测验题数）。
+
+## 如何使用 IBM webMethods BPMS
+
+这个网站首先是给**初学者和客户**看的，也要教**每天使用这个产品的人**怎么操作。
+
+**第一次来？走一遍 15 分钟路线：**从这里开始 → 概览（IBM webMethods 一览）→ 如何使用 → 模拟器 → 测验。「从这里开始」页顶部也列出了这条路线。
+
+**如何使用**栏目（互动版 `#howto`，阅读版第 4 章）按角色给出一步一步的操作教程。每一步都写明在产品里点哪里、会发生什么，并链接官方文档；每个教程最后有「怎么确认做成了」和一条小建议。
+
+| 角色 | 教程 | 关键步骤 |
+| --- | --- | --- |
+| 业务用户 | 在 My webMethods 里处理任务 | 打开 My Inbox → 找到任务 → Accept（接受）→ Submit / Complete（提交/完成）→ 需要时 Delegate（转交） |
+| 流程开发人员 | 建模、构建并启用流程 | 切到 Process Developer 模式 → 画 BPMN、为每步选实现方式（服务、人工任务、规则任务）→ 设置日志与 QoS → Build and upload → **启用执行（Execution Enabled）** → 在 Monitor 里测试 |
+| 业务分析师 | 安全地修改业务规则 | My webMethods Server 仓库中的规则项目 → 打开并锁定 → 修改决策表 → 校验 → **Hot Deploy（热部署）**，无需重建流程 |
+| 运维人员 | 监控、修复与重新提交 | Process Instances → 停止/暂停/恢复 → **Resubmit（重新提交）**，必要时先修改 pipeline 数据 → Task List Management → 权限 |
+
+**客户演示脚本（10 分钟，作者观点）。**共六个环节，每个环节写明点哪里、说什么、回答客户的哪个问题：从「为什么需要流程平台」，到安全地使用 AI agent、现场跑一个流程，再到「业务部门多快能改一条规则」。从「Show a customer」标签或首页的链接打开。
 
 ## 从这里开始：面向大众的互动讲解
 
@@ -119,9 +142,9 @@
 
 | 特点 | 说明 |
 | --- | --- |
-| 一页读完 | 16 个编号章节（含 IBM webMethods 知识库），附目录，从「为什么重要」到资料来源 |
+| 一页读完 | 17 个编号章节（含 IBM webMethods 知识库和操作教程），附目录，从「为什么重要」到资料来源 |
 | 五张静态图 | 架构图 · 执行历史存在哪里 · 2022–2028 时间线 · agent 决策关卡 · 贷款流程 BPMN 图。用内嵌 SVG 绘制，不依赖 JavaScript |
-| 测验 | 14 道题连同选项完整列出，最后附答案和解析 |
+| 测验 | 20 道题连同选项完整列出，最后附答案和解析 |
 | 实例 | 决策关卡策略套用到五个案例的结果、模拟器的审计日志、扫描实验室的模拟结果表 |
 | 可直接打印 | 专门的打印样式：去掉导航，图表不跨页，打印出资料链接。约 17 页 Letter 纸 |
 | 内容同源 | 文字来自 `js/content.js`、`js/knowledge.js` 和 `js/explainer.js`，阅读版和互动版永远保持一致 |
@@ -290,6 +313,7 @@ webmethods-bpms-academy/
 ├── js/
 │   ├── content.js        # 课程内容和资料来源
 │   ├── knowledge.js      # IBM webMethods 知识库：产品家族、附出处的主题、补充术语和测验
+│   ├── howto.js          # 如何使用：角色教程、入门路线、客户演示脚本
 │   ├── explainer.js      # 「从这里开始」的内容（作者观点已标注）
 │   ├── explainer-app.js  # 「从这里开始」的互动逻辑
 │   ├── app.js            # 导航、模拟器、扫描实验室、术语搜索、测验
@@ -331,7 +355,7 @@ playwright install chromium
 python3 tests/smoke_test.py
 ```
 
-测试会在本地启动网站，以手机宽度（390 × 844）打开每个栏目，检查标题以 IBM webMethods 开头、知识计数器、产品家族表和附出处的知识主题，操作「从这里开始」的各项互动，把模拟器跑完，并用模拟数据运行扫描实验室；同时检查 `read.html` 有五张图、测验与答案数量一致、各章节都有内容。出现任何 JavaScript 错误即判为失败。
+测试会在本地启动网站，以手机宽度（390 × 844）打开每个栏目，检查标题以 IBM webMethods 开头、知识计数器、产品家族表和附出处的知识主题、入门路线、每个角色教程和演示脚本，操作「从这里开始」的各项互动，把模拟器跑完，并用模拟数据运行扫描实验室；同时检查 `read.html` 有五张图、测验与答案数量一致、各章节都有内容。出现任何 JavaScript 错误即判为失败。
 
 ## 设计原则
 
@@ -362,6 +386,16 @@ python3 tests/smoke_test.py
 - [Task Engine `getTaskAudit`](https://documentation.softwareag.com/webmethods/task_engine/wtn10-7/10-7_Task_Engine_webhelp/task-engine-webhelp/te_web_taskaudit.html)
 - [10.15 默认关闭任务写入 Process Audit — IBM 文档](https://www.ibm.com/docs/en/SSHZPA_10.15.0/te_users_guide/co-disable_enable_task_logging_in_processes.html)
 - [任务归档](https://documentation.softwareag.com/webmethods/compendiums/v10-7/C_Digital_Event_Comm/intsagdes-compendium/co-about-task-archiving.html)
+
+**如何使用（日常操作）**
+网站里每一步都链接到对应出处，主要有：
+- [About My Inbox (Task Engine)](https://documentation.softwareag.com/webmethods/compendiums/v10-5/C_Run_BPs_and_CAs/runbpca-compendium/co-about_my_inbox.html)
+- [Accepting a task](https://documentation.softwareag.com/webmethods/compendiums/v10-3/C_Run_BPs_and_CAs/runbpca-compendium/co-accepting_a_task.html)
+- [Enabling and disabling process model versions (Monitor)](https://documentation.softwareag.com/webmethods/monitor/wmn10-3/10-3_Monitor_webhelp/monitor-webhelp/to-process_models_24.html)
+- [Build and upload preferences (Designer 10.5)](https://documentation.softwareag.com/webmethods/designer/sdf10-5/10-5_sdf-webhelp/sdf-webhelp/proc.configuring.build.and.upload.preferences.html)
+- [Hot deploying a rule project](https://documentation.softwareag.com/webmethods/compendiums/v10-4/C_Digital_Event_Comm/intsagdes-compendium/ta-hot_deploy_decent.html)
+- [About resubmitting process instances and steps (Monitor 10.7)](https://documentation.softwareag.com/webmethods/monitor/wmn10-7/10-7_Monitor_webhelp/wmn-webhelp/to-processes_25.html)
+- [Stopping, suspending or resuming a process instance (Monitor 10.7)](https://documentation.softwareag.com/webmethods/monitor/wmn10-7/10-7_Monitor_webhelp/wmn-webhelp/to-processes_23.html)
 
 **Process Engine、Business Rules 与版本**
 - [Process Engine 性能与服务质量调优](https://documentation.softwareag.com/webmethods/compendiums/v10-3/C_Run_BPs_and_CAs/runbpca-compendium/to-concepts_2.html)

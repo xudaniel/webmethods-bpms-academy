@@ -264,5 +264,34 @@
     });
   }
 
+  // ---------- How to use (guides by role, beginner path, customer demo) ----------
+  const H = window.HOWTO;
+  if (H) {
+    const hl = (k) => `<a href="${esc(H.sources[k][1])}" target="_blank" rel="noopener">${esc(H.sources[k][0])}</a>`;
+    $("beginner-path").innerHTML = H.beginner.map(([t, id, d]) => `<li><a href="#${id}"><strong>${esc(t)}</strong></a> — ${esc(d)}</li>`).join("");
+    const tabs = H.roles.map((r) => [r.id, r.role]).concat([["demo", "Show a customer (10 min)"]]);
+    $("howto-tabs").innerHTML = tabs.map(([id, n]) => `<button class="tile" data-role="${id}"><strong>${esc(n)}</strong></button>`).join("");
+    function renderRole(id) {
+      document.querySelectorAll("#howto-tabs .tile").forEach((b) => b.classList.toggle("selected", b.dataset.role === id));
+      if (id === "demo") {
+        $("howto-body").innerHTML = `<div class="card"><h3>Customer demo script <span class="pill">Author's view</span></h3>
+          <p>Six beats, about ten minutes. Click the step, say the line, and you answer the question the customer is really asking.</p>
+          <ol class="howto-steps">${H.demo.map(([t, sec, click, say, q]) => `<li><strong>${esc(t)}</strong>
+            <div class="where"><a href="#${sec}">${esc(click)}</a></div>
+            <p>Say: “${esc(say)}”</p><p class="sources">Answers: ${esc(q)}</p></li>`).join("")}</ol></div>`;
+        return;
+      }
+      const r = H.roles.find((x) => x.id === id);
+      $("howto-body").innerHTML = `<div class="card"><h3>${esc(r.title)}</h3><p class="lead">${esc(r.who)}</p>
+        <ol class="howto-steps">${r.steps.map(([t, d, where, src]) => `<li><label class="done"><input type="checkbox"> <strong>${esc(t)}</strong></label>
+          <div class="where">${esc(where)}</div><p>${esc(d)}</p><p class="sources">Source: ${src.map(hl).join(" · ")}</p></li>`).join("")}</ol>
+        <p class="callout ok"><strong>You'll know it worked when:</strong> ${esc(r.check)}</p>
+        <p class="callout"><strong>Tip:</strong> ${esc(r.tip)}</p></div>`;
+    }
+    $("howto-tabs").addEventListener("click", (e) => { const b = e.target.closest("[data-role]"); if (b) renderRole(b.dataset.role); });
+    document.querySelectorAll("[data-demo]").forEach((a) => a.addEventListener("click", () => setTimeout(() => renderRole("demo"), 0)));
+    renderRole("user");
+  }
+
   show(location.hash.slice(1) || "start");
 })();
