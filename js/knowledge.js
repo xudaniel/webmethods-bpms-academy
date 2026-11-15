@@ -68,6 +68,7 @@ window.KNOWLEDGE = {
     {
       id: "rules", title: "webMethods Business Rules",
       summary: "Business Rules keep decision logic out of the process diagram so it can change without redeploying the process.",
+      image: "assets/diagrams/process-vs-rules.png",
       facts: [
         "A rule project is the container for data models, rule sets, decision entities and actions.",
         "Decision entities are decision tables, decision trees and event rules; a rule set groups related decision entities.",
@@ -81,6 +82,7 @@ window.KNOWLEDGE = {
     {
       id: "rules-config", title: "Rule Engine configuration & Rule Tasks",
       summary: "How to wire webMethods Business Rules into a process and deploy them so changes stay agile.",
+      image: "assets/diagrams/rule-task-hot-deploy.png",
       facts: [
         "Rules Engine runs on Integration Server (WmBusinessRules package). By default it is co-located with Process Engine; a remote IS can be configured in MWS under Rules Engine Configuration.",
         "In Designer, place a Rule Task on the process canvas (or drag a rule from the Rules Explorer). In Properties → Implementation set Rule Type to Rule Set or Decision Entity and browse to the asset.",
