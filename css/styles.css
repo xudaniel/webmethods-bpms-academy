@@ -215,3 +215,24 @@ details.dg-more > summary { cursor: pointer; color: var(--primary-dark); font-we
 @media print { .toast, .confetti, .fun, .qos-ctl { display: none !important; } }
 .tl-legend li { display: grid; grid-template-columns: 12px 2.6rem 1fr auto; gap: .45rem; align-items: baseline; }
 .tl-legend li .tl-dot { align-self: center; }
+
+/* ---------- role paths and the map (#31, #32) ---------- */
+.role-chips { display: flex; flex-wrap: wrap; gap: .45rem; margin: .5rem 0 .7rem; }
+.role-chip { border: 1px solid var(--border); background: #fff; border-radius: 999px; padding: .5rem .85rem; font: inherit; font-size: .92rem; cursor: pointer; min-height: 2.6rem; }
+.role-chip.selected { border-color: var(--primary); background: var(--primary-light); color: var(--primary-dark); font-weight: 600; }
+.path-intro { margin: .2rem 0 .4rem; color: var(--muted); }
+.path-count { color: var(--success); margin-left: .3rem; white-space: nowrap; }
+ol.path { padding-left: 1.4rem; }
+ol.path li { margin: .55rem 0; }
+ol.path li small { color: var(--muted); }
+ol.path li .rt { color: var(--primary-dark); font-size: .85rem; }
+ol.path li.done-step::marker { content: "✓  "; color: var(--success); font-weight: 700; }
+ol.path li.done-step > a strong { color: var(--muted); }
+.path-next { background: var(--primary-light); border: 1px solid #a6c8ff; border-radius: 10px; padding: .7rem .85rem; margin: 1rem 0 .3rem; font-size: .95rem; }
+.path-next a { font-weight: 600; }
+figure.map { border: none; padding: 0; }
+.dg-svg .bx.dashed { stroke-dasharray: 6 4; }
+.dg-svg .num { fill: #161616; } .dg-svg .numt { fill: #fff; font-size: 12px; font-weight: 700; text-anchor: middle; }
+.dg-svg a.map-node { cursor: pointer; }
+.dg-svg a.map-node:hover .bx, .dg-svg a.map-node:focus .bx { stroke-width: 2.6; filter: drop-shadow(0 2px 3px rgba(0,0,0,.18)); }
+.dg-svg a.map-node:focus { outline: none; }
