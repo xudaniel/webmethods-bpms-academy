@@ -8,6 +8,10 @@
 
 Static HTML, CSS and JavaScript. No build step, no backend, no tracking. Open `index.html` or publish with GitHub Pages.
 
+**Two ways to learn:**
+- **Interactive version** (`index.html`) — tabs, sliders, a simulator, a scan lab and games.
+- **Reading version** (`read.html`) — the whole course on one page with five diagrams and a quiz with answer key. No clicking required; prints cleanly to PDF.
+
 > **Independent learning resource.** Sections marked *Author's view* are the personal opinions of the author, Daniel Yuanpeng Xu,, drawn from experience as a product manager on process and decision-automation products; they are not the position of any employer or vendor and contain no employer-internal data.
 >
 > **Also:** This is not an official IBM site and is not affiliated with or endorsed by IBM or Software AG. Product names are trademarks of their respective owners. All content comes from public product documentation and public reports, cited below. No customer, employer-internal or confidential data is used; the Agent Scan Lab ships with synthetic data only.
@@ -75,6 +79,19 @@ After working through the site you should be able to:
 | 11 | **Quiz** | 10 questions | Immediate feedback with explanations and a running score |
 
 Every section has its own URL fragment (for example `#simulator`), so you can link directly to it.
+
+## Reading version
+
+`read.html` is for readers who want to read straight through — on a phone, offline or on paper.
+
+| Feature | Detail |
+| --- | --- |
+| One page | 15 numbered sections with a table of contents, from "Why this matters" to sources |
+| Five static diagrams | Architecture · where execution history lives · 2022–2028 timeline · agent decision guard · loan process in BPMN. Inline SVG, so they render without JavaScript |
+| Quiz | All 10 questions printed with options, then an answer key with explanations |
+| Worked examples | The decision-guard policy applied to five cases; the simulator's audit log; the scan lab's synthetic result table |
+| Print-ready | Print stylesheet: no navigation, diagrams and tables kept on one page, source URLs printed. About 17 Letter pages |
+| Same content | Text is rendered from `js/content.js` and `js/explainer.js`, so the reading and interactive versions never drift apart |
 
 ## Core concepts at a glance
 
@@ -245,15 +262,18 @@ Opening `index.html` directly also works in most browsers; a local server avoids
 
 ```
 webmethods-bpms-academy/
-├── index.html          # page shell, navigation and section markup
+├── index.html          # interactive version
+├── read.html           # reading version: one page, diagrams, quiz with answer key
 ├── README.md           # English README
 ├── README.zh-CN.md     # Chinese README (中文说明)
 ├── css/
-│   └── styles.css      # layout, components, mobile breakpoints
+│   ├── styles.css      # layout, components, mobile breakpoints
+│   └── read.css        # reading version: diagrams and print styles
 ├── js/
 │   ├── content.js      # course content and sources
 │   ├── explainer.js    # "Start here" content (author's view items labelled)
 │   ├── explainer-app.js# "Start here" interactions: toggle, sorting game, decision guard, timeline
+│   └── read.js         # renders the reading version from the same content files
 │   └── app.js          # navigation, simulator, scan lab, glossary search, quiz
 ├── tools/
 │   ├── agent_scan.py   # Python version of the scan
@@ -290,7 +310,7 @@ playwright install chromium
 python3 tests/smoke_test.py
 ```
 
-The test serves the site locally, opens every section at phone width (390 × 844), exercises the Start-here interactions, runs the simulator to completion and the Agent Scan Lab on the synthetic sample, and fails on any JavaScript error.
+The test serves the site locally, opens every section at phone width (390 × 844), exercises the Start-here interactions, runs the simulator to completion and the Agent Scan Lab on the synthetic sample, checks that `read.html` has five diagrams, a complete quiz and answer key and all sections filled, and fails on any JavaScript error.
 
 ## Design principles
 

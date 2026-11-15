@@ -1,6 +1,22 @@
 // "Start here" explainer: interactive story built from public facts plus the
 // author's own frameworks. Opinions are labelled; no employer data is used.
 window.EXPLAINER = {
+  story: {
+    without: [
+      "Email arrives in a shared inbox",
+      "Someone forwards it to a manager",
+      "Manager is on leave; nobody notices",
+      "Customer chases after 5 days",
+      "Approval found in a chat message — no record of why"
+    ],
+    with: [
+      "Request starts a process instance",
+      "Rule checks the amount and picks the approver",
+      "Task lands in the approver's inbox with all context",
+      "Timer escalates after 48 h to a deputy",
+      "Decision, approver and reason are in the audit trail"
+    ]
+  },
   sort: [
     { item: "Route a purchase request to the right approver", owner: "process", why: "Moving work between systems and people in order is orchestration." },
     { item: "Decide whether a $4,800 request needs director approval", owner: "rules", why: "A threshold that changes every budget cycle belongs in a rule, not in the diagram." },
