@@ -1,10 +1,14 @@
 # webMethods BPMS Academy
 
+**English** | [中文](README.zh-CN.md)
+
+**Author: Daniel Yuanpeng Xu** — product manager in business-process and decision automation. Concept, curriculum, frameworks and all *Author's view* content are by Daniel Yuanpeng Xu.
+
 **An interactive, mobile-friendly course on IBM webMethods BPMS — architecture, BPMN, decision automation, and how process platforms work alongside AI agents.**
 
 Static HTML, CSS and JavaScript. No build step, no backend, no tracking. Open `index.html` or publish with GitHub Pages.
 
-> **Independent learning resource.** Sections marked *Author's view* are the author's personal opinions, drawn from experience as a product manager on process and decision-automation products; they are not the position of any employer or vendor and contain no employer-internal data.
+> **Independent learning resource.** Sections marked *Author's view* are the personal opinions of the author, Daniel Yuanpeng Xu,, drawn from experience as a product manager on process and decision-automation products; they are not the position of any employer or vendor and contain no employer-internal data.
 >
 > **Also:** This is not an official IBM site and is not affiliated with or endorsed by IBM or Software AG. Product names are trademarks of their respective owners. All content comes from public product documentation and public reports, cited below. No customer, employer-internal or confidential data is used; the Agent Scan Lab ships with synthetic data only.
 
@@ -242,6 +246,8 @@ Opening `index.html` directly also works in most browsers; a local server avoids
 ```
 webmethods-bpms-academy/
 ├── index.html          # page shell, navigation and section markup
+├── README.md           # English README
+├── README.zh-CN.md     # Chinese README (中文说明)
 ├── css/
 │   └── styles.css      # layout, components, mobile breakpoints
 ├── js/
@@ -328,4 +334,6 @@ Issues and pull requests are welcome. Please keep changes small, cite public sou
 
 ---
 
-*No open-source license has been chosen yet, so default copyright applies. Open an issue if you would like to reuse the material.*
+© 2026 Daniel Yuanpeng Xu. No open-source license has been chosen yet, so default copyright applies. Open an issue if you would like to reuse the material.
+
+**Author:** Daniel Yuanpeng Xu · [github.com/Xudaniel](https://github.com/Xudaniel)
