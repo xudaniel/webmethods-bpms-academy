@@ -14,6 +14,7 @@
   <p>Architecture, BPMN, decision automation and agent-era patterns — interactive, public sources only</p>
 </header>
 <nav aria-label="Sections">
+  <button data-section="start">Start here</button>
   <button data-section="overview">Overview</button>
   <button data-section="lifecycle">Lifecycle</button>
   <button data-section="architecture">Architecture</button>
@@ -27,6 +28,65 @@
   <button data-section="quiz">Quiz</button>
 </nav>
 <main>
+  <section id="start" class="section">
+    <div class="card">
+      <h2>What is this, and why should anyone care?</h2>
+      <p class="lead">Every organisation runs processes — approvals, claims, onboarding, shipment exceptions. A <strong>BPMS</strong> is the software that makes those processes run on rails: it routes the work, applies the rules, puts tasks in front of the right people, and records what happened. Now AI agents are arriving, and they need exactly those rails. Six short, hands-on steps explain why.</p>
+      <p class="byline">Written by a product manager who has worked on business-process and decision-automation products. Sections marked <span class="pill">Author's view</span> are personal opinions, not the position of any employer or vendor.</p>
+    </div>
+
+    <div class="card">
+      <h3>1 · One request, two worlds</h3>
+      <div class="row" id="ex-toggle"><button class="tile" data-mode="without"><strong>Without a BPMS</strong></button><button class="tile" data-mode="with"><strong>With a BPMS</strong></button></div>
+      <div id="ex-story"></div>
+    </div>
+
+    <div class="card">
+      <h3>2 · Who should own each job?</h3>
+      <p>Pick an owner for each piece of work. <span class="mono">Process</span> moves work, <span class="mono">Rules</span> decide, <span class="mono">People</span> judge exceptions, <span class="mono">Agent</span> reads and proposes.</p>
+      <p id="ex-sort-score" class="lead">0 / 0 right</p>
+      <div id="ex-sort"></div>
+    </div>
+
+    <div class="card">
+      <h3>3 · Agents need a rulebook <span class="pill">Author's view</span></h3>
+      <p>An AI agent reads delay reports and proposes a customer credit. It never pays on its own: a rule decides <em>allow</em>, <em>refer to a person</em> or <em>deny</em>, and every decision is logged with the rule version. Change the policy and watch the outcomes and the log.</p>
+      <label>Auto-approve limit: <strong id="ex-limit-v"></strong><input type="range" id="ex-limit" min="100" max="3000" step="50" value="500"></label>
+      <label>Minimum delay for any credit: <strong id="ex-mindelay-v"></strong><input type="range" id="ex-mindelay" min="0" max="24" step="1" value="4"></label>
+      <div class="row"><label><input type="checkbox" id="ex-key" checked> Key accounts get double the auto limit</label></div>
+      <div id="ex-guard"></div>
+      <div class="log" id="ex-guard-log"></div>
+      <p class="sources">The agent is good at reading and proposing; the rules hold the money limits; people handle what the rules refer. That split is what makes agent decisions explainable to an auditor.</p>
+    </div>
+
+    <div class="card">
+      <h3>4 · The clock that drives this market</h3>
+      <p>Click a date. Upgrade deadlines and regulation, more than technology fashion, decide when organisations re-evaluate their process platforms.</p>
+      <div class="grid" id="ex-timeline"></div><div id="ex-timeline-detail"></div>
+    </div>
+
+    <div class="card">
+      <h3>5 · Where the market really is <span class="pill">Author's view</span></h3>
+      <p>Tap each layer to reveal it.</p>
+      <div id="ex-market"></div>
+    </div>
+
+    <div class="card">
+      <h3>6 · Five ideas for the agent era <span class="pill">Author's view</span></h3>
+      <div id="ex-ideas"></div>
+    </div>
+
+    <div class="card">
+      <h3>Go deeper</h3>
+      <div class="grid">
+        <button class="tile" onclick="location.hash='architecture'"><strong>How it's built</strong><small>Engines, databases, audit tables</small></button>
+        <button class="tile" onclick="location.hash='simulator'"><strong>Run a process</strong><small>Loan with rules and a human task</small></button>
+        <button class="tile" onclick="location.hash='scan'"><strong>Find agent candidates</strong><small>Score process history</small></button>
+        <button class="tile" onclick="location.hash='quiz'"><strong>Test yourself</strong><small>10 questions</small></button>
+      </div>
+    </div>
+  </section>
+
   <section id="overview" class="section">
     <div class="card">
       <h2>What is a BPMS?</h2>
@@ -124,6 +184,8 @@
 </main>
 <footer>Independent learning resource · not affiliated with IBM · <a href="https://github.com/Xudaniel/webmethods-bpms-academy">source on GitHub</a></footer>
 <script src="js/content.js"></script>
+<script src="js/explainer.js"></script>
+<script src="js/explainer-app.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

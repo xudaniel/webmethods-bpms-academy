@@ -4,7 +4,9 @@
 
 Static HTML, CSS and JavaScript. No build step, no backend, no tracking. Open `index.html` or publish with GitHub Pages.
 
-> **Independent learning resource.** This is not an official IBM site and is not affiliated with or endorsed by IBM or Software AG. Product names are trademarks of their respective owners. All content comes from public product documentation and public reports, cited below. No customer, employer-internal or confidential data is used; the Agent Scan Lab ships with synthetic data only.
+> **Independent learning resource.** Sections marked *Author's view* are the author's personal opinions, drawn from experience as a product manager on process and decision-automation products; they are not the position of any employer or vendor and contain no employer-internal data.
+>
+> **Also:** This is not an official IBM site and is not affiliated with or endorsed by IBM or Software AG. Product names are trademarks of their respective owners. All content comes from public product documentation and public reports, cited below. No customer, employer-internal or confidential data is used; the Agent Scan Lab ships with synthetic data only.
 
 ---
 
@@ -55,6 +57,7 @@ After working through the site you should be able to:
 
 | # | Section | Format | Outcome |
 | --- | --- | --- | --- |
+| 0 | **Start here** | Six hands-on steps | Plain-language explainer for a general audience: before/after a BPMS, who owns which job, an agent decision guard with live policy sliders, the market clock, where the market really is, five ideas for the agent era |
 | 1 | **Overview** | Reading | The core idea: process orchestrates, rules judge, people handle exceptions, agents propose |
 | 2 | **Lifecycle** | Clickable stages + release table | Model → implement → build & upload → execute → monitor → optimize → govern; 10.15 support dates |
 | 3 | **Architecture** | Clickable component map | Designer, Process Engine (WmPRT), Task Engine, Process Engine DB, Process Audit DB, rules/ODM, Monitor/Optimize; `PRA_*` tables |
@@ -174,6 +177,21 @@ python3 make_synthetic.py            # writes synthetic_audit.csv
 python3 agent_scan.py synthetic_audit.csv
 ```
 
+## Start here: the public explainer
+
+Built for readers with no BPMS background. Each step is interactive:
+
+| Step | Interaction | Point it makes |
+| --- | --- | --- |
+| 1. One request, two worlds | Toggle without / with a BPMS | Routing, rules, timers and audit replace "someone remembering" |
+| 2. Who should own each job? | Sorting game, 8 jobs | Process orchestrates, rules judge, people handle exceptions, agents propose |
+| 3. Agents need a rulebook | Sliders for auto-approve limit and minimum delay; key-account toggle | An agent proposes credits; rules return allow / refer / deny; each decision is logged with a rule version |
+| 4. The clock that drives this market | Clickable timeline, 2022–2028 | Upgrade deadlines and regulation decide when platforms are re-evaluated |
+| 5. Where the market really is | Tap-to-reveal layers | Analyst category vs where a mature on-premises BPMS actually competes |
+| 6. Five ideas for the agent era | Expandable cards | Mine process history, human-approval inbox, decision flight recorder, build where the base is, maintenance-to-AI credits |
+
+Steps 3, 5 and 6 are labelled *Author's view*.
+
 ## Agent-era patterns
 
 | Pattern | Problem | Solution |
@@ -227,7 +245,9 @@ webmethods-bpms-academy/
 ├── css/
 │   └── styles.css      # layout, components, mobile breakpoints
 ├── js/
-│   ├── content.js      # ALL course content and sources (single place to edit)
+│   ├── content.js      # course content and sources
+│   ├── explainer.js    # "Start here" content (author's view items labelled)
+│   ├── explainer-app.js# "Start here" interactions: toggle, sorting game, decision guard, timeline
 │   └── app.js          # navigation, simulator, scan lab, glossary search, quiz
 ├── tools/
 │   ├── agent_scan.py   # Python version of the scan
@@ -264,7 +284,7 @@ playwright install chromium
 python3 tests/smoke_test.py
 ```
 
-The test serves the site locally, opens every section at phone width (390 × 844), runs the simulator to completion and the Agent Scan Lab on the synthetic sample, and fails on any JavaScript error.
+The test serves the site locally, opens every section at phone width (390 × 844), exercises the Start-here interactions, runs the simulator to completion and the Agent Scan Lab on the synthetic sample, and fails on any JavaScript error.
 
 ## Design principles
 

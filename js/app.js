@@ -6,7 +6,7 @@
   // ---------- navigation (hash-aware so sections can be linked) ----------
   const navBtns = document.querySelectorAll("nav button");
   function show(id) {
-    if (!$(id)) id = "overview";
+    if (!$(id)) id = "start";
     navBtns.forEach((b) => b.classList.toggle("active", b.dataset.section === id));
     document.querySelectorAll(".section").forEach((s) => s.classList.toggle("active", s.id === id));
     if (location.hash !== "#" + id) history.replaceState(null, "", "#" + id);
@@ -236,5 +236,5 @@
   // ---------- sources ----------
   $("source-list").innerHTML = A.sources.map(([t, u]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a></li>`).join("");
 
-  show(location.hash.slice(1) || "overview");
+  show(location.hash.slice(1) || "start");
 })();
