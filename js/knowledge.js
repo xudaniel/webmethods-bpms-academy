@@ -79,6 +79,21 @@ window.KNOWLEDGE = {
       sources: [16, 17, 18]
     },
     {
+      id: "rules-config", title: "Rule Engine configuration & Rule Tasks",
+      summary: "How to wire webMethods Business Rules into a process and deploy them so changes stay agile.",
+      facts: [
+        "Rules Engine runs on Integration Server (WmBusinessRules package). By default it is co-located with Process Engine; a remote IS can be configured in MWS under Rules Engine Configuration.",
+        "In Designer, place a Rule Task on the process canvas (or drag a rule from the Rules Explorer). In Properties → Implementation set Rule Type to Rule Set or Decision Entity and browse to the asset.",
+        "Map process variables to the rule inputs and the rule outputs back to process variables. Outputs are typically used by a subsequent Exclusive Gateway.",
+        "A decision table that contains a manual decision (Task Action) must be marked Process Aware; map TaskData and ProcessData (ProcessData is outbound only).",
+        "Event rules require a corresponding JMS trigger on the target Integration Server.",
+        "Hot Deploy pushes a rule project to one or more Integration Servers from the MWS Business Rules UI or via Deployer. Process models do not need to be rebuilt when only rules change.",
+        "Advanced Rule Task properties (Process Developer mode) include Integration Server Name, Allow Parallel Execution, and Compensating marker."
+      ],
+      practice: "Design rule outputs as clear enumerations (APPROVE / REFER / REJECT). Keep Rules Engine on a dedicated or horizontally scalable IS node in production. Combine process audit (path & timing) with rule decision logs (inputs & outcome) for full explainability.",
+      sources: [21, 22, 23]
+    },
+    {
       id: "checklist", title: "Practitioner design checklist",
       summary: "Ten checks that come from how the product actually behaves.",
       facts: [
@@ -105,7 +120,10 @@ window.KNOWLEDGE = {
     ["Universal Messaging", "webMethods messaging server; can be the Process Engine's JMS provider."],
     ["Rule project", "Container for data models, rule sets, decision entities and actions."],
     ["Decision table", "Decision entity where each row is a rule, with IF (condition) and THEN (result) columns."],
-    ["Decision tree / event rule", "Other decision entities in webMethods Business Rules."]
+    ["Decision tree / event rule", "Other decision entities in webMethods Business Rules."],
+    ["Rule Task", "BPMN activity that invokes a webMethods Business Rule or Rule Set at runtime."],
+    ["Hot Deploy", "Push an updated rule project to Integration Server without redeploying the process model."],
+    ["Process Aware", "Decision table setting required when the rule contains a manual decision / task action."]
   ],
 
   quiz: [
@@ -116,7 +134,11 @@ window.KNOWLEDGE = {
     { q: "In a webMethods decision table, what does each row represent?", a: ["A rule set", "One individual rule", "A data model", "An event"], c: 1,
       e: "Columns are conditions (IF) or results (THEN); each row is one rule." },
     { q: "Which runtime platform change arrives with IBM webMethods 12.1?", a: ["Java 8 only", "Java 21 and Jakarta EE 10", "A move to .NET", "No runtime change"], c: 1,
-      e: "12.1 moves to a newer runtime based on Java 21 and Jakarta EE 10." }
+      e: "12.1 moves to a newer runtime based on Java 21 and Jakarta EE 10." },
+    { q: "What is required for a decision table that contains a manual decision (Task Action)?", a: ["It must be marked Process Aware and map TaskData / ProcessData", "It must run only on MWS", "It cannot be called from a Rule Task", "It requires an ODM licence"], c: 0,
+      e: "Process Aware is mandatory for tables with task actions; ProcessData mappings are outbound only." },
+    { q: "How do you update rules without redeploying the process?", a: ["Edit the BPMN gateway condition", "Hot Deploy the rule project to Integration Server", "Rebuild the entire process model", "Restart Designer"], c: 1,
+      e: "Hot Deploy pushes the updated rule project; the process model stays unchanged." }
   ],
 
   // Numbered sources referenced by topic.sources
@@ -138,7 +160,10 @@ window.KNOWLEDGE = {
     14: ["Task archiving", "https://documentation.softwareag.com/webmethods/compendiums/v10-7/C_Digital_Event_Comm/intsagdes-compendium/co-about-task-archiving.html"],
     16: ["Rules Development terminology (Designer 10.7)", "https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/co-rules_terminology.html"],
     17: ["About webMethods Business Rules (Designer 10.15)", "https://documentation.softwareag.com/webmethods/designer/sdf10-15/webhelp/sdf-webhelp/sdf-webhelp/proc.about.webmethods.business.rules.html"],
-    18: ["Rules Development overview (Designer 10.7)", "https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/co-intro_business_rules.html"]
+    18: ["Rules Development overview (Designer 10.7)", "https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/co-intro_business_rules.html"],
+    21: ["Using IBM webMethods BPM Business Rules in Processes (Process Engine 12.1)", "https://www.ibm.com/docs/en/webmethods-bpm/wmpe/12.1.0?topic=rules-using-webmethods-bpm-business-in-processes"],
+    22: ["Configuring Rule Tasks (Process Engine 12.1)", "https://www.ibm.com/docs/en/webmethods-bpm/wmpe/12.1.0?topic=steps-configuring-rule-tasks"],
+    23: ["Hot Deploying Rule Projects to Integration Server", "https://www.ibm.com/docs/en/webmethods-bpm/wbr/10.7.0?topic=webmethods-hot-deploying-rule-projects-integration-server"]
   }
 };
 
