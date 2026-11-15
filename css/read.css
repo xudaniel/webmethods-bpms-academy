@@ -46,3 +46,6 @@ dl dd { margin: 0 0 .3rem 0; color: var(--muted); }
   a { color: #000; text-decoration: none; }
   .sources a::after { content: " (" attr(href) ")"; font-size: 8pt; word-break: break-all; }
 }
+
+.ticks { list-style: none; padding-left: .2rem; }
+.ticks li { margin: .35rem 0; }
