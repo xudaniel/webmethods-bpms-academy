@@ -67,8 +67,12 @@ window.ACADEMY = {
   patterns: [
     { name: "Rule task for decision agility", tag: "classic",
       problem: "Decision logic changes faster than the process.",
-      solution: "Keep thresholds and eligibility in a rule task or ODM decision service; the process only routes on the result.",
+      solution: "Keep thresholds and eligibility in a rule task or ODM decision service; the process only routes on the result. Configure the Rule Task in Designer (Properties → Implementation), map inputs/outputs, and Hot Deploy rule changes without rebuilding the process.",
       when: "Pricing, eligibility, routing, limits." },
+    { name: "Process-Aware decision table with task action", tag: "classic",
+      problem: "A rule needs to create or influence a human task.",
+      solution: "Mark the decision table Process Aware, map TaskData and ProcessData (outbound only), and ensure the Rule Task inputs/outputs match the table exactly.",
+      when: "Manual decision points inside otherwise automated rules." },
     { name: "Human exception path", tag: "classic",
       problem: "Most cases are routine, a few need judgment.",
       solution: "Automate the straight-through path; send only exceptions to a user task with full context.",
@@ -123,7 +127,9 @@ window.ACADEMY = {
     ["BOAT", "Business Orchestration and Automation Technologies, Gartner's category for platforms that combine process orchestration, connectivity and agentic features."],
     ["MCP", "Model Context Protocol, an open protocol for exposing tools and data to AI agents."],
     ["Human-in-the-loop", "Design where a person reviews or approves an automated or agent action."],
-    ["EOM / EOS", "End of Maintenance / End of Support dates in a product lifecycle."]
+    ["EOM / EOS", "End of Maintenance / End of Support dates in a product lifecycle."],
+    ["Hot Deploy", "Push an updated rule project to Integration Server without redeploying the process."],
+    ["Process Aware", "Decision table flag required when the rule contains a manual decision / task action."]
   ],
 
   lifecycleDates: [
