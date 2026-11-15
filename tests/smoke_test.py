@@ -7,7 +7,7 @@ Usage:  pip install playwright && playwright install chromium
 import asyncio, functools, http.server, sys, threading
 from playwright.async_api import async_playwright
 
-SECTIONS = ["start", "overview", "knowledge", "lifecycle", "architecture", "bpmn", "patterns", "cases",
+SECTIONS = ["start", "overview", "knowledge", "howto", "lifecycle", "architecture", "bpmn", "patterns", "cases",
             "simulator", "scan", "market", "glossary", "quiz"]
 
 class QuietHandler(http.server.SimpleHTTPRequestHandler):
@@ -47,6 +47,15 @@ async def main():
             failures.append("Process Engine QoS topic missing")
         if await page.locator("#kb-topics .kb-topic .sources a").count() < 10:
             failures.append("knowledge topics should cite sources")
+        # How to use (issues #10, #11): beginner path, role guides, demo script
+        if await page.locator("#beginner-path li").count() != 5:
+            failures.append("beginner path missing")
+        await page.click("nav button[data-section=howto]")
+        for role, word in [("user", "Accept"), ("dev", "Execution Enabled"), ("analyst", "Hot Deploy"), ("ops", "Resubmit"), ("demo", "Say:")]:
+            await page.click(f"#howto-tabs [data-role={role}]")
+            if word not in await page.inner_text("#howto-body"):
+                failures.append(f"how-to guide {role} missing '{word}'")
+        await page.click("nav button[data-section=start]")
         await page.click("#ex-toggle button[data-mode=with]")
         if "audit trail" not in await page.inner_text("#ex-story"):
             failures.append("explainer before/after toggle")
@@ -80,6 +89,8 @@ async def main():
             failures.append("read.html should have 5 diagrams")
         if await page2.locator("#r-q > li").count() != await page2.locator("#r-a > li").count() or await page2.locator("#r-a > li").count() < 10:
             failures.append("read.html quiz and answer key mismatch")
+        if await page2.locator("#r-roles h3").count() != 4 or await page2.locator("#r-demo li").count() != 6:
+            failures.append("read.html how-to guides or demo script missing")
         if await page2.locator("#r-kb h3").count() < 6 or await page2.locator("#r-family tr").count() < 8:
             failures.append("read.html knowledge base or family table missing")
         for sel in ["#r-kb-count", "#r-arch-list", "#r-pat", "#r-gloss", "#r-guard-table", "#r-src"]:

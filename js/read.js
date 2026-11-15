@@ -67,6 +67,17 @@
       <p class="sources">${t.sources.length ? "Sources: " + t.sources.map(link).join(" · ") : "Synthesis of the topics above; author's practitioner view."}</p>`).join("");
   }
 
+  // How to use
+  const H = window.HOWTO;
+  if (H) {
+    const hl = (k) => `<a href="${esc(H.sources[k][1])}" target="_blank" rel="noopener">${esc(H.sources[k][0])}</a>`;
+    $("r-path").innerHTML = H.beginner.map(([t, id, d]) => `<li><strong>${esc(t)}</strong> — ${esc(d)}</li>`).join("");
+    $("r-roles").innerHTML = H.roles.map((r, i) => `<h3>4.${i + 1} ${esc(r.role)}: ${esc(r.title)}</h3><p><em>${esc(r.who)}</em></p>
+      <ol>${r.steps.map(([t, d, where, src]) => `<li><strong>${esc(t)}.</strong> ${esc(d)} <br><code>${esc(where)}</code> <span class="sources">(${src.map(hl).join(" · ")})</span></li>`).join("")}</ol>
+      <p class="callout"><strong>You'll know it worked when:</strong> ${esc(r.check)} <strong>Tip:</strong> ${esc(r.tip)}</p>`).join("");
+    $("r-demo").innerHTML = H.demo.map(([t, sec, click, say, q]) => `<li><strong>${esc(t)}.</strong> ${esc(click)} Say: “${esc(say)}” <em>Answers: ${esc(q)}</em></li>`).join("");
+  }
+
   // 13. Glossary
   $("r-gloss").innerHTML = A.glossary.map(([t, d]) => `<dt>${esc(t)}</dt><dd>${esc(d)}</dd>`).join("");
 

@@ -72,3 +72,13 @@ footer { text-align: center; font-size: .8rem; color: var(--muted); padding: 1.5
 #kb-counter .kb-stat { padding: .5rem .3rem; }
 #kb-counter .kb-stat strong { font-size: 1.3rem; }
 #kb-counter .kb-stat small { font-size: .72rem; }
+
+/* how to use */
+.beginner { border-left: 4px solid #0f62fe; }
+.path li, .howto-steps > li { margin: .6rem 0; }
+.howto-steps { padding-left: 1.3rem; }
+.howto-steps p { margin: .25rem 0; }
+.where { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .8rem; background: #f2f4f8; border-radius: 4px; padding: .2rem .45rem; display: inline-block; margin: .2rem 0; }
+.done input { margin-right: .3rem; }
+.done input:checked + strong { text-decoration: line-through; opacity: .6; }
+.callout.ok { background: #defbe6; border-color: #24a148; }

@@ -24,18 +24,19 @@ Static HTML, CSS and JavaScript. No build step, no backend, no tracking. Open `i
 2. [What you will learn](#what-you-will-learn)
 3. [Curriculum](#curriculum)
 4. [IBM webMethods knowledge base](#ibm-webmethods-knowledge-base)
-5. [Core concepts at a glance](#core-concepts-at-a-glance)
-6. [Interactive tools](#interactive-tools)
-7. [Agent-era patterns](#agent-era-patterns)
-8. [Market context](#market-context)
-9. [Getting started](#getting-started)
-10. [Project structure](#project-structure)
-11. [Editing content](#editing-content)
-12. [Testing](#testing)
-13. [Design principles](#design-principles)
-14. [Roadmap](#roadmap)
-15. [Contributing](#contributing)
-16. [Sources](#sources)
+5. [How to use IBM webMethods BPMS](#how-to-use-ibm-webmethods-bpms)
+6. [Core concepts at a glance](#core-concepts-at-a-glance)
+7. [Interactive tools](#interactive-tools)
+8. [Agent-era patterns](#agent-era-patterns)
+9. [Market context](#market-context)
+10. [Getting started](#getting-started)
+11. [Project structure](#project-structure)
+12. [Editing content](#editing-content)
+13. [Testing](#testing)
+14. [Design principles](#design-principles)
+15. [Roadmap](#roadmap)
+16. [Contributing](#contributing)
+17. [Sources](#sources)
 
 ---
 
@@ -47,6 +48,9 @@ Static HTML, CSS and JavaScript. No build step, no backend, no tracking. Open `i
 | Developers new to webMethods BPM | BPMN essentials, runtime components and where to find execution data |
 | Pre-sales and consultants | Worked cases, patterns and a repeatable method to find automation and agent opportunities in an existing estate |
 | Students of process automation | A hands-on simulator and quiz that connect BPMN diagrams to running instances |
+| **Beginners** | A 15-minute path through the site, plain-language explanations and a glossary |
+| **Customers and prospects** | A 10-minute guided demo that shows the value and depth of IBM webMethods BPMS |
+| **Business users, developers, analysts and operations** | Step-by-step *How to use* guides for their role, with official documentation links |
 
 No prior webMethods experience is assumed. Familiarity with basic workflow ideas helps.
 
@@ -70,7 +74,8 @@ After working through the site you should be able to:
 | --- | --- | --- | --- |
 | 0 | **Start here** | Six hands-on steps | Plain-language explainer for a general audience: before/after a BPMS, who owns which job, an agent decision guard with live policy sliders, the market clock, where the market really is, five ideas for the agent era |
 | 1 | **Overview** | Reading + family table | The core idea (process orchestrates, rules judge, people handle exceptions, agents propose) and IBM webMethods at a glance |
-| 1a | **Knowledge base** | Cited reference | Releases, Process Engine and QoS, execution history, Task Engine, Business Rules, design checklist — 35 cited facts |
+| 1a | **Knowledge base** | Cited reference | Releases, Process Engine and QoS, execution history, Task Engine, Business Rules, Rule Engine configuration, design checklist — 42 cited facts |
+| 1b | **How to use** | Step-by-step guides | Business user, process developer, business analyst, operations, plus a 10-minute customer demo script |
 | 2 | **Lifecycle** | Clickable stages + release table | Model → implement → build & upload → execute → monitor → optimize → govern; 10.15 support dates |
 | 3 | **Architecture** | Clickable component map | Designer, Process Engine (WmPRT), Task Engine, Process Engine DB, Process Audit DB, rules/ODM, Monitor/Optimize; `PRA_*` tables |
 | 4 | **BPMN** | Reference tables | Activities, gateways, events, pools and lanes |
@@ -79,8 +84,8 @@ After working through the site you should be able to:
 | 7 | **Simulator** | Interactive | Run a loan instance through a rule task and an underwriter task; watch audit-style log rows |
 | 8 | **Agent Scan Lab** | Interactive | Classify process steps from history; synthetic sample or your own CSV |
 | 9 | **Market** | Reading + sources | Analyst sizing range, Gartner BOAT, competitor signals, regulatory dates |
-| 10 | **Glossary** | Searchable | 23 terms, including QoS and Business Rules terms |
-| 11 | **Quiz** | 14 questions | Immediate feedback with explanations and a running score |
+| 10 | **Glossary** | Searchable | 33 terms, including QoS, Business Rules and day-to-day operation terms |
+| 11 | **Quiz** | 20 questions | Immediate feedback with explanations and a running score |
 
 Every section has its own URL fragment (for example `#simulator`), so you can link directly to it.
 
@@ -90,16 +95,16 @@ Every section has its own URL fragment (for example `#simulator`), so you can li
 
 | Feature | Detail |
 | --- | --- |
-| One page | 16 numbered sections, including the IBM webMethods knowledge base, with a table of contents, from "Why this matters" to sources |
+| One page | 17 numbered sections, including the IBM webMethods knowledge base and how-to guides, with a table of contents, from "Why this matters" to sources |
 | Five static diagrams | Architecture · where execution history lives · 2022–2028 timeline · agent decision guard · loan process in BPMN. Inline SVG, so they render without JavaScript |
-| Quiz | All 14 questions printed with options, then an answer key with explanations |
+| Quiz | All 20 questions printed with options, then an answer key with explanations |
 | Worked examples | The decision-guard policy applied to five cases; the simulator's audit log; the scan lab's synthetic result table |
 | Print-ready | Print stylesheet: no navigation, diagrams and tables kept on one page, source URLs printed. About 17 Letter pages |
 | Same content | Text is rendered from `js/content.js`, `js/knowledge.js` and `js/explainer.js`, so the reading and interactive versions never drift apart |
 
 ## IBM webMethods knowledge base
 
-The **Knowledge base** section (`#knowledge`, and section 3 of the reading version) is a cited reference on how IBM webMethods BPMS actually behaves. It has **6 topics and 35 facts, each linked to public IBM or Software AG documentation**, plus a practitioner note per topic.
+The **Knowledge base** section (`#knowledge`, and section 3 of the reading version) is a cited reference on how IBM webMethods BPMS actually behaves. It has **7 topics and 42 facts, each linked to public IBM or Software AG documentation**, plus a practitioner note per topic.
 
 | Topic | What you learn |
 | --- | --- |
@@ -108,9 +113,27 @@ The **Knowledge base** section (`#knowledge`, and section 3 of the reading versi
 | Execution history and audit | Process Engine DB versus Process Audit DB (`PRA_*` tables), logging levels, where task history lives in 10.15 |
 | Task Engine and human work | Inboxes on My webMethods Server, `getTaskAudit`, task archiving |
 | webMethods Business Rules | Rule projects, rule sets, decision tables, decision trees, event rules; Data/Service/Process actions; deploying to Integration Server and My webMethods Server |
+| Rule Engine configuration and Rule Tasks | Where the Rules Engine runs (WmBusinessRules), configuring a Rule Task, Process Aware tables, event rules and JMS triggers, Hot Deploy |
 | Practitioner design checklist | Ten checks for design reviews and upgrades |
 
 **IBM webMethods at a glance.** The Overview (and section 2 of the reading version) maps the family components you meet in a BPMS project: Integration Server, Designer, My webMethods Server, Process Engine, Task Engine, Business Rules, Universal Messaging, Monitor/Optimize and IBM webMethods Hybrid Integration. The Start page shows a **knowledge-at-a-glance** counter (topics, cited facts, components, sources, glossary terms, quiz questions).
+
+## How to use IBM webMethods BPMS
+
+The site is built first for **beginners and customers**, and for the **people who will use the product every day**.
+
+**New here? Take the 15-minute path:** Start here → Overview (IBM webMethods at a glance) → How to use → Simulator → Quiz. It's also listed at the top of the Start page.
+
+The **How to use** section (`#howto`, section 4 of the reading version) has step-by-step guides by role. Each step shows where to click in the product, what happens, and a link to the official documentation. Each guide ends with *how you'll know it worked* and a tip.
+
+| Role | Guide | Key steps |
+| --- | --- | --- |
+| Business user | Work your tasks in My webMethods | My Inbox → find the task → Accept → Submit / Complete → Delegate if needed |
+| Process developer | Model, build and switch on a process | Process Developer mode → draw the BPMN and implement steps (service, user task, rule task) → logging and QoS → Build and upload → **Enable for execution** → test in Monitor |
+| Business analyst | Change a business rule safely | Rule project in the My webMethods Server repository → open and lock → edit the decision table → verify → **Hot Deploy** (no process rebuild) |
+| Operations | Watch, fix and resubmit | Process Instances → Stop / Suspend / Resume → **Resubmit** (optionally after editing pipeline data) → Task List Management → permissions |
+
+**Customer demo script (10 minutes, author's view).** Six beats: what to click, what to say, and which customer question each beat answers. It runs from "why a process platform" through a safe AI agent and a live process run to "how fast can the business change a policy". Open it from the *Show a customer* tab, or from the link on the Start page.
 
 ## Core concepts at a glance
 
@@ -291,6 +314,7 @@ webmethods-bpms-academy/
 ├── js/
 │   ├── content.js      # course content and sources
 │   ├── knowledge.js    # IBM webMethods knowledge base: family, cited topics, extra glossary and quiz
+│   ├── howto.js        # How to use: role guides, beginner path, customer demo script
 │   ├── explainer.js    # "Start here" content (author's view items labelled)
 │   ├── explainer-app.js# "Start here" interactions: toggle, sorting game, decision guard, timeline
 │   └── read.js         # renders the reading version from the same content files
@@ -332,7 +356,7 @@ playwright install chromium
 python3 tests/smoke_test.py
 ```
 
-The test serves the site locally, opens every section at phone width (390 × 844), checks the IBM webMethods title, knowledge counter, family table and cited knowledge topics, exercises the Start-here interactions, runs the simulator to completion and the Agent Scan Lab on the synthetic sample, checks that `read.html` has five diagrams, a complete quiz and answer key and all sections filled, and fails on any JavaScript error.
+The test serves the site locally, opens every section at phone width (390 × 844), checks the IBM webMethods title, knowledge counter, family table and cited knowledge topics, the beginner path and every how-to guide and the demo script, exercises the Start-here interactions, runs the simulator to completion and the Agent Scan Lab on the synthetic sample, checks that `read.html` has five diagrams, a complete quiz and answer key and all sections filled, and fails on any JavaScript error.
 
 ## Design principles
 
@@ -362,6 +386,16 @@ Issues and pull requests are welcome. Please keep changes small, cite public sou
 - [Task Engine `getTaskAudit`](https://documentation.softwareag.com/webmethods/task_engine/wtn10-7/10-7_Task_Engine_webhelp/task-engine-webhelp/te_web_taskaudit.html)
 - [Task audit logging into Process Audit disabled by default — IBM 10.15 docs](https://www.ibm.com/docs/en/SSHZPA_10.15.0/te_users_guide/co-disable_enable_task_logging_in_processes.html)
 - [Task archiving](https://documentation.softwareag.com/webmethods/compendiums/v10-7/C_Digital_Event_Comm/intsagdes-compendium/co-about-task-archiving.html)
+
+**How to use (day-to-day operation)**
+Every step in the site links to its source; the main ones:
+- [About My Inbox (Task Engine)](https://documentation.softwareag.com/webmethods/compendiums/v10-5/C_Run_BPs_and_CAs/runbpca-compendium/co-about_my_inbox.html)
+- [Accepting a task](https://documentation.softwareag.com/webmethods/compendiums/v10-3/C_Run_BPs_and_CAs/runbpca-compendium/co-accepting_a_task.html)
+- [Enabling and disabling process model versions (Monitor)](https://documentation.softwareag.com/webmethods/monitor/wmn10-3/10-3_Monitor_webhelp/monitor-webhelp/to-process_models_24.html)
+- [Build and upload preferences (Designer 10.5)](https://documentation.softwareag.com/webmethods/designer/sdf10-5/10-5_sdf-webhelp/sdf-webhelp/proc.configuring.build.and.upload.preferences.html)
+- [Hot deploying a rule project](https://documentation.softwareag.com/webmethods/compendiums/v10-4/C_Digital_Event_Comm/intsagdes-compendium/ta-hot_deploy_decent.html)
+- [About resubmitting process instances and steps (Monitor 10.7)](https://documentation.softwareag.com/webmethods/monitor/wmn10-7/10-7_Monitor_webhelp/wmn-webhelp/to-processes_25.html)
+- [Stopping, suspending or resuming a process instance (Monitor 10.7)](https://documentation.softwareag.com/webmethods/monitor/wmn10-7/10-7_Monitor_webhelp/wmn-webhelp/to-processes_23.html)
 
 **Process Engine, Business Rules and releases**
 - [Tuning Process Engine performance and quality of service](https://documentation.softwareag.com/webmethods/compendiums/v10-3/C_Run_BPs_and_CAs/runbpca-compendium/to-concepts_2.html)

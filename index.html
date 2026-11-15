@@ -19,6 +19,7 @@
   <button data-section="start">Start here</button>
   <button data-section="overview">Overview</button>
   <button data-section="knowledge">Knowledge base</button>
+  <button data-section="howto">How to use</button>
   <button data-section="lifecycle">Lifecycle</button>
   <button data-section="architecture">Architecture</button>
   <button data-section="bpmn">BPMN</button>
@@ -36,6 +37,13 @@
       <h2>What is this, and why should anyone care?</h2>
       <p class="lead">Every organisation runs processes — approvals, claims, onboarding, shipment exceptions. A <strong>BPMS</strong> is the software that makes those processes run on rails: it routes the work, applies the rules, puts tasks in front of the right people, and records what happened. Now AI agents are arriving, and they need exactly those rails. Six short, hands-on steps explain why.</p>
       <p class="byline">Written by <strong>Daniel Yuanpeng Xu</strong>, a product manager who has worked on business-process and decision-automation products. Sections marked <span class="pill">Author's view</span> are personal opinions, not the position of any employer or vendor.</p>
+    </div>
+
+    <div class="card beginner">
+      <h3>New here? Your 15-minute path</h3>
+      <p>Follow these five stops in order. No webMethods experience needed.</p>
+      <ol class="path" id="beginner-path"></ol>
+      <p class="sources">Showing this to a customer? Use the <a href="#howto" data-demo="1">10-minute demo script</a>.</p>
     </div>
 
     <div class="card">
@@ -133,6 +141,16 @@
     <div id="kb-topics"></div>
   </section>
 
+  <section id="howto" class="section">
+    <div class="card">
+      <h2>How to use IBM webMethods BPMS</h2>
+      <p class="lead">Step-by-step guides for the people who work with the product every day. Pick your role. Each guide ends with how to check it worked and links to the official documentation.</p>
+      <div class="row" id="howto-tabs"></div>
+      <p class="sources">Menu paths follow public Software AG / IBM documentation; labels can differ slightly by version.</p>
+    </div>
+    <div id="howto-body"></div>
+  </section>
+
   <section id="lifecycle" class="section">
     <div class="card"><h2>Process lifecycle</h2><p>Click a stage.</p><div class="grid" id="lifecycle-steps"></div><div id="lifecycle-detail"></div></div>
     <div class="card"><h3>Release lifecycle you should know</h3><div class="table-wrap"><table id="dates"></table></div>
@@ -209,6 +227,7 @@
 <footer>Created by <strong>Daniel Yuanpeng Xu</strong> · © 2026 · independent learning resource · not affiliated with IBM · <a href="read.html">reading version</a> · <a href="https://github.com/Xudaniel/webmethods-bpms-academy">source on GitHub</a></footer>
 <script src="js/content.js"></script>
 <script src="js/knowledge.js"></script>
+<script src="js/howto.js"></script>
 <script src="js/explainer.js"></script>
 <script src="js/explainer-app.js"></script>
 <script src="js/app.js"></script>

@@ -91,7 +91,7 @@ window.KNOWLEDGE = {
         "Advanced Rule Task properties (Process Developer mode) include Integration Server Name, Allow Parallel Execution, and Compensating marker."
       ],
       practice: "Design rule outputs as clear enumerations (APPROVE / REFER / REJECT). Keep Rules Engine on a dedicated or horizontally scalable IS node in production. Combine process audit (path & timing) with rule decision logs (inputs & outcome) for full explainability.",
-      sources: [21, 22, 23]
+      sources: [21, 22, 23, 24, 25, 26]
     },
     {
       id: "checklist", title: "Practitioner design checklist",
@@ -163,6 +163,9 @@ window.KNOWLEDGE = {
     18: ["Rules Development overview (Designer 10.7)", "https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/co-intro_business_rules.html"],
     21: ["Using IBM webMethods BPM Business Rules in Processes (Process Engine 12.1)", "https://www.ibm.com/docs/en/webmethods-bpm/wmpe/12.1.0?topic=rules-using-webmethods-bpm-business-in-processes"],
     22: ["Configuring Rule Tasks (Process Engine 12.1)", "https://www.ibm.com/docs/en/webmethods-bpm/wmpe/12.1.0?topic=steps-configuring-rule-tasks"],
+    24: ["Configuring rule tasks: event rules need a JMS trigger (Designer 10.7)", "https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/proc.configuring.rule.tasks.html"],
+    25: ["About decision tables: process-aware for manual decisions (Designer 10.7)", "https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/proc.about.decision.tables.html"],
+    26: ["Hot deploying rule projects to Integration Server (WmBusinessRules)", "https://documentation.softwareag.com/webmethods/compendiums/v10-3/C_Digital_Event_Comm/intsagdes-compendium/co-about_hot_deployment.html"],
     23: ["Hot Deploying Rule Projects to Integration Server", "https://www.ibm.com/docs/en/webmethods-bpm/wbr/10.7.0?topic=webmethods-hot-deploying-rule-projects-integration-server"]
   }
 };
