@@ -7,7 +7,7 @@ Usage:  pip install playwright && playwright install chromium
 import asyncio, functools, http.server, sys, threading
 from playwright.async_api import async_playwright
 
-SECTIONS = ["start", "overview", "knowledge", "howto", "lab", "trouble", "teach", "lifecycle", "architecture", "bpmn", "patterns", "cases",
+SECTIONS = ["start", "overview", "knowledge", "howto", "lab", "decisions", "trouble", "teach", "lifecycle", "architecture", "bpmn", "patterns", "cases",
             "simulator", "scan", "market", "glossary", "quiz"]
 
 class QuietHandler(http.server.SimpleHTTPRequestHandler):
@@ -171,6 +171,20 @@ async def main():
         await page.wait_for_timeout(300)
         if await page.evaluate("location.hash") != "#trouble" or not await page.evaluate("document.querySelector('#trouble details.dg-more').open"):
             failures.append("map 'Enable' box should open the won't-start flowchart")
+        # Hotfix (issue #41): index.html must be the real page, and the Decision lab must work
+        html = open("index.html", encoding="utf-8").read()
+        if len(html) < 10000 or "$(cat" in html:
+            failures.append("index.html looks truncated or overwritten")
+        await page.evaluate("location.hash='decisions'")
+        await page.wait_for_timeout(100)
+        await page.click("#dt-run")
+        if "REFER" not in await page.inner_text("#dt-result"):
+            failures.append("decision table lab should refer a 690 score")
+        await page.click("#ag-run")
+        if "Hot Deploy" not in await page.inner_text("#ag-log"):
+            failures.append("agility comparison did not run")
+        if await page.locator("#rules-pitfalls tr").count() < 6:
+            failures.append("rules pitfalls table missing")
         # Plain words and Beginner mode (issue #38)
         await page.evaluate("location.hash='lab'")
         await page.wait_for_timeout(150)
@@ -187,7 +201,7 @@ async def main():
         await page.click("#bm-toggle")
         if await page.is_visible("nav button[data-section=market]") or not await page.is_visible("#lab .plain-box"):
             failures.append("Beginner mode should hide advanced tabs and show plain-words boxes")
-        if "Troubleshooting" not in await page.inner_text("#lab .prevnext") or "Teach" in await page.inner_text("#trouble .prevnext"):
+        if "Decision lab" not in await page.inner_text("#lab .prevnext") or "Teach" in await page.inner_text("#trouble .prevnext"):
             failures.append("Beginner mode previous/next should skip advanced sections")
         await page.click("#bm-toggle")
         if not await page.is_visible("nav button[data-section=market]"):

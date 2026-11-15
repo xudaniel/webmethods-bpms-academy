@@ -1,1 +1,312 @@
-$(cat /tmp/index.html)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0f62fe">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="BPMS Academy">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>IBM webMethods BPMS Academy — interactive course</title>
+<meta name="author" content="Daniel Yuanpeng Xu">
+<meta name="description" content="IBM webMethods BPMS Academy by Daniel Yuanpeng Xu — independent interactive course and cited knowledge base on IBM webMethods BPMS (Process Engine, Task Engine, Business Rules): architecture, BPMN, decision automation patterns, agent-era patterns, and market context from public sources.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230f62fe'/%3E%3Cpath d='M7 16h6l3-6 3 12 3-6h3' stroke='white' stroke-width='2.5' fill='none'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header>
+  <h1>IBM webMethods BPMS Academy</h1>
+  <p>A cited knowledge base and interactive course on IBM webMethods BPMS — Process Engine, Task Engine, Business Rules, BPMN and agent-era patterns. Public sources only.</p>
+  <p style="font-size:.85rem;opacity:.85">by Daniel Yuanpeng Xu · <a href="read.html" style="color:#fff">Prefer to just read? Reading version →</a></p>
+</header>
+<nav aria-label="Sections">
+  <button data-section="start">Start here</button>
+  <button data-section="overview">Overview</button>
+  <button data-section="knowledge">Knowledge base</button>
+  <button data-section="howto">How to use</button>
+  <button data-section="lab">Hands-on lab</button>
+  <button data-section="decisions">Decision lab</button>
+  <button data-section="trouble">Troubleshooting</button>
+  <button data-section="teach">Teach a class</button>
+  <button data-section="lifecycle">Lifecycle</button>
+  <button data-section="architecture">Architecture</button>
+  <button data-section="bpmn">BPMN</button>
+  <button data-section="patterns">Patterns</button>
+  <button data-section="cases">Cases</button>
+  <button data-section="simulator">Simulator</button>
+  <button data-section="scan">Agent Scan Lab</button>
+  <button data-section="market">Market</button>
+  <button data-section="glossary">Glossary</button>
+  <button data-section="quiz">Quiz</button>
+</nav>
+<main>
+  <section id="start" class="section">
+    <div class="card">
+      <h2>What is this, and why should anyone care?</h2>
+      <p class="lead">Every organisation runs processes — approvals, claims, onboarding, shipment exceptions. A <strong>BPMS</strong> is the software that makes those processes run on rails: it routes the work, applies the rules, puts tasks in front of the right people, and records what happened. Now AI agents are arriving, and they need exactly those rails. Six short, hands-on steps explain why.</p>
+      <p class="byline">Written by <strong>Daniel Yuanpeng Xu</strong>, a product manager who has worked on business-process and decision-automation products. Sections marked <span class="pill">Author's view</span> are personal opinions, not the position of any employer or vendor.</p>
+    </div>
+
+    <div class="card beginner" id="path-card">
+      <h3>👋 Who are you? Get your own path</h3>
+      <p>Pick one. You'll get 3–5 steps instead of 17 sections, and each step ticks itself off as you go.</p>
+      <div class="role-chips" id="role-chips" role="radiogroup" aria-label="Choose your role"></div>
+      <p class="path-intro" id="path-intro"></p>
+      <ol class="path" id="beginner-path"></ol>
+      <p class="sources">Have a webMethods development environment? Do the <a href="#lab">30-minute hands-on lab</a>. Showing this to a customer? Use the <a href="#howto" data-demo="1">10-minute demo script</a>.</p>
+    </div>
+
+    <div class="card" id="map-card">
+      <h3>🗺️ IBM webMethods BPMS in one picture</h3>
+      <p>Follow a process from drawing board to audit trail. <strong>Tap any box</strong> to jump to the guide for that step.</p>
+      <div id="bpms-map"></div>
+    </div>
+
+    <details class="card phone" id="phone-guide">
+      <summary><strong>📱 On your phone? Save it as an app</strong> <small>Home Screen, offline, finding your way</small></summary>
+      <div id="phone-guide-body"></div>
+      <div class="qr-box"><img src="assets/qr-site.png" alt="QR code linking to xudaniel.github.io/webmethods-bpms-academy" width="132" height="132"><p>On a laptop? Scan this with your phone camera to open the academy there.</p></div>
+    </details>
+
+    <div class="card">
+      <h3>IBM webMethods knowledge at a glance</h3>
+      <div class="grid" id="kb-counter"></div>
+      <p class="sources">Every fact in the knowledge base links to public IBM or Software AG documentation. <a href="#knowledge">Open the knowledge base →</a></p>
+    </div>
+
+    <div class="card">
+      <h3>1 · One request, two worlds</h3>
+      <div class="row" id="ex-toggle"><button class="tile" data-mode="without"><strong>Without a BPMS</strong></button><button class="tile" data-mode="with"><strong>With a BPMS</strong></button></div>
+      <div id="ex-story"></div>
+    </div>
+
+    <div class="card">
+      <h3>2 · Who should own each job?</h3>
+      <p>Pick an owner for each piece of work. <span class="mono">Process</span> moves work, <span class="mono">Rules</span> decide, <span class="mono">People</span> judge exceptions, <span class="mono">Agent</span> reads and proposes.</p>
+      <p id="ex-sort-score" class="lead">0 / 0 right</p>
+      <div id="ex-sort"></div>
+    </div>
+
+    <div class="card">
+      <h3>3 · Agents need a rulebook <span class="pill">Author's view</span></h3>
+      <p>An AI agent reads delay reports and proposes a customer credit. It never pays on its own: a rule decides <em>allow</em>, <em>refer to a person</em> or <em>deny</em>, and every decision is logged with the rule version. Change the policy and watch the outcomes and the log.</p>
+      <label>Auto-approve limit: <strong id="ex-limit-v"></strong><input type="range" id="ex-limit" min="100" max="3000" step="50" value="500"></label>
+      <label>Minimum delay for any credit: <strong id="ex-mindelay-v"></strong><input type="range" id="ex-mindelay" min="0" max="24" step="1" value="4"></label>
+      <div class="row"><label><input type="checkbox" id="ex-key" checked> Key accounts get double the auto limit</label></div>
+      <div id="ex-guard"></div>
+      <div class="log" id="ex-guard-log"></div>
+      <p class="sources">The agent is good at reading and proposing; the rules hold the money limits; people handle what the rules refer. That split is what makes agent decisions explainable to an auditor.</p>
+    </div>
+
+    <div class="card">
+      <h3>4 · The clock that drives this market</h3>
+      <p>Click a date. Upgrade deadlines and regulation, more than technology fashion, decide when organisations re-evaluate their process platforms.</p>
+      <div class="grid" id="ex-timeline"></div><div id="ex-timeline-detail"></div>
+    </div>
+
+    <div class="card">
+      <h3>5 · Where the market really is <span class="pill">Author's view</span></h3>
+      <p>Tap each layer to reveal it.</p>
+      <div id="ex-market"></div>
+    </div>
+
+    <div class="card">
+      <h3>6 · Five ideas for the agent era <span class="pill">Author's view</span></h3>
+      <div id="ex-ideas"></div>
+    </div>
+
+    <div class="card">
+      <h3>Go deeper</h3>
+      <div class="grid">
+        <button class="tile" onclick="location.hash='architecture'"><strong>How it's built</strong><small>Engines, databases, audit tables</small></button>
+        <button class="tile" onclick="location.hash='simulator'"><strong>Run a process</strong><small>Loan with rules and a human task</small></button>
+        <button class="tile" onclick="location.hash='scan'"><strong>Find agent candidates</strong><small>Score process history</small></button>
+        <button class="tile" onclick="location.hash='quiz'"><strong>Test yourself</strong><small id="quiz-count-tile">Quiz</small></button>
+      </div>
+    </div>
+  </section>
+
+  <section id="overview" class="section">
+    <div class="card">
+      <h2>What is a BPMS?</h2>
+      <p class="lead">A Business Process Management Suite turns a process drawn in BPMN into running, observable automation: systems are called automatically, people get tasks in an inbox, decisions come from rules, and every step leaves an audit trail.</p>
+      <p>IBM webMethods BPMS (part of IBM since the 2024 acquisition of webMethods from Software AG) combines <strong>Designer</strong>, the <strong>Process Engine</strong> inside Integration Server, the <strong>Task Engine</strong> on My webMethods Server, <strong>Business Rules</strong>, and <strong>Monitor/Optimize</strong>. It is commonly paired with <strong>IBM ODM</strong> for governed decisions.</p>
+    </div>
+    <div class="card">
+      <h3>IBM webMethods at a glance</h3>
+      <p>BPMS is one part of the IBM webMethods integration family. These are the pieces you meet in a BPMS project.</p>
+      <div class="table-wrap"><table id="kb-family"></table></div>
+      <p class="sources" id="kb-family-src"></p>
+    </div>
+    <div class="card">
+      <h3>The one idea to remember</h3>
+      <p><strong>The process owns orchestration; rules own judgment; people own exceptions.</strong> In the agent era a fourth role appears: <strong>agents propose</strong> — reading documents, drafting actions — while rules and people stay accountable.</p>
+    </div>
+    <div class="card">
+      <h3>How to use this site</h3>
+      <div class="grid">
+        <button class="tile" onclick="location.hash='architecture'"><strong>Learn the parts</strong><small>Architecture, lifecycle, BPMN</small></button>
+        <button class="tile" onclick="location.hash='simulator'"><strong>Run a process</strong><small>Step a loan through rules and a human task</small></button>
+        <button class="tile" onclick="location.hash='scan'"><strong>Find agent candidates</strong><small>Score process history in the browser</small></button>
+        <button class="tile" onclick="location.hash='market'"><strong>See the market</strong><small>Where orchestration spending goes</small></button>
+      </div>
+    </div>
+    <p class="callout">Independent learning resource. Not an official IBM site and not affiliated with or endorsed by IBM. Product names are trademarks of their owners. All facts come from public sources listed under Market and in the README; no customer or internal data is used.</p>
+  </section>
+
+  <section id="knowledge" class="section">
+    <div class="card">
+      <h2>IBM webMethods BPMS knowledge base</h2>
+      <p class="lead">What practitioners need to know about how IBM webMethods BPMS actually behaves: releases, the Process Engine and its quality-of-service settings, execution history, the Task Engine, Business Rules, and a design checklist. Every topic cites public documentation.</p>
+      <div class="row" id="kb-tabs"></div>
+    </div>
+    <div id="kb-topics"></div>
+  </section>
+
+  <section id="howto" class="section">
+    <div class="card">
+      <h2>How to use IBM webMethods BPMS</h2>
+      <p class="lead">Step-by-step guides for the people who work with the product every day. Pick your role. Each guide ends with how to check it worked and links to the official documentation.</p>
+      <div class="row" id="howto-tabs"></div>
+      <p class="sources">Menu paths follow public Software AG / IBM documentation; labels can differ slightly by version.</p>
+    </div>
+    <div id="howto-body"></div>
+  </section>
+
+  <section id="lab" class="section">
+    <div class="card">
+      <h2>Hands-on lab: <span id="lab-title"></span></h2>
+      <p class="lead" id="lab-scenario"></p>
+      <ol class="lab-flow" id="lab-flow"></ol>
+      <div class="lab-progress"><div class="bar"><span id="lab-bar"></span></div><span id="lab-count"></span> <button class="link" id="lab-reset" type="button">Reset</button></div>
+      <h3>Before you start</h3>
+      <ul id="lab-prereqs"></ul>
+      <p class="sources">Use a development environment, never production. Menu labels follow public Software AG / IBM documentation and can differ slightly by version. Your progress is saved only in this browser.</p>
+    </div>
+    <div id="lab-stages"></div>
+    <div class="card"><h3>Stuck? Common pitfalls</h3><div class="table-wrap"><table id="lab-pitfalls"></table></div></div>
+    <div class="card"><h3>No environment? Practise here</h3><ul id="lab-practice"></ul><p class="callout"><strong>Level up:</strong> <span id="lab-levelup"></span></p></div>
+  </section>
+
+  <section id="decisions" class="section">
+    <div class="card"><h2>Decision lab: rules you can change</h2>
+      <p class="lead">A rule task asks a question and the rules answer it. Change the thresholds below, test an application, then compare changing a rule with changing the process.</p></div>
+    <div class="card" id="decision-table-lab"></div>
+    <div class="card" id="agility-compare"></div>
+    <div class="card" id="rules-pitfalls"></div>
+  </section>
+
+  <section id="trouble" class="section">
+    <div class="card">
+      <h2>Troubleshooting</h2>
+      <p class="lead">Something not working? Find the symptom, check the likely causes, then apply the fix. Every entry links to the official documentation.</p>
+      <input type="search" id="tr-search" placeholder="Search symptoms, e.g. 'inbox', 'Hot Deploy', 'resubmit'" aria-label="Search troubleshooting">
+      <div class="row" id="tr-areas"></div>
+      <p class="sources" id="tr-count"></p>
+    </div>
+    <div id="tr-list"></div>
+  </section>
+
+  <section id="teach" class="section">
+    <div class="card">
+      <h2>Teach a class <span class="pill">Author's view</span></h2>
+      <p class="lead" id="teach-title"></p>
+      <p id="teach-audience"></p>
+      <div class="table-wrap"><table id="teach-agenda"></table></div>
+    </div>
+    <div class="card"><h3>Print before the class</h3><ul id="teach-print"></ul></div>
+    <div class="card"><h3>Facilitator tips</h3><ul id="teach-tips"></ul></div>
+  </section>
+
+  <section id="lifecycle" class="section">
+    <div class="card"><h2>Process lifecycle</h2><p>Click a stage.</p><div class="grid" id="lifecycle-steps"></div><div id="lifecycle-detail"></div></div>
+    <div class="card"><h3>Release lifecycle you should know</h3><div class="table-wrap"><table id="dates"></table></div>
+      <p class="sources">Upgrade deadlines are when customers re-evaluate platforms. Source: IBM webMethods support lifecycle page.</p></div>
+  </section>
+
+  <section id="architecture" class="section">
+    <div class="card"><h2>Architecture</h2><p>Click a component.</p><div class="grid" id="arch-grid"></div><div id="arch-detail"></div></div>
+    <div class="card"><h3>Process Audit tables (where history lives)</h3><div class="table-wrap"><table><tr><th>Table</th><th>What it holds</th></tr><tbody id="audit-tables"></tbody></table></div>
+      <p class="sources">What gets written depends on the logging level set per process. Human-task history in 10.15 comes from the Task Engine audit, not these tables, unless task logging is switched on.</p></div>
+  </section>
+
+  <section id="bpmn" class="section"><div class="card"><h2>BPMN essentials</h2><div id="bpmn-groups"></div></div></section>
+
+  <section id="patterns" class="section">
+    <div class="card"><h2>Patterns</h2>
+      <div class="row"><label for="pattern-filter">Show</label>
+        <select id="pattern-filter"><option value="all">All patterns</option><option value="classic">Classic</option><option value="agent era">Agent era</option></select></div></div>
+    <div id="pattern-list"></div>
+  </section>
+
+  <section id="cases" class="section"><div class="card"><h2>Worked cases</h2><p>Each case shows the flow and the design lesson.</p></div><div id="case-list"></div></section>
+
+  <section id="simulator" class="section">
+    <div class="card"><h2>Loan process simulator</h2>
+      <p>Set the application, start an instance and step through it. The rule task decides <em>approve</em>, <em>decline</em> or <em>refer</em>; only referrals go to a person. The log shows the kind of rows the Process Audit database would hold.</p>
+      <div class="row">
+        <label>Loan amount <input type="number" id="sim-amount" value="40000" min="1000" step="1000"></label>
+        <label>Credit score <input type="number" id="sim-score" value="690" min="300" max="850"></label>
+        <label>Annual income <input type="number" id="sim-income" value="90000" min="1000" step="1000"></label>
+      </div>
+      <div class="row"><button class="btn" id="sim-start">Start instance</button><button class="btn secondary" id="sim-next" disabled>Next step</button></div>
+      <div class="steps" id="sim-steps"></div>
+      <div class="row" id="sim-human" style="display:none"><strong>Underwriter task in inbox:</strong>
+        <button class="btn" data-v="APPROVE">Approve</button><button class="btn secondary" data-v="DECLINE">Decline</button></div>
+      <div class="log" id="sim-log"></div>
+      <p class="sources">Rules used: score &lt; 580 → decline; score ≥ 720 and loan/income ≤ 35% → approve; otherwise refer. Illustrative only.</p>
+    </div>
+  </section>
+
+  <section id="scan" class="section">
+    <div class="card"><h2>Agent Scan Lab</h2>
+      <p>Years of BPMS history show where people approve almost everything, wait long, or repeat the same decision. This lab scores each step and classifies it as an <strong>ODM rule candidate</strong>, an <strong>agent candidate</strong>, <strong>keep human</strong> or an <strong>integration fix</strong>. Everything runs in your browser; nothing is uploaded.</p>
+      <div class="row"><button class="btn" id="scan-sample">Run on synthetic logistics data</button>
+        <label class="btn secondary" for="scan-file">Load your CSV…</label><input type="file" id="scan-file" accept=".csv" style="display:none"></div>
+      <details><summary>CSV format</summary>
+        <p>One row per completed step instance: <code>process, step, step_type, start_ts, end_ts, wait_min, work_min, outcome, input_key, loop_count, error</code>. <code>step_type</code> is <code>user_task</code>, <code>service</code> or <code>gateway</code>. <code>input_key</code> is a hash of the business fields that drive the decision. Typical sources: <code>PRA_PROCESS_STEP</code> and <code>PRA_STEP_LOGGED_FIELD</code> for steps, the Task Engine audit for user tasks. Use anonymised exports only.</p>
+        <p>Rules: determinism ≥ 80% → rule candidate; ≥ 90% one outcome and ≤ 15 min work → agent (rubber-stamp); wait ≥ 24 h and ≥ 70% one outcome → agent (triage + human approve); service error ≥ 5% → integration fix.</p>
+      </details>
+      <div id="scan-out"></div>
+      <p class="sources">Synthetic data is generated to contain these patterns, so the sample result only shows how the method works.</p>
+    </div>
+  </section>
+
+  <section id="market" class="section">
+    <div class="card"><h2>Where the market is going</h2>
+      <h3>Analyst sizes disagree</h3>
+      <div class="table-wrap"><table><tr><th>Firm</th><th>BPM market</th><th>Outlook</th></tr><tbody id="market-sizing"></tbody></table></div>
+      <h3>Signals (2026)</h3><ul id="market-signals"></ul>
+      <h3>Takeaways</h3><ul id="market-takeaways"></ul>
+    </div>
+    <div class="card"><h3>Sources</h3><ol class="sources" id="source-list"></ol></div>
+  </section>
+
+  <section id="glossary" class="section">
+    <div class="card"><h2>Glossary</h2><input type="text" id="glossary-search" placeholder="Search terms…" style="width:100%;margin-bottom:.6rem">
+      <div class="table-wrap"><table id="glossary-list"></table></div></div>
+  </section>
+
+  <section id="quiz" class="section">
+    <div class="card"><h2>Knowledge check</h2><p id="quiz-score">Score: 0 / 0</p><div id="quiz-list"></div></div>
+  </section>
+</main>
+<footer>Created by <strong>Daniel Yuanpeng Xu</strong> · <a href="https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.2.0" id="version">v1.2.0</a> · © 2026 · independent learning resource · not affiliated with IBM · <a href="read.html">reading version</a> · <a href="https://github.com/Xudaniel/webmethods-bpms-academy">source on GitHub</a></footer>
+<script src="js/content.js"></script>
+<script src="js/knowledge.js"></script>
+<script src="js/howto.js"></script>
+<script src="js/lab.js"></script>
+<script src="js/support.js"></script>
+<script src="js/explainer.js"></script>
+<script src="js/explainer-app.js"></script>
+<script src="js/app.js"></script>
+<script src="js/decision-lab.js"></script>
+<script src="js/mobile.js"></script>
+<script src="js/diagrams.js"></script>
+<script src="js/fun.js"></script>
+<script src="js/path.js"></script>
+<script src="js/words.js"></script>
+</body>
+</html>
