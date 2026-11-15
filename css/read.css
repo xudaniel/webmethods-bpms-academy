@@ -49,3 +49,4 @@ dl dd { margin: 0 0 .3rem 0; color: var(--muted); }
 
 .ticks { list-style: none; padding-left: .2rem; }
 .ticks li { margin: .35rem 0; }
+nav.toc { background: var(--card); }

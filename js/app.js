@@ -4,9 +4,9 @@
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
   // ---------- navigation (hash-aware so sections can be linked) ----------
-  const navBtns = document.querySelectorAll("nav button");
+  const navBtns = document.querySelectorAll("nav button[data-section]");
   function show(id) {
-    if (!$(id)) id = "start";
+    if (!$(id) || !$(id).classList.contains("section")) id = "start";
     navBtns.forEach((b) => b.classList.toggle("active", b.dataset.section === id));
     document.querySelectorAll(".section").forEach((s) => s.classList.toggle("active", s.id === id));
     if (location.hash !== "#" + id) history.replaceState(null, "", "#" + id);
@@ -342,10 +342,10 @@
         (!q || [t.s, t.fix, t.where].concat(t.check).join(" ").toLowerCase().includes(q)));
       document.querySelectorAll("#tr-areas .tile").forEach((b) => b.classList.toggle("selected", b.dataset.area === area));
       $("tr-count").textContent = `${items.length} of ${S.trouble.length} problems shown`;
-      $("tr-list").innerHTML = items.map((t) => `<div class="card trouble"><span class="pill">${esc(t.area)}</span>
-        <h3>${esc(t.s)}</h3><p><strong>Check first</strong></p><ul>${t.check.map((c) => `<li>${esc(c)}</li>`).join("")}</ul>
+      $("tr-list").innerHTML = items.map((t) => `<details class="card trouble"${q ? " open" : ""}><summary><span class="pill">${esc(t.area)}</span>
+        <h3>${esc(t.s)}</h3></summary><p><strong>Check first</strong></p><ul>${t.check.map((c) => `<li>${esc(c)}</li>`).join("")}</ul>
         <p class="callout ok"><strong>Fix:</strong> ${esc(t.fix)}</p><div class="where">${esc(t.where)}</div>
-        <p class="sources">Source: ${t.src.map(sl).filter(Boolean).join(" · ")}</p></div>`).join("") ||
+        <p class="sources">Source: ${t.src.map(sl).filter(Boolean).join(" · ")}</p></details>`).join("") ||
         `<div class="card"><p>No match. Try another word, or <a href="https://github.com/Xudaniel/webmethods-bpms-academy/issues/new" target="_blank" rel="noopener">ask for a new entry</a>.</p></div>`;
     }
     $("tr-search").addEventListener("input", renderTrouble);

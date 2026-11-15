@@ -117,6 +117,39 @@ async def main():
         await page.click("#scan-sample")
         if "Rule candidate" not in await page.inner_text("#scan-out"):
             failures.append("scan lab produced no rule candidate")
+        # Mobile experience (issues #24, #25): menu, previous/next, back to top, phone guide, no overflow at 360 px
+        if "Add to Home Screen" not in await page.inner_text("#phone-guide-body"):
+            failures.append("phone guide missing iPhone steps")
+        await page.click("#menu-btn")
+        if not await page.is_visible("#menu-sheet"):
+            failures.append("sections menu did not open")
+        await page.click("#menu-sheet [data-goto=lab]")
+        await page.wait_for_timeout(150)
+        if await page.is_visible("#menu-sheet") or not await page.is_visible("#lab"):
+            failures.append("sections menu did not navigate")
+        n_sections = await page.locator("main > .section").count()
+        if await page.locator(".prevnext").count() != n_sections:
+            failures.append("every section should end with previous/next")
+        await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+        await page.wait_for_timeout(300)
+        if "show" not in (await page.get_attribute(".fab", "class") or ""):
+            failures.append("back-to-top button did not appear")
+        small = await browser.new_page(viewport={"width": 360, "height": 740})
+        small.on("pageerror", lambda e: errors.append("360px: " + str(e)))
+        await small.goto("http://127.0.0.1:8765/index.html")
+        for s2 in SECTIONS:
+            await small.evaluate(f"location.hash = '{s2}'")
+            await small.wait_for_timeout(60)
+            if await small.evaluate("document.documentElement.scrollWidth - innerWidth") > 0:
+                failures.append(f"horizontal overflow at 360 px in {s2}")
+        await small.close()
+        import json, os
+        man = json.load(open("manifest.webmanifest"))
+        for ic in man["icons"]:
+            if not os.path.exists(ic["src"]):
+                failures.append(f"manifest icon missing: {ic['src']}")
+        if not os.path.exists("sw.js"):
+            failures.append("service worker missing")
         # Reading version (issue #5): all text rendered, five diagrams, quiz + key
         page2 = await browser.new_page(viewport={"width": 390, "height": 844})
         page2.on("pageerror", lambda e: errors.append("read.html: " + str(e)))
