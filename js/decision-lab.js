@@ -1,7 +1,7 @@
 // Interactive decision lab: decision table, pitfalls, agility comparison
 (function () {
   const $ = (id) => document.getElementById(id);
-  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({"&": "&", "<": "<", ">": ">", '"': """, "'": "&#39;"}[c]));
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
   // ---------- 1. Interactive Decision Table ----------
   function initDecisionTable() {

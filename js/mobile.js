@@ -2,7 +2,7 @@
 window.PHONE = {
   groups: [
     ["Start", [["start", "Start here", "What a BPMS is, in six hands-on steps"], ["overview", "Overview", "IBM webMethods at a glance"]]],
-    ["Do", [["howto", "How to use", "Step-by-step guides by role"], ["lab", "Hands-on lab", "Your first process in 30 minutes"], ["trouble", "Troubleshooting", "Symptom → cause → fix"], ["simulator", "Simulator", "Run a loan process"], ["scan", "Agent Scan Lab", "Find rule and agent candidates"], ["quiz", "Quiz", "Test yourself"]]],
+    ["Do", [["howto", "How to use", "Step-by-step guides by role"], ["lab", "Hands-on lab", "Your first process in 30 minutes"], ["decisions", "Decision lab", "Change a rule, test it, see why"], ["trouble", "Troubleshooting", "Symptom → cause → fix"], ["simulator", "Simulator", "Run a loan process"], ["scan", "Agent Scan Lab", "Find rule and agent candidates"], ["quiz", "Quiz", "Test yourself"]]],
     ["Learn", [["knowledge", "Knowledge base", "Cited facts on how it behaves"], ["architecture", "Architecture", "Engines, databases, audit tables"], ["lifecycle", "Lifecycle", "Process stages and release dates"], ["bpmn", "BPMN", "Notation essentials"], ["patterns", "Patterns", "Classic and agent-era patterns"], ["cases", "Cases", "Worked examples"], ["market", "Market", "Where the market is going"], ["glossary", "Glossary", "Searchable terms"]]],
     ["Teach", [["teach", "Teach a class", "Half-day workshop plan"]]]
   ],

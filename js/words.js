@@ -48,6 +48,7 @@ window.WORDS = {
     overview: "What IBM webMethods is made of, in one table. Skim it; you will meet each part again later.",
     howto: "Choose your role to get step-by-step instructions, like a recipe.",
     lab: "Build your first process yourself in about 30 minutes. Tick each step as you go.",
+    decisions: "Play with a real-looking decision table: move the limits, test an application, and see why rules change faster than processes.",
     trouble: "Something not working? Search the symptom, read the likely cause, try the fix.",
     bpmn: "The picture language for processes: circles start and end, boxes are work, diamonds are decisions.",
     cases: "Real examples from start to finish, each with the lesson behind it.",
