@@ -4,7 +4,7 @@
 
 <p>
   <a href="https://github.com/Xudaniel"><img alt="Author: Daniel Yuanpeng Xu" src="https://img.shields.io/badge/author-Daniel_Yuanpeng_Xu-0f62fe?style=for-the-badge"></a>
-  <a href="https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.2.0"><img alt="Release v1.2.0" src="https://img.shields.io/badge/release-v1.2.0-24a148?style=for-the-badge"></a>
+  <a href="https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.3.0"><img alt="Release v1.3.0" src="https://img.shields.io/badge/release-v1.3.0-24a148?style=for-the-badge"></a>
   <a href="https://xudaniel.github.io/webmethods-bpms-academy/"><img alt="Live site" src="https://img.shields.io/badge/live-open_the_course-8a3ffc?style=for-the-badge"></a>
   <img alt="Works offline" src="https://img.shields.io/badge/phone-installable_·_offline-161616?style=for-the-badge">
 </p>
@@ -16,7 +16,7 @@
 
 **Learn IBM webMethods BPMS the way you will actually use it.** This is a free, phone-first course. Pick your role and get a 3–5 step path. See the whole product in one picture, then learn by doing: a simulator, a 30-minute hands-on lab, and step-by-step guides for every role. Every fact is cited from public documentation.
 
-**[▶ Open the course](https://xudaniel.github.io/webmethods-bpms-academy/)** · [Reading version](https://xudaniel.github.io/webmethods-bpms-academy/read.html) · Current release **[v1.2.0](https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.2.0)** · [What's new](CHANGELOG.md) · [Product requirements (PRD)](docs/PRD.md)
+**[▶ Open the course](https://xudaniel.github.io/webmethods-bpms-academy/)** · [Reading version](https://xudaniel.github.io/webmethods-bpms-academy/read.html) · Current release **[v1.3.0](https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.3.0)** · [What's new](CHANGELOG.md) · [Product requirements (PRD)](docs/PRD.md)
 
 <p>
   <img src="assets/screenshots/role-picker.png" width="240" alt="Who are you? Pick a role and get a personal path">
@@ -62,6 +62,7 @@
 | | You can… | Where |
 | --- | --- | --- |
 | 👋 | **Pick your role** (New here, Customer, Business user, Process developer, Business analyst, Operations, Trainer) and get a 3–5 step path that ticks itself off | [Start here](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
+| 🧱 | **Learn the fundamentals first**: seven 2-minute lessons (process vs instance, who does each step, five BPMN shapes, rules vs process, tasks, the engine and audit trail, drawing to running), each with a picture and one question | [Basics 101](https://xudaniel.github.io/webmethods-bpms-academy/#basics) |
 | 🌱 | **Understand every word**: tap any underlined term (BPMN, IS, MWS, Hot Deploy…) for a one-line plain-English explanation, and switch on **Beginner mode** to see only the 10 sections you need first | Everywhere |
 | 🗺️ | **See the whole product in one picture**, from model to audit trail, and tap any box to jump to its guide | [Start here](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
 | 🎛️ | **Play with the settings**: toggle quality of service and watch the trade-offs, or move an AI agent's approval limit and watch the decision log | [Knowledge base](https://xudaniel.github.io/webmethods-bpms-academy/#knowledge) · [Start here](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
@@ -88,6 +89,7 @@ No prior webMethods experience is needed.
 ## What's inside
 
 ### Start: your path and the big picture
+- **Basics 101** for complete beginners: seven short lessons on the ideas behind every process platform, each with a plain story, three key points, a picture, one check question and links to go deeper. The last lesson maps every idea to its IBM webMethods name. Progress is saved in your browser.
 - **Who are you?** Seven roles, each with a 3–5 step path. Each step shows its purpose and reading time, deep-links to the right guide, knowledge topic or troubleshooting area, and ticks itself off. A **Your path: Next →** link closes every section on the path.
 - **IBM webMethods BPMS in one picture:** a numbered, clickable map: *Model → Build and upload → **Enable*** (the step beginners miss) *→ Process Engine → people work tasks / rules decide → Monitor and fix → audit history*, and where AI agents fit.
 - **Six hands-on steps** for a general audience: before and after a BPMS, who owns which job, and an AI agent governed by a rulebook (see [Start here: the public explainer](#start-here-the-public-explainer)).
@@ -105,9 +107,11 @@ No prior webMethods experience is needed.
 | Rule Engine configuration and Rule Tasks | Where the Rules Engine runs (WmBusinessRules), configuring a Rule Task, Process Aware tables, event rules and JMS triggers, Hot Deploy |
 | Practitioner design checklist | Ten checks for design reviews and upgrades |
 
-**Diagrams** (original SVG, no IBM artwork; 14 in the reading version), including: an **interactive quality-of-service** diagram; process vs rules; the Hot Deploy path; task lifecycle; build pipeline; instance states; the lab process with an **animated token**; a "process won't start" flowchart; and the workshop timeline. There are also architecture, BPMN, patterns, worked cases, market, a 36-term glossary and a 22-question quiz.
+**Diagrams** (original SVG, no IBM artwork; 18 in the reading version), including: four Basics 101 pictures (model vs instances, who does each step, five BPMN shapes, engine and audit trail); an **interactive quality-of-service** diagram; process vs rules; the Hot Deploy path; task lifecycle; build pipeline; instance states; the lab process with an **animated token**; a "process won't start" flowchart; and the workshop timeline. There are also architecture, BPMN, patterns, worked cases, market, a 33-term glossary and a 22-question quiz.
 
 ### Do: step-by-step guides, a lab and troubleshooting
+**Decision lab:** move a decision table's limits and test an application (approve, refer or decline), compare changing a rule with changing the process, and review common rules-configuration pitfalls.
+
 **How to use**, by role. Each step gives the menu path and an official source, and ends with *how you'll know it worked*. Every role also has a printable **cheat sheet** and a 3-question **self-check**:
 
 | Role | Guide | Key steps |
@@ -138,39 +142,41 @@ No prior webMethods experience is needed.
 
 ### Plain words for beginners
 - **Tap any underlined term** in the course or the reading version for a one-line plain-English explanation, the technical definition and a link to the glossary. On a phone it opens as a sheet at the bottom of the screen. Quizzes are never underlined, so they still test you.
-- **🌱 Beginner mode** (switch in the header, remembered on your device): the tab bar and ☰ menu show the 10 beginner sections, each section opens with an *In plain words* box, advanced sections say they can wait, and Previous / Next skip them.
+- **🌱 Beginner mode** (switch in the header, remembered on your device): the tab bar and ☰ menu show the 12 beginner sections, each section opens with an *In plain words* box, advanced sections say they can wait, and Previous / Next skip them.
 
 ### Stay motivated
 - **⏱ Reading time** on every section, in the Sections menu and for each chapter of the reading version. The whole course is about 40 minutes of reading.
-- **Progress and badges:** sections explored out of 17, and eight badges with a small celebration (Explorer, Agent tamer, Simulator, Scanner, Fixer, Role ready, Lab finisher, Quiz ace). There's also a **Did you know?** fact. Everything stays in your browser.
+- **Progress and badges:** sections explored out of 19, and nine badges with a small celebration (Explorer, Basics done, Agent tamer, Simulator, Scanner, Fixer, Role ready, Lab finisher, Quiz ace). There's also a **Did you know?** fact. Everything stays in your browser.
 
 ## Curriculum, in site order
 
 | # | Section | Format | What it's for |
 | --- | --- | --- | --- |
 | 1 | **Start here** | Role picker, map, six hands-on steps | Find your path; see the big picture; why process platforms matter for AI agents |
-| 2 | **Overview** | Reading + family table | The core idea, and IBM webMethods at a glance (9 components) |
-| 3 | **Knowledge base** | Cited reference + interactive diagram | 7 topics, 42 facts on how the product behaves |
-| 4 | **How to use** | Role guides, cheat sheets, self-checks, demo script | Day-to-day use for four roles, plus presenting to customers |
-| 5 | **Hands-on lab** | 30-minute exercise with a tracker | Build, enable, run and monitor your first process |
-| 6 | **Troubleshooting** | Search + flowchart | Symptom → check first → fix → where |
-| 7 | **Teach a class** | Workshop plan + timeline | A 3-hour class for users or customers |
-| 8 | **Lifecycle** | Clickable stages + release table | Model → implement → build and upload → execute → monitor → optimize → govern; release dates |
-| 9 | **Architecture** | Clickable component map | Engines, databases and `PRA_*` audit tables |
-| 10 | **BPMN** | Reference tables | Activities, gateways, events, pools and lanes |
-| 11 | **Patterns** | Filterable cards | Four classic and three agent-era patterns |
-| 12 | **Cases** | Flow diagrams | Purchase approval, loan decisioning, logistics exception |
-| 13 | **Simulator** | Interactive | A loan instance through a rule task and an underwriter task, with an audit log |
-| 14 | **Agent Scan Lab** | Interactive | Find rule and agent candidates in process history (synthetic data or your CSV) |
-| 15 | **Market** | Reading + sources | Sizing, analyst views, competitor signals, regulatory dates |
-| 16 | **Glossary** | Searchable | 33 terms; underlined terms anywhere open a plain-English explanation |
-| 17 | **Quiz** | 22 questions | Instant feedback and a score |
+| 2 | **Basics 101** | 7 lessons, each with a picture and a check | The ideas behind every process platform, for complete beginners, then the IBM webMethods names |
+| 3 | **Overview** | Reading + family table | The core idea, and IBM webMethods at a glance (9 components) |
+| 4 | **Knowledge base** | Cited reference + interactive diagram | 7 topics, 42 facts on how the product behaves |
+| 5 | **How to use** | Role guides, cheat sheets, self-checks, demo script | Day-to-day use for four roles, plus presenting to customers |
+| 6 | **Hands-on lab** | 30-minute exercise with a tracker | Build, enable, run and monitor your first process |
+| 7 | **Decision lab** | Interactive decision table + comparison | Change a rule's limits, test an application, see why rules change faster than processes |
+| 8 | **Troubleshooting** | Search + flowchart | Symptom → check first → fix → where |
+| 9 | **Teach a class** | Workshop plan + timeline | A 3-hour class for users or customers |
+| 10 | **Lifecycle** | Clickable stages + release table | Model → implement → build and upload → execute → monitor → optimize → govern; release dates |
+| 11 | **Architecture** | Clickable component map | Engines, databases and `PRA_*` audit tables |
+| 12 | **BPMN** | Reference tables | Activities, gateways, events, pools and lanes |
+| 13 | **Patterns** | Filterable cards | Four classic and three agent-era patterns |
+| 14 | **Cases** | Flow diagrams | Purchase approval, loan decisioning, logistics exception |
+| 15 | **Simulator** | Interactive | A loan instance through a rule task and an underwriter task, with an audit log |
+| 16 | **Agent Scan Lab** | Interactive | Find rule and agent candidates in process history (synthetic data or your CSV) |
+| 17 | **Market** | Reading + sources | Sizing, analyst views, competitor signals, regulatory dates |
+| 18 | **Glossary** | Searchable | 33 terms; underlined terms anywhere open a plain-English explanation |
+| 19 | **Quiz** | 22 questions | Instant feedback and a score |
 
 Every section has its own link (for example [`#lab`](https://xudaniel.github.io/webmethods-bpms-academy/#lab)), plus Previous / Next at the bottom.
 
 ## Reading version
 
-[`read.html`](https://xudaniel.github.io/webmethods-bpms-academy/read.html) is for readers who want to go straight through, on a phone, offline or on paper. It has **21 chapters** with a table of contents, a reading time per chapter, a "Which chapters should I read?" table by role, **14 diagrams**, every guide, cheat sheet and troubleshooting entry, a printable lab sheet with tick boxes, and the quiz with an answer key. It prints cleanly. The text comes from the same files as the interactive version, so the two never drift apart.
+[`read.html`](https://xudaniel.github.io/webmethods-bpms-academy/read.html) is for readers who want to go straight through, on a phone, offline or on paper. It has **22 chapters** with a table of contents, a reading time per chapter, a "Which chapters should I read?" table by role, **18 diagrams**, every guide, cheat sheet and troubleshooting entry, a printable lab sheet with tick boxes, and the quiz with an answer key. It prints cleanly. The text comes from the same files as the interactive version, so the two never drift apart.
 
 ## 📱 Using it on your phone
 
@@ -401,6 +407,8 @@ webmethods-bpms-academy/
 │   ├── diagrams.js     # Original SVG diagrams (interactive QoS, role diagrams, lab BPMN, flowchart, timeline)
 │   ├── path.js         # Role picker with personal paths, clickable one-picture map
 │   ├── words.js        # Tap-to-explain terms in plain English, Beginner mode
+│   ├── basics.js       # Basics 101: seven fundamental lessons with checks
+│   ├── decision-lab.js # Decision lab: decision table, agility comparison, rules pitfalls
 │   ├── fun.js          # Reading times, explorer progress, badges, did-you-know
 │   ├── mobile.js       # Phone guide, sections menu, previous/next, back to top, offline registration
 │   ├── explainer.js    # "Start here" content (author's view items labelled)
@@ -468,6 +476,8 @@ The test serves the site locally, opens every section at phone width (390 × 844
 - [ ] Module on moving webMethods Business Rules to IBM ODM decision services
 - [ ] Agent Scan Lab: adjustable thresholds and CSV export
 
+**Done in v1.3.0:** Basics 101 and the Decision lab.
+
 **Done in v1.2.0:** tap-to-explain terms and Beginner mode.
 
 **Done in v1.1.0:** role paths, the one-picture map, the hands-on lab, troubleshooting, cheat sheets and self-checks, the class plan, the phone app with offline mode, reading times, 14 diagrams, badges, and author credit. See the [changelog](CHANGELOG.md).
@@ -488,7 +498,7 @@ He set the product direction, defined the audiences and scope, chose and checked
 
 ## How to cite
 
-> Xu, Daniel Yuanpeng (2026). *IBM webMethods BPMS Academy* (Version 1.2.0) [Interactive course]. https://github.com/xudaniel/webmethods-bpms-academy
+> Xu, Daniel Yuanpeng (2026). *IBM webMethods BPMS Academy* (Version 1.3.0) [Interactive course]. https://github.com/xudaniel/webmethods-bpms-academy
 
 GitHub's **Cite this repository** button (from [`CITATION.cff`](CITATION.cff)) gives the same citation in APA and BibTeX. If you reuse or adapt any material, please credit **Daniel Yuanpeng Xu** and link to this repository.
 

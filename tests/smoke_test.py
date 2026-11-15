@@ -7,7 +7,7 @@ Usage:  pip install playwright && playwright install chromium
 import asyncio, functools, http.server, sys, threading
 from playwright.async_api import async_playwright
 
-SECTIONS = ["start", "overview", "knowledge", "howto", "lab", "decisions", "trouble", "teach", "lifecycle", "architecture", "bpmn", "patterns", "cases",
+SECTIONS = ["start", "basics", "overview", "knowledge", "howto", "lab", "decisions", "trouble", "teach", "lifecycle", "architecture", "bpmn", "patterns", "cases",
             "simulator", "scan", "market", "glossary", "quiz"]
 
 class QuietHandler(http.server.SimpleHTTPRequestHandler):
@@ -34,7 +34,7 @@ async def main():
             if not await page.is_visible(f"#{s}") or len(await page.inner_text(f"#{s}")) < 200:
                 failures.append(f"section {s} empty or hidden")
         # Knowledge base (issues #7, #8): IBM branding, counter, family, cited topics
-        if "v1.2.0" not in await page.inner_text("#version"):
+        if "v1.3.0" not in await page.inner_text("#version"):
             failures.append("footer should show the release version")
         if not (await page.title()).startswith("IBM webMethods"):
             failures.append("title should lead with IBM webMethods")
@@ -171,6 +171,22 @@ async def main():
         await page.wait_for_timeout(300)
         if await page.evaluate("location.hash") != "#trouble" or not await page.evaluate("document.querySelector('#trouble details.dg-more').open"):
             failures.append("map 'Enable' box should open the won't-start flowchart")
+        # Basics 101 (issue #40): seven lessons, pictures, checks, progress
+        await page.evaluate("location.hash='basics'")
+        await page.wait_for_timeout(150)
+        if await page.locator("#basics .basics-lesson").count() != 7 or await page.locator("#basics figure.dg").count() != 7:
+            failures.append("Basics 101 should have 7 lessons, each with a picture")
+        await page.click("#b-process .basics-check button[data-j='0']")
+        if "Not quite" not in await page.inner_text("#b-process .explain") or not (await page.inner_text("#basics-count")).startswith("0 /"):
+            failures.append("a wrong Basics answer should explain and not count")
+        await page.click("#b-process .b-retry")
+        await page.click("#b-process .basics-check button[data-j='1']")
+        if not (await page.inner_text("#basics-count")).startswith("1 / 7"):
+            failures.append("a right Basics answer should count")
+        await page.click("#b-process .b-next")
+        if not await page.evaluate("document.querySelector('#b-workers').open"):
+            failures.append("Next lesson should open lesson 2")
+        await page.click("#basics-reset")
         # Hotfix (issue #41): index.html must be the real page, and the Decision lab must work
         html = open("index.html", encoding="utf-8").read()
         if len(html) < 10000 or "$(cat" in html:
@@ -259,6 +275,8 @@ async def main():
             failures.append("read.html lab sheet missing")
         if await page2.locator("#r-roles h3").count() != 4 or await page2.locator("#r-demo li").count() != 6:
             failures.append("read.html how-to guides or demo script missing")
+        if await page2.locator("#r-basics figure.dg").count() != 7 or "Answer key" not in await page2.inner_text("#r-basics"):
+            failures.append("read.html Basics 101 chapter missing pictures or answer key")
         if await page2.locator("main .term").count() < 40:
             failures.append("read.html should underline key terms")
         if await page2.locator("#r-kb h3").count() < 6 or await page2.locator("#r-family tr").count() < 8:

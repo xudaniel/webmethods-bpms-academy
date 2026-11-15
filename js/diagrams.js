@@ -160,6 +160,68 @@
     ].join(""), sa)
   };
 
+  // ---------- Basics 101 (#40) ----------
+  D["b-model-instance"] = {
+    title: "One model, many instances",
+    caption: "The model is the recipe; each request that follows it is an instance, with its own data and its own current step.",
+    draw: (sa) => svg("bmi", 340, 236, "Process model and instances", [
+      box(70, 8, 200, 50, "hl head", ["Process model", "“Approve a purchase”"], 14),
+      arrow("bmi", "M140,58 L62,114"), arrow("bmi", "M170,58 V114"), arrow("bmi", "M200,58 L278,114"),
+      box(6, 118, 104, 62, "warn head", ["Instance #101", "waiting for", "the manager"], 12),
+      box(118, 118, 104, 62, "ok head", ["Instance #102", "approved"], 12),
+      box(230, 118, 104, 62, "bad head", ["Instance #103", "rejected"], 12),
+      `<text x="170" y="206" class="note" text-anchor="middle">One recipe, many dinners:</text>`,
+      `<text x="170" y="224" class="note" text-anchor="middle">every run is an instance.</text>`
+    ].join(""), sa)
+  };
+  D["b-three-workers"] = {
+    title: "Who does each step?",
+    caption: "A system, a person or a rule. The process decides the order; AI agents can help too, inside the limits the rules set.",
+    draw: (sa) => svg("btw", 340, 214, "Three kinds of steps", [
+      box(4, 8, 104, 36, "soft head", ["⚙️ System"], 14),
+      box(118, 8, 104, 36, "hl head", ["🙋 Person"], 14),
+      box(232, 8, 104, 36, "agent head", ["⚖️ Rule"], 14),
+      box(4, 52, 104, 104, "soft", ["service task", "calls other", "software,", "sends email"], 12),
+      box(118, 52, 104, 104, "hl", ["user task", "waits in an", "inbox until", "someone acts"], 12),
+      box(232, 52, 104, 104, "agent", ["rule task", "answers:", "limits, prices,", "eligibility"], 12),
+      `<text x="170" y="184" class="note" text-anchor="middle">The process decides the order of the steps;</text>`,
+      `<text x="170" y="202" class="note" text-anchor="middle">each step is done by one of these three.</text>`
+    ].join(""), sa)
+  };
+  D["b-bpmn-shapes"] = {
+    title: "Five BPMN shapes to know first",
+    caption: "Start and end events, tasks, gateways and the arrows between them. That is enough to read most process diagrams.",
+    draw: (sa) => {
+      const row = (y, name, what) => `<text x="84" y="${y + 5}" class="note"><tspan font-weight="600" fill="#161616">${esc(name)}</tspan>  ${esc(what)}</text>`;
+      return svg("bbs", 340, 236, "Five BPMN shapes", [
+        `<circle cx="40" cy="26" r="13" class="ev"/>`, row(26, "Start event", "a run begins"),
+        box(14, 56, 52, 32, "hl", [""], 12), row(72, "Task", "a piece of work"),
+        `<polygon points="40,100 60,120 40,140 20,120" class="gw"/><text x="40" y="125" class="t" font-size="15">×</text>`, row(120, "Gateway", "pick a path or split"),
+        `<circle cx="40" cy="168" r="13" class="ev endok"/>`, row(168, "End event", "the run is finished"),
+        `<path d="M14,210 H64" class="ln" marker-end="url(#ah-bbs)"/>`, row(210, "Sequence flow", "what happens next")
+      ].join(""), sa);
+    }
+  };
+  D["b-token-audit"] = {
+    title: "The engine runs it; the audit trail remembers it",
+    caption: "The blue token is one instance moving through the steps. Every step is written down, and the monitor reads that history.",
+    draw: (sa, still) => svg("bta", 340, 270, "Engine and audit trail", [
+      box(4, 14, 96, 50, "soft", ["Receive", "request"], 13),
+      arrow("bta", "M100,39 H120"),
+      box(122, 14, 96, 50, "hl", ["Manager", "approves"], 13),
+      arrow("bta", "M218,39 H238"),
+      box(240, 14, 96, 50, "soft", ["Create", "order"], 13),
+      still ? `<circle cx="170" cy="76" r="6" class="tok"/>` : `<circle r="6" class="tok"><animateMotion dur="5s" repeatCount="indefinite" path="M52,76 H288" keyPoints="0;0;0.5;0.5;1;1" keyTimes="0;0.15;0.4;0.6;0.85;1" calcMode="linear"/></circle>`,
+      arrow("bta", "M170,88 V116", { dash: true, label: "every step is written down", lx: 178, ly: 106, anchor: "start" }),
+      box(10, 120, 320, 140, "warn", [""], 12),
+      `<text x="22" y="144" class="note"><tspan font-weight="600" fill="#161616">Audit trail</tspan>  (the monitor reads it)</text>`,
+      `<text x="22" y="170" class="note">09:01  Receive request  ·  completed</text>`,
+      `<text x="22" y="192" class="note">09:01  Manager approves  ·  started</text>`,
+      `<text x="22" y="214" class="note">11:40  Manager approves  ·  completed by Ana</text>`,
+      `<text x="22" y="236" class="note">11:41  Create order  ·  completed</text>`
+    ].join(""), sa)
+  };
+
   D["qos"] = { title: "Quality of service: guaranteed or fast?", caption: "Toggle the three Process Engine settings. Defaults: Optimize Locally on, Volatile Transition Documents on, Volatile Tracking off." };
 
   // Interactive QoS widget (HTML + SVG bar)
@@ -245,6 +307,12 @@
     const ta = document.getElementById("r-teach-agenda"); if (ta) ta.closest(".table-wrap").insertAdjacentHTML("afterend", `<div id="teach-timeline"></div>`);
     document.querySelectorAll('.qos[data-still="1"]').forEach(wireQos);
   }
+
+  // Placeholders from other modules (Basics 101), both pages
+  document.querySelectorAll("[data-mount-dg]").forEach((el) => {
+    const k = el.dataset.mountDg;
+    if (D[k]) el.outerHTML = fig(k, isRead || reduce);
+  });
 
   // Workshop timeline (HTML bars), both pages
   const tt = document.getElementById("teach-timeline");

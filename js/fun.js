@@ -57,6 +57,7 @@
     ["scan", "🔬", "Scanner", "Run the Agent Scan Lab"],
     ["fixer", "🛠️", "Fixer", "Open 5 troubleshooting entries"],
     ["role", "🎯", "Role ready", "Score 3 / 3 in a role self-check"],
+    ["basics", "🧱", "Basics done", "Pass all seven Basics 101 checks"],
     ["lab", "🧪", "Lab finisher", "Tick every step of the hands-on lab"],
     ["quiz", "🏆", "Quiz ace", "Answer every quiz question correctly"]
   ];
@@ -111,6 +112,7 @@
   on("sim-next", "click", () => setTimeout(() => { if (/COMPLETED/.test(($("sim-log") || {}).textContent || "")) award("sim"); }, 50));
   document.addEventListener("toggle", (e) => { if (e.target.matches && e.target.matches("details.trouble") && e.target.open) { st.opened = (st.opened || 0) + 1; save(); if (st.opened >= 5) award("fixer"); } }, true);
   on("howto-body", "click", () => setTimeout(() => { const s = $("sc-score"); if (s && /^3 \/ 3/.test(s.textContent)) award("role"); }, 30));
+  document.addEventListener("basics:done", () => award("basics"));
   on("lab-stages", "change", () => setTimeout(() => { if (/lab complete/.test(($("lab-count") || {}).textContent || "")) award("lab"); }, 30));
   on("quiz-list", "click", () => setTimeout(() => {
     const m = (($("quiz-score") || {}).textContent || "").match(/(\d+)\s*\/\s*(\d+).*done/);
