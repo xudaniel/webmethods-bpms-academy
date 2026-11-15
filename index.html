@@ -3,21 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>webMethods BPMS Academy — interactive course</title>
+<title>IBM webMethods BPMS Academy — interactive course</title>
 <meta name="author" content="Daniel Yuanpeng Xu">
-<meta name="description" content="Independent interactive course on IBM webMethods BPMS: architecture, BPMN, decision automation patterns, agent-era patterns, and market context from public sources.">
+<meta name="description" content="IBM webMethods BPMS Academy by Daniel Yuanpeng Xu — independent interactive course and cited knowledge base on IBM webMethods BPMS (Process Engine, Task Engine, Business Rules): architecture, BPMN, decision automation patterns, agent-era patterns, and market context from public sources.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230f62fe'/%3E%3Cpath d='M7 16h6l3-6 3 12 3-6h3' stroke='white' stroke-width='2.5' fill='none'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 <header>
-  <h1>webMethods BPMS Academy</h1>
-  <p>Architecture, BPMN, decision automation and agent-era patterns — interactive, public sources only</p>
+  <h1>IBM webMethods BPMS Academy</h1>
+  <p>A cited knowledge base and interactive course on IBM webMethods BPMS — Process Engine, Task Engine, Business Rules, BPMN and agent-era patterns. Public sources only.</p>
   <p style="font-size:.85rem;opacity:.85">by Daniel Yuanpeng Xu · <a href="read.html" style="color:#fff">Prefer to just read? Reading version →</a></p>
 </header>
 <nav aria-label="Sections">
   <button data-section="start">Start here</button>
   <button data-section="overview">Overview</button>
+  <button data-section="knowledge">Knowledge base</button>
   <button data-section="lifecycle">Lifecycle</button>
   <button data-section="architecture">Architecture</button>
   <button data-section="bpmn">BPMN</button>
@@ -35,6 +36,12 @@
       <h2>What is this, and why should anyone care?</h2>
       <p class="lead">Every organisation runs processes — approvals, claims, onboarding, shipment exceptions. A <strong>BPMS</strong> is the software that makes those processes run on rails: it routes the work, applies the rules, puts tasks in front of the right people, and records what happened. Now AI agents are arriving, and they need exactly those rails. Six short, hands-on steps explain why.</p>
       <p class="byline">Written by <strong>Daniel Yuanpeng Xu</strong>, a product manager who has worked on business-process and decision-automation products. Sections marked <span class="pill">Author's view</span> are personal opinions, not the position of any employer or vendor.</p>
+    </div>
+
+    <div class="card">
+      <h3>IBM webMethods knowledge at a glance</h3>
+      <div class="grid" id="kb-counter"></div>
+      <p class="sources">Every fact in the knowledge base links to public IBM or Software AG documentation. <a href="#knowledge">Open the knowledge base →</a></p>
     </div>
 
     <div class="card">
@@ -84,7 +91,7 @@
         <button class="tile" onclick="location.hash='architecture'"><strong>How it's built</strong><small>Engines, databases, audit tables</small></button>
         <button class="tile" onclick="location.hash='simulator'"><strong>Run a process</strong><small>Loan with rules and a human task</small></button>
         <button class="tile" onclick="location.hash='scan'"><strong>Find agent candidates</strong><small>Score process history</small></button>
-        <button class="tile" onclick="location.hash='quiz'"><strong>Test yourself</strong><small>10 questions</small></button>
+        <button class="tile" onclick="location.hash='quiz'"><strong>Test yourself</strong><small id="quiz-count-tile">Quiz</small></button>
       </div>
     </div>
   </section>
@@ -94,6 +101,12 @@
       <h2>What is a BPMS?</h2>
       <p class="lead">A Business Process Management Suite turns a process drawn in BPMN into running, observable automation: systems are called automatically, people get tasks in an inbox, decisions come from rules, and every step leaves an audit trail.</p>
       <p>IBM webMethods BPMS (part of IBM since the 2024 acquisition of webMethods from Software AG) combines <strong>Designer</strong>, the <strong>Process Engine</strong> inside Integration Server, the <strong>Task Engine</strong> on My webMethods Server, <strong>Business Rules</strong>, and <strong>Monitor/Optimize</strong>. It is commonly paired with <strong>IBM ODM</strong> for governed decisions.</p>
+    </div>
+    <div class="card">
+      <h3>IBM webMethods at a glance</h3>
+      <p>BPMS is one part of the IBM webMethods integration family. These are the pieces you meet in a BPMS project.</p>
+      <div class="table-wrap"><table id="kb-family"></table></div>
+      <p class="sources" id="kb-family-src"></p>
     </div>
     <div class="card">
       <h3>The one idea to remember</h3>
@@ -109,6 +122,15 @@
       </div>
     </div>
     <p class="callout">Independent learning resource. Not an official IBM site and not affiliated with or endorsed by IBM. Product names are trademarks of their owners. All facts come from public sources listed under Market and in the README; no customer or internal data is used.</p>
+  </section>
+
+  <section id="knowledge" class="section">
+    <div class="card">
+      <h2>IBM webMethods BPMS knowledge base</h2>
+      <p class="lead">What practitioners need to know about how IBM webMethods BPMS actually behaves: releases, the Process Engine and its quality-of-service settings, execution history, the Task Engine, Business Rules, and a design checklist. Every topic cites public documentation.</p>
+      <div class="row" id="kb-tabs"></div>
+    </div>
+    <div id="kb-topics"></div>
   </section>
 
   <section id="lifecycle" class="section">
@@ -186,6 +208,7 @@
 </main>
 <footer>Created by <strong>Daniel Yuanpeng Xu</strong> · © 2026 · independent learning resource · not affiliated with IBM · <a href="read.html">reading version</a> · <a href="https://github.com/Xudaniel/webmethods-bpms-academy">source on GitHub</a></footer>
 <script src="js/content.js"></script>
+<script src="js/knowledge.js"></script>
 <script src="js/explainer.js"></script>
 <script src="js/explainer-app.js"></script>
 <script src="js/app.js"></script>

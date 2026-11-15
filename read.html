@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>webMethods BPMS Academy — reading version</title>
+<title>IBM webMethods BPMS Academy — reading version</title>
 <meta name="author" content="Daniel Yuanpeng Xu">
-<meta name="description" content="Read-only, printable version of the webMethods BPMS Academy by Daniel Yuanpeng Xu: diagrams, the full course text and a self-check quiz with answer key.">
+<meta name="description" content="Read-only, printable version of the IBM webMethods BPMS Academy by Daniel Yuanpeng Xu: a cited IBM webMethods BPMS knowledge base, diagrams, the full course text and a self-check quiz with answer key.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230f62fe'/%3E%3Cpath d='M7 16h6l3-6 3 12 3-6h3' stroke='white' stroke-width='2.5' fill='none'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="css/styles.css">
 <link rel="stylesheet" href="css/read.css">
 </head>
 <body class="read">
 <header>
-  <h1>webMethods BPMS Academy</h1>
-  <p>Reading version — the whole course on one page, with diagrams and a self-check quiz</p>
+  <h1>IBM webMethods BPMS Academy</h1>
+  <p>Reading version — a cited IBM webMethods BPMS knowledge base and the whole course on one page, with diagrams and a self-check quiz</p>
   <p class="byline-head">by Daniel Yuanpeng Xu</p>
 </header>
 <main>
@@ -27,6 +27,7 @@
     <ol>
       <li><a href="#r-why">Why this matters</a></li>
       <li><a href="#r-overview">What a BPMS is</a></li>
+      <li><a href="#r-knowledge">IBM webMethods knowledge base</a></li>
       <li><a href="#r-arch">Architecture</a></li>
       <li><a href="#r-history">Where execution history lives</a></li>
       <li><a href="#r-lifecycle">Lifecycle and release dates</a></li>
@@ -57,10 +58,19 @@
       <h2>2. What a BPMS is</h2>
       <p>A Business Process Management Suite turns a process drawn in BPMN into running, observable automation: systems are called automatically, people get tasks in an inbox, decisions come from rules, and every step leaves an audit trail.</p>
       <p>IBM webMethods BPMS (part of IBM since the 2024 acquisition of webMethods from Software AG) combines Designer, the Process Engine inside Integration Server, the Task Engine on My webMethods Server, Business Rules, and Monitor/Optimize. It is commonly paired with IBM ODM for governed decisions.</p>
+      <h3>IBM webMethods at a glance</h3>
+      <p id="r-kb-count"></p>
+      <div class="table-wrap"><table id="r-family"></table></div>
+    </section>
+
+    <section id="r-knowledge" class="card">
+      <h2>3. IBM webMethods knowledge base</h2>
+      <p>How IBM webMethods BPMS actually behaves, topic by topic. Each topic ends with a practitioner note and its public sources.</p>
+      <div id="r-kb"></div>
     </section>
 
     <section id="r-arch" class="card">
-      <h2>3. Architecture</h2>
+      <h2>4. Architecture</h2>
       <figure>
         <svg viewBox="0 0 720 370" role="img" aria-labelledby="fig1t">
           <title id="fig1t">webMethods BPMS architecture</title>
@@ -94,7 +104,7 @@
     </section>
 
     <section id="r-history" class="card">
-      <h2>4. Where execution history lives</h2>
+      <h2>5. Where execution history lives</h2>
       <figure>
         <svg viewBox="0 0 720 210" role="img" aria-labelledby="fig2t">
           <title id="fig2t">Three stores of execution data</title>
@@ -118,7 +128,7 @@
     </section>
 
     <section id="r-lifecycle" class="card">
-      <h2>5. Lifecycle and release dates</h2>
+      <h2>6. Lifecycle and release dates</h2>
       <ol id="r-life"></ol>
       <div class="table-wrap"><table id="r-dates"><tr><th>Release event</th><th>Date</th></tr></table></div>
       <figure>
@@ -137,12 +147,12 @@
       </figure>
     </section>
 
-    <section id="r-bpmn" class="card"><h2>6. BPMN essentials</h2><div id="r-bpmn-body"></div></section>
+    <section id="r-bpmn" class="card"><h2>7. BPMN essentials</h2><div id="r-bpmn-body"></div></section>
 
-    <section id="r-patterns" class="card"><h2>7. Patterns</h2><div id="r-pat"></div></section>
+    <section id="r-patterns" class="card"><h2>8. Patterns</h2><div id="r-pat"></div></section>
 
     <section id="r-guard" class="card">
-      <h2>8. Agents need a rulebook <span class="pill">Author's view</span></h2>
+      <h2>9. Agents need a rulebook <span class="pill">Author's view</span></h2>
       <figure>
         <svg viewBox="0 0 720 230" role="img" aria-labelledby="fig4t">
           <title id="fig4t">Agent proposes, rules decide, process executes</title>
@@ -166,7 +176,7 @@
     </section>
 
     <section id="r-cases" class="card">
-      <h2>9. Worked cases</h2>
+      <h2>10. Worked cases</h2>
       <figure>
         <svg viewBox="0 0 720 200" role="img" aria-labelledby="fig5t">
           <title id="fig5t">Loan decisioning process in BPMN</title>
@@ -204,7 +214,7 @@ PRA_PROCESS       inst=LN-1234  status=COMPLETED</pre>
     </section>
 
     <section id="r-scan" class="card">
-      <h2>10. Finding agent candidates in process history</h2>
+      <h2>11. Finding agent candidates in process history</h2>
       <p>Years of BPMS history show where people approve almost everything, wait for days, or make the same decision for the same inputs. Score each step on volume, human work time, waiting time, how often the most common outcome occurs, and <em>determinism</em> — whether the same inputs almost always produce the same outcome.</p>
       <div class="table-wrap"><table>
         <tr><th>Class</th><th>Rule</th><th>Meaning</th></tr>
@@ -228,31 +238,32 @@ PRA_PROCESS       inst=LN-1234  status=COMPLETED</pre>
     </section>
 
     <section id="r-market" class="card">
-      <h2>11. Where the market is going</h2>
+      <h2>12. Where the market is going</h2>
       <div class="table-wrap"><table id="r-sizing"><tr><th>Firm</th><th>BPM market</th><th>Outlook</th></tr></table></div>
       <h3>Signals (2026)</h3><ul id="r-signals"></ul>
       <h3>Where the market really is <span class="pill">Author's view</span></h3><div id="r-view"></div>
     </section>
 
-    <section id="r-ideas" class="card"><h2>12. Five ideas for the agent era <span class="pill">Author's view</span></h2><ol id="r-idea-list"></ol></section>
+    <section id="r-ideas" class="card"><h2>13. Five ideas for the agent era <span class="pill">Author's view</span></h2><ol id="r-idea-list"></ol></section>
 
-    <section id="r-glossary" class="card"><h2>13. Glossary</h2><dl id="r-gloss"></dl></section>
+    <section id="r-glossary" class="card"><h2>14. Glossary</h2><dl id="r-gloss"></dl></section>
 
     <section id="r-quiz" class="card">
-      <h2>14. Self-check quiz</h2>
+      <h2>15. Self-check quiz</h2>
       <p>Answer on paper or in your head, then check the key below.</p>
       <ol id="r-q"></ol>
       <h3 class="page-break">Answer key</h3>
       <ol id="r-a"></ol>
     </section>
 
-    <section id="r-sources" class="card"><h2>15. Sources</h2><ol class="sources" id="r-src"></ol></section>
+    <section id="r-sources" class="card"><h2>16. Sources</h2><ol class="sources" id="r-src"></ol></section>
   </article>
 
   <p class="callout">Independent learning resource by Daniel Yuanpeng Xu. Not an official IBM site and not affiliated with or endorsed by IBM or Software AG. <em>Author's view</em> sections are personal opinions. All facts come from the public sources listed; no customer or employer-internal data is used.</p>
 </main>
 <footer>Created by <strong>Daniel Yuanpeng Xu</strong> · © 2026 · <a href="index.html">interactive version</a> · <a href="https://github.com/Xudaniel/webmethods-bpms-academy">source on GitHub</a></footer>
 <script src="js/content.js"></script>
+<script src="js/knowledge.js"></script>
 <script src="js/explainer.js"></script>
 <script src="js/read.js"></script>
 </body>

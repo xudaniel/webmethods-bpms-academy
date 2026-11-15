@@ -54,6 +54,19 @@
   // 12. Ideas
   $("r-idea-list").innerHTML = X.ideas.map((i) => `<li><strong>${esc(i.name)}.</strong> ${esc(i.text)}</li>`).join("");
 
+  // IBM webMethods family + knowledge base
+  const K = window.KNOWLEDGE;
+  if (K) {
+    const facts = K.topics.reduce((t, x) => t + x.facts.length, 0);
+    $("r-kb-count").innerHTML = `<strong>${K.topics.length}</strong> knowledge topics · <strong>${facts}</strong> cited facts · <strong>${K.family.length}</strong> components · <strong>${A.glossary.length}</strong> glossary terms · <strong>${A.quiz.length}</strong> quiz questions`;
+    $("r-family").innerHTML = "<tr><th>Component</th><th>Role in a BPMS solution</th></tr>" + K.family.map(([n, d]) => `<tr><td><strong>${esc(n)}</strong></td><td>${esc(d)}</td></tr>`).join("");
+    const link = (n) => `<a href="${esc(K.sources[n][1])}" target="_blank" rel="noopener">${esc(K.sources[n][0])}</a>`;
+    $("r-kb").innerHTML = K.topics.map((t, i) => `<h3>3.${i + 1} ${esc(t.title)}</h3><p>${esc(t.summary)}</p>
+      <ul>${t.facts.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
+      <p class="callout"><strong>In practice:</strong> ${esc(t.practice)}</p>
+      <p class="sources">${t.sources.length ? "Sources: " + t.sources.map(link).join(" · ") : "Synthesis of the topics above; author's practitioner view."}</p>`).join("");
+  }
+
   // 13. Glossary
   $("r-gloss").innerHTML = A.glossary.map(([t, d]) => `<dt>${esc(t)}</dt><dd>${esc(d)}</dd>`).join("");
 

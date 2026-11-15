@@ -7,7 +7,7 @@ Usage:  pip install playwright && playwright install chromium
 import asyncio, functools, http.server, sys, threading
 from playwright.async_api import async_playwright
 
-SECTIONS = ["start", "overview", "lifecycle", "architecture", "bpmn", "patterns", "cases",
+SECTIONS = ["start", "overview", "knowledge", "lifecycle", "architecture", "bpmn", "patterns", "cases",
             "simulator", "scan", "market", "glossary", "quiz"]
 
 class QuietHandler(http.server.SimpleHTTPRequestHandler):
@@ -33,7 +33,20 @@ async def main():
             await page.click(f"nav button[data-section={s}]")
             if not await page.is_visible(f"#{s}") or len(await page.inner_text(f"#{s}")) < 200:
                 failures.append(f"section {s} empty or hidden")
+        # Knowledge base (issues #7, #8): IBM branding, counter, family, cited topics
+        if not (await page.title()).startswith("IBM webMethods"):
+            failures.append("title should lead with IBM webMethods")
         await page.click("nav button[data-section=start]")
+        if await page.locator("#kb-counter .kb-stat").count() != 6:
+            failures.append("knowledge-at-a-glance counter missing")
+        if await page.locator("#kb-family tr").count() < 8:
+            failures.append("IBM webMethods family table missing")
+        if await page.locator("#kb-topics .kb-topic").count() < 6:
+            failures.append("knowledge topics missing")
+        if "Volatile Tracking" not in await page.inner_text("#kb-engine"):
+            failures.append("Process Engine QoS topic missing")
+        if await page.locator("#kb-topics .kb-topic .sources a").count() < 10:
+            failures.append("knowledge topics should cite sources")
         await page.click("#ex-toggle button[data-mode=with]")
         if "audit trail" not in await page.inner_text("#ex-story"):
             failures.append("explainer before/after toggle")
@@ -67,13 +80,15 @@ async def main():
             failures.append("read.html should have 5 diagrams")
         if await page2.locator("#r-q > li").count() != await page2.locator("#r-a > li").count() or await page2.locator("#r-a > li").count() < 10:
             failures.append("read.html quiz and answer key mismatch")
-        for sel in ["#r-arch-list", "#r-pat", "#r-gloss", "#r-guard-table", "#r-src"]:
+        if await page2.locator("#r-kb h3").count() < 6 or await page2.locator("#r-family tr").count() < 8:
+            failures.append("read.html knowledge base or family table missing")
+        for sel in ["#r-kb-count", "#r-arch-list", "#r-pat", "#r-gloss", "#r-guard-table", "#r-src"]:
             if len(await page2.inner_text(sel)) < 50:
                 failures.append(f"read.html {sel} empty")
         await browser.close()
     srv.shutdown()
     problems = failures + [f"js error: {e}" for e in errors]
-    print("\n".join(problems) if problems else "OK: all sections, simulator and scan lab passed")
+    print("\n".join(problems) if problems else "OK: all sections, simulator and scan lab passed, including the knowledge base")
     sys.exit(1 if problems else 0)
 
 asyncio.run(main())
