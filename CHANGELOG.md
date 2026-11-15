@@ -8,6 +8,12 @@ Versions follow [Semantic Versioning](https://semver.org/).
 ### Added
 - **Hands-on lab: your first process in 30 minutes.** 8 stages to build, enable, run and monitor a purchase-approval process, with checkpoints, cited steps, a pitfalls table, a practice path without an environment, and a level-up exercise. Progress is saved in the learner's browser. A printable lab sheet is in the reading version (#16).
 - 3 glossary terms and 2 quiz questions (glossary 36, quiz 22).
+- **Troubleshooting:** 16 searchable problems in 4 areas. Each gives what to check first, the fix, where to apply it, and a source (#18).
+- **Role cheat sheets** that print on their own, and **self-checks** with 12 questions across the four roles (#19).
+- **Teach a class:** a 3-hour workshop agenda, a print list and facilitator tips (#20).
+
+### Fixed
+- Restored `js/app.js`, which commit 5620be7 had overwritten and which broke the live site. Knowledge topics can now show diagrams, and a missing image hides itself (#21, PR #22).
 
 ## [1.0.0] — 2026-11-15
 

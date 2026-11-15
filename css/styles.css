@@ -95,3 +95,16 @@ button.link { background: none; border: 0; color: #0f62fe; text-decoration: unde
 /* knowledge diagrams */
 .kb-fig { margin: .6rem 0; }
 .kb-fig img { max-width: 100%; height: auto; border: 1px solid var(--border); border-radius: 8px; }
+
+/* troubleshooting, cheat sheets */
+#tr-search { width: 100%; padding: .6rem .7rem; border: 1px solid var(--border); border-radius: 8px; font: inherit; margin: .4rem 0; box-sizing: border-box; }
+.trouble h3 { margin-top: .4rem; }
+table.cheat td { vertical-align: top; padding: .35rem .3rem; }
+@media print {
+  body.print-cheat header, body.print-cheat nav, body.print-cheat footer { display: none !important; }
+  body.print-cheat main > section:not(#howto) { display: none !important; }
+  body.print-cheat #howto { display: block !important; }
+  body.print-cheat #howto > *:not(#howto-body), body.print-cheat #howto-body > *:not(.cheat-sheet) { display: none !important; }
+  body.print-cheat .print-cheat-btn { display: none !important; }
+  body.print-cheat .cheat-sheet { box-shadow: none; border: 1px solid #999; }
+}

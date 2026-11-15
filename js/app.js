@@ -288,6 +288,7 @@
           <div class="where">${esc(where)}</div><p>${esc(d)}</p><p class="sources">Source: ${src.map(hl).join(" · ")}</p></li>`).join("")}</ol>
         <p class="callout ok"><strong>You'll know it worked when:</strong> ${esc(r.check)}</p>
         <p class="callout"><strong>Tip:</strong> ${esc(r.tip)}</p></div>`;
+      if (window.renderCheat) window.renderCheat(id);
     }
     $("howto-tabs").addEventListener("click", (e) => { const b = e.target.closest("[data-role]"); if (b) renderRole(b.dataset.role); });
     document.querySelectorAll("[data-demo]").forEach((a) => a.addEventListener("click", () => setTimeout(() => renderRole("demo"), 0)));
@@ -327,6 +328,67 @@
     $("lab-stages").addEventListener("change", (e) => { const c = e.target.closest("input[data-k]"); if (!c) return; done[c.dataset.k] = c.checked; save(done); paint(); });
     $("lab-reset").addEventListener("click", () => { done = {}; save(done); paint(); });
     paint();
+  }
+
+  // ---------- Troubleshooting, cheat sheets, teach a class ----------
+  const S = window.SUPPORT;
+  if (S) {
+    const sl = (k) => { const x = S.src(k); return x ? `<a href="${esc(x[1])}" target="_blank" rel="noopener">${esc(x[0])}</a>` : ""; };
+    let area = "All";
+    $("tr-areas").innerHTML = ["All"].concat(S.areas).map((a) => `<button class="tile" data-area="${esc(a)}"><strong>${esc(a)}</strong></button>`).join("");
+    function renderTrouble() {
+      const q = $("tr-search").value.trim().toLowerCase();
+      const items = S.trouble.filter((t) => (area === "All" || t.area === area) &&
+        (!q || [t.s, t.fix, t.where].concat(t.check).join(" ").toLowerCase().includes(q)));
+      document.querySelectorAll("#tr-areas .tile").forEach((b) => b.classList.toggle("selected", b.dataset.area === area));
+      $("tr-count").textContent = `${items.length} of ${S.trouble.length} problems shown`;
+      $("tr-list").innerHTML = items.map((t) => `<div class="card trouble"><span class="pill">${esc(t.area)}</span>
+        <h3>${esc(t.s)}</h3><p><strong>Check first</strong></p><ul>${t.check.map((c) => `<li>${esc(c)}</li>`).join("")}</ul>
+        <p class="callout ok"><strong>Fix:</strong> ${esc(t.fix)}</p><div class="where">${esc(t.where)}</div>
+        <p class="sources">Source: ${t.src.map(sl).filter(Boolean).join(" · ")}</p></div>`).join("") ||
+        `<div class="card"><p>No match. Try another word, or <a href="https://github.com/Xudaniel/webmethods-bpms-academy/issues/new" target="_blank" rel="noopener">ask for a new entry</a>.</p></div>`;
+    }
+    $("tr-search").addEventListener("input", renderTrouble);
+    $("tr-areas").addEventListener("click", (e) => { const b = e.target.closest("[data-area]"); if (b) { area = b.dataset.area; renderTrouble(); } });
+    renderTrouble();
+
+    window.renderCheat = function (id) {
+      const c = S.cheats.find((x) => x.id === id); if (!c) return;
+      const box = document.createElement("div");
+      box.innerHTML = `<div class="card cheat-sheet"><h3>${esc(c.role)} cheat sheet</h3>
+        <table class="cheat">${c.actions.map(([a, w]) => `<tr><td><strong>${esc(a)}</strong></td><td><span class="where">${esc(w)}</span></td></tr>`).join("")}</table>
+        <p><strong>Golden rules</strong></p><ol>${c.rules.map((r) => `<li>${esc(r)}</li>`).join("")}</ol>
+        <p class="sources">IBM webMethods BPMS Academy · by Daniel Yuanpeng Xu · xudaniel.github.io/webmethods-bpms-academy · independent, not affiliated with IBM</p>
+        <button class="tile print-cheat-btn" type="button"><strong>Print this cheat sheet</strong></button></div>
+        <div class="card self-check"><h3>Check yourself: ${esc(c.role)}</h3><p id="sc-score" class="lead">0 / ${c.check.length}</p>
+        ${c.check.map((q, i) => `<div class="quiz-q" data-i="${i}"><strong>${i + 1}. ${esc(q.q)}</strong>${q.a.map((a, j) => `<button data-j="${j}">${esc(a)}</button>`).join("")}<div class="explain"></div></div>`).join("")}</div>`;
+      while (box.firstChild) $("howto-body").appendChild(box.firstChild);
+      let right = 0;
+      $("howto-body").querySelector(".self-check").addEventListener("click", (e) => {
+        const b = e.target.closest("button[data-j]"); if (!b) return;
+        const qd = b.closest(".quiz-q"); if (qd.dataset.done) return; qd.dataset.done = "1";
+        const q = c.check[qd.dataset.i], j = +b.dataset.j;
+        qd.querySelectorAll("button").forEach((x, k) => { if (k === q.c) x.classList.add("correct"); else if (k === j) x.classList.add("wrong"); });
+        if (j === q.c) right++;
+        qd.querySelector(".explain").textContent = (j === q.c ? "Right. " : "Not quite. ") + q.e;
+        $("sc-score").textContent = `${right} / ${c.check.length}`;
+      });
+      $("howto-body").querySelector(".print-cheat-btn").addEventListener("click", () => {
+        document.body.classList.add("print-cheat"); window.print();
+        setTimeout(() => document.body.classList.remove("print-cheat"), 500);
+      });
+    };
+    const firstRole = document.querySelector("#howto-tabs .tile.selected");
+    if (firstRole && firstRole.dataset.role !== "demo") window.renderCheat(firstRole.dataset.role);
+
+    const K2 = S.klass;
+    $("teach-title").textContent = K2.title;
+    $("teach-audience").textContent = K2.audience;
+    $("teach-agenda").innerHTML = "<tr><th>Time</th><th>Min</th><th>Module</th><th>How to run it</th></tr>" +
+      K2.agenda.map(([t, m, n, sec, how]) => `<tr><td>${esc(t)}</td><td>${m}</td><td>${sec ? `<a href="#${sec}"><strong>${esc(n)}</strong></a>` : `<strong>${esc(n)}</strong>`}</td><td>${esc(how)}</td></tr>`).join("") +
+      `<tr><td></td><td><strong>${K2.agenda.reduce((n, x) => n + x[1], 0)}</strong></td><td colspan="2">minutes in total</td></tr>`;
+    $("teach-print").innerHTML = K2.print.map((x) => `<li>${esc(x)}</li>`).join("");
+    $("teach-tips").innerHTML = K2.tips.map((x) => `<li>${esc(x)}</li>`).join("");
   }
 
   show(location.hash.slice(1) || "start");
