@@ -78,6 +78,21 @@
     $("r-demo").innerHTML = H.demo.map(([t, sec, click, say, q]) => `<li><strong>${esc(t)}.</strong> ${esc(click)} Say: “${esc(say)}” <em>Answers: ${esc(q)}</em></li>`).join("");
   }
 
+  // Hands-on lab (printable sheet with tick boxes)
+  const LB = window.LAB;
+  if (LB) {
+    const H3 = window.HOWTO || { sources: {} };
+    const ln = (k) => { const x = LB.sources[k] || H3.sources[k]; return x ? `<a href="${esc(x[1])}" target="_blank" rel="noopener">${esc(x[0])}</a>` : ""; };
+    $("r-lab-scenario").textContent = LB.scenario;
+    $("r-lab-flow").textContent = LB.flow.join(" → ");
+    $("r-lab-prereqs").innerHTML = LB.prereqs.map((x) => `<li>${esc(x)}</li>`).join("");
+    $("r-lab-stages").innerHTML = LB.stages.map((st, i) => `<h3>5.${i + 1} ${esc(st.t)} (${st.min} min)</h3>
+      <ul class="ticks">${st.steps.map(([t, where]) => `<li>☐ ${esc(t)} <br><code>${esc(where)}</code></li>`).join("")}</ul>
+      <p class="callout"><strong>Checkpoint:</strong> ${esc(st.check)} <span class="sources">(${st.src.map(ln).filter(Boolean).join(" · ")})</span></p>`).join("");
+    $("r-lab-pitfalls").innerHTML = "<tr><th>Symptom</th><th>Likely cause and fix</th></tr>" + LB.pitfalls.map(([a1, b1]) => `<tr><td>${esc(a1)}</td><td>${esc(b1)}</td></tr>`).join("");
+    $("r-lab-levelup").textContent = LB.levelup;
+  }
+
   // 13. Glossary
   $("r-gloss").innerHTML = A.glossary.map(([t, d]) => `<dt>${esc(t)}</dt><dd>${esc(d)}</dd>`).join("");
 

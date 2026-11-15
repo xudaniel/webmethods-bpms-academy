@@ -78,6 +78,7 @@ After working through the site you should be able to:
 | 1 | **Overview** | Reading + family table | The core idea (process orchestrates, rules judge, people handle exceptions, agents propose) and IBM webMethods at a glance |
 | 1a | **Knowledge base** | Cited reference | Releases, Process Engine and QoS, execution history, Task Engine, Business Rules, Rule Engine configuration, design checklist — 42 cited facts |
 | 1b | **How to use** | Step-by-step guides | Business user, process developer, business analyst, operations, plus a 10-minute customer demo script |
+| 1c | **Hands-on lab** | 30-minute exercise | Build, enable, run and monitor a purchase-approval process, with a progress tracker and pitfalls |
 | 2 | **Lifecycle** | Clickable stages + release table | Model → implement → build & upload → execute → monitor → optimize → govern; 10.15 support dates |
 | 3 | **Architecture** | Clickable component map | Designer, Process Engine (WmPRT), Task Engine, Process Engine DB, Process Audit DB, rules/ODM, Monitor/Optimize; `PRA_*` tables |
 | 4 | **BPMN** | Reference tables | Activities, gateways, events, pools and lanes |
@@ -86,8 +87,8 @@ After working through the site you should be able to:
 | 7 | **Simulator** | Interactive | Run a loan instance through a rule task and an underwriter task; watch audit-style log rows |
 | 8 | **Agent Scan Lab** | Interactive | Classify process steps from history; synthetic sample or your own CSV |
 | 9 | **Market** | Reading + sources | Analyst sizing range, Gartner BOAT, competitor signals, regulatory dates |
-| 10 | **Glossary** | Searchable | 33 terms, including QoS, Business Rules and day-to-day operation terms |
-| 11 | **Quiz** | 20 questions | Immediate feedback with explanations and a running score |
+| 10 | **Glossary** | Searchable | 36 terms, including QoS, Business Rules and day-to-day operation terms |
+| 11 | **Quiz** | 22 questions | Immediate feedback with explanations and a running score |
 
 Every section has its own URL fragment (for example `#simulator`), so you can link directly to it.
 
@@ -97,9 +98,9 @@ Every section has its own URL fragment (for example `#simulator`), so you can li
 
 | Feature | Detail |
 | --- | --- |
-| One page | 17 numbered sections, including the IBM webMethods knowledge base and how-to guides, with a table of contents, from "Why this matters" to sources |
+| One page | 18 numbered sections, including the IBM webMethods knowledge base, how-to guides and a printable lab sheet, with a table of contents, from "Why this matters" to sources |
 | Five static diagrams | Architecture · where execution history lives · 2022–2028 timeline · agent decision guard · loan process in BPMN. Inline SVG, so they render without JavaScript |
-| Quiz | All 20 questions printed with options, then an answer key with explanations |
+| Quiz | All 22 questions printed with options, then an answer key with explanations |
 | Worked examples | The decision-guard policy applied to five cases; the simulator's audit log; the scan lab's synthetic result table |
 | Print-ready | Print stylesheet: no navigation, diagrams and tables kept on one page, source URLs printed. About 17 Letter pages |
 | Same content | Text is rendered from `js/content.js`, `js/knowledge.js` and `js/explainer.js`, so the reading and interactive versions never drift apart |
@@ -136,6 +137,23 @@ The **How to use** section (`#howto`, section 4 of the reading version) has step
 | Operations | Watch, fix and resubmit | Process Instances → Stop / Suspend / Resume → **Resubmit** (optionally after editing pipeline data) → Task List Management → permissions |
 
 **Customer demo script (10 minutes, author's view).** Six beats: what to click, what to say, and which customer question each beat answers. It runs from "why a process platform" through a safe AI agent and a live process run to "how fast can the business change a policy". Open it from the *Show a customer* tab, or from the link on the Start page.
+
+### Hands-on lab: your first process in 30 minutes
+
+The **Hands-on lab** section (`#lab`, section 5 of the reading version) connects the role guides into one exercise. You build a small purchase-approval process: a message start event, an "Approve request" user task, an exclusive gateway, and Approved / Rejected end events.
+
+| Stage | Minutes | You'll know it worked when |
+| --- | --- | --- |
+| 1. Create the project and the process | 3 | The process opens on an empty canvas |
+| 2. Start the process with a document | 4 | The start event shows the receive document |
+| 3. Add the approval task | 6 | The step shows a user-task icon |
+| 4. Route on the decision | 4 | Every path reaches an end event |
+| 5. Build, upload and enable | 5 | No build errors; Execution Enabled |
+| 6. Start an instance | 3 | The task appears in the approver's inbox |
+| 7. Work the task as the approver | 3 | The task shows Completed |
+| 8. Follow the instance in Monitor | 2 | The instance is Completed via Approved |
+
+Every step shows where to click and cites public documentation. A **progress tracker** is saved only in your browser. A **pitfalls table** covers problems such as "the process never starts" and "no task in the inbox". There is a **practice path** for learners without an environment, and a **level-up** exercise that replaces judgement with a decision table and Hot Deploy. The reading version prints the lab as a sheet with tick boxes.
 
 ## Core concepts at a glance
 
@@ -320,6 +338,7 @@ webmethods-bpms-academy/
 │   ├── content.js      # course content and sources
 │   ├── knowledge.js    # IBM webMethods knowledge base: family, cited topics, extra glossary and quiz
 │   ├── howto.js        # How to use: role guides, beginner path, customer demo script
+│   ├── lab.js          # Hands-on lab: first process in 30 minutes
 │   ├── explainer.js    # "Start here" content (author's view items labelled)
 │   ├── explainer-app.js# "Start here" interactions: toggle, sorting game, decision guard, timeline
 │   └── read.js         # renders the reading version from the same content files
@@ -361,7 +380,7 @@ playwright install chromium
 python3 tests/smoke_test.py
 ```
 
-The test serves the site locally, opens every section at phone width (390 × 844), checks the IBM webMethods title, knowledge counter, family table and cited knowledge topics, the beginner path and every how-to guide and the demo script, exercises the Start-here interactions, runs the simulator to completion and the Agent Scan Lab on the synthetic sample, checks that `read.html` has five diagrams, a complete quiz and answer key and all sections filled, and fails on any JavaScript error.
+The test serves the site locally, opens every section at phone width (390 × 844), checks the IBM webMethods title, knowledge counter, family table and cited knowledge topics, the beginner path, every how-to guide, the demo script and the hands-on lab with its progress tracker, exercises the Start-here interactions, runs the simulator to completion and the Agent Scan Lab on the synthetic sample, checks that `read.html` has five diagrams, a complete quiz and answer key and all sections filled, and fails on any JavaScript error.
 
 ## Design principles
 

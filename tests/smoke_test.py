@@ -7,7 +7,7 @@ Usage:  pip install playwright && playwright install chromium
 import asyncio, functools, http.server, sys, threading
 from playwright.async_api import async_playwright
 
-SECTIONS = ["start", "overview", "knowledge", "howto", "lifecycle", "architecture", "bpmn", "patterns", "cases",
+SECTIONS = ["start", "overview", "knowledge", "howto", "lab", "lifecycle", "architecture", "bpmn", "patterns", "cases",
             "simulator", "scan", "market", "glossary", "quiz"]
 
 class QuietHandler(http.server.SimpleHTTPRequestHandler):
@@ -57,6 +57,18 @@ async def main():
             await page.click(f"#howto-tabs [data-role={role}]")
             if word not in await page.inner_text("#howto-body"):
                 failures.append(f"how-to guide {role} missing '{word}'")
+        # Hands-on lab (issue #16): stages, sources, progress tracker
+        await page.click("nav button[data-section=lab]")
+        if await page.locator("#lab-stages .lab-stage").count() != 8:
+            failures.append("lab should have 8 stages")
+        if await page.locator("#lab-stages .sources a").count() < 8:
+            failures.append("lab stages should cite sources")
+        await page.click("#lab-stages input[data-k] >> nth=0")
+        if not (await page.inner_text("#lab-count")).startswith("1 /"):
+            failures.append("lab progress tracker did not update")
+        await page.click("#lab-reset")
+        if not (await page.inner_text("#lab-count")).startswith("0 /"):
+            failures.append("lab reset did not clear progress")
         await page.click("nav button[data-section=start]")
         await page.click("#ex-toggle button[data-mode=with]")
         if "audit trail" not in await page.inner_text("#ex-story"):
@@ -91,6 +103,8 @@ async def main():
             failures.append("read.html should have 5 diagrams")
         if await page2.locator("#r-q > li").count() != await page2.locator("#r-a > li").count() or await page2.locator("#r-a > li").count() < 10:
             failures.append("read.html quiz and answer key mismatch")
+        if await page2.locator("#r-lab-stages h3").count() != 8:
+            failures.append("read.html lab sheet missing")
         if await page2.locator("#r-roles h3").count() != 4 or await page2.locator("#r-demo li").count() != 6:
             failures.append("read.html how-to guides or demo script missing")
         if await page2.locator("#r-kb h3").count() < 6 or await page2.locator("#r-family tr").count() < 8:

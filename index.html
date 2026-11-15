@@ -20,6 +20,7 @@
   <button data-section="overview">Overview</button>
   <button data-section="knowledge">Knowledge base</button>
   <button data-section="howto">How to use</button>
+  <button data-section="lab">Hands-on lab</button>
   <button data-section="lifecycle">Lifecycle</button>
   <button data-section="architecture">Architecture</button>
   <button data-section="bpmn">BPMN</button>
@@ -43,6 +44,7 @@
       <h3>New here? Your 15-minute path</h3>
       <p>Follow these five stops in order. No webMethods experience needed.</p>
       <ol class="path" id="beginner-path"></ol>
+      <p class="sources">Have a webMethods development environment? Next, do the <a href="#lab">30-minute hands-on lab</a>.</p>
       <p class="sources">Showing this to a customer? Use the <a href="#howto" data-demo="1">10-minute demo script</a>.</p>
     </div>
 
@@ -151,6 +153,21 @@
     <div id="howto-body"></div>
   </section>
 
+  <section id="lab" class="section">
+    <div class="card">
+      <h2>Hands-on lab: <span id="lab-title"></span></h2>
+      <p class="lead" id="lab-scenario"></p>
+      <ol class="lab-flow" id="lab-flow"></ol>
+      <div class="lab-progress"><div class="bar"><span id="lab-bar"></span></div><span id="lab-count"></span> <button class="link" id="lab-reset" type="button">Reset</button></div>
+      <h3>Before you start</h3>
+      <ul id="lab-prereqs"></ul>
+      <p class="sources">Use a development environment, never production. Menu labels follow public Software AG / IBM documentation and can differ slightly by version. Your progress is saved only in this browser.</p>
+    </div>
+    <div id="lab-stages"></div>
+    <div class="card"><h3>Stuck? Common pitfalls</h3><div class="table-wrap"><table id="lab-pitfalls"></table></div></div>
+    <div class="card"><h3>No environment? Practise here</h3><ul id="lab-practice"></ul><p class="callout"><strong>Level up:</strong> <span id="lab-levelup"></span></p></div>
+  </section>
+
   <section id="lifecycle" class="section">
     <div class="card"><h2>Process lifecycle</h2><p>Click a stage.</p><div class="grid" id="lifecycle-steps"></div><div id="lifecycle-detail"></div></div>
     <div class="card"><h3>Release lifecycle you should know</h3><div class="table-wrap"><table id="dates"></table></div>
@@ -228,6 +245,7 @@
 <script src="js/content.js"></script>
 <script src="js/knowledge.js"></script>
 <script src="js/howto.js"></script>
+<script src="js/lab.js"></script>
 <script src="js/explainer.js"></script>
 <script src="js/explainer-app.js"></script>
 <script src="js/app.js"></script>

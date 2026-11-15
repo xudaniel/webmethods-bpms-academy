@@ -3,6 +3,12 @@
 All notable changes to the IBM webMethods BPMS Academy. Author: **Daniel Yuanpeng Xu**.
 Versions follow [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+- **Hands-on lab: your first process in 30 minutes.** 8 stages to build, enable, run and monitor a purchase-approval process, with checkpoints, cited steps, a pitfalls table, a practice path without an environment, and a level-up exercise. Progress is saved in the learner's browser. A printable lab sheet is in the reading version (#16).
+- 3 glossary terms and 2 quiz questions (glossary 36, quiz 22).
+
 ## [1.0.0] — 2026-11-15
 
 First stable release, for beginners, customers and the people who use IBM webMethods BPMS every day.

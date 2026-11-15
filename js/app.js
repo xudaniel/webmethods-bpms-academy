@@ -293,5 +293,40 @@
     renderRole("user");
   }
 
+  // ---------- Hands-on lab (progress kept in this browser only) ----------
+  const L = window.LAB;
+  if (L) {
+    const H2 = window.HOWTO || { sources: {} };
+    const src = (k) => L.sources[k] || H2.sources[k];
+    const link = (k) => { const x = src(k); return x ? `<a href="${esc(x[1])}" target="_blank" rel="noopener">${esc(x[0])}</a>` : ""; };
+    const KEY = "wm-academy-lab-v1";
+    const load = () => { try { return JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { return {}; } };
+    const save = (o) => { try { localStorage.setItem(KEY, JSON.stringify(o)); } catch (e) { /* storage unavailable: progress lasts for this visit */ } };
+    let done = load();
+    const total = L.stages.reduce((n, st) => n + st.steps.length, 0);
+    $("lab-title").textContent = L.title;
+    $("lab-scenario").textContent = L.scenario;
+    $("lab-flow").innerHTML = L.flow.map((f) => `<li>${esc(f)}</li>`).join("");
+    $("lab-prereqs").innerHTML = L.prereqs.map((x) => `<li>${esc(x)}</li>`).join("");
+    $("lab-stages").innerHTML = L.stages.map((st, i) => `<div class="card lab-stage" id="lab-${st.id}">
+      <h3>${i + 1}. ${esc(st.t)} <span class="pill">${st.min} min</span></h3>
+      <ol class="howto-steps">${st.steps.map(([t, where], j) => `<li><label class="done"><input type="checkbox" data-k="${st.id}-${j}"> <span>${esc(t)}</span></label><div class="where">${esc(where)}</div></li>`).join("")}</ol>
+      <p class="callout ok"><strong>Checkpoint:</strong> ${esc(st.check)}</p>
+      <p class="sources">Source: ${st.src.map(link).filter(Boolean).join(" · ")}</p></div>`).join("");
+    $("lab-pitfalls").innerHTML = "<tr><th>Symptom</th><th>Likely cause and fix</th></tr>" +
+      L.pitfalls.map(([a, b, ks]) => `<tr><td><strong>${esc(a)}</strong></td><td>${esc(b)} <span class="sources">${ks.map(link).filter(Boolean).join(" · ")}</span></td></tr>`).join("");
+    $("lab-practice").innerHTML = L.practice.map(([t, id, d]) => `<li><a href="#${id}"><strong>${esc(t)}</strong></a> — ${esc(d)}</li>`).join("");
+    $("lab-levelup").textContent = L.levelup;
+    function paint() {
+      document.querySelectorAll("#lab-stages input[data-k]").forEach((c) => { c.checked = !!done[c.dataset.k]; });
+      const n = Object.keys(done).filter((k) => done[k]).length;
+      $("lab-count").textContent = `${n} / ${total} steps done` + (n === total ? " — lab complete!" : "");
+      $("lab-bar").style.width = Math.round((n / total) * 100) + "%";
+    }
+    $("lab-stages").addEventListener("change", (e) => { const c = e.target.closest("input[data-k]"); if (!c) return; done[c.dataset.k] = c.checked; save(done); paint(); });
+    $("lab-reset").addEventListener("click", () => { done = {}; save(done); paint(); });
+    paint();
+  }
+
   show(location.hash.slice(1) || "start");
 })();
