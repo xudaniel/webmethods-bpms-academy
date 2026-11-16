@@ -4,7 +4,12 @@
   const G = window.DIAGRAMS, $ = (id) => document.getElementById(id);
   const root = $("pz-levels");
   if (!G || !root) return;
-  const { box, svg } = G;
+  const { box } = G;
+  const svg = (...a) => G.tr(G.svg(...a)); // Chinese labels when the page is in Chinese
+  const ZP = window.LANG === "zh" && window.ZH && window.ZH.puzzles;
+  const U = ZP ? ZP.ui : { level: (n) => `Level ${n}`, pieces: "Pieces to place", run: "▶ Run", clear: "Clear", fixed: "Fixed.", notQuite: "Not quite.", hint: "Hint:",
+    next: (n) => `Next: level ${n} →`, all: `<strong>All five fixed.</strong> <a href="#lab">Now build a real one in the hands-on lab →</a>`,
+    count: (n, m) => `${n} / ${m} fixed`, done: (n, m) => `${n} / ${m} fixed: you are a process fixer! 🧩` };
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const ln = (id, d, dash) => `<path d="${d}" class="ln${dash ? " dash" : ""}" marker-end="url(#ah-${id})"/>`;
   const slot = (x, y, w, h) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="9" class="pz-slot"/><text x="${x + w / 2}" y="${y + h / 2 + 7}" class="pz-q" text-anchor="middle">?</text>`;
@@ -104,6 +109,14 @@
           : "Sam becomes a rubber stamp and the bottleneck. Put the policy in a rule and send him only what needs judgement." }) }
   ];
 
+  // 中文: titles, goals, piece labels and messages; the piece keys and the drawings' logic stay the same
+  if (ZP) LEVELS.forEach((L) => {
+    const z = ZP.levels[L.id]; if (!z) return;
+    L.title = z.title; L.goal = z.goal; L.lesson = [z.lesson, L.lesson[1]];
+    L.choices.forEach((c, i) => { c[1] = z.choices[i]; });
+    const run = L.run; L.run = (c) => { const r = run(c); r.msg = z.msg[c] || r.msg; return r; };
+  });
+
   const KEY = "wm-academy-puzzles-v1";
   const load = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } };
   const save = (s) => { try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) { /* private mode */ } };
@@ -112,10 +125,10 @@
   const picks = {};
 
   root.innerHTML = LEVELS.map((L) => `<div class="card pz-level" id="pz-${L.id}" data-l="${L.id}" hidden>
-    <h3>Level ${L.id} · ${esc(L.title)}</h3><p class="lead">${esc(L.goal)}</p>
+    <h3>${U.level(L.id)} · ${esc(L.title)}</h3><p class="lead">${esc(L.goal)}</p>
     <div class="pz-fig"></div>
-    <div class="pz-palette" role="group" aria-label="Pieces to place">${L.choices.map(([k, t]) => `<button type="button" class="pz-piece" data-k="${k}">${esc(t)}</button>`).join("")}</div>
-    <div class="row"><button type="button" class="btn pz-run" disabled>▶ Run</button><button type="button" class="link pz-clear">Clear</button></div>
+    <div class="pz-palette" role="group" aria-label="${U.pieces}">${L.choices.map(([k, t]) => `<button type="button" class="pz-piece" data-k="${k}">${esc(t)}</button>`).join("")}</div>
+    <div class="row"><button type="button" class="btn pz-run" disabled>${U.run}</button><button type="button" class="link pz-clear">${U.clear}</button></div>
     <div class="pz-out" aria-live="polite"></div>
   </div>`).join("");
 
@@ -127,7 +140,7 @@
   }
   function paint() {
     const n = LEVELS.filter((L) => st.solved[L.id]).length;
-    $("pz-count").textContent = n === LEVELS.length ? `${n} / ${LEVELS.length} fixed: you are a process fixer! 🧩` : `${n} / ${LEVELS.length} fixed`;
+    $("pz-count").textContent = n === LEVELS.length ? U.done(n, LEVELS.length) : U.count(n, LEVELS.length);
     $("pz-bar").style.width = (100 * n / LEVELS.length) + "%";
     document.querySelectorAll("#pz-chips .pz-chip").forEach((c) => c.classList.toggle("done", !!st.solved[c.dataset.l]));
   }
@@ -136,7 +149,7 @@
     document.querySelectorAll("#pz-chips .pz-chip").forEach((c) => c.classList.toggle("selected", +c.dataset.l === id));
     draw(LEVELS[id - 1]);
   }
-  $("pz-chips").innerHTML = LEVELS.map((L) => `<button type="button" class="pz-chip" data-l="${L.id}" aria-label="Level ${L.id}: ${esc(L.title)}">${L.id}</button>`).join("");
+  $("pz-chips").innerHTML = LEVELS.map((L) => `<button type="button" class="pz-chip" data-l="${L.id}" aria-label="${U.level(L.id)}: ${esc(L.title)}">${L.id}</button>`).join("");
   $("pz-chips").addEventListener("click", (e) => { const c = e.target.closest(".pz-chip"); if (c) show(+c.dataset.l); });
 
   // Move a token along a list of points, then call done()
@@ -172,8 +185,8 @@
       lvl.classList.toggle("pz-win", r.ok); lvl.classList.toggle("pz-fail", !r.ok);
       const next = LEVELS[L.id];
       out.innerHTML = r.ok
-        ? `<p class="pz-ok">✅ <strong>Fixed.</strong> ${esc(r.msg)}</p>` + (next ? `<button type="button" class="btn pz-next" data-next="${next.id}">Next: level ${next.id} →</button>` : `<p><strong>All five fixed.</strong> <a href="#lab">Now build a real one in the hands-on lab →</a></p>`)
-        : `<p class="pz-bad">❌ <strong>Not quite.</strong> ${esc(r.msg)}</p><p class="b-deeper">Hint: <a href="#${L.lesson[1]}">${esc(L.lesson[0])} →</a></p>`;
+        ? `<p class="pz-ok">✅ <strong>${U.fixed}</strong> ${esc(r.msg)}</p>` + (next ? `<button type="button" class="btn pz-next" data-next="${next.id}">${U.next(next.id)}</button>` : `<p>${U.all}</p>`)
+        : `<p class="pz-bad">❌ <strong>${U.notQuite}</strong> ${esc(r.msg)}</p><p class="b-deeper">${U.hint} <a href="#${L.lesson[1]}">${esc(L.lesson[0])} →</a></p>`;
       if (r.ok && !st.solved[L.id]) {
         st.solved[L.id] = new Date().toISOString().slice(0, 10); save(st); paint();
         if (LEVELS.every((x) => st.solved[x.id])) document.dispatchEvent(new CustomEvent("puzzles:done"));

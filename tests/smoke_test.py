@@ -399,8 +399,8 @@ async def main():
             failures.append(f"zh: page keys without a translation: {missing}")
         if "认识一下登场人物" not in await zp.inner_text("#story-cast") or await zp.locator("#start .zh-note").count() != 0:
             failures.append("zh: Start here not translated")
-        if await zp.locator("#controls .zh-note").count() != 1:
-            failures.append("zh: untranslated sections should say so")
+        if await zp.locator(".zh-note").count():
+            failures.append("zh: every section should be translated now (a 'being translated' note is showing)")
         if "画出流程" not in await zp.inner_text("#bpms-map"):
             failures.append("zh: map labels not translated")
         await zp.evaluate("location.hash='crash'")
@@ -460,6 +460,24 @@ async def main():
         await zp.click("#scan-sample")
         if "规则候选" not in await zp.inner_text("#scan-out"):
             failures.append("zh: scan lab results not translated")
+        # 中文版 batch 3b: controls, decision lab, fix the diagram
+        await zp.evaluate("location.hash='controls'")
+        await zp.wait_for_timeout(120)
+        if "四眼审批" not in await zp.inner_text("#controls") or "GDPR 第 22 条" not in await zp.inner_text("#controls"):
+            failures.append("zh: controls not translated")
+        await zp.evaluate("location.hash='decisions'")
+        await zp.wait_for_timeout(120)
+        await zp.click("#dt-run")
+        if "转人工" not in await zp.inner_text("#dt-result") or "规则配置的坑" not in await zp.inner_text("#decisions"):
+            failures.append("zh: decision lab not translated")
+        await zp.evaluate("location.hash='puzzles'")
+        await zp.wait_for_timeout(120)
+        await zp.click("#pz-chips .pz-chip[data-l='1']")
+        await zp.click("#pz-1 .pz-piece[data-k='end']")
+        await zp.click("#pz-1 .pz-run")
+        await zp.wait_for_timeout(2500)
+        if "修好了" not in await zp.inner_text("#pz-1 .pz-out") or "第 1 关" not in await zp.inner_text("#pz-1 h3") or "点下面的一个零件" not in await zp.inner_text("#pz-1 figure"):
+            failures.append("zh: fix-the-diagram not translated")
         await zp.click("#lang-toggle")
         await zp.wait_for_timeout(600)
         if await zp.evaluate("document.documentElement.lang") != "en" or (await zp.inner_text("nav button[data-section='start']")) != "Start here":

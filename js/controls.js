@@ -69,29 +69,37 @@ window.CONTROLS = {
 
 (function () {
   const C = window.CONTROLS;
+  const ZC = window.LANG === "zh" && window.ZH && window.ZH.controls;
+  if (ZC) {
+    C.frameworks.forEach((f) => Object.assign(f, ZC.frameworks[f.id] || {}));
+    C.rows.forEach((r) => Object.assign(r, ZC.rows[r.id] || {}));
+  }
+  const U = ZC ? ZC.ui : { practice: "Common practice", askedBy: "Asked for by: ", need: "What is expected", how: "How BPMS and rules do it", evidence: "Evidence an auditor sees",
+    productSrc: "Product sources: ", disclaimer: (d) => `<strong>Educational mapping, not legal or compliance advice.</strong> Whether a framework applies depends on your institution, jurisdiction and use case. Regulatory references were last checked on ${d}.`,
+    glance: "At a glance", control: "Control", frameworks: "The frameworks", source: "Source: ", checked: "checked" };
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const fw = (id) => C.frameworks.find((f) => f.id === id);
   const link = (t, u) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>`;
-  const date = new Date(C.checked + "T12:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+  const date = new Date(C.checked + "T12:00:00").toLocaleDateString(ZC ? "zh-CN" : "en-GB", { day: "numeric", month: ZC ? "long" : "short", year: "numeric" });
   // In the course, hash links would switch sections, so in-page jumps use buttons; the reading version uses anchors.
   const isRead = !!document.querySelector("nav.toc");
   const jump = (id, text, cls) => isRead ? `<a class="${cls}" href="#${id}">${text}</a>` : `<button type="button" class="${cls}" data-jump="${id}">${text}</button>`;
-  const asks = (r) => r.ask.map((a) => a === "practice" ? `<span class="pill">Common practice</span>` : jump("fw-" + a, esc(fw(a).name), "pill fw-pill")).join(" ");
+  const asks = (r) => r.ask.map((a) => a === "practice" ? `<span class="pill">${U.practice}</span>` : jump("fw-" + a, esc(fw(a).name), "pill fw-pill")).join(" ");
 
-  const disclaimer = `<p class="callout ctl-note"><strong>Educational mapping, not legal or compliance advice.</strong> Whether a framework applies depends on your institution, jurisdiction and use case. Regulatory references were last checked on ${date}.</p>`;
+  const disclaimer = `<p class="callout ctl-note">${U.disclaimer(date)}</p>`;
   const rowsHtml = C.rows.map((r) => `<div class="ctl-row" id="ctl-${r.id}">
-      <h3>${esc(r.control)}</h3><p class="ctl-ask">Asked for by: ${asks(r)}</p>
-      <dl><dt>What is expected</dt><dd>${esc(r.need)}</dd><dt>How BPMS and rules do it</dt><dd>${esc(r.how)}</dd><dt>Evidence an auditor sees</dt><dd>${esc(r.evidence)}</dd></dl>
-      <p class="sources">Product sources: ${r.src.map(([t, u]) => link(t, u)).join(" · ")}</p></div>`).join("");
+      <h3>${esc(r.control)}</h3><p class="ctl-ask">${U.askedBy}${asks(r)}</p>
+      <dl><dt>${U.need}</dt><dd>${esc(r.need)}</dd><dt>${U.how}</dt><dd>${esc(r.how)}</dd><dt>${U.evidence}</dt><dd>${esc(r.evidence)}</dd></dl>
+      <p class="sources">${U.productSrc}${r.src.map(([t, u]) => link(t, u)).join(" · ")}</p></div>`).join("");
   const fwHtml = `<div class="fw-grid">${C.frameworks.map((f) => `<div class="fw" id="fw-${f.id}"><strong>${esc(f.name)}</strong> <small>${esc(f.who)}</small>
-      <p><em>${esc(f.full)}.</em> ${esc(f.what)}</p><p class="sources">Source: ${link(f.src, f.url)} · checked ${date}</p></div>`).join("")}</div>`;
-  const cols = [{ id: "practice", name: "Common practice" }].concat(C.frameworks);
-  const matrix = `<div class="table-wrap"><table class="ctl-matrix"><tr><th>Control</th>${cols.map((f) => `<th>${esc(f.name)}</th>`).join("")}</tr>${C.rows.map((r) =>
+      <p><em>${esc(f.full)}${ZC ? "。" : "."}</em> ${esc(f.what)}</p><p class="sources">${U.source}${link(f.src, f.url)} · ${U.checked} ${date}</p></div>`).join("")}</div>`;
+  const cols = [{ id: "practice", name: U.practice }].concat(C.frameworks);
+  const matrix = `<div class="table-wrap"><table class="ctl-matrix"><tr><th>${U.control}</th>${cols.map((f) => `<th>${esc(f.name)}</th>`).join("")}</tr>${C.rows.map((r) =>
     `<tr><td>${jump("ctl-" + r.id, esc(r.control), "ctl-link")}</td>${cols.map((f) => `<td class="${r.ask.includes(f.id) ? "yes" : ""}">${r.ask.includes(f.id) ? "●" : ""}</td>`).join("")}</tr>`).join("")}</table></div>`;
 
   const course = document.getElementById("ctl-body");
   if (course) {
-    course.innerHTML = disclaimer + `<h3>At a glance</h3>` + matrix + rowsHtml + `<h3 id="ctl-frameworks">The frameworks</h3>` + fwHtml;
+    course.innerHTML = disclaimer + `<h3>${U.glance}</h3>` + matrix + rowsHtml + `<h3 id="ctl-frameworks">${U.frameworks}</h3>` + fwHtml;
     course.addEventListener("click", (e) => {
       const b = e.target.closest("[data-jump]"); if (!b) return;
       const t = document.getElementById(b.dataset.jump);
@@ -99,5 +107,5 @@ window.CONTROLS = {
     });
   }
   const read = document.getElementById("r-ctl-body");
-  if (read) read.innerHTML = disclaimer + matrix + rowsHtml.replace(/<h3>/g, "<h4>").replace(/<\/h3>/g, "</h4>") + `<h4>The frameworks</h4>` + fwHtml;
+  if (read) read.innerHTML = disclaimer + matrix + rowsHtml.replace(/<h3>/g, "<h4>").replace(/<\/h3>/g, "</h4>") + `<h4>${U.frameworks}</h4>` + fwHtml;
 })();
