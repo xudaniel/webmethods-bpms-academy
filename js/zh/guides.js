@@ -385,7 +385,7 @@
     "Suspended": "已暂停", "Failed": "已失败", "Resume": "恢复", "fix + Resubmit": "修复 + 重新提交", "Stop": "停止", "Stopped": "已停止",
     "Stop also works on a running instance.": "运行中的实例也可以直接停止。", "Completed, failed or stopped: no suspend.": "已完成、已失败或已停止的：不能暂停。",
     // 实验流程
-    "Purchase approval process": "采购审批流程", "Request": "收到", "received": "申请", "Approve": "审批", "user task": "人工任务",
+    "Purchase approval process": "采购审批流程", "Request": "收到", "received": "申请", "Approve": "批准", "user task": "人工任务",
     "Approved?": "批准了吗？", "yes": "是", "no": "否", "Approved": "已批准", "Rejected": "已拒绝",
     // 排查流程图
     "Process won't start flowchart": "流程不启动排查图", "Built and uploaded": "构建并上传", "without errors?": "没有错误吗？",

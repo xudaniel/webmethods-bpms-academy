@@ -155,30 +155,30 @@
 
   <section id="overview" class="section">
     <div class="card">
-      <h2>What is a BPMS?</h2>
-      <p class="lead">A Business Process Management Suite turns a process drawn in BPMN into running, observable automation: systems are called automatically, people get tasks in an inbox, decisions come from rules, and every step leaves an audit trail.</p>
-      <p>IBM webMethods BPMS (part of IBM since the 2024 acquisition of webMethods from Software AG) combines <strong>Designer</strong>, the <strong>Process Engine</strong> inside Integration Server, the <strong>Task Engine</strong> on My webMethods Server, <strong>Business Rules</strong>, and <strong>Monitor/Optimize</strong>. It is commonly paired with <strong>IBM ODM</strong> for governed decisions.</p>
+      <h2 data-i18n="ov.h2">What is a BPMS?</h2>
+      <p class="lead" data-i18n="ov.lead">A Business Process Management Suite turns a process drawn in BPMN into running, observable automation: systems are called automatically, people get tasks in an inbox, decisions come from rules, and every step leaves an audit trail.</p>
+      <p data-i18n="ov.p">IBM webMethods BPMS (part of IBM since the 2024 acquisition of webMethods from Software AG) combines <strong>Designer</strong>, the <strong>Process Engine</strong> inside Integration Server, the <strong>Task Engine</strong> on My webMethods Server, <strong>Business Rules</strong>, and <strong>Monitor/Optimize</strong>. It is commonly paired with <strong>IBM ODM</strong> for governed decisions.</p>
     </div>
     <div class="card">
-      <h3>IBM webMethods at a glance</h3>
-      <p>BPMS is one part of the IBM webMethods integration family. These are the pieces you meet in a BPMS project.</p>
+      <h3 data-i18n="ov.glance">IBM webMethods at a glance</h3>
+      <p data-i18n="ov.glanceP">BPMS is one part of the IBM webMethods integration family. These are the pieces you meet in a BPMS project.</p>
       <div class="table-wrap"><table id="kb-family"></table></div>
       <p class="sources" id="kb-family-src"></p>
     </div>
     <div class="card">
-      <h3>The one idea to remember</h3>
-      <p><strong>The process owns orchestration; rules own judgment; people own exceptions.</strong> In the agent era a fourth role appears: <strong>agents propose</strong> — reading documents, drafting actions — while rules and people stay accountable.</p>
+      <h3 data-i18n="ov.one">The one idea to remember</h3>
+      <p data-i18n="ov.oneP"><strong>The process owns orchestration; rules own judgment; people own exceptions.</strong> In the agent era a fourth role appears: <strong>agents propose</strong> — reading documents, drafting actions — while rules and people stay accountable.</p>
     </div>
     <div class="card">
-      <h3>How to use this site</h3>
+      <h3 data-i18n="ov.how">How to use this site</h3>
       <div class="grid">
-        <button class="tile" onclick="location.hash='architecture'"><strong>Learn the parts</strong><small>Architecture, lifecycle, BPMN</small></button>
-        <button class="tile" onclick="location.hash='simulator'"><strong>Run a process</strong><small>Step a loan through rules and a human task</small></button>
-        <button class="tile" onclick="location.hash='scan'"><strong>Find agent candidates</strong><small>Score process history in the browser</small></button>
-        <button class="tile" onclick="location.hash='market'"><strong>See the market</strong><small>Where orchestration spending goes</small></button>
+        <button class="tile" onclick="location.hash='architecture'" data-i18n="ov.t1"><strong>Learn the parts</strong><small>Architecture, lifecycle, BPMN</small></button>
+        <button class="tile" onclick="location.hash='simulator'" data-i18n="ov.t2"><strong>Run a process</strong><small>Step a loan through rules and a human task</small></button>
+        <button class="tile" onclick="location.hash='scan'" data-i18n="ov.t3"><strong>Find agent candidates</strong><small>Score process history in the browser</small></button>
+        <button class="tile" onclick="location.hash='market'" data-i18n="ov.t4"><strong>See the market</strong><small>Where orchestration spending goes</small></button>
       </div>
     </div>
-    <p class="callout">Independent learning resource. Not an official IBM site and not affiliated with or endorsed by IBM. Product names are trademarks of their owners. All facts come from public sources listed under Market and in the README; no customer or internal data is used.</p>
+    <p class="callout" data-i18n="ov.disc">Independent learning resource. Not an official IBM site and not affiliated with or endorsed by IBM. Product names are trademarks of their owners. All facts come from public sources listed under Market and in the README; no customer or internal data is used.</p>
   </section>
 
   <section id="knowledge" class="section">
@@ -262,76 +262,76 @@
   </section>
 
   <section id="lifecycle" class="section">
-    <div class="card"><h2>Process lifecycle</h2><p>Click a stage.</p><div class="grid" id="lifecycle-steps"></div><div id="lifecycle-detail"></div></div>
-    <div class="card"><h3>Release lifecycle you should know</h3><div class="table-wrap"><table id="dates"></table></div>
-      <p class="sources">Upgrade deadlines are when customers re-evaluate platforms. Source: IBM webMethods support lifecycle page.</p></div>
+    <div class="card"><h2 data-i18n="lc.h2">Process lifecycle</h2><p data-i18n="lc.p">Click a stage.</p><div class="grid" id="lifecycle-steps"></div><div id="lifecycle-detail"></div></div>
+    <div class="card"><h3 data-i18n="lc.rel">Release lifecycle you should know</h3><div class="table-wrap"><table id="dates"></table></div>
+      <p class="sources" data-i18n="lc.src">Upgrade deadlines are when customers re-evaluate platforms. Source: IBM webMethods support lifecycle page.</p></div>
   </section>
 
   <section id="architecture" class="section">
-    <div class="card"><h2>Architecture</h2><p>Click a component.</p><div class="grid" id="arch-grid"></div><div id="arch-detail"></div></div>
-    <div class="card"><h3>Process Audit tables (where history lives)</h3><div class="table-wrap"><table><tr><th>Table</th><th>What it holds</th></tr><tbody id="audit-tables"></tbody></table></div>
-      <p class="sources">What gets written depends on the logging level set per process. Human-task history in 10.15 comes from the Task Engine audit, not these tables, unless task logging is switched on.</p></div>
+    <div class="card"><h2 data-i18n="ar.h2">Architecture</h2><p data-i18n="ar.p">Click a component.</p><div class="grid" id="arch-grid"></div><div id="arch-detail"></div></div>
+    <div class="card"><h3 data-i18n="ar.tables">Process Audit tables (where history lives)</h3><div class="table-wrap"><table><tr><th data-i18n="ar.table">Table</th><th data-i18n="ar.holds">What it holds</th></tr><tbody id="audit-tables"></tbody></table></div>
+      <p class="sources" data-i18n="ar.src">What gets written depends on the logging level set per process. Human-task history in 10.15 comes from the Task Engine audit, not these tables, unless task logging is switched on.</p></div>
   </section>
 
-  <section id="bpmn" class="section"><div class="card"><h2>BPMN essentials</h2><div id="bpmn-groups"></div></div></section>
+  <section id="bpmn" class="section"><div class="card"><h2 data-i18n="bp.h2">BPMN essentials</h2><div id="bpmn-groups"></div></div></section>
 
   <section id="patterns" class="section">
-    <div class="card"><h2>Patterns</h2>
-      <div class="row"><label for="pattern-filter">Show</label>
-        <select id="pattern-filter"><option value="all">All patterns</option><option value="classic">Classic</option><option value="agent era">Agent era</option></select></div></div>
+    <div class="card"><h2 data-i18n="pa.h2">Patterns</h2>
+      <div class="row"><label for="pattern-filter" data-i18n="pa.show">Show</label>
+        <select id="pattern-filter"><option value="all" data-i18n="pa.all">All patterns</option><option value="classic" data-i18n="pa.classic">Classic</option><option value="agent era" data-i18n="pa.agent">Agent era</option></select></div></div>
     <div id="pattern-list"></div>
   </section>
 
-  <section id="cases" class="section"><div class="card"><h2>Worked cases</h2><p>Each case shows the flow and the design lesson.</p></div><div id="case-list"></div></section>
+  <section id="cases" class="section"><div class="card"><h2 data-i18n="ca.h2">Worked cases</h2><p data-i18n="ca.p">Each case shows the flow and the design lesson.</p></div><div id="case-list"></div></section>
 
   <section id="simulator" class="section">
-    <div class="card"><h2>Loan process simulator</h2>
-      <p>Set the application, start an instance and step through it. The rule task decides <em>approve</em>, <em>decline</em> or <em>refer</em>; only referrals go to a person. The log shows the kind of rows the Process Audit database would hold.</p>
+    <div class="card"><h2 data-i18n="si.h2">Loan process simulator</h2>
+      <p data-i18n="si.p">Set the application, start an instance and step through it. The rule task decides <em>approve</em>, <em>decline</em> or <em>refer</em>; only referrals go to a person. The log shows the kind of rows the Process Audit database would hold.</p>
       <div class="row">
-        <label>Loan amount <input type="number" id="sim-amount" value="40000" min="1000" step="1000"></label>
-        <label>Credit score <input type="number" id="sim-score" value="690" min="300" max="850"></label>
-        <label>Annual income <input type="number" id="sim-income" value="90000" min="1000" step="1000"></label>
+        <label><span data-i18n="si.amt">Loan amount</span> <input type="number" id="sim-amount" value="40000" min="1000" step="1000"></label>
+        <label><span data-i18n="si.score">Credit score</span> <input type="number" id="sim-score" value="690" min="300" max="850"></label>
+        <label><span data-i18n="si.inc">Annual income</span> <input type="number" id="sim-income" value="90000" min="1000" step="1000"></label>
       </div>
-      <div class="row"><button class="btn" id="sim-start">Start instance</button><button class="btn secondary" id="sim-next" disabled>Next step</button></div>
+      <div class="row"><button class="btn" id="sim-start" data-i18n="si.start">Start instance</button><button class="btn secondary" id="sim-next" disabled data-i18n="si.next">Next step</button></div>
       <div class="steps" id="sim-steps"></div>
-      <div class="row" id="sim-human" style="display:none"><strong>Underwriter task in inbox:</strong>
-        <button class="btn" data-v="APPROVE">Approve</button><button class="btn secondary" data-v="DECLINE">Decline</button></div>
+      <div class="row" id="sim-human" style="display:none"><strong data-i18n="si.task">Underwriter task in inbox:</strong>
+        <button class="btn" data-v="APPROVE" data-i18n="si.ap">Approve</button><button class="btn secondary" data-v="DECLINE" data-i18n="si.de">Decline</button></div>
       <div class="log" id="sim-log"></div>
-      <p class="sources">Rules used: score &lt; 580 → decline; score ≥ 720 and loan/income ≤ 35% → approve; otherwise refer. Illustrative only.</p>
+      <p class="sources" data-i18n="si.src">Rules used: score &lt; 580 → decline; score ≥ 720 and loan/income ≤ 35% → approve; otherwise refer. Illustrative only.</p>
     </div>
   </section>
 
   <section id="scan" class="section">
-    <div class="card"><h2>Agent Scan Lab</h2>
-      <p>Years of BPMS history show where people approve almost everything, wait long, or repeat the same decision. This lab scores each step and classifies it as an <strong>ODM rule candidate</strong>, an <strong>agent candidate</strong>, <strong>keep human</strong> or an <strong>integration fix</strong>. Everything runs in your browser; nothing is uploaded.</p>
-      <div class="row"><button class="btn" id="scan-sample">Run on synthetic logistics data</button>
-        <label class="btn secondary" for="scan-file">Load your CSV…</label><input type="file" id="scan-file" accept=".csv" style="display:none"></div>
-      <details><summary>CSV format</summary>
-        <p>One row per completed step instance: <code>process, step, step_type, start_ts, end_ts, wait_min, work_min, outcome, input_key, loop_count, error</code>. <code>step_type</code> is <code>user_task</code>, <code>service</code> or <code>gateway</code>. <code>input_key</code> is a hash of the business fields that drive the decision. Typical sources: <code>PRA_PROCESS_STEP</code> and <code>PRA_STEP_LOGGED_FIELD</code> for steps, the Task Engine audit for user tasks. Use anonymised exports only.</p>
-        <p>Rules: determinism ≥ 80% → rule candidate; ≥ 90% one outcome and ≤ 15 min work → agent (rubber-stamp); wait ≥ 24 h and ≥ 70% one outcome → agent (triage + human approve); service error ≥ 5% → integration fix.</p>
+    <div class="card"><h2 data-i18n="sc.h2">Agent Scan Lab</h2>
+      <p data-i18n="sc.p">Years of BPMS history show where people approve almost everything, wait long, or repeat the same decision. This lab scores each step and classifies it as an <strong>ODM rule candidate</strong>, an <strong>agent candidate</strong>, <strong>keep human</strong> or an <strong>integration fix</strong>. Everything runs in your browser; nothing is uploaded.</p>
+      <div class="row"><button class="btn" id="scan-sample" data-i18n="sc.run">Run on synthetic logistics data</button>
+        <label class="btn secondary" for="scan-file" data-i18n="sc.load">Load your CSV…</label><input type="file" id="scan-file" accept=".csv" style="display:none"></div>
+      <details><summary data-i18n="sc.fmt">CSV format</summary>
+        <p data-i18n="sc.fmt1">One row per completed step instance: <code>process, step, step_type, start_ts, end_ts, wait_min, work_min, outcome, input_key, loop_count, error</code>. <code>step_type</code> is <code>user_task</code>, <code>service</code> or <code>gateway</code>. <code>input_key</code> is a hash of the business fields that drive the decision. Typical sources: <code>PRA_PROCESS_STEP</code> and <code>PRA_STEP_LOGGED_FIELD</code> for steps, the Task Engine audit for user tasks. Use anonymised exports only.</p>
+        <p data-i18n="sc.fmt2">Rules: determinism ≥ 80% → rule candidate; ≥ 90% one outcome and ≤ 15 min work → agent (rubber-stamp); wait ≥ 24 h and ≥ 70% one outcome → agent (triage + human approve); service error ≥ 5% → integration fix.</p>
       </details>
       <div id="scan-out"></div>
-      <p class="sources">Synthetic data is generated to contain these patterns, so the sample result only shows how the method works.</p>
+      <p class="sources" data-i18n="sc.src">Synthetic data is generated to contain these patterns, so the sample result only shows how the method works.</p>
     </div>
   </section>
 
   <section id="market" class="section">
-    <div class="card"><h2>Where the market is going</h2>
-      <h3>Analyst sizes disagree</h3>
-      <div class="table-wrap"><table><tr><th>Firm</th><th>BPM market</th><th>Outlook</th></tr><tbody id="market-sizing"></tbody></table></div>
-      <h3>Signals (2026)</h3><ul id="market-signals"></ul>
-      <h3>Takeaways</h3><ul id="market-takeaways"></ul>
+    <div class="card"><h2 data-i18n="mk.h2">Where the market is going</h2>
+      <h3 data-i18n="mk.dis">Analyst sizes disagree</h3>
+      <div class="table-wrap"><table><tr><th data-i18n="mk.firm">Firm</th><th data-i18n="mk.size">BPM market</th><th data-i18n="mk.out">Outlook</th></tr><tbody id="market-sizing"></tbody></table></div>
+      <h3 data-i18n="mk.sig">Signals (2026)</h3><ul id="market-signals"></ul>
+      <h3 data-i18n="mk.take">Takeaways</h3><ul id="market-takeaways"></ul>
     </div>
-    <div class="card"><h3>Sources</h3><ol class="sources" id="source-list"></ol></div>
+    <div class="card"><h3 data-i18n="mk.src">Sources</h3><ol class="sources" id="source-list"></ol></div>
   </section>
 
   <section id="glossary" class="section">
-    <div class="card"><h2>Glossary</h2><input type="text" id="glossary-search" placeholder="Search terms…" style="width:100%;margin-bottom:.6rem">
+    <div class="card"><h2 data-i18n="gl.h2">Glossary</h2><input type="text" id="glossary-search" placeholder="Search terms…" data-i18n-attr="placeholder:gl.ph" style="width:100%;margin-bottom:.6rem">
       <div class="table-wrap"><table id="glossary-list"></table></div></div>
   </section>
 
   <section id="quiz" class="section">
-    <div class="card"><h2>Knowledge check</h2><p id="quiz-score">Score: 0 / 0</p><div id="quiz-list"></div></div>
+    <div class="card"><h2 data-i18n="qz.h2">Knowledge check</h2><p id="quiz-score" data-i18n="qz.score">Score: 0 / 0</p><div id="quiz-list"></div></div>
   </section>
 </main>
 <footer><span data-i18n="f.by">Created by</span> <strong>Daniel Yuanpeng Xu</strong> · <a href="https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v2.2.0" id="version">v2.2.0</a> · © 2026 · <span data-i18n="f.ind">independent learning resource · not affiliated with IBM</span> · <a href="read.html" data-i18n="f.read">reading version</a> · <a href="https://github.com/Xudaniel/webmethods-bpms-academy" data-i18n="f.src">source on GitHub</a></footer>
@@ -339,6 +339,7 @@
 <script src="js/zh/core.js"></script>
 <script src="js/zh/beginner.js"></script>
 <script src="js/zh/guides.js"></script>
+<script src="js/zh/explore.js"></script>
 <script>I18N.page();</script>
 <script src="js/content.js"></script>
 <script src="js/knowledge.js"></script>

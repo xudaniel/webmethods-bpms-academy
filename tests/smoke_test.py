@@ -399,7 +399,7 @@ async def main():
             failures.append(f"zh: page keys without a translation: {missing}")
         if "认识一下登场人物" not in await zp.inner_text("#story-cast") or await zp.locator("#start .zh-note").count() != 0:
             failures.append("zh: Start here not translated")
-        if await zp.locator("#overview .zh-note").count() != 1:
+        if await zp.locator("#controls .zh-note").count() != 1:
             failures.append("zh: untranslated sections should say so")
         if "画出流程" not in await zp.inner_text("#bpms-map"):
             failures.append("zh: map labels not translated")
@@ -435,6 +435,31 @@ async def main():
         await zp.click("#howto-tabs [data-role='dev']")
         if "流程开发人员速查卡" not in await zp.inner_text("#howto-body") or "从模型到运行中的实例" not in await zp.inner_text("#howto-body figure.dg"):
             failures.append("zh: developer guide, cheat sheet or diagram not translated")
+        # 中文版 batch 3a: content sections, simulator, scan lab, glossary, quiz
+        for sec, needle in [("overview", "最需要记住的一句话"), ("lifecycle", "2027 年 10 月"), ("architecture", "Process Audit 表"), ("bpmn", "排他网关"),
+                            ("patterns", "Agent 提议，规则决定"), ("cases", "物流异常"), ("market", "分析机构"), ("glossary", "决策敏捷"), ("quiz", "得分")]:
+            await zp.evaluate(f"location.hash='{sec}'")
+            await zp.wait_for_timeout(120)
+            if needle not in await zp.inner_text(f"#{sec}") or await zp.locator(f"#{sec} .zh-note").count():
+                failures.append(f"zh: {sec} not translated")
+        if await zp.locator("#bpmn figure[data-dg='bpmn-gateways'] svg").count() != 1 or "三种网关" not in await zp.inner_text("#bpmn"):
+            failures.append("zh: BPMN diagrams missing after translation")
+        if await zp.locator("#cases figure.dg").count() != 3 or await zp.locator("#cases figure[data-dg='case-2'] rect.warn").count() < 1:
+            failures.append("zh: case diagrams missing or lost their colours")
+        if await zp.evaluate("ZH && Object.keys(ZH.quiz).length") != await zp.locator("#quiz .quiz-q").count() or "Where does" in await zp.inner_text("#quiz"):
+            failures.append("zh: every quiz question needs a translation")
+        if "Volatile" in (await zp.inner_text("#glossary-list")).replace("Volatile Tracking", "") :
+            failures.append("zh: glossary has untranslated entries")
+        await zp.evaluate("location.hash='simulator'")
+        await zp.wait_for_timeout(120)
+        await zp.click("#sim-start")
+        if "收到申请" not in await zp.inner_text("#sim-steps"):
+            failures.append("zh: simulator steps not translated")
+        await zp.evaluate("location.hash='scan'")
+        await zp.wait_for_timeout(120)
+        await zp.click("#scan-sample")
+        if "规则候选" not in await zp.inner_text("#scan-out"):
+            failures.append("zh: scan lab results not translated")
         await zp.click("#lang-toggle")
         await zp.wait_for_timeout(600)
         if await zp.evaluate("document.documentElement.lang") != "en" or (await zp.inner_text("nav button[data-section='start']")) != "Start here":

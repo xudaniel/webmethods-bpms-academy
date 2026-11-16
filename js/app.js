@@ -36,21 +36,22 @@
     const t = e.target.closest(".tile"); if (!t) return;
     document.querySelectorAll("#arch-grid .tile").forEach((x) => x.classList.toggle("selected", x === t));
     const c = A.architecture.find((x) => x.id === t.dataset.id);
-    $("arch-detail").innerHTML = `<div class="detail"><strong>${esc(c.name)}</strong> <span class="pill">${esc(c.role)}</span><p>${esc(c.text)}</p><p><em>Tip:</em> ${esc(c.tip)}</p></div>`;
+    $("arch-detail").innerHTML = `<div class="detail"><strong>${esc(c.name)}</strong> <span class="pill">${esc(c.role)}</span><p>${esc(c.text)}</p><p><em>${T("Tip:", "提示：")}</em> ${esc(c.tip)}</p></div>`;
   });
   $("audit-tables").innerHTML = A.auditTables.map(([t, d]) => `<tr><td><code>${esc(t)}</code></td><td>${esc(d)}</td></tr>`).join("");
 
   // ---------- BPMN ----------
   $("bpmn-groups").innerHTML = A.bpmn
-    .map((g) => `<h3>${esc(g.group)}</h3><div class="table-wrap"><table>${g.items.map(([n, d]) => `<tr><td style="width:35%"><strong>${esc(n)}</strong></td><td>${esc(d)}</td></tr>`).join("")}</table></div>`)
+    .map((g) => `<h3 data-g="${esc(g.key || g.group)}">${esc(g.group)}</h3><div class="table-wrap"><table>${g.items.map(([n, d]) => `<tr><td style="width:35%"><strong>${esc(n)}</strong></td><td>${esc(d)}</td></tr>`).join("")}</table></div>`)
     .join("");
 
   // ---------- patterns ----------
+  const ZA = window.LANG === "zh" && window.ZH && window.ZH.academy;
   function renderPatterns(filter) {
     $("pattern-list").innerHTML = A.patterns
       .filter((p) => filter === "all" || p.tag === filter)
-      .map((p) => `<div class="card"><span class="pill ${p.tag === "classic" ? "green" : ""}">${esc(p.tag)}</span><h3>${esc(p.name)}</h3>
-        <p><strong>Problem:</strong> ${esc(p.problem)}</p><p><strong>Solution:</strong> ${esc(p.solution)}</p><p><strong>Use for:</strong> ${esc(p.when)}</p></div>`)
+      .map((p) => `<div class="card"><span class="pill ${p.tag === "classic" ? "green" : ""}">${esc(ZA ? ZA.tags[p.tag] : p.tag)}</span><h3>${esc(p.name)}</h3>
+        <p><strong>${T("Problem:", "问题：")}</strong> ${esc(p.problem)}</p><p><strong>${T("Solution:", "解决：")}</strong> ${esc(p.solution)}</p><p><strong>${T("Use for:", "适用于：")}</strong> ${esc(p.when)}</p></div>`)
       .join("");
   }
   renderPatterns("all");
@@ -63,12 +64,13 @@
 
   // ---------- simulator: loan process with a rule task and a human path ----------
   const SIM_STEPS = ["Application received", "Fetch credit data", "Rule: eligibility", "Underwriter review", "Send decision"];
+  const ZM = window.LANG === "zh" && window.ZH && window.ZH.sim; // Chinese labels on screen; the audit-style log keeps the engine's English names
   let sim = null;
   function decide(amount, score, income) {
     const dti = amount / Math.max(income, 1);
-    if (score < 580) return { outcome: "DECLINE", reason: "Credit score below 580" };
-    if (score >= 720 && dti <= 0.35) return { outcome: "APPROVE", reason: "Score ≥ 720 and loan/income ≤ 35%" };
-    return { outcome: "REFER", reason: `Score ${score}, loan/income ${(dti * 100).toFixed(0)}% → needs underwriter` };
+    if (score < 580) return { outcome: "DECLINE", reason: ZM ? ZM.low : "Credit score below 580" };
+    if (score >= 720 && dti <= 0.35) return { outcome: "APPROVE", reason: ZM ? ZM.ok : "Score ≥ 720 and loan/income ≤ 35%" };
+    return { outcome: "REFER", reason: ZM ? ZM.refer(score, (dti * 100).toFixed(0)) : `Score ${score}, loan/income ${(dti * 100).toFixed(0)}% → needs underwriter` };
   }
   function simRender() {
     $("sim-steps").innerHTML = SIM_STEPS.map((s, i) => {
@@ -76,10 +78,11 @@
       if (sim && i < sim.i) cls += " done";
       if (sim && i === sim.i) cls += " current";
       if (sim && sim.skip.includes(i)) cls = "step";
-      const label = sim && sim.skip.includes(i) ? `${s} (skipped)` : s;
+      const name = ZM ? ZM.steps[i] : s;
+      const label = sim && sim.skip.includes(i) ? name + (ZM ? ZM.skipped : " (skipped)") : name;
       return `${i ? '<span class="arrow">→</span>' : ""}<span class="${cls}">${esc(label)}</span>`;
     }).join("");
-    $("sim-log").textContent = sim ? sim.log.join("\n") : "Press Start to create a process instance.";
+    $("sim-log").textContent = sim ? sim.log.join("\n") : (ZM ? ZM.press : "Press Start to create a process instance.");
     $("sim-next").disabled = !sim || sim.i >= SIM_STEPS.length;
     $("sim-human").style.display = sim && sim.waitingHuman ? "flex" : "none";
   }
@@ -189,16 +192,19 @@
   }
   const pct = (x) => (x === null ? "–" : Math.round(x * 100) + "%");
   const pillFor = (c) => (c.startsWith("Rule") ? "green" : c.startsWith("Agent") ? "" : c === "Integration fix" ? "red" : "yellow");
+  const ZC = window.LANG === "zh" && window.ZH && window.ZH.scan;
+  const zc = (m, s) => (ZC && ZC[m][s]) || s;
   function renderScan(data) {
     const res = score(data);
-    $("scan-out").innerHTML = `<div class="table-wrap"><table><tr><th>Process / step</th><th>Class</th><th>Hours saved/mo</th><th>Vol/mo</th><th>Top outcome</th><th>Determinism</th><th>Work min</th><th>Wait h</th></tr>${res
-      .map((r) => `<tr><td>${esc(r.process)}<br><strong>${esc(r.step)}</strong></td><td><span class="pill ${pillFor(r.cls)}">${esc(r.cls)}</span></td><td><strong>${r.saved ? Math.round(r.saved) : "–"}</strong></td><td>${Math.round(r.per)}</td><td>${pct(r.top)}</td><td>${pct(r.det)}</td><td>${r.work.toFixed(1)}</td><td>${r.wait.toFixed(1)}</td></tr>`)
-      .join("")}</table></div><p class="sources">Savings use placeholder automatable shares (rules 80%, rubber-stamp 60%, triage 40%). Calibrate on real data before quoting.</p>`;
+    const head = ZC ? ZC.head : ["Process / step", "Class", "Hours saved/mo", "Vol/mo", "Top outcome", "Determinism", "Work min", "Wait h"];
+    $("scan-out").innerHTML = `<div class="table-wrap"><table><tr>${head.map((h) => `<th>${h}</th>`).join("")}</tr>${res
+      .map((r) => `<tr><td>${esc(zc("process", r.process))}<br><strong>${esc(zc("step", r.step))}</strong></td><td><span class="pill ${pillFor(r.cls)}">${esc(zc("cls", r.cls))}</span></td><td><strong>${r.saved ? Math.round(r.saved) : "–"}</strong></td><td>${Math.round(r.per)}</td><td>${pct(r.top)}</td><td>${pct(r.det)}</td><td>${r.work.toFixed(1)}</td><td>${r.wait.toFixed(1)}</td></tr>`)
+      .join("")}</table></div><p class="sources">${ZC ? ZC.note : "Savings use placeholder automatable shares (rules 80%, rubber-stamp 60%, triage 40%). Calibrate on real data before quoting."}</p>`;
   }
   $("scan-sample").addEventListener("click", () => renderScan(sampleData()));
   $("scan-file").addEventListener("change", (e) => {
     const f = e.target.files[0]; if (!f) return;
-    const rd = new FileReader(); rd.onload = () => { try { renderScan(parseCSV(rd.result)); } catch (err) { $("scan-out").innerHTML = `<p class="callout">Could not read the CSV: ${esc(err.message)}</p>`; } };
+    const rd = new FileReader(); rd.onload = () => { try { renderScan(parseCSV(rd.result)); } catch (err) { $("scan-out").innerHTML = `<p class="callout">${ZC ? ZC.bad : "Could not read the CSV: "}${esc(err.message)}</p>`; } };
     rd.readAsText(f);
   });
 
@@ -208,17 +214,22 @@
   $("market-takeaways").innerHTML = A.market.takeaways.map((s) => `<li>${esc(s)}</li>`).join("");
 
   // ---------- glossary ----------
+  // 中文: show the translated term and definition; terms without a translation stay English
+  const ZG = window.LANG === "zh" && window.ZH && window.ZH.gloss;
+  if (ZG) A.glossary = A.glossary.map(([t, d]) => ZG[t] ? [ZG[t][0], ZG[t][1]] : [t, d]);
   function renderGlossary(q) {
     q = (q || "").toLowerCase();
     $("glossary-list").innerHTML = A.glossary
       .filter(([t, d]) => !q || t.toLowerCase().includes(q) || d.toLowerCase().includes(q))
       .map(([t, d]) => `<tr><td style="width:30%"><strong>${esc(t)}</strong></td><td>${esc(d)}</td></tr>`)
-      .join("") || `<tr><td colspan="2">No match.</td></tr>`;
+      .join("") || `<tr><td colspan="2">${T("No match.", "没有找到。")}</td></tr>`;
   }
   renderGlossary("");
   $("glossary-search").addEventListener("input", (e) => renderGlossary(e.target.value));
 
   // ---------- quiz ----------
+  const ZQ = window.LANG === "zh" && window.ZH && window.ZH.quiz;
+  if (ZQ) A.quiz = A.quiz.map((q) => ZQ[q.q] ? Object.assign({}, q, ZQ[q.q]) : q);
   let answered = 0, correct = 0;
   $("quiz-list").innerHTML = A.quiz
     .map((q, i) => `<div class="quiz-q" data-i="${i}"><strong>${i + 1}. ${esc(q.q)}</strong>${q.a.map((a, j) => `<button data-j="${j}">${esc(a)}</button>`).join("")}<div class="explain"></div></div>`)
@@ -231,7 +242,7 @@
     box.querySelectorAll("button")[q.c].classList.add("correct");
     if (j === q.c) correct++; else b.classList.add("wrong");
     box.querySelector(".explain").textContent = q.e;
-    $("quiz-score").textContent = `Score: ${correct} / ${answered}` + (answered === A.quiz.length ? " — done!" : "");
+    $("quiz-score").textContent = T(`Score: ${correct} / ${answered}`, `得分：${correct} / ${answered}`) + (answered === A.quiz.length ? T(" — done!", "：全部完成！") : "");
   });
 
   // ---------- sources ----------

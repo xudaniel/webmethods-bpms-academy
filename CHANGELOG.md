@@ -7,6 +7,7 @@ Versions follow [Semantic Versioning](https://semver.org/).
 
 ### Added
 - 🌐 **中文版, batch 1** (#68): a 中文 / English switch in the header (`?lang=zh`, remembered on the device). Start here (six steps, role paths, the one-picture map, Mia's story), the 10-minute course, Basics 101, menus, tap-to-explain terms, Beginner and Professional mode, badges, reading times and the diagrams used there are in Simplified Chinese. Untranslated sections say so and show the English text. Product and screen names stay in English.
+- 🌐 **中文版, batch 3a** (#68): overview, lifecycle, architecture, BPMN, patterns, worked cases (with their flow diagrams), the loan simulator, the Agent Scan Lab, market, the glossary (33 terms) and the quiz (24 questions) are in Simplified Chinese. Tap-to-explain terms now show the Chinese technical definition too.
 - 🌐 **中文版, batch 2** (#68): the knowledge base (9 topics, quality-of-service widget), the four role guides, cheat sheets and self-checks, the customer demo script, the hands-on lab, all 16 troubleshooting entries and the workshop plan are in Simplified Chinese, with their diagrams. Menu paths stay in English to match the product.
 
 ### Fixed

@@ -145,6 +145,7 @@ Because the site collects no analytics by design, success is measured from outsi
 
 | Version | Date | What shipped |
 | --- | --- | --- |
+| Unreleased | 2026-11-16 | 中文版 batch 3a: overview, lifecycle, architecture, BPMN, patterns, cases, simulator, Agent Scan Lab, market, glossary, quiz and their diagrams (#68) |
 | Unreleased | 2026-11-16 | 中文版 batch 2: knowledge base, how-to guides and cheat sheets, demo script, lab, troubleshooting, workshop plan and their diagrams (#68) |
 | Unreleased | 2026-11-16 | 中文版 batch 1: language switch; Start here, 10-minute course, Basics 101, menus, terms, story and their diagrams in Simplified Chinese (#68) |
 | 2.2.0 | 2026-11-16 | 10-minute course: five steps, five pictures, three checks; first step of the New-here path (#64) |
