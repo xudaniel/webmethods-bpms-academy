@@ -44,6 +44,7 @@ window.WORDS = {
   advanced: ["knowledge", "controls", "teach", "lifecycle", "architecture", "patterns", "scan", "market"],
   // “In plain words” box shown at the top of each beginner section in Beginner mode
   plain: {
+    crash: "Five short steps with one picture each. Tap Next when you are ready. Nothing to install.",
     start: "Pick who you are and follow 3 to 5 steps. You do not need to install anything to begin.",
     basics: "Start here if you are brand new: seven short lessons on the ideas behind every process platform, each with a picture and one question.",
     overview: "What IBM webMethods is made of, in one table. Skim it; you will meet each part again later.",

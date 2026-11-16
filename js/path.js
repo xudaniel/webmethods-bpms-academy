@@ -4,7 +4,7 @@ window.PATHS = {
   roles: [
     { id: "new", icon: "🌱", name: "New here", intro: "No webMethods experience needed. Five short stops, about 30 minutes.",
       steps: [
-        { go: "start", t: "Start here: the six hands-on steps", why: "What a BPMS does, and why AI agents need one." },
+        { go: "crash", t: "The 10-minute course", why: "Know nothing yet? Five short steps and three checks." },
         { go: "basics", t: "Basics 101", why: "Seven short lessons: processes, tasks, rules and the engine." },
         { go: "simulator", t: "Run a process", why: "Watch a loan move through a rule and a human task." },
         { go: "howto", role: "user", t: "How to use: business user", why: "The everyday work: accept and complete tasks." },
@@ -105,7 +105,7 @@ window.PATHS = {
   }
 
   if (isRead) {
-    // Static map + "which chapters should I read?" table in chapter 1
+    // Static map + "which chapters should I read?" table in chapter 1 (the 10-minute course is interactive only; Basics covers it here)
     const why = document.getElementById("r-why");
     if (why) {
       const fig = `<figure class="dg" data-dg="map">${mapSvg((m) => "#" + m.r)}<figcaption><strong>IBM webMethods BPMS in one picture.</strong> From model to audit trail; each box links to the chapter that explains it.</figcaption></figure>`;
@@ -115,7 +115,7 @@ window.PATHS = {
         const sec = document.getElementById(rid[go] || ""), h = sec && sec.querySelector("h2"), m = h && h.textContent.match(/^(\d+)\./);
         return m ? "ch. " + m[1] : "interactive version";
       };
-      const rows = P.roles.map((r) => `<tr><td><strong>${r.icon} ${esc(r.name)}</strong></td><td>${r.steps.map((st) => esc(st.t) + " (" + esc(chap(st.go)) + ")").join(" → ")}</td></tr>`).join("");
+      const rows = P.roles.map((r) => `<tr><td><strong>${r.icon} ${esc(r.name)}</strong></td><td>${r.steps.filter((st) => st.go !== "crash").map((st) => esc(st.t) + " (" + esc(chap(st.go)) + ")").join(" → ")}</td></tr>`).join("");
       why.querySelector("h2").insertAdjacentHTML("afterend", fig +
         `<h3>Which chapters should I read?</h3><div class="table-wrap"><table id="r-paths"><tr><th>You are</th><th>Read in this order</th></tr>${rows}</table></div>`);
     }
