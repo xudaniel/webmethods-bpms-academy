@@ -3,6 +3,19 @@
 (function (root) {
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
+  // Chinese labels (#68): swap each text node of a drawn SVG using ZH.dg (English line → Chinese); unknown lines stay English
+  const unesc = (t) => t.replace(/&(amp|lt|gt|quot|#39);/g, (m, e) => ({ amp: "&", lt: "<", gt: ">", quot: '"', "#39": "'" }[e]));
+  const zhOn = () => root.LANG === "zh" && root.ZH && root.ZH.dg;
+  function tr(markup) {
+    if (!zhOn()) return markup;
+    const Z = root.ZH.dg;
+    return markup.replace(/>([^<>]+)</g, (m, t) => {
+      const v = Z[unesc(t).trim()];
+      return v == null ? m : ">" + t.match(/^\s*/)[0] + esc(v) + "<";
+    });
+  }
+  const one = (s) => (zhOn() && root.ZH.dg[s]) || s;
+
   // ---------- drawing helpers ----------
   function box(x, y, w, h, cls, lines, fs) {
     fs = fs || 14;
@@ -380,15 +393,18 @@
 
   // Worked cases: one flow per case, coloured by who does each step
   (root.ACADEMY && root.ACADEMY.cases ? root.ACADEMY.cases : []).forEach((c, ci) => {
+    // Colour by who does the step, read from the English flow; Chinese lines are wrapped by character count
     const kind = (s) => /^Agent|agent/.test(s) ? "warn" : /^Rule|rule/i.test(s) ? "agent" : /approval|review|user task/i.test(s) ? "hl" : "soft";
+    const zu = zhOn() && root.ZH.dgUi;
+    const wrapZh = (s, n) => { const out = []; for (let i = 0; i < s.length; i += n) out.push(s.slice(i, i + n)); return out; };
     D["case-" + ci] = {
-      title: c.name + " as a flow",
-      caption: "Grey: systems. Blue: people. Purple: rules. Yellow: AI agent. " + c.lesson,
+      title: zu ? zu.caseTitle(c.name) : c.name + " as a flow",
+      caption: (zu ? zu.caseCap : "Grey: systems. Blue: people. Purple: rules. Yellow: AI agent. ") + c.lesson,
       draw: (sa) => {
         let y = 34; const parts = [`<circle cx="170" cy="14" r="10" class="ev"/>`];
         c.flow.forEach((s, i) => {
-          const lines = wrap(s, 30), h = 18 + lines.length * 16;
-          parts.push(arrow("c" + ci, `M170,${y - 10} V${y - 2}`), box(40, y, 260, h, kind(s), lines, 13));
+          const lines = zu ? wrapZh(s, 17) : wrap(s, 30), h = 18 + lines.length * 16;
+          parts.push(arrow("c" + ci, `M170,${y - 10} V${y - 2}`), box(40, y, 260, h, kind((c.flowEn || c.flow)[i]), lines, 13));
           y += h + 18;
         });
         parts.push(arrow("c" + ci, `M170,${y - 18} V${y - 4}`), `<circle cx="170" cy="${y + 8}" r="11" class="ev endok"/>`);
@@ -436,18 +452,6 @@
     el.addEventListener("change", paint); paint();
   }
 
-  // Chinese labels (#68): swap each text node of a drawn SVG using ZH.dg (English line → Chinese); unknown lines stay English
-  const unesc = (t) => t.replace(/&(amp|lt|gt|quot|#39);/g, (m, e) => ({ amp: "&", lt: "<", gt: ">", quot: '"', "#39": "'" }[e]));
-  const zhOn = () => root.LANG === "zh" && root.ZH && root.ZH.dg;
-  function tr(markup) {
-    if (!zhOn()) return markup;
-    const Z = root.ZH.dg;
-    return markup.replace(/>([^<>]+)</g, (m, t) => {
-      const v = Z[unesc(t).trim()];
-      return v == null ? m : ">" + t.match(/^\s*/)[0] + esc(v) + "<";
-    });
-  }
-  const one = (s) => (zhOn() && root.ZH.dg[s]) || s;
   const API = { D, svg, box, arrow, STYLE, qosWidget, wireQos, tr };
   if (typeof module !== "undefined" && module.exports) { module.exports = API; return; }
   root.DIAGRAMS = API;
@@ -487,9 +491,9 @@
     const q = (sel) => document.querySelector(sel);
     after(q("#architecture .card p"), fig("arch-map"));
     after(q("#lifecycle .card p"), fig("lifecycle-loop"));
-    const bh = (re) => [...document.querySelectorAll("#bpmn-groups h3")].find((h) => re.test(h.textContent));
-    if (bh(/Gateways/)) after(bh(/Gateways/).nextElementSibling, fig("bpmn-gateways"));
-    if (bh(/Swimlanes/)) after(bh(/Swimlanes/).nextElementSibling, fig("bpmn-lanes"));
+    const bh = (k) => document.querySelector(`#bpmn-groups h3[data-g="${k}"]`);
+    if (bh("Gateways")) after(bh("Gateways").nextElementSibling, fig("bpmn-gateways"));
+    if (bh("Swimlanes")) after(bh("Swimlanes").nextElementSibling, fig("bpmn-lanes"));
     after(q("#patterns .card .row"), fig("agent-pattern"));
     document.querySelectorAll("#case-list > .card .steps").forEach((el, i) => { if (D["case-" + i]) after(el, fig("case-" + i)); });
     after(q("#simulator .card p"), fig("sim-loan"));

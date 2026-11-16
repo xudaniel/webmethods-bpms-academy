@@ -371,3 +371,6 @@ body.pro .cc-remember { background: transparent; }
 :lang(zh) body, body:lang(zh) { font-family: system-ui, -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", "Noto Sans SC", sans-serif; }
 :lang(zh) .lead, :lang(zh) p, :lang(zh) li { line-height: 1.75; }
 .zh-note { background: #fcf4d6; border: 1px solid #f1c21b; border-radius: 8px; padding: .5rem .75rem; font-size: .92rem; }
+:lang(zh) #scan-out th { white-space: nowrap; }
+:lang(zh) #scan-out td:first-child { min-width: 8.5em; }
+:lang(zh) #scan-out .pill { white-space: nowrap; }

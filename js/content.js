@@ -204,3 +204,15 @@ window.ACADEMY = {
     ["BPM market sizes: 360iResearch", "https://cn.gii.tw/report/ires2011888-business-process-management-market-by-organization.html"]
   ]
 };
+
+// 中文 (#68): swap in translated course content. Ids, pattern tags and BPMN group keys stay English (used by filters and diagrams);
+// the English case flows are kept for colouring the case diagrams. Glossary and quiz are translated where they are shown (app.js).
+(function () {
+  const Z = window.LANG === "zh" && window.ZH && window.ZH.academy, A = window.ACADEMY;
+  if (!Z) return;
+  A.architecture.forEach((c) => Object.assign(c, Z.architecture[c.id] || {}));
+  A.auditTables = Z.auditTables; A.lifecycle = Z.lifecycle; A.lifecycleDates = Z.lifecycleDates; A.market = Z.market;
+  A.bpmn.forEach((g, i) => { g.key = g.group; Object.assign(g, Z.bpmn[i]); });
+  A.patterns.forEach((p, i) => Object.assign(p, Z.patterns[i]));
+  A.cases.forEach((c, i) => { c.flowEn = c.flow; Object.assign(c, Z.cases[i]); });
+})();

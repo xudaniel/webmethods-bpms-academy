@@ -70,7 +70,7 @@ window.WORDS = {
     plain: "🌱 <strong>In plain words:</strong>", menu: (a, b) => `🌱 Beginner mode shows ${a} of ${b} sections.`, showAll: "Show all",
     on: "🌱 Beginner mode: <strong>on</strong>", off: "🌱 New here? <strong>Beginner mode</strong>" };
   // The glossary is English until it is translated; in Chinese show only the plain explanation
-  const glossList = ZW ? ((window.ZH.glossary) || []) : A.glossary;
+  const glossList = ZW ? Object.entries(window.ZH.gloss || {}).map(([k, v]) => [v[0], v[1], k]) : A.glossary;
   const $ = (id) => document.getElementById(id);
   const tl = window.L || ((en) => en);
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));

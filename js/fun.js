@@ -126,7 +126,7 @@
   document.addEventListener("puzzles:done", () => award("fixer2"));
   on("lab-stages", "change", () => setTimeout(() => { if (/lab complete/.test(($("lab-count") || {}).textContent || "")) award("lab"); }, 30));
   on("quiz-list", "click", () => setTimeout(() => {
-    const m = (($("quiz-score") || {}).textContent || "").match(/(\d+)\s*\/\s*(\d+).*done/);
+    const m = (($("quiz-score") || {}).textContent || "").match(/(\d+)\s*\/\s*(\d+).*(done|完成)/);
     if (m && m[1] === m[2]) award("quiz");
   }, 30));
 
