@@ -145,6 +145,7 @@ Because the site collects no analytics by design, success is measured from outsi
 
 | Version | Date | What shipped |
 | --- | --- | --- |
+| Unreleased | 2026-11-16 | On-call drills: three branching incidents with a clock and cited debriefs; On-call hero badge; English and Chinese (#50) |
 | Unreleased | 2026-11-16 | Instance time machine: replay a finished simulator instance from its audit rows, with a volatile-tracking toggle; English and Chinese (#51) |
 | Unreleased | 2026-11-16 | Swipe sort: rule, agent or human? 20 cards in 60 seconds, answers from the scan lab's classifier, English and Chinese (#53) |
 | Unreleased | 2026-11-16 | 中文版 batch 3b: controls for regulated industries, decision lab, Fix the diagram; all 22 course sections now in Chinese (#68) |

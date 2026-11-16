@@ -34,6 +34,7 @@
   <button data-section="puzzles">Fix the diagram</button>
   <button data-section="swipe">Swipe sort</button>
   <button data-section="trouble">Troubleshooting</button>
+  <button data-section="drills">On-call drills</button>
   <button data-section="teach">Teach a class</button>
   <button data-section="lifecycle">Lifecycle</button>
   <button data-section="architecture">Architecture</button>
@@ -256,6 +257,11 @@
     <div id="tr-list"></div>
   </section>
 
+  <section id="drills" class="section">
+    <div class="card"><h2 data-i18n="dr.h2">On-call drills</h2>
+      <p class="lead" data-i18n="dr.lead">Three short incidents with a clock that keeps running. Pick what to check: a good check moves you on, a wrong one costs minutes and tells you why. Each drill ends with a debrief that cites the documentation behind every step.</p>
+      <div id="drills-body"></div></div>
+  </section>
   <section id="teach" class="section">
     <div class="card">
       <h2 data-i18n="te.h2">Teach a class <span class="pill">Author's view</span></h2>
@@ -365,6 +371,7 @@
 <script src="js/puzzles.js"></script>
 <script src="js/swipe.js"></script>
 <script src="js/timemachine.js"></script>
+<script src="js/drills.js"></script>
 <script src="js/fun.js"></script>
 <script src="js/path.js"></script>
 <script src="js/story.js"></script>

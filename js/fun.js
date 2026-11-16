@@ -67,7 +67,8 @@
     ["basics", "🧱", "Basics done", "Pass all seven Basics 101 checks"],
     ["fixer2", "🧩", "Process fixer", "Fix all five broken diagrams"],
     ["lab", "🧪", "Lab finisher", "Tick every step of the hands-on lab"],
-    ["quiz", "🏆", "Quiz ace", "Answer every quiz question correctly"]
+    ["quiz", "🏆", "Quiz ace", "Answer every quiz question correctly"],
+    ["oncall", "🚨", "On-call hero", "Solve all three on-call drills on the ideal path"]
   ];
   if (ZF) BADGES.forEach((b) => { const z = ZF.badges[b[0]]; if (z) { b[2] = z[0]; b[3] = z[1]; } });
 
@@ -124,6 +125,7 @@
   on("howto-body", "click", () => setTimeout(() => { const s = $("sc-score"); if (s && /^3 \/ 3/.test(s.textContent)) award("role"); }, 30));
   document.addEventListener("basics:done", () => award("basics"));
   document.addEventListener("puzzles:done", () => award("fixer2"));
+  document.addEventListener("drills:hero", () => award("oncall"));
   on("lab-stages", "change", () => setTimeout(() => { if (/lab complete/.test(($("lab-count") || {}).textContent || "")) award("lab"); }, 30));
   on("quiz-list", "click", () => setTimeout(() => {
     const m = (($("quiz-score") || {}).textContent || "").match(/(\d+)\s*\/\s*(\d+).*(done|完成)/);

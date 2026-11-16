@@ -70,6 +70,7 @@
 | 🗺️ | **See the whole product in one picture**, from model to audit trail, and tap any box to jump to its guide | [Start here](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
 | 🎛️ | **Play with the settings**: toggle quality of service and watch the trade-offs, or move an AI agent's approval limit and watch the decision log | [Knowledge base](https://xudaniel.github.io/webmethods-bpms-academy/#knowledge) · [Start here](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
 | 🧪 | **Learn by doing**: run a loan process in the simulator, then build your first real process in a 30-minute lab | [Simulator](https://xudaniel.github.io/webmethods-bpms-academy/#simulator) · [Lab](https://xudaniel.github.io/webmethods-bpms-academy/#lab) |
+| 🚨 | **Practise being on call**: three short incidents (the process never starts, a manual decision is ignored, Monitor shows nothing) with a clock that keeps running. Good checks move you on, wrong ones cost minutes; each ends with a cited debrief | [On-call drills](https://xudaniel.github.io/webmethods-bpms-academy/#drills) |
 | 👆 | **Swipe sort: rule, agent or human?** 20 synthetic steps in 60 seconds; swipe (or tap, or use the arrow keys) and every answer is explained with the same thresholds the Agent Scan Lab uses. Streaks, a best score and a share line | [Swipe sort](https://xudaniel.github.io/webmethods-bpms-academy/#swipe) |
 | 🧩 | **Repair broken processes**: five tap-to-place puzzles (a missing end event, the wrong gateway, a limit welded into a gateway, a task with no timer, a manager who checks everything); press ▶ Run and watch a token get through, or get stuck and tell you why | [Fix the diagram](https://xudaniel.github.io/webmethods-bpms-academy/#puzzles) |
 | 💼 | **Present it to a client**: switch on Professional mode (or share a `?mode=pro` link) to hide badges and the story, and print a one-page executive brief for banking or insurance | [Briefs](https://xudaniel.github.io/webmethods-bpms-academy/brief.html) |
@@ -129,6 +130,8 @@ No prior webMethods experience is needed.
 
 **Swipe sort:** a phone-first card game. Each card is a synthetic step with four facts (how often one outcome wins, how often the same inputs give the same outcome, work minutes, waiting hours). Swipe left for a rule, right for an agent, up to keep a person. Answers come from the Agent Scan Lab's own classifier, so the game and the lab always agree.
 
+**On-call drills:** three branching incidents told through Mia's story. Each decision offers two or three checks; the right one moves you on, a wrong one costs simulated minutes and explains why, and the clock also ticks while you think. The debrief compares your time with the ideal path and cites the documentation behind each step. Solving all three on the ideal path earns the 🚨 *On-call hero* badge.
+
 **Decision lab:** move a decision table's limits and test an application (approve, refer or decline), compare changing a rule with changing the process, and review common rules-configuration pitfalls.
 
 **How to use**, by role. Each step gives the menu path and an official source, and ends with *how you'll know it worked*. Every role also has a printable **cheat sheet** and a 3-question **self-check**:
@@ -166,7 +169,7 @@ No prior webMethods experience is needed.
 
 ### Stay motivated
 - **⏱ Reading time** on every section, in the Sections menu and for each chapter of the reading version. The whole course is about 40 minutes of reading.
-- **Progress and badges:** sections explored out of 23, and ten badges with a small celebration (Explorer, Basics done, Process fixer, Agent tamer, Simulator, Scanner, Fixer, Role ready, Lab finisher, Quiz ace). There's also a **Did you know?** fact. Everything stays in your browser.
+- **Progress and badges:** sections explored out of 24, and eleven badges with a small celebration (Explorer, Basics done, Process fixer, Agent tamer, Simulator, Scanner, Fixer, Role ready, Lab finisher, Quiz ace, On-call hero). There's also a **Did you know?** fact. Everything stays in your browser.
 
 ## Curriculum, in site order
 
@@ -184,17 +187,18 @@ No prior webMethods experience is needed.
 | 10 | **Fix the diagram** | 5 puzzle levels with a running token | Repair broken processes: end event, gateway choice, rule task, timer, exception path |
 | 11 | **Swipe sort** | 20 cards, 60 seconds | Rule, agent or keep human? The agent-era split, judged card by card |
 | 12 | **Troubleshooting** | Search + flowchart | Symptom → check first → fix → where |
-| 13 | **Teach a class** | Workshop plan + timeline | A 3-hour class for users or customers |
-| 14 | **Lifecycle** | Clickable stages + release table | Model → implement → build and upload → execute → monitor → optimize → govern; release dates |
-| 15 | **Architecture** | Clickable component map | Engines, databases and `PRA_*` audit tables |
-| 16 | **BPMN** | Reference tables | Activities, gateways, events, pools and lanes |
-| 17 | **Patterns** | Filterable cards | Four classic and three agent-era patterns |
-| 18 | **Cases** | Flow diagrams | Purchase approval, loan decisioning, logistics exception |
-| 19 | **Simulator** | Interactive | A loan instance through a rule task and an underwriter task, with an audit log |
-| 20 | **Agent Scan Lab** | Interactive | Find rule and agent candidates in process history (synthetic data or your CSV) |
-| 21 | **Market** | Reading + sources | Sizing, analyst views, competitor signals, regulatory dates |
-| 22 | **Glossary** | Searchable | 33 terms; underlined terms anywhere open a plain-English explanation |
-| 23 | **Quiz** | 24 questions | Instant feedback and a score |
+| 13 | **On-call drills** | 3 branching incidents with a clock | Practise the first checks under a little pressure, then read a cited debrief |
+| 14 | **Teach a class** | Workshop plan + timeline | A 3-hour class for users or customers |
+| 15 | **Lifecycle** | Clickable stages + release table | Model → implement → build and upload → execute → monitor → optimize → govern; release dates |
+| 16 | **Architecture** | Clickable component map | Engines, databases and `PRA_*` audit tables |
+| 17 | **BPMN** | Reference tables | Activities, gateways, events, pools and lanes |
+| 18 | **Patterns** | Filterable cards | Four classic and three agent-era patterns |
+| 19 | **Cases** | Flow diagrams | Purchase approval, loan decisioning, logistics exception |
+| 20 | **Simulator** | Interactive | A loan instance through a rule task and an underwriter task, with an audit log |
+| 21 | **Agent Scan Lab** | Interactive | Find rule and agent candidates in process history (synthetic data or your CSV) |
+| 22 | **Market** | Reading + sources | Sizing, analyst views, competitor signals, regulatory dates |
+| 23 | **Glossary** | Searchable | 33 terms; underlined terms anywhere open a plain-English explanation |
+| 24 | **Quiz** | 24 questions | Instant feedback and a score |
 
 Every section has its own link (for example [`#lab`](https://xudaniel.github.io/webmethods-bpms-academy/#lab)), plus Previous / Next at the bottom.
 
@@ -436,6 +440,8 @@ webmethods-bpms-academy/
 │   ├── i18n.js         # 中文 / English switch (?lang=zh), loaded first
 │   ├── zh/             # Chinese text: core.js (menus, paths, terms, story), beginner.js (Start, course, Basics), guides.js (knowledge, how-to, lab, troubleshooting, teach), explore.js (overview to quiz), labs.js (controls, decision lab, Fix the diagram, Swipe sort)
 │   ├── swipe.js        # Swipe sort: rule, agent or human? (#53)
+│   ├── timemachine.js  # Instance time machine under the simulator (#51)
+│   ├── drills.js       # On-call drills with a clock and a cited debrief (#50)
 │   ├── words.js        # Tap-to-explain terms in plain English, Beginner mode
 │   ├── basics.js       # Basics 101: seven fundamental lessons with checks
 │   ├── crash.js        # 10-minute course: five steps and three checks

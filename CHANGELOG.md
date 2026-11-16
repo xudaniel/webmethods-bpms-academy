@@ -6,6 +6,7 @@ Versions follow [Semantic Versioning](https://semver.org/).
 ## [Unreleased]
 
 ### Added
+- 🚨 **On-call drills** (#50): three branching incidents (the process never starts, a manual decision is ignored, Monitor shows nothing) with a running clock. Wrong checks cost minutes and explain why; each drill ends with your path, the ideal time and a debrief citing IBM / Software AG documentation. New 🚨 *On-call hero* badge for three clean runs. English and Chinese.
 - ⏪ **Instance time machine** (#51): after the loan simulator completes, replay the instance from its audit rows. Slider, ⏮ ◀ ▶ ▶▶ and arrow keys move a token on the loan diagram while the matching `PRA_*` row lights up; a *Volatile Tracking* toggle shows which rows Monitor would not have. English and Chinese.
 - 👆 **Swipe sort** (#53): a phone-first card game. Judge 20 synthetic steps in 60 seconds: swipe left for a rule, right for an agent, up to keep a person (buttons and arrow keys too). Answers come from the Agent Scan Lab's own classifier, now shared as `SCAN_CLASSIFY`. In English and Chinese.
 - 🌐 **中文版, batch 1** (#68): a 中文 / English switch in the header (`?lang=zh`, remembered on the device). Start here (six steps, role paths, the one-picture map, Mia's story), the 10-minute course, Basics 101, menus, tap-to-explain terms, Beginner and Professional mode, badges, reading times and the diagrams used there are in Simplified Chinese. Untranslated sections say so and show the English text. Product and screen names stay in English.

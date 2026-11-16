@@ -53,6 +53,7 @@ window.WORDS = {
     decisions: "Play with a real-looking decision table: move the limits, test an application, and see why rules change faster than processes.",
     swipe: "Look at a card, swipe left for a rule, right for an agent, up to keep a person. 60 seconds, and every answer says why.",
     puzzles: "Five small broken processes. Put the missing piece in place and press Run to see if the token gets through.",
+    drills: "Like a real on-call shift: something breaks, you pick what to check. A good check moves you on, a wrong one costs time, and a debrief follows.",
     trouble: "Something not working? Search the symptom, read the likely cause, try the fix.",
     bpmn: "The picture language for processes: circles start and end, boxes are work, diamonds are decisions.",
     cases: "Real examples from start to finish, each with the lesson behind it.",
