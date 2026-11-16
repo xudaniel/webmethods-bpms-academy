@@ -70,6 +70,7 @@
 | 🗺️ | **See the whole product in one picture**, from model to audit trail, and tap any box to jump to its guide | [Start here](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
 | 🎛️ | **Play with the settings**: toggle quality of service and watch the trade-offs, or move an AI agent's approval limit and watch the decision log | [Knowledge base](https://xudaniel.github.io/webmethods-bpms-academy/#knowledge) · [Start here](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
 | 🧪 | **Learn by doing**: run a loan process in the simulator, then build your first real process in a 30-minute lab | [Simulator](https://xudaniel.github.io/webmethods-bpms-academy/#simulator) · [Lab](https://xudaniel.github.io/webmethods-bpms-academy/#lab) |
+| 🔍 | **Find anything**: tap 🔍 next to ☰ (or press `/`) and search knowledge facts, troubleshooting, the glossary, how-to steps and cheat sheets, the lab, Basics 101, controls, patterns, cases and BPMN, in English or Chinese. Tap a result to land on the exact place | Everywhere |
 | 📒 | **Remember what you got wrong**: every wrong answer anywhere on the site (quiz, Basics 101, the 10-minute course, role self-checks, Swipe sort, on-call drills) goes into a review book and comes back after 1 day and 3 days; two right answers and it leaves. Start here shows how many are due today | [Review book](https://xudaniel.github.io/webmethods-bpms-academy/#review) |
 | 🚨 | **Practise being on call**: three short incidents (the process never starts, a manual decision is ignored, Monitor shows nothing) with a clock that keeps running. Good checks move you on, wrong ones cost minutes; each ends with a cited debrief | [On-call drills](https://xudaniel.github.io/webmethods-bpms-academy/#drills) |
 | 👆 | **Swipe sort: rule, agent or human?** 20 synthetic steps in 60 seconds; swipe (or tap, or use the arrow keys) and every answer is explained with the same thresholds the Agent Scan Lab uses. Streaks, a best score and a share line | [Swipe sort](https://xudaniel.github.io/webmethods-bpms-academy/#swipe) |
@@ -227,6 +228,7 @@ The site is built for phones first. To get the most out of it, save it as an app
 
 **Finding your way on a phone**
 - **☰ Sections** (top left) opens every section, grouped as Start, Do, Learn and Teach. You can also swipe the tab bar sideways.
+- **🔍 Search** (next to ☰, or press `/`) searches every section on your device; ↑ ↓ and Enter work too.
 - Every section ends with **Previous / Next**. The round **↑** button returns to the top. In the reading version, **Contents** jumps back to the table of contents.
 - **Offline:** after your first visit, the saved app opens without a connection. Lab progress is stored on your phone only.
 - **Text size:** use your browser's text-size setting or pinch to zoom. The layout reflows, with no sideways scrolling at 360 px.
@@ -445,6 +447,7 @@ webmethods-bpms-academy/
 │   ├── timemachine.js  # Instance time machine under the simulator (#51)
 │   ├── drills.js       # On-call drills with a clock and a cited debrief (#50)
 │   ├── review.js       # Review book: spaced review of wrong answers (#76)
+│   ├── search.js       # Site search in the browser, English and Chinese (#77)
 │   ├── words.js        # Tap-to-explain terms in plain English, Beginner mode
 │   ├── basics.js       # Basics 101: seven fundamental lessons with checks
 │   ├── crash.js        # 10-minute course: five steps and three checks

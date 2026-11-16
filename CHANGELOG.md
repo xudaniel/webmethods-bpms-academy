@@ -6,6 +6,7 @@ Versions follow [Semantic Versioning](https://semver.org/).
 ## [Unreleased]
 
 ### Added
+- 🔍 **Site search** (#77): 🔍 next to ☰, or press `/`. Searches knowledge facts, troubleshooting, glossary, how-to steps, cheat sheets, the lab, Basics 101, controls, patterns, cases, BPMN and section names in the language on screen, with highlighted snippets; a result opens the exact place (role tab, troubleshooting entry, knowledge topic, lab stage). In the browser, offline, nothing sent anywhere.
 - 📒 **Review book** (#76): every question answered wrong anywhere on the site comes back after 1 day and 3 days (plus 7 days after a repeat miss) until you get it right twice. A card on Start here shows what is due today. Stored by reference, so items appear in the language you are reading; browser only. English and Chinese.
 - 🚨 **On-call drills** (#50): three branching incidents (the process never starts, a manual decision is ignored, Monitor shows nothing) with a running clock. Wrong checks cost minutes and explain why; each drill ends with your path, the ideal time and a debrief citing IBM / Software AG documentation. New 🚨 *On-call hero* badge for three clean runs. English and Chinese.
 - ⏪ **Instance time machine** (#51): after the loan simulator completes, replay the instance from its audit rows. Slider, ⏮ ◀ ▶ ▶▶ and arrow keys move a token on the loan diagram while the matching `PRA_*` row lights up; a *Volatile Tracking* toggle shows which rows Monitor would not have. English and Chinese.

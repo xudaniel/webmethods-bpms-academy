@@ -293,6 +293,37 @@ async def main():
         await page.wait_for_timeout(100)
         if await page.evaluate("REVIEW.ids().length") and not await page.is_visible("#review-home"):
             failures.append("review book: Start here should show the review card")
+        # Site search (issue #77): "/" opens it; a fact, a symptom and a term each open the right place
+        await page.evaluate("location.hash='start'")
+        await page.wait_for_timeout(100)
+        await page.keyboard.press("/")
+        if not await page.is_visible("#search-sheet"):
+            failures.append("search: / should open the search sheet")
+        await page.fill("#search-q", "nsp://localhost")
+        await page.wait_for_timeout(80)
+        await page.keyboard.press("Enter")
+        await page.wait_for_timeout(500)
+        if await page.evaluate("location.hash") != "#knowledge":
+            failures.append("search: a knowledge fact should open the knowledge base")
+        await page.click("#search-btn")
+        await page.fill("#search-q", "greyed out")
+        await page.wait_for_timeout(80)
+        await page.click("#search-results .search-hit >> nth=0")
+        await page.wait_for_timeout(400)
+        if await page.evaluate("location.hash") != "#trouble" or not await page.evaluate("[...document.querySelectorAll('#tr-list details')].some(d => d.open && /greyed out/.test(d.textContent))"):
+            failures.append("search: a troubleshooting symptom should open its entry")
+        await page.click("#search-btn")
+        await page.fill("#search-q", "transition document")
+        await page.wait_for_timeout(80)
+        if "Glossary" not in await page.inner_text("#search-results"):
+            failures.append("search: glossary terms should be found")
+        await page.fill("#search-q", "zzqqxx")
+        await page.wait_for_timeout(80)
+        if "No match" not in await page.inner_text("#search-results"):
+            failures.append("search: no-match message")
+        await page.keyboard.press("Escape")
+        if await page.is_visible("#search-sheet"):
+            failures.append("search: Esc should close")
         # More diagrams (issue #44): every section that teaches a structure has a picture
         for key, sec in [("arch-map", "architecture"), ("lifecycle-loop", "lifecycle"), ("bpmn-gateways", "bpmn"), ("bpmn-lanes", "bpmn"),
                          ("agent-pattern", "patterns"), ("case-0", "cases"), ("case-1", "cases"), ("case-2", "cases"), ("sim-loan", "simulator"),
@@ -560,6 +591,12 @@ async def main():
         await zp.wait_for_timeout(150)
         if "复习本" not in await zp.inner_text("#review") or "什么都没启动" not in await zp.inner_text("#review-body"):
             failures.append("zh: review book should show its questions in Chinese")
+        await zp.click("#search-btn")
+        await zp.fill("#search-q", "启用执行")
+        await zp.wait_for_timeout(80)
+        if "知识库" not in await zp.inner_text("#search-results") and "故障排查" not in await zp.inner_text("#search-results"):
+            failures.append("zh: search should find Chinese text")
+        await zp.keyboard.press("Escape")
         # 中文版 batch 3b: controls, decision lab, fix the diagram
         await zp.evaluate("location.hash='controls'")
         await zp.wait_for_timeout(120)
