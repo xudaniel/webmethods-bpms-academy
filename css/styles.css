@@ -305,3 +305,19 @@ body.beginner .menu-note { display: block; }
 .story-cast .avatar { flex: 0 0 auto; }
 .story-go { display: inline-block; text-decoration: none; }
 @media print { .story-next, .story-go { display: none; } }
+
+/* Fix the diagram (#52) */
+.dg-svg .pz-slot { fill: #fff; stroke: #0f62fe; stroke-width: 2; stroke-dasharray: 6 4; }
+.dg-svg .pz-q { fill: #0f62fe; font-size: 20px; font-weight: 700; }
+.pz-chips { display: flex; gap: .4rem; margin: .4rem 0 .6rem; }
+.pz-chip { width: 2.6rem; height: 2.6rem; border-radius: 999px; border: 1px solid var(--border); background: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+.pz-chip.selected { border-color: var(--primary); background: var(--primary-light); color: var(--primary-dark); }
+.pz-chip.done { background: var(--success); border-color: var(--success); color: #fff; }
+.pz-palette { display: flex; flex-wrap: wrap; gap: .4rem; margin: .6rem 0; }
+.pz-piece { font: inherit; font-size: .92rem; padding: .55rem .8rem; min-height: 2.75rem; border: 1px solid var(--border); border-radius: 10px; background: #fff; cursor: pointer; text-align: left; }
+.pz-piece.selected { border-color: var(--primary); background: var(--primary-light); font-weight: 600; }
+.pz-level.pz-win { box-shadow: 0 0 0 2px var(--success); }
+.pz-level.pz-fail { box-shadow: 0 0 0 2px var(--danger); }
+.pz-ok { background: #defbe6; color: #0e6027; border-radius: 10px; padding: .6rem .8rem; }
+.pz-bad { background: #fff1f1; color: #a2191f; border-radius: 10px; padding: .6rem .8rem; }
+.pz-level .link { font: inherit; color: var(--primary-dark); background: none; border: 0; text-decoration: underline; cursor: pointer; }

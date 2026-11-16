@@ -29,6 +29,7 @@
   <button data-section="howto">How to use</button>
   <button data-section="lab">Hands-on lab</button>
   <button data-section="decisions">Decision lab</button>
+  <button data-section="puzzles">Fix the diagram</button>
   <button data-section="trouble">Troubleshooting</button>
   <button data-section="teach">Teach a class</button>
   <button data-section="lifecycle">Lifecycle</button>
@@ -209,6 +210,15 @@
     <div class="card" id="rules-pitfalls"></div>
   </section>
 
+  <section id="puzzles" class="section">
+    <div class="card"><h2>Fix the diagram: five broken processes</h2>
+      <p class="lead">Each level has one thing wrong. Tap a piece to put it in the dashed slot, press ▶ Run and watch the token. If it gets stuck, you will see why. No installation needed.</p>
+      <div class="pz-chips" id="pz-chips" role="group" aria-label="Levels"></div>
+      <div class="lab-progress"><div class="bar"><span id="pz-bar"></span></div><span id="pz-count"></span> <button class="link" id="pz-reset" type="button">Reset</button></div>
+    </div>
+    <div id="pz-levels"></div>
+  </section>
+
   <section id="trouble" class="section">
     <div class="card">
       <h2>Troubleshooting</h2>
@@ -317,6 +327,7 @@
 <script src="js/decision-lab.js"></script>
 <script src="js/mobile.js"></script>
 <script src="js/diagrams.js"></script>
+<script src="js/puzzles.js"></script>
 <script src="js/fun.js"></script>
 <script src="js/path.js"></script>
 <script src="js/story.js"></script>
