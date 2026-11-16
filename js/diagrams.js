@@ -430,8 +430,8 @@
         s.vtd ? ["warn", "If messaging fails mid-step, no automatic recovery."] : ["ok", "Transition documents persisted; recovers after messaging failures."],
         s.ol ? ["ok", "Adjacent steps on one server skip the messaging round-trip."] : ["warn", "Every transition goes through messaging: slower, more traffic."]
       ];
-      out.innerHTML = lines.map(([c, t]) => `<li class="q-${c}">${esc(t)}</li>`).join("") +
-        `<li class="q-tip">${score === 0 ? "Maximum quality of service: guaranteed, recoverable, fully visible." : score === 3 ? "Maximum speed: use only for short, replayable flows." : s.vt ? "Fast, but blind in Monitor: think twice for auditable work." : "Balanced: the default trade-off."}</li>`;
+      out.innerHTML = lines.map(([c, t]) => `<li class="q-${c}">${esc(one(t))}</li>`).join("") +
+        `<li class="q-tip">${esc(one(score === 0 ? "Maximum quality of service: guaranteed, recoverable, fully visible." : score === 3 ? "Maximum speed: use only for short, replayable flows." : s.vt ? "Fast, but blind in Monitor: think twice for auditable work." : "Balanced: the default trade-off."))}</li>`;
     }
     el.addEventListener("change", paint); paint();
   }
@@ -447,6 +447,7 @@
       return v == null ? m : ">" + t.match(/^\s*/)[0] + esc(v) + "<";
     });
   }
+  const one = (s) => (zhOn() && root.ZH.dg[s]) || s;
   const API = { D, svg, box, arrow, STYLE, qosWidget, wireQos, tr };
   if (typeof module !== "undefined" && module.exports) { module.exports = API; return; }
   root.DIAGRAMS = API;
@@ -480,7 +481,7 @@
     // Lab, troubleshooting, teach
     after(document.getElementById("lab-flow"), fig("lab-process", reduce));
     const trc = document.getElementById("tr-count");
-    if (trc) trc.insertAdjacentHTML("afterend", `<details class="dg-more"><summary>Show the flowchart: the process won't start</summary>${fig("trouble-flow")}</details>`);
+    if (trc) trc.insertAdjacentHTML("afterend", `<details class="dg-more"><summary>${zhOn() ? root.ZH.dgUi.flow : "Show the flowchart: the process won't start"}</summary>${fig("trouble-flow")}</details>`);
     after(document.querySelector("#teach .table-wrap"), `<div id="teach-timeline"></div>`);
     // More diagrams (#44)
     const q = (sel) => document.querySelector(sel);
@@ -526,8 +527,9 @@
   const tt = document.getElementById("teach-timeline");
   if (tt && window.SUPPORT) {
     const ag = window.SUPPORT.klass.agenda, total = ag.reduce((n, a) => n + a[1], 0);
-    tt.innerHTML = `<figure class="dg timeline"><div class="tl-bar">${ag.map(([t, m, n], i) => `<span class="tl-seg tl-${i % 6}${n === "Break" ? " tl-break" : ""}" style="flex:${m}" title="${esc(t + " · " + n)}"></span>`).join("")}</div>
-      <ol class="tl-legend">${ag.map(([t, m, n], i) => `<li><span class="tl-dot tl-${i % 6}${n === "Break" ? " tl-break" : ""}"></span><strong>${esc(t)}</strong> ${esc(n)} <small>${m} min</small></li>`).join("")}</ol>
-      <figcaption><strong>Workshop timeline.</strong> ${total} minutes; the hands-on lab takes a third of the morning.</figcaption></figure>`;
+    const zu = zhOn() && root.ZH.dgUi; // a break is the agenda row with no linked section
+    tt.innerHTML = `<figure class="dg timeline"><div class="tl-bar">${ag.map(([t, m, n, sec], i) => `<span class="tl-seg tl-${i % 6}${!sec ? " tl-break" : ""}" style="flex:${m}" title="${esc(t + " · " + n)}"></span>`).join("")}</div>
+      <ol class="tl-legend">${ag.map(([t, m, n, sec], i) => `<li><span class="tl-dot tl-${i % 6}${!sec ? " tl-break" : ""}"></span><strong>${esc(t)}</strong> ${esc(n)} <small>${m} ${zu ? "分钟" : "min"}</small></li>`).join("")}</ol>
+      <figcaption>${zu ? `<strong>${zu.timeline}</strong> ${zu.tlCap(total)}` : `<strong>Workshop timeline.</strong> ${total} minutes; the hands-on lab takes a third of the morning.`}</figcaption></figure>`;
   }
 })(typeof window !== "undefined" ? window : globalThis);

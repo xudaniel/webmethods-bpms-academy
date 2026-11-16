@@ -119,6 +119,18 @@ window.HOWTO = {
   }
 };
 
+// 中文 (#68): role guides and the demo script; menu paths and sources stay as in the product
+(function () {
+  const Z = window.LANG === "zh" && window.ZH && window.ZH.howto, H = window.HOWTO;
+  if (!Z) return;
+  H.roles.forEach((r) => {
+    const z = Z.roles[r.id]; if (!z) return;
+    r.role = z.role; r.title = z.title; r.who = z.who; r.check = z.check; r.tip = z.tip;
+    r.steps.forEach((s, i) => { if (z.steps[i]) { s[0] = z.steps[i][0]; s[1] = z.steps[i][1]; } });
+  });
+  H.demo.forEach((d, i) => { const z = Z.demo[i]; if (z) { d[0] = z[0]; d[2] = z[1]; d[3] = z[2]; d[4] = z[3]; } });
+})();
+
 // Merge glossary, quiz and sources into the main course.
 (function () {
   const A = window.ACADEMY, H = window.HOWTO;

@@ -183,8 +183,8 @@
 
   <section id="knowledge" class="section">
     <div class="card">
-      <h2>IBM webMethods BPMS knowledge base</h2>
-      <p class="lead">What practitioners need to know about how IBM webMethods BPMS actually behaves: releases, the Process Engine and its quality-of-service settings, execution history, the Task Engine, Business Rules, and a design checklist. Every topic cites public documentation.</p>
+      <h2 data-i18n="kb.h2">IBM webMethods BPMS knowledge base</h2>
+      <p class="lead" data-i18n="kb.lead">What practitioners need to know about how IBM webMethods BPMS actually behaves: releases, the Process Engine and its quality-of-service settings, execution history, the Task Engine, Business Rules, and a design checklist. Every topic cites public documentation.</p>
       <div class="row" id="kb-tabs"></div>
     </div>
     <div id="kb-topics"></div>
@@ -199,27 +199,27 @@
 
   <section id="howto" class="section">
     <div class="card">
-      <h2>How to use IBM webMethods BPMS</h2>
-      <p class="lead">Step-by-step guides for the people who work with the product every day. Pick your role. Each guide ends with how to check it worked and links to the official documentation.</p>
+      <h2 data-i18n="ht.h2">How to use IBM webMethods BPMS</h2>
+      <p class="lead" data-i18n="ht.lead">Step-by-step guides for the people who work with the product every day. Pick your role. Each guide ends with how to check it worked and links to the official documentation.</p>
       <div class="row" id="howto-tabs"></div>
-      <p class="sources">Menu paths follow public Software AG / IBM documentation; labels can differ slightly by version.</p>
+      <p class="sources" data-i18n="ht.src">Menu paths follow public Software AG / IBM documentation; labels can differ slightly by version.</p>
     </div>
     <div id="howto-body"></div>
   </section>
 
   <section id="lab" class="section">
     <div class="card">
-      <h2>Hands-on lab: <span id="lab-title"></span></h2>
+      <h2><span data-i18n="lab.h2">Hands-on lab: </span><span id="lab-title"></span></h2>
       <p class="lead" id="lab-scenario"></p>
       <ol class="lab-flow" id="lab-flow"></ol>
-      <div class="lab-progress"><div class="bar"><span id="lab-bar"></span></div><span id="lab-count"></span> <button class="link" id="lab-reset" type="button">Reset</button></div>
-      <h3>Before you start</h3>
+      <div class="lab-progress"><div class="bar"><span id="lab-bar"></span></div><span id="lab-count"></span> <button class="link" id="lab-reset" type="button" data-i18n="lab.reset">Reset</button></div>
+      <h3 data-i18n="lab.before">Before you start</h3>
       <ul id="lab-prereqs"></ul>
-      <p class="sources">Use a development environment, never production. Menu labels follow public Software AG / IBM documentation and can differ slightly by version. Your progress is saved only in this browser.</p>
+      <p class="sources" data-i18n="lab.src">Use a development environment, never production. Menu labels follow public Software AG / IBM documentation and can differ slightly by version. Your progress is saved only in this browser.</p>
     </div>
     <div id="lab-stages"></div>
-    <div class="card"><h3>Stuck? Common pitfalls</h3><div class="table-wrap"><table id="lab-pitfalls"></table></div></div>
-    <div class="card"><h3>No environment? Practise here</h3><ul id="lab-practice"></ul><p class="callout"><strong>Level up:</strong> <span id="lab-levelup"></span></p></div>
+    <div class="card"><h3 data-i18n="lab.stuck">Stuck? Common pitfalls</h3><div class="table-wrap"><table id="lab-pitfalls"></table></div></div>
+    <div class="card"><h3 data-i18n="lab.noenv">No environment? Practise here</h3><ul id="lab-practice"></ul><p class="callout"><strong data-i18n="lab.lvl">Level up:</strong> <span id="lab-levelup"></span></p></div>
   </section>
 
   <section id="decisions" class="section">
@@ -241,9 +241,9 @@
 
   <section id="trouble" class="section">
     <div class="card">
-      <h2>Troubleshooting</h2>
-      <p class="lead">Something not working? Find the symptom, check the likely causes, then apply the fix. Every entry links to the official documentation.</p>
-      <input type="search" id="tr-search" placeholder="Search symptoms, e.g. 'inbox', 'Hot Deploy', 'resubmit'" aria-label="Search troubleshooting">
+      <h2 data-i18n="tr.h2">Troubleshooting</h2>
+      <p class="lead" data-i18n="tr.lead">Something not working? Find the symptom, check the likely causes, then apply the fix. Every entry links to the official documentation.</p>
+      <input type="search" id="tr-search" placeholder="Search symptoms, e.g. 'inbox', 'Hot Deploy', 'resubmit'" aria-label="Search troubleshooting" data-i18n-attr="placeholder:tr.ph;aria-label:tr.aria">
       <div class="row" id="tr-areas"></div>
       <p class="sources" id="tr-count"></p>
     </div>
@@ -252,13 +252,13 @@
 
   <section id="teach" class="section">
     <div class="card">
-      <h2>Teach a class <span class="pill">Author's view</span></h2>
+      <h2 data-i18n="te.h2">Teach a class <span class="pill">Author's view</span></h2>
       <p class="lead" id="teach-title"></p>
       <p id="teach-audience"></p>
       <div class="table-wrap"><table id="teach-agenda"></table></div>
     </div>
-    <div class="card"><h3>Print before the class</h3><ul id="teach-print"></ul></div>
-    <div class="card"><h3>Facilitator tips</h3><ul id="teach-tips"></ul></div>
+    <div class="card"><h3 data-i18n="te.print">Print before the class</h3><ul id="teach-print"></ul></div>
+    <div class="card"><h3 data-i18n="te.tips">Facilitator tips</h3><ul id="teach-tips"></ul></div>
   </section>
 
   <section id="lifecycle" class="section">
@@ -338,6 +338,7 @@
 <script src="js/i18n.js"></script>
 <script src="js/zh/core.js"></script>
 <script src="js/zh/beginner.js"></script>
+<script src="js/zh/guides.js"></script>
 <script>I18N.page();</script>
 <script src="js/content.js"></script>
 <script src="js/knowledge.js"></script>

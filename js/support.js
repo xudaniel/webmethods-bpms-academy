@@ -103,7 +103,7 @@ window.SUPPORT = {
       ["2:35", 15, "Everyday use by role", "howto", "Each pair picks a role guide and shares one tip."],
       ["2:50", 10, "Check and close", "quiz", "Role self-checks or the quiz; hand out cheat sheets."]
     ],
-    print: ["Reading version → section 5 lab sheet (one per pair)", "One role cheat sheet per participant (How to use → cheat sheet → Print)", "Troubleshooting table for the trainer"],
+    print: ["Reading version → chapter 7 lab sheet (one per pair)", "One role cheat sheet per participant (How to use → cheat sheet → Print)", "Troubleshooting table for the trainer"],
     tips: [
       "Ask each team which process it actually runs, and use it as the example all morning.",
       "For customers, use the 10-minute demo script as the opening, and spend longer on the knowledge base than on the lab.",
@@ -122,6 +122,15 @@ window.SUPPORT = {
     upgrade: ["Upgrading process model versions", "https://documentation.softwareag.com/webmethods/wmsuites/wmsuite10-1/C_Run_BPs_and_CAs/runbpca-compendium/to-runtime_items_13.html"]
   }
 };
+
+// 中文 (#68): troubleshooting, cheat sheets and the workshop plan. Area keys stay English (used in links); labels come from areaNames
+(function () {
+  const Z = window.LANG === "zh" && window.ZH && window.ZH.support, S = window.SUPPORT;
+  if (!Z) return;
+  S.trouble.forEach((t, i) => { const z = Z.trouble[i]; if (z) { t.s = z.s; t.check = z.check; t.fix = z.fix; if (z.where) t.where = z.where; } });
+  S.cheats.forEach((c) => { const z = Z.cheats[c.id]; if (z) Object.assign(c, z); });
+  S.klass = Z.klass;
+})();
 
 // Shared source lookup across how-to, lab and support content.
 window.SUPPORT.src = function (k) {

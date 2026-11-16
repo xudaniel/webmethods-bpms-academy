@@ -7,6 +7,10 @@ Versions follow [Semantic Versioning](https://semver.org/).
 
 ### Added
 - 🌐 **中文版, batch 1** (#68): a 中文 / English switch in the header (`?lang=zh`, remembered on the device). Start here (six steps, role paths, the one-picture map, Mia's story), the 10-minute course, Basics 101, menus, tap-to-explain terms, Beginner and Professional mode, badges, reading times and the diagrams used there are in Simplified Chinese. Untranslated sections say so and show the English text. Product and screen names stay in English.
+- 🌐 **中文版, batch 2** (#68): the knowledge base (9 topics, quality-of-service widget), the four role guides, cheat sheets and self-checks, the customer demo script, the hands-on lab, all 16 troubleshooting entries and the workshop plan are in Simplified Chinese, with their diagrams. Menu paths stay in English to match the product.
+
+### Fixed
+- The workshop print list pointed to "section 5" of the reading version for the lab sheet; the lab is chapter 7.
 
 ## [2.2.0] — 2026-11-16
 
