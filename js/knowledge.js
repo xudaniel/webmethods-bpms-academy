@@ -84,16 +84,45 @@ window.KNOWLEDGE = {
       summary: "How to wire webMethods Business Rules into a process and deploy them so changes stay agile.",
       image: "assets/diagrams/rule-task-hot-deploy.svg",
       facts: [
-        "Rules Engine runs on Integration Server (WmBusinessRules package). By default it is co-located with Process Engine; a remote IS can be configured in MWS under Rules Engine Configuration.",
+        "Rules Engine runs on Integration Server (WmBusinessRules package). By default, rules run on the Integration Server where the Process Engine is installed; to run them on a remote Integration Server, create a remote server alias named businessrulesruntime in Integration Server Administrator (or use configuration variables on Microservices Runtime).",
         "In Designer, place a Rule Task on the process canvas (or drag a rule from the Rules Explorer). In Properties → Implementation set Rule Type to Rule Set or Decision Entity and browse to the asset.",
         "Map process variables to the rule inputs and the rule outputs back to process variables. Outputs are typically used by a subsequent Exclusive Gateway.",
-        "A decision table that contains a manual decision (Task Action) must be marked Process Aware; map TaskData and ProcessData (ProcessData is outbound only).",
+        "A decision table that contains a manual decision (Task Action) must be marked Process Aware; map TaskData, make the task's inputs and outputs match the table's, and map ProcessData outbound only (never overwrite or drop it).",
+        "To use a rule action in a process, set the process's Minimum Logging Level to 5 (Process and all steps).",
         "Event rules require a corresponding JMS trigger on the target Integration Server.",
-        "Hot Deploy pushes a rule project to one or more Integration Servers from the MWS Business Rules UI or via Deployer. Process models do not need to be rebuilt when only rules change.",
+        "Hot Deploy pushes a rule project to one or more Integration Servers from the Business Rules UI in My webMethods or via Deployer; first configure each Integration Server connection (host, port, user, password) under Administration > My webMethods > System Settings > webMethods Business Rules Settings. Process models do not need to be rebuilt when only rules change.",
         "Advanced Rule Task properties (Process Developer mode) include Integration Server Name, Allow Parallel Execution, and Compensating marker."
       ],
       practice: "Design rule outputs as clear enumerations (APPROVE / REFER / REJECT). Keep Rules Engine on a dedicated or horizontally scalable IS node in production. Combine process audit (path & timing) with rule decision logs (inputs & outcome) for full explainability.",
-      sources: [21, 22, 23, 24, 25, 26]
+      sources: [21, 22, 23, 24, 25, 26, 27, 28, 29]
+    },
+    {
+      id: "monitor", title: "Monitor, resubmit and Optimize",
+      summary: "Monitor is where operations find, fix and re-run process instances; Optimize for Process adds KPIs and analytics on top.",
+      facts: [
+        "Monitor runs in My webMethods: Navigate > Applications > Monitoring. Process instances are under Monitoring > Business > Process Instances.",
+        "A failed instance can be resubmitted from any step that failed. A completed instance can be resubmitted from any step that was enabled for resubmission before the instance began executing.",
+        "Before resubmitting, you can edit the pipeline data of a step, which helps when bad data caused the failure. Only webMethods-executed processes can be resubmitted.",
+        "Resubmit Closest re-runs from the failed step if it is resubmit-enabled, otherwise from the closest resubmit-enabled step that ran before it; Resubmit Earliest re-runs the rest of the instance from the first resubmit-enabled step.",
+        "Monitor actions need functional privileges granted by a My webMethods Server administrator, for example Business Monitoring > Resubmit and Business Monitoring > Modify and Resubmit.",
+        "Optimize for Process comes with KPIs, and developers can add custom ones; KPIs can combine business data with process and step metrics, such as Process Cycle Time by Customer.",
+        "The Process Analytics page (Monitoring > Business > Process Analytics) analyses process activity over the current or previous day."
+      ],
+      practice: "Decide which steps must be re-runnable before go-live and enable them for resubmission: you cannot add it to instances already running. Grant Modify and Resubmit sparingly, because it changes live data.",
+      sources: [30, 31, 32, 33, 34, 35, 36]
+    },
+    {
+      id: "upgrade", title: "Upgrading from 10.15",
+      summary: "10.15 reaches end of maintenance in Oct 2027. An upgrade installs the new release side by side, then migrates databases, configuration and process models.",
+      facts: [
+        "The webMethods upgrade guide for 10.15 states that it applies to the 10.15 Migration Framework and all later releases; check the guide for your target release for any changes.",
+        "You install the new release, migrate database components with Database Component Configurator, then migrate product configuration, data and assets with the migration utilities or Command Central.",
+        "Migrate the ProcessEngine and ProcessAudit database components if you want to finish in-progress instances, or resubmit completed or failed ones, in the new installation.",
+        "For a process model with running instances, raise its version number before regenerating it in the new Designer; when you enable the new version in My webMethods and are asked whether to upgrade running processes, answer No.",
+        "After migrating, connect the ProcessEngine and ProcessAudit functions to their database components (Integration Server Administrator > Settings > JDBC Pools), reload the WmMonitor package, and make sure document retrieval is enabled for all webMethods Messaging triggers."
+      ],
+      practice: "Rehearse on a copy of production first. Inventory in-flight instances and decide which must finish on the old release; plan rule projects, task applications and Monitor privileges together with the process models.",
+      sources: [37, 38, 39, 40, 3]
     },
     {
       id: "checklist", title: "Practitioner design checklist",
@@ -140,7 +169,11 @@ window.KNOWLEDGE = {
     { q: "What is required for a decision table that contains a manual decision (Task Action)?", a: ["It must be marked Process Aware and map TaskData / ProcessData", "It must run only on MWS", "It cannot be called from a Rule Task", "It requires an ODM licence"], c: 0,
       e: "Process Aware is mandatory for tables with task actions; ProcessData mappings are outbound only." },
     { q: "How do you update rules without redeploying the process?", a: ["Edit the BPMN gateway condition", "Hot Deploy the rule project to Integration Server", "Rebuild the entire process model", "Restart Designer"], c: 1,
-      e: "Hot Deploy pushes the updated rule project; the process model stays unchanged." }
+      e: "Hot Deploy pushes the updated rule project; the process model stays unchanged." },
+    { q: "A completed instance must be re-run from step 3, but the button does nothing. Most likely?", a: ["Monitor is offline", "Step 3 was not enabled for resubmission before the instance began", "The process is volatile", "Hot Deploy failed"], c: 1,
+      e: "Completed instances can only be resubmitted from steps that were enabled for resubmission before the instance started executing." },
+    { q: "When upgrading, you enable the new version of a model that has running instances and are asked to upgrade running processes. What does the upgrade guide say?", a: ["Answer Yes", "Answer No", "Delete the old version first", "Disable Monitor"], c: 1,
+      e: "Raise the model version before regenerating it, enable the new version, and answer No to upgrading running processes." }
   ],
 
   // Numbered sources referenced by topic.sources
@@ -168,7 +201,21 @@ window.KNOWLEDGE = {
     24: ["Configuring rule tasks: event rules need a JMS trigger (Designer 10.7)", "https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/proc.configuring.rule.tasks.html"],
     25: ["About decision tables: process-aware for manual decisions (Designer 10.7)", "https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/proc.about.decision.tables.html"],
     26: ["Hot deploying rule projects to Integration Server (WmBusinessRules)", "https://documentation.softwareag.com/webmethods/compendiums/v10-3/C_Digital_Event_Comm/intsagdes-compendium/co-about_hot_deployment.html"],
-    23: ["Hot Deploying Rule Projects to Integration Server", "https://www.ibm.com/docs/en/webmethods-bpm/wbr/10.7.0?topic=webmethods-hot-deploying-rule-projects-integration-server"]
+    23: ["Hot Deploying Rule Projects to Integration Server", "https://www.ibm.com/docs/en/webmethods-bpm/wbr/10.7.0?topic=webmethods-hot-deploying-rule-projects-integration-server"],
+    27: ["Configuring a remote Integration Server for business rules (Designer 10.15)", "https://documentation.softwareag.com/webmethods/designer/sdf10-15/webhelp/sdf-webhelp/sdf-webhelp/to-proc-rules_2.html"],
+    28: ["Configuring an Integration Server connection for hot deployment (10.7)", "https://documentation.softwareag.com/webmethods/compendiums/v10-7/C_Design_and_Implement_BPMs/design_implement_bpm_compendium/ta-configure_master_is.html"],
+    29: ["About rule actions: Minimum Logging Level 5 (Designer 10.7)", "https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/proc.about.rule.actions.html"],
+    30: ["Monitor: monitoring tasks in My webMethods (Monitor 10.7)", "https://documentation.softwareag.com/webmethods/monitor/wmn10-7/10-7_Monitor_webhelp/wmn-webhelp/to-concepts_13.html"],
+    31: ["About resubmitting process instances and steps (Monitor 10.5)", "https://documentation.softwareag.com/webmethods/monitor/wmn10-5/10-5_Monitor_webhelp/monitor-webhelp/to-processes_25.html"],
+    32: ["Resubmit Closest and Resubmit Earliest (Monitor 10.7)", "https://documentation.softwareag.com/webmethods/monitor/wmn10-7/10-7_Monitor_webhelp/wmn-webhelp/to-processes_25.html"],
+    33: ["Granting users the ability to perform Monitor actions (Monitor 10.7)", "https://documentation.softwareag.com/webmethods/monitor/wmn10-7/10-7_Monitor_webhelp/wmn-webhelp/to-setup_13.html"],
+    34: ["Optimize for Process KPIs (9.10)", "https://documentation.softwareag.com/webmethods/wmsuites/wmsuite9-10/Comp/desimplca-compendium/to-analytics_decisions_13.html"],
+    35: ["Configuring KPIs (Optimize 10.7)", "https://documentation.softwareag.com/webmethods/optimize/opt10-7/10-7_Optimize_webhelp/obe-webhelp/co-config_kpi_placeholder.html"],
+    36: ["Overview of the Process Analytics page (Optimize 10.7)", "https://documentation.softwareag.com/webmethods/optimize/opt10-7/10-7_Optimize_webhelp/obe-webhelp/co-bizviz_overview.html"],
+    37: ["Upgrading Software AG Products On Premises 10.15 (PDF)", "https://documentation.softwareag.com/webmethods/wmsuites/wmsuite10-15/related/SysReqs_Installation_and_Upgrade/upgrading-sag-products.pdf"],
+    38: ["Migrate database components with Database Component Configurator (10.15)", "https://documentation.softwareag.com/webmethods/wmsuites/wmsuite10-15/webhelp/mig-webhelp/mig-webhelp/to-migrate_db_components_4.html"],
+    39: ["Complete the business process upgrade (10.15)", "https://documentation.softwareag.com/webmethods/wmsuites/wmsuite10-15/webhelp/mig-webhelp/mig-webhelp/to-migrate_designer_busprocruntime_13.html"],
+    40: ["Upgrade using Command Central (10.15)", "https://documentation.softwareag.com/webmethods/wmsuites/wmsuite10-15/webhelp/mig-webhelp/mig-webhelp/to-command_central_8.html"]
   }
 };
 

@@ -207,6 +207,11 @@ async def main():
             failures.append("agility comparison did not run")
         if await page.locator("#rules-pitfalls tr").count() < 6:
             failures.append("rules pitfalls table missing")
+        if await page.locator("#rules-pitfalls td a[href^='https://documentation.softwareag.com']").count() < 6:
+            failures.append("every factual rules pitfall should cite a public source")
+        for kb in ["monitor", "upgrade"]:
+            if await page.locator(f"#kb-{kb} .sources a").count() < 4:
+                failures.append(f"knowledge topic {kb} missing or uncited")
         # Plain words and Beginner mode (issue #38)
         await page.evaluate("location.hash='lab'")
         await page.wait_for_timeout(150)
