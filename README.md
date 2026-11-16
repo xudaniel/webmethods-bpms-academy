@@ -65,11 +65,12 @@
 | 📦 | **Follow one story**: Mia's $1,200 laptop request travels through the whole course with Sam (manager), Priya (analyst), Leo (developer) and Omar (operations); each section shows the next moment and where her request is now | [Start here](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
 | ⚡ | **Know nothing? Take the 10-minute course**: five 2-minute steps (what a BPMS is, who does each step, the IBM webMethods parts, drawing to running, why it matters for AI agents), one picture each, then three quick checks | [10-minute course](https://xudaniel.github.io/webmethods-bpms-academy/#crash) |
 | 🧱 | **Learn the fundamentals first**: seven 2-minute lessons (process vs instance, who does each step, five BPMN shapes, rules vs process, tasks, the engine and audit trail, drawing to running), each with a picture and one question | [Basics 101](https://xudaniel.github.io/webmethods-bpms-academy/#basics) |
-| 🌐 | **Read it in Chinese**: tap **中文** in the header (or open `?lang=zh`). The switch is remembered. all 22 sections of the interactive course are translated, diagrams, games and quizzes included; the reading version and the executive briefs follow | [中文版](https://xudaniel.github.io/webmethods-bpms-academy/?lang=zh) |
+| 🌐 | **Read it in Chinese**: tap **中文** in the header (or open `?lang=zh`). The switch is remembered. every section of the interactive course is translated, diagrams, games and quizzes included; the reading version and the executive briefs follow | [中文版](https://xudaniel.github.io/webmethods-bpms-academy/?lang=zh) |
 | 🌱 | **Understand every word**: tap any underlined term (BPMN, IS, MWS, Hot Deploy…) for a one-line plain-English explanation, and switch on **Beginner mode** to see only the 10 sections you need first | Everywhere |
 | 🗺️ | **See the whole product in one picture**, from model to audit trail, and tap any box to jump to its guide | [Start here](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
 | 🎛️ | **Play with the settings**: toggle quality of service and watch the trade-offs, or move an AI agent's approval limit and watch the decision log | [Knowledge base](https://xudaniel.github.io/webmethods-bpms-academy/#knowledge) · [Start here](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
 | 🧪 | **Learn by doing**: run a loan process in the simulator, then build your first real process in a 30-minute lab | [Simulator](https://xudaniel.github.io/webmethods-bpms-academy/#simulator) · [Lab](https://xudaniel.github.io/webmethods-bpms-academy/#lab) |
+| 👆 | **Swipe sort: rule, agent or human?** 20 synthetic steps in 60 seconds; swipe (or tap, or use the arrow keys) and every answer is explained with the same thresholds the Agent Scan Lab uses. Streaks, a best score and a share line | [Swipe sort](https://xudaniel.github.io/webmethods-bpms-academy/#swipe) |
 | 🧩 | **Repair broken processes**: five tap-to-place puzzles (a missing end event, the wrong gateway, a limit welded into a gateway, a task with no timer, a manager who checks everything); press ▶ Run and watch a token get through, or get stuck and tell you why | [Fix the diagram](https://xudaniel.github.io/webmethods-bpms-academy/#puzzles) |
 | 💼 | **Present it to a client**: switch on Professional mode (or share a `?mode=pro` link) to hide badges and the story, and print a one-page executive brief for banking or insurance | [Briefs](https://xudaniel.github.io/webmethods-bpms-academy/brief.html) |
 | 🏦 | **Show the controls to a bank or insurer**: seven common controls (four-eyes approval, segregation of duties, decision traceability, human oversight, change control, retention, resilience) mapped to the frameworks that ask for them and to the evidence IBM webMethods BPMS produces; every regulation cited to the regulator's own page | [Controls](https://xudaniel.github.io/webmethods-bpms-academy/#controls) |
@@ -126,6 +127,8 @@ No prior webMethods experience is needed.
 ### Do: step-by-step guides, a lab and troubleshooting
 **Fix the diagram:** five puzzle levels, each with one broken piece. Tap a piece into the dashed slot, press ▶ Run, and a token animates through the process. A wrong piece explains why it fails and links the lesson that covers it. Progress is saved in your browser, and fixing all five earns the 🧩 *Process fixer* badge.
 
+**Swipe sort:** a phone-first card game. Each card is a synthetic step with four facts (how often one outcome wins, how often the same inputs give the same outcome, work minutes, waiting hours). Swipe left for a rule, right for an agent, up to keep a person. Answers come from the Agent Scan Lab's own classifier, so the game and the lab always agree.
+
 **Decision lab:** move a decision table's limits and test an application (approve, refer or decline), compare changing a rule with changing the process, and review common rules-configuration pitfalls.
 
 **How to use**, by role. Each step gives the menu path and an official source, and ends with *how you'll know it worked*. Every role also has a printable **cheat sheet** and a 3-question **self-check**:
@@ -158,12 +161,12 @@ No prior webMethods experience is needed.
 
 ### Plain words for beginners
 - **Tap any underlined term** in the course or the reading version for a one-line plain-English explanation, the technical definition and a link to the glossary. On a phone it opens as a sheet at the bottom of the screen. Quizzes are never underlined, so they still test you.
-- **🌐 中文 / English** (switch in the header, remembered on your device, or `?lang=zh` / `?lang=en`): a Simplified Chinese version, as detailed as the English one. Product and screen names stay in English so you can match the real product and IBM documentation. Translated in batches ([#68](https://github.com/Xudaniel/webmethods-bpms-academy/issues/68)): all 22 sections of the interactive course are done, including the glossary (33 terms), the quiz (24 questions), the controls for regulated industries, the decision lab, Fix the diagram and every diagram. The reading version and the executive briefs are next.
+- **🌐 中文 / English** (switch in the header, remembered on your device, or `?lang=zh` / `?lang=en`): a Simplified Chinese version, as detailed as the English one. Product and screen names stay in English so you can match the real product and IBM documentation. Translated in batches ([#68](https://github.com/Xudaniel/webmethods-bpms-academy/issues/68)): every section of the interactive course is done, including the glossary (33 terms), the quiz (24 questions), the controls for regulated industries, the decision lab, Fix the diagram and every diagram. The reading version and the executive briefs are next.
 - **🌱 Beginner mode** (switch in the header, remembered on your device): the tab bar and ☰ menu show the 12 beginner sections, each section opens with an *In plain words* box, advanced sections say they can wait, and Previous / Next skip them.
 
 ### Stay motivated
 - **⏱ Reading time** on every section, in the Sections menu and for each chapter of the reading version. The whole course is about 40 minutes of reading.
-- **Progress and badges:** sections explored out of 22, and ten badges with a small celebration (Explorer, Basics done, Process fixer, Agent tamer, Simulator, Scanner, Fixer, Role ready, Lab finisher, Quiz ace). There's also a **Did you know?** fact. Everything stays in your browser.
+- **Progress and badges:** sections explored out of 23, and ten badges with a small celebration (Explorer, Basics done, Process fixer, Agent tamer, Simulator, Scanner, Fixer, Role ready, Lab finisher, Quiz ace). There's also a **Did you know?** fact. Everything stays in your browser.
 
 ## Curriculum, in site order
 
@@ -179,18 +182,19 @@ No prior webMethods experience is needed.
 | 8 | **Hands-on lab** | 30-minute exercise with a tracker | Build, enable, run and monitor your first process |
 | 9 | **Decision lab** | Interactive decision table + comparison | Change a rule's limits, test an application, see why rules change faster than processes |
 | 10 | **Fix the diagram** | 5 puzzle levels with a running token | Repair broken processes: end event, gateway choice, rule task, timer, exception path |
-| 11 | **Troubleshooting** | Search + flowchart | Symptom → check first → fix → where |
-| 12 | **Teach a class** | Workshop plan + timeline | A 3-hour class for users or customers |
-| 13 | **Lifecycle** | Clickable stages + release table | Model → implement → build and upload → execute → monitor → optimize → govern; release dates |
-| 14 | **Architecture** | Clickable component map | Engines, databases and `PRA_*` audit tables |
-| 15 | **BPMN** | Reference tables | Activities, gateways, events, pools and lanes |
-| 16 | **Patterns** | Filterable cards | Four classic and three agent-era patterns |
-| 17 | **Cases** | Flow diagrams | Purchase approval, loan decisioning, logistics exception |
-| 18 | **Simulator** | Interactive | A loan instance through a rule task and an underwriter task, with an audit log |
-| 19 | **Agent Scan Lab** | Interactive | Find rule and agent candidates in process history (synthetic data or your CSV) |
-| 20 | **Market** | Reading + sources | Sizing, analyst views, competitor signals, regulatory dates |
-| 21 | **Glossary** | Searchable | 33 terms; underlined terms anywhere open a plain-English explanation |
-| 22 | **Quiz** | 24 questions | Instant feedback and a score |
+| 11 | **Swipe sort** | 20 cards, 60 seconds | Rule, agent or keep human? The agent-era split, judged card by card |
+| 12 | **Troubleshooting** | Search + flowchart | Symptom → check first → fix → where |
+| 13 | **Teach a class** | Workshop plan + timeline | A 3-hour class for users or customers |
+| 14 | **Lifecycle** | Clickable stages + release table | Model → implement → build and upload → execute → monitor → optimize → govern; release dates |
+| 15 | **Architecture** | Clickable component map | Engines, databases and `PRA_*` audit tables |
+| 16 | **BPMN** | Reference tables | Activities, gateways, events, pools and lanes |
+| 17 | **Patterns** | Filterable cards | Four classic and three agent-era patterns |
+| 18 | **Cases** | Flow diagrams | Purchase approval, loan decisioning, logistics exception |
+| 19 | **Simulator** | Interactive | A loan instance through a rule task and an underwriter task, with an audit log |
+| 20 | **Agent Scan Lab** | Interactive | Find rule and agent candidates in process history (synthetic data or your CSV) |
+| 21 | **Market** | Reading + sources | Sizing, analyst views, competitor signals, regulatory dates |
+| 22 | **Glossary** | Searchable | 33 terms; underlined terms anywhere open a plain-English explanation |
+| 23 | **Quiz** | 24 questions | Instant feedback and a score |
 
 Every section has its own link (for example [`#lab`](https://xudaniel.github.io/webmethods-bpms-academy/#lab)), plus Previous / Next at the bottom.
 
@@ -428,7 +432,8 @@ webmethods-bpms-academy/
 │   ├── diagrams.js     # Original SVG diagrams (interactive QoS, role diagrams, lab BPMN, flowchart, timeline)
 │   ├── path.js         # Role picker with personal paths, clickable one-picture map
 │   ├── i18n.js         # 中文 / English switch (?lang=zh), loaded first
-│   ├── zh/             # Chinese text: core.js (menus, paths, terms, story), beginner.js (Start, course, Basics), guides.js (knowledge, how-to, lab, troubleshooting, teach), explore.js (overview to quiz), labs.js (controls, decision lab, Fix the diagram)
+│   ├── zh/             # Chinese text: core.js (menus, paths, terms, story), beginner.js (Start, course, Basics), guides.js (knowledge, how-to, lab, troubleshooting, teach), explore.js (overview to quiz), labs.js (controls, decision lab, Fix the diagram, Swipe sort)
+│   ├── swipe.js        # Swipe sort: rule, agent or human? (#53)
 │   ├── words.js        # Tap-to-explain terms in plain English, Beginner mode
 │   ├── basics.js       # Basics 101: seven fundamental lessons with checks
 │   ├── crash.js        # 10-minute course: five steps and three checks

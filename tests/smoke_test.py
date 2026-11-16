@@ -7,7 +7,7 @@ Usage:  pip install playwright && playwright install chromium
 import asyncio, functools, http.server, sys, threading
 from playwright.async_api import async_playwright
 
-SECTIONS = ["start", "crash", "basics", "overview", "knowledge", "controls", "howto", "lab", "decisions", "puzzles", "trouble", "teach", "lifecycle", "architecture", "bpmn", "patterns", "cases",
+SECTIONS = ["start", "crash", "basics", "overview", "knowledge", "controls", "howto", "lab", "decisions", "puzzles", "swipe", "trouble", "teach", "lifecycle", "architecture", "bpmn", "patterns", "cases",
             "simulator", "scan", "market", "glossary", "quiz"]
 
 class QuietHandler(http.server.SimpleHTTPRequestHandler):
@@ -191,6 +191,22 @@ async def main():
             failures.append("Back should return to step 5")
         if "10-minute course" not in await page.inner_text("#beginner-path") and "10-minute course" not in await page.inner_text("nav"):
             failures.append("10-minute course not linked")
+        # Swipe sort (issue #53): answers come from the scan lab's rule; buttons and arrow keys both answer
+        await page.evaluate("location.hash='swipe'")
+        await page.wait_for_timeout(120)
+        mism = await page.evaluate("""SWIPE_CARDS.filter(c => { const k = SCAN_CLASSIFY({type:'user_task', err:0, det:c.det, top:c.top, work:c.work, wait:c.wait});
+            return (k.startsWith('Rule') ? 'rule' : k.startsWith('Agent') ? 'agent' : 'human') !== c.answer; }).length""")
+        kinds = await page.evaluate("[...new Set(SWIPE_CARDS.map(c => c.answer))].sort().join(',')")
+        if mism or kinds != "agent,human,rule" or await page.evaluate("SWIPE_CARDS.length") != 20:
+            failures.append("swipe sort: 20 cards covering rule, agent and human, matching the scan lab")
+        await page.click("#sw-start")
+        first = await page.evaluate("SWIPE_CARDS[+document.getElementById('sw-card').dataset.i].answer")
+        await page.click(f"#swipe-game .sw-btns [data-a='{first}']")
+        await page.wait_for_timeout(400)
+        await page.keyboard.press("ArrowUp")
+        await page.wait_for_timeout(400)
+        if "1 /" in await page.inner_text("#sw-card") or not (await page.inner_text("#sw-score")).endswith(("1", "2")) or "✅" not in await page.inner_text("#sw-why") and "❌" not in await page.inner_text("#sw-why"):
+            failures.append("swipe sort: buttons or arrow keys did not score and explain")
         # Basics 101 (issue #40): seven lessons, pictures, checks, progress
         await page.evaluate("location.hash='basics'")
         await page.wait_for_timeout(150)
@@ -460,6 +476,11 @@ async def main():
         await zp.click("#scan-sample")
         if "规则候选" not in await zp.inner_text("#scan-out"):
             failures.append("zh: scan lab results not translated")
+        await zp.evaluate("location.hash='swipe'")
+        await zp.wait_for_timeout(120)
+        await zp.click("#sw-start")
+        if "合成数据" not in await zp.inner_text("#sw-card") or "规则" not in await zp.inner_text("#swipe .sw-btns"):
+            failures.append("zh: swipe sort not translated")
         # 中文版 batch 3b: controls, decision lab, fix the diagram
         await zp.evaluate("location.hash='controls'")
         await zp.wait_for_timeout(120)
