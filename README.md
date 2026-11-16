@@ -292,6 +292,8 @@ A five-step loan process: *Application received → Fetch credit data → Rule: 
 
 The log panel prints rows shaped like `PRA_PROCESS`, `PRA_PROCESS_STEP` and `PRA_STEP_LOGGED_FIELD` entries, so learners can connect a running instance to the history it leaves behind.
 
+**⏪ Instance time machine:** when the instance completes, a player appears under the log. Drag the slider (or use ⏮ ◀ ▶ ▶▶ and the arrow keys): the token moves on the loan diagram and the matching audit row lights up. Tick *What if Volatile Tracking were on?* to see that none of these rows would exist, with a link to the cited quality-of-service topic.
+
 ### Agent Scan Lab
 
 Long-running BPMS estates hold years of evidence about where people approve almost everything, wait for days, or make the same decision for the same inputs. The lab turns that history into a ranked list of opportunities. Everything runs in the browser; files are never uploaded.
