@@ -283,3 +283,25 @@ body.beginner .menu-note { display: block; }
 .b-next { display: block; width: calc(100% - 2.2rem); margin-bottom: 1.1rem; text-align: left; font: inherit; font-weight: 600; color: #fff; background: var(--primary); border: 0; border-radius: 10px; padding: .75rem 1rem; cursor: pointer; }
 .basics-lesson:not(:has(.b-next)) { padding-bottom: .6rem; }
 .basics-map td:first-child { font-weight: 600; }
+
+/* Mia's request: story cards (#48) */
+.story-card { background: #f6f2ff; border: 1px solid #d4bbff; border-left: 4px solid var(--accent); border-radius: var(--radius); padding: .75rem .95rem; margin-bottom: 1rem; font-size: .95rem; }
+.story-card.bad { background: #fff1f1; border-color: #ffd7d9; border-left-color: var(--danger); }
+.story-card p { margin: .45rem 0; }
+.story-head { display: flex; align-items: center; gap: .25rem; flex-wrap: wrap; }
+.story-head .avatar { margin-right: -.35rem; border: 2px solid #fff; border-radius: 999px; box-sizing: content-box; }
+.story-tag { margin-left: .7rem; font-size: .8rem; font-weight: 600; color: #491d8b; }
+.story-card.bad .story-tag { color: #a2191f; }
+.story-strip { display: flex; flex-wrap: wrap; gap: .25rem; list-style: none; padding: 0; margin: .5rem 0 .35rem; counter-reset: st; }
+.story-strip li { counter-increment: st; font-size: .74rem; padding: .15rem .5rem; border-radius: 999px; background: #fff; border: 1px solid var(--border); color: var(--muted); }
+.story-strip li::before { content: counter(st) ". "; }
+.story-strip li.past { background: #defbe6; border-color: #a7f0ba; color: #0e6027; }
+.story-strip li.now { background: var(--primary); border-color: var(--primary); color: #fff; font-weight: 600; }
+.story-strip li.now.bad { background: var(--danger); border-color: var(--danger); }
+.story-next { display: inline-block; margin-top: .2rem; font-weight: 600; font-size: .9rem; color: #491d8b; }
+.story-cast ul { list-style: none; padding: 0; margin: .4rem 0 .8rem; display: grid; gap: .6rem; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.story-cast li { display: flex; gap: .6rem; align-items: flex-start; font-size: .92rem; }
+.story-cast li small { color: var(--muted); }
+.story-cast .avatar { flex: 0 0 auto; }
+.story-go { display: inline-block; text-decoration: none; }
+@media print { .story-next, .story-go { display: none; } }

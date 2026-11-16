@@ -6,6 +6,7 @@ Versions follow [Semantic Versioning](https://semver.org/).
 ## [Unreleased]
 
 ### Added
+- **Mia's request** (#48): one fictional story through the whole course. A *Meet the cast* card (Mia, Sam, Priya, Leo, Omar, with initials avatars). A story card on 17 sections showing the next moment of her $1,200 laptop request, a five-stage tracker and a *Next in Mia's story* link along a 12-part route. The reading version has 15 story boxes.
 - **11 more diagrams** (#44), original and sized for phones:
   - **Architecture:** where each part runs.
   - **Lifecycle:** a 7-stage loop.

@@ -193,6 +193,15 @@ async def main():
                          ("scan-method", "scan"), ("decision-table", "decisions")]:
             if await page.locator(f'#{sec} figure[data-dg="{key}"] svg').count() != 1:
                 failures.append(f"diagram {key} missing in {sec}")
+        # Mia's request (issue #48): one story through the course
+        if await page.locator("main .story-card").count() != 17 or await page.locator("#story-cast li").count() != 5:
+            failures.append("story cards or cast missing")
+        await page.evaluate("location.hash='trouble'")
+        await page.wait_for_timeout(100)
+        await page.click("#trouble .story-next")
+        await page.wait_for_timeout(200)
+        if await page.evaluate("location.hash") != "#patterns" or not await page.is_visible("#patterns .story-card"):
+            failures.append("Next in Mia's story should open the next chapter")
         # Hotfix (issue #41): index.html must be the real page, and the Decision lab must work
         html = open("index.html", encoding="utf-8").read()
         if len(html) < 10000 or "$(cat" in html:
@@ -290,6 +299,8 @@ async def main():
             failures.append("read.html should show the 7 new diagrams")
         if await page2.locator("#r-basics figure.dg").count() != 7 or "Answer key" not in await page2.inner_text("#r-basics"):
             failures.append("read.html Basics 101 chapter missing pictures or answer key")
+        if await page2.locator("main .story-card").count() != 15 or await page2.locator("#story-cast li").count() != 5:
+            failures.append("read.html story boxes or cast missing")
         if await page2.locator("main .term").count() < 40:
             failures.append("read.html should underline key terms")
         if await page2.locator("#r-kb h3").count() < 6 or await page2.locator("#r-family tr").count() < 8:
