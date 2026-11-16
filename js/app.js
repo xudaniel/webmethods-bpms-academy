@@ -162,6 +162,16 @@
     }
     return { rows, months };
   }
+  // One classification rule, shared with Swipe sort (js/swipe.js) so the game and the lab always agree
+  function classify({ type, err, det, top, work, wait }) {
+    if (type === "service") return err >= 0.05 ? "Integration fix" : "Leave as is";
+    if (type !== "user_task") return "Leave as is";
+    if (det !== null && det >= 0.8) return "Rule candidate (ODM)";
+    if (top !== null && top >= 0.9 && work <= 15) return "Agent candidate (rubber-stamp)";
+    if (top !== null && wait >= 24 && top >= 0.7) return "Agent candidate (triage + human approve)";
+    return "Keep human";
+  }
+  window.SCAN_CLASSIFY = classify;
   function score({ rows, months }) {
     const groups = {};
     rows.forEach((o) => { const k = [o.process, o.step, o.step_type].join("|"); (groups[k] = groups[k] || []).push(o); });
@@ -178,12 +188,7 @@
         if (w) det = hit / w;
       }
       const work = mean((o) => o.work_min), wait = mean((o) => o.wait_min) / 60, err = mean((o) => o.error);
-      let cls = "Keep human";
-      if (type === "service") cls = err >= 0.05 ? "Integration fix" : "Leave as is";
-      else if (type !== "user_task") cls = "Leave as is";
-      else if (det !== null && det >= 0.8) cls = "Rule candidate (ODM)";
-      else if (top !== null && top >= 0.9 && work <= 15) cls = "Agent candidate (rubber-stamp)";
-      else if (top !== null && wait >= 24 && top >= 0.7) cls = "Agent candidate (triage + human approve)";
+      const cls = classify({ type, err, det, top, work, wait });
       const shareMap = { "Rule candidate (ODM)": 0.8, "Agent candidate (rubber-stamp)": 0.6, "Agent candidate (triage + human approve)": 0.4 };
       const hrs = (per * work) / 60;
       return { process, step, type, per, work, wait, top, det, err, cls, saved: hrs * (shareMap[cls] || 0) };

@@ -6,6 +6,7 @@ Versions follow [Semantic Versioning](https://semver.org/).
 ## [Unreleased]
 
 ### Added
+- 👆 **Swipe sort** (#53): a phone-first card game. Judge 20 synthetic steps in 60 seconds: swipe left for a rule, right for an agent, up to keep a person (buttons and arrow keys too). Answers come from the Agent Scan Lab's own classifier, now shared as `SCAN_CLASSIFY`. In English and Chinese.
 - 🌐 **中文版, batch 1** (#68): a 中文 / English switch in the header (`?lang=zh`, remembered on the device). Start here (six steps, role paths, the one-picture map, Mia's story), the 10-minute course, Basics 101, menus, tap-to-explain terms, Beginner and Professional mode, badges, reading times and the diagrams used there are in Simplified Chinese. Untranslated sections say so and show the English text. Product and screen names stay in English.
 - 🌐 **中文版, batch 3b** (#68): the controls for regulated industries (seven controls and six frameworks), the decision lab and Fix the diagram (all five levels, drawings included) are in Simplified Chinese. Every section of the interactive course is now translated.
 - 🌐 **中文版, batch 3a** (#68): overview, lifecycle, architecture, BPMN, patterns, worked cases (with their flow diagrams), the loan simulator, the Agent Scan Lab, market, the glossary (33 terms) and the quiz (24 questions) are in Simplified Chinese. Tap-to-explain terms now show the Chinese technical definition too.

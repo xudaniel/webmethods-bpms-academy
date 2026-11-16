@@ -51,6 +51,7 @@ window.WORDS = {
     howto: "Choose your role to get step-by-step instructions, like a recipe.",
     lab: "Build your first process yourself in about 30 minutes. Tick each step as you go.",
     decisions: "Play with a real-looking decision table: move the limits, test an application, and see why rules change faster than processes.",
+    swipe: "Look at a card, swipe left for a rule, right for an agent, up to keep a person. 60 seconds, and every answer says why.",
     puzzles: "Five small broken processes. Put the missing piece in place and press Run to see if the token gets through.",
     trouble: "Something not working? Search the symptom, read the likely cause, try the fix.",
     bpmn: "The picture language for processes: circles start and end, boxes are work, diamonds are decisions.",
