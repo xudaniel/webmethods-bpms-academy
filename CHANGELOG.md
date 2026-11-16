@@ -3,7 +3,14 @@
 All notable changes to the IBM webMethods BPMS Academy. Author: **Daniel Yuanpeng Xu**.
 Versions follow [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [2.1.0] — 2026-11-16
+
+Ready for banks and insurers. **Author: Daniel Yuanpeng Xu.**
+
+### Highlights
+- 🏦 **Controls for regulated industries:** seven controls mapped to SR 11-7, OSFI E-23, the EU AI Act, GDPR Art. 22, the NAIC AI Model Bulletin and DORA, with the evidence IBM webMethods BPMS produces.
+- 💼 **Professional mode** for client meetings, and **one-page executive briefs** for banking and insurance.
+- 🗓️ **Last-reviewed dates** on every cited knowledge topic.
 
 ### Added
 - **Professional mode** (#59): a 💼 header switch, or a `?mode=pro` link, hides badges, progress, confetti, toasts, *Did you know?* and Mia's story for client meetings.
@@ -141,6 +148,7 @@ See the [product requirements](docs/PRD.md).
 ## [0.1.0] — 2026-11-14
 - Initial interactive course: architecture, lifecycle, BPMN, patterns, cases, simulator, Agent Scan Lab, market, glossary and quiz (PR #1).
 
+[2.1.0]: https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v2.1.0
 [2.0.0]: https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v2.0.0
 [1.3.0]: https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.3.0
 [1.2.0]: https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.2.0

@@ -4,7 +4,7 @@
 
 <p>
   <a href="https://github.com/Xudaniel"><img alt="Author: Daniel Yuanpeng Xu" src="https://img.shields.io/badge/author-Daniel_Yuanpeng_Xu-0f62fe?style=for-the-badge"></a>
-  <a href="https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v2.0.0"><img alt="Release v2.0.0" src="https://img.shields.io/badge/release-v2.0.0-24a148?style=for-the-badge"></a>
+  <a href="https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v2.1.0"><img alt="Release v2.1.0" src="https://img.shields.io/badge/release-v2.1.0-24a148?style=for-the-badge"></a>
   <a href="https://xudaniel.github.io/webmethods-bpms-academy/"><img alt="Live site" src="https://img.shields.io/badge/live-open_the_course-8a3ffc?style=for-the-badge"></a>
   <img alt="Works offline" src="https://img.shields.io/badge/phone-installable_·_offline-161616?style=for-the-badge">
 </p>
@@ -16,7 +16,7 @@
 
 **按你真正会用到的方式学 IBM webMethods BPMS。** 这是一门免费的课程，优先为手机设计。选好你的角色，就能拿到一条 3–5 步的专属路线；先用一张图看懂整个产品，再动手学：流程模拟器、30 分钟动手实验，以及每个角色的分步教程。每条事实都附有公开文档出处。
 
-**[▶ 打开课程](https://xudaniel.github.io/webmethods-bpms-academy/)** · [阅读版](https://xudaniel.github.io/webmethods-bpms-academy/read.html) · 当前版本 **[v2.0.0](https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v2.0.0)** · [更新日志](CHANGELOG.md) · [产品需求文档（PRD，英文）](docs/PRD.md)
+**[▶ 打开课程](https://xudaniel.github.io/webmethods-bpms-academy/)** · [阅读版](https://xudaniel.github.io/webmethods-bpms-academy/read.html) · 当前版本 **[v2.1.0](https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v2.1.0)** · [更新日志](CHANGELOG.md) · [产品需求文档（PRD，英文）](docs/PRD.md)
 
 <p>
   <img src="assets/screenshots/role-picker.png" width="240" alt="选择角色，获得专属学习路线">
@@ -493,6 +493,8 @@ GitHub Actions 会在每个 pull request 上自动运行同一个测试（`.gith
 - [ ] 从 webMethods Business Rules 迁移到 IBM ODM 决策服务的模块
 - [ ] 扫描实验室：可调整门槛，可导出 CSV
 
+**v2.1.0 已完成：** 面向受监管行业的合规控制；专业模式；银行与保险的一页高管简报；知识主题标注复核日期。
+
 **v2.0.0 已完成：** 修图闯关（五关拼图）；Mia 的申请单，一个贯穿整门课的故事；新增 11 张示意图；知识库新增 Monitor/Optimize 与「从 10.15 升级」两个主题；规则配置陷阱附上出处；每个 PR 自动跑冒烟测试。
 
 **v1.3.0 已完成：** 基础 101、决策实验室。
@@ -517,7 +519,7 @@ GitHub Actions 会在每个 pull request 上自动运行同一个测试（`.gith
 
 ## 如何引用
 
-> Xu, Daniel Yuanpeng (2026). *IBM webMethods BPMS Academy* (Version 2.0.0) [Interactive course]. https://github.com/xudaniel/webmethods-bpms-academy
+> Xu, Daniel Yuanpeng (2026). *IBM webMethods BPMS Academy* (Version 2.1.0) [Interactive course]. https://github.com/xudaniel/webmethods-bpms-academy
 
 点 GitHub 页面上的 **Cite this repository** 按钮（来自 [`CITATION.cff`](CITATION.cff)），就能拿到 APA 和 BibTeX 格式的引用。复用或改编本项目内容时，请注明作者 **Daniel Yuanpeng Xu**，并附上本仓库链接。
 

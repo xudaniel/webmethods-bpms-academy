@@ -7,7 +7,7 @@ authors:
   - family-names: "Xu"
     given-names: "Daniel Yuanpeng"
     alias: "Xudaniel"
-version: "2.0.0"
+version: "2.1.0"
 date-released: "2026-11-15"
 url: "https://xudaniel.github.io/webmethods-bpms-academy/"
 repository-code: "https://github.com/xudaniel/webmethods-bpms-academy"
