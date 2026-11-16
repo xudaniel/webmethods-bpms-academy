@@ -436,15 +436,28 @@
     el.addEventListener("change", paint); paint();
   }
 
-  const API = { D, svg, box, arrow, STYLE, qosWidget, wireQos };
+  // Chinese labels (#68): swap each text node of a drawn SVG using ZH.dg (English line → Chinese); unknown lines stay English
+  const unesc = (t) => t.replace(/&(amp|lt|gt|quot|#39);/g, (m, e) => ({ amp: "&", lt: "<", gt: ">", quot: '"', "#39": "'" }[e]));
+  const zhOn = () => root.LANG === "zh" && root.ZH && root.ZH.dg;
+  function tr(markup) {
+    if (!zhOn()) return markup;
+    const Z = root.ZH.dg;
+    return markup.replace(/>([^<>]+)</g, (m, t) => {
+      const v = Z[unesc(t).trim()];
+      return v == null ? m : ">" + t.match(/^\s*/)[0] + esc(v) + "<";
+    });
+  }
+  const API = { D, svg, box, arrow, STYLE, qosWidget, wireQos, tr };
   if (typeof module !== "undefined" && module.exports) { module.exports = API; return; }
   root.DIAGRAMS = API;
 
   // ---------- mount in the page ----------
   const fig = (key, still) => {
     const d = D[key];
-    const body = key === "qos" ? qosWidget(still) : d.draw(false, still);
-    return `<figure class="dg" data-dg="${key}">${body}<figcaption><strong>${esc(d.title)}${/[.?!]$/.test(d.title) ? "" : "."}</strong> ${esc(d.caption)}</figcaption></figure>`;
+    const body = tr(key === "qos" ? qosWidget(still) : d.draw(false, still));
+    const cap = zhOn() && root.ZH.dgCap && root.ZH.dgCap[key];
+    const t = cap ? cap[0] : d.title, c = cap ? cap[1] : d.caption, stop = cap ? "。" : ".";
+    return `<figure class="dg" data-dg="${key}">${body}<figcaption><strong>${esc(t)}${/[.?!。？！]$/.test(t) ? "" : stop}</strong> ${esc(c)}</figcaption></figure>`;
   };
   const after = (el, html) => { if (el) el.insertAdjacentHTML("afterend", html); };
   const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;

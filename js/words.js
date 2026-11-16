@@ -63,7 +63,16 @@ window.WORDS = {
 
 (function () {
   const W = window.WORDS, A = window.ACADEMY || { glossary: [] };
+  const ZW = window.LANG === "zh" && window.ZH && window.ZH.words;
+  if (ZW) { W.terms = ZW.terms; W.plain = ZW.plain; }
+  const U = ZW ? ZW.ui : { what: "What does this mean?", explained: "Term explained", close: "Close", tech: "Technically:", all: "All terms in the glossary →",
+    adv: `🧭 <strong>Advanced section.</strong> Fine to skip on your first pass; come back once the hands-on lab makes sense. <a href="#start">← Back to Start here</a>`,
+    plain: "🌱 <strong>In plain words:</strong>", menu: (a, b) => `🌱 Beginner mode shows ${a} of ${b} sections.`, showAll: "Show all",
+    on: "🌱 Beginner mode: <strong>on</strong>", off: "🌱 New here? <strong>Beginner mode</strong>" };
+  // The glossary is English until it is translated; in Chinese show only the plain explanation
+  const glossList = ZW ? ((window.ZH.glossary) || []) : A.glossary;
   const $ = (id) => document.getElementById(id);
+  const tl = window.L || ((en) => en);
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const isCourse = !!document.querySelector("nav button[data-section]");
   const KEY = "wm-academy-words-v1";
@@ -72,7 +81,7 @@ window.WORDS = {
 
   // ---------- Glossary lookup ----------
   const gloss = {};
-  A.glossary.forEach(([t, d]) => { gloss[t.toLowerCase()] = [t, d]; });
+  glossList.forEach(([t, d, key]) => { gloss[(key || t).toLowerCase()] = [t, d]; });
   const byKey = {}, byWord = {};
   W.terms.forEach(([k, words, plain, g]) => {
     byKey[k] = { name: words[0], plain, tech: g ? gloss[g.toLowerCase()] : null };
@@ -110,7 +119,7 @@ window.WORDS = {
         const b = document.createElement("button");
         b.type = "button"; b.className = "term"; b.dataset.t = k; b.textContent = m[1];
         b.setAttribute("aria-haspopup", "dialog");
-        b.title = "What does this mean?";
+        b.title = U.what;
         frag.appendChild(b);
         last = m.index + m[1].length;
       }
@@ -123,7 +132,7 @@ window.WORDS = {
   // ---------- Pop-up explanation ----------
   const pop = document.createElement("div");
   pop.id = "term-pop"; pop.hidden = true;
-  pop.setAttribute("role", "dialog"); pop.setAttribute("aria-label", "Term explained");
+  pop.setAttribute("role", "dialog"); pop.setAttribute("aria-label", U.explained);
   document.body.appendChild(pop);
   let opener = null;
   const glossHref = isCourse ? "#glossary" : (document.getElementById("r-gloss") ? "#r-gloss" : "index.html#glossary");
@@ -131,10 +140,10 @@ window.WORDS = {
   function show(btn) {
     const t = byKey[btn.dataset.t]; if (!t) return;
     opener = btn;
-    pop.innerHTML = `<div class="tp-head"><strong>${esc(t.tech ? t.tech[0] : t.name)}</strong><button type="button" class="tp-close" aria-label="Close">✕</button></div>` +
+    pop.innerHTML = `<div class="tp-head"><strong>${esc(t.tech ? t.tech[0] : t.name)}</strong><button type="button" class="tp-close" aria-label="${U.close}">✕</button></div>` +
       `<p class="tp-plain">${esc(t.plain)}</p>` +
-      (t.tech ? `<p class="tp-tech"><span>Technically:</span> ${esc(t.tech[1])}</p>` : "") +
-      `<a class="tp-more" href="${glossHref}">All terms in the glossary →</a>`;
+      (t.tech ? `<p class="tp-tech"><span>${U.tech}</span> ${esc(t.tech[1])}</p>` : "") +
+      `<a class="tp-more" href="${glossHref}">${U.all}</a>`;
     pop.hidden = false;
     if (window.innerWidth > 600) {
       const r = btn.getBoundingClientRect(), w = Math.min(340, window.innerWidth - 24);
@@ -197,16 +206,16 @@ window.WORDS = {
     const box = document.createElement("div");
     if (adv.has(id)) {
       box.className = "adv-banner";
-      box.innerHTML = `🧭 <strong>Advanced section.</strong> Fine to skip on your first pass; come back once the hands-on lab makes sense. <a href="#start">← Back to Start here</a>`;
+      box.innerHTML = U.adv;
     } else {
       box.className = "plain-box";
-      box.innerHTML = `🌱 <strong>In plain words:</strong> ${esc(W.plain[id] || "")}`;
+      box.innerHTML = `${U.plain} ${esc(W.plain[id] || "")}`;
     }
     sec.insertBefore(box, sec.firstChild);
   });
   const menuNote = document.createElement("p");
   menuNote.className = "menu-note";
-  menuNote.innerHTML = `🌱 Beginner mode shows ${order.length - adv.size} of ${order.length} sections. <button type="button" class="link" data-bm="off">Show all</button>`;
+  menuNote.innerHTML = `${U.menu(order.length - adv.size, order.length)} <button type="button" class="link" data-bm="off">${U.showAll}</button>`;
   const panel = document.querySelector("#menu-sheet .menu-panel");
   if (panel) panel.insertBefore(menuNote, panel.children[1] || null);
 
@@ -218,8 +227,8 @@ window.WORDS = {
       let p = i - 1; while (p >= 0 && !visible(order[p])) p--;
       let n = i + 1; while (n < order.length && !visible(order[n])) n++;
       const prev = order[p], next = order[n];
-      pn.innerHTML = (prev ? `<a href="#${prev}" class="pn-prev"><small>Previous</small><strong>← ${esc(title(prev))}</strong></a>` : "<span></span>") +
-        (next ? `<a href="#${next}" class="pn-next"><small>Next</small><strong>${esc(title(next))} →</strong></a>` : "<span></span>");
+      pn.innerHTML = (prev ? `<a href="#${prev}" class="pn-prev"><small>${tl("Previous", "上一个")}</small><strong>← ${esc(title(prev))}</strong></a>` : "<span></span>") +
+        (next ? `<a href="#${next}" class="pn-next"><small>${tl("Next", "下一个")}</small><strong>${esc(title(next))} →</strong></a>` : "<span></span>");
     });
   }
 
@@ -232,7 +241,7 @@ window.WORDS = {
   function set(on, persist) {
     document.body.classList.toggle("beginner", on);
     toggle.setAttribute("aria-pressed", String(on));
-    toggle.innerHTML = on ? "🌱 Beginner mode: <strong>on</strong>" : "🌱 New here? <strong>Beginner mode</strong>";
+    toggle.innerHTML = on ? U.on : U.off;
     relink(on);
     if (persist) { const s = load(); s.beginner = on; save(s); }
   }

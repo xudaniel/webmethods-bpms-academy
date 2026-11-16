@@ -1,0 +1,57 @@
+// Language switch (#68): English (default) or 简体中文. Load first, before every other script.
+// ?lang=zh or ?lang=en sets it; the choice is remembered on this device.
+// Translations live in js/zh/*.js and register on window.ZH. Modules pick their data with
+// (window.LANG === "zh" && ZH.x) || window.X, and short UI strings with L("English", "中文").
+(function () {
+  const KEY = "wm-academy-lang-v1";
+  const get = () => { try { return localStorage.getItem(KEY); } catch (e) { return null; } };
+  const put = (v) => { try { localStorage.setItem(KEY, v); } catch (e) { /* private mode */ } };
+  const param = new URLSearchParams(location.search).get("lang");
+  const lang = param === "zh" || param === "en" ? param : get() === "zh" ? "zh" : "en";
+  if (param === "zh" || param === "en") put(param);
+
+  window.LANG = lang;
+  window.ZH = window.ZH || {};
+  window.L = (en, zh) => (lang === "zh" && zh != null ? zh : en);
+  document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+
+  function switchTo(v) {
+    put(v);
+    const u = new URL(location.href);
+    u.searchParams.set("lang", v);
+    location.href = u.pathname + u.search + u.hash;
+  }
+
+  // Static page text: elements carry data-i18n="key"; ZH.page[key] holds the Chinese HTML.
+  // Nav buttons are translated by section id from ZH.nav. Sections not yet translated get a short note.
+  function page() {
+    const btn = document.createElement("button");
+    btn.type = "button"; btn.id = "lang-toggle"; btn.className = "mode-toggle lang-toggle";
+    btn.setAttribute("lang", lang === "zh" ? "en" : "zh-CN");
+    btn.innerHTML = lang === "zh" ? "🌐 <strong>English</strong>" : "🌐 <strong>中文</strong>";
+    btn.title = lang === "zh" ? "Read this site in English" : "切换到中文";
+    btn.addEventListener("click", () => switchTo(lang === "zh" ? "en" : "zh"));
+    const head = document.querySelector("header");
+    if (head) head.appendChild(btn);
+    if (lang !== "zh") return;
+
+    const Z = window.ZH, P = Z.page || {};
+    if (Z.title) document.title = Z.title;
+    const md = document.querySelector('meta[name="description"]');
+    if (md && Z.description) md.setAttribute("content", Z.description);
+    document.querySelectorAll("[data-i18n]").forEach((el) => { const v = P[el.dataset.i18n]; if (v != null) el.innerHTML = v; });
+    document.querySelectorAll("[data-i18n-attr]").forEach((el) => {
+      el.dataset.i18nAttr.split(";").forEach((pair) => { const [a, k] = pair.split(":"); if (P[k] != null) el.setAttribute(a, P[k]); });
+    });
+    const N = Z.nav || {};
+    document.querySelectorAll("nav button[data-section]").forEach((b) => { if (N[b.dataset.section]) b.textContent = N[b.dataset.section]; });
+    const done = new Set(Z.done || []);
+    document.querySelectorAll("main > .section").forEach((s) => {
+      if (done.has(s.id)) return;
+      s.classList.add("zh-pending");
+      s.insertAdjacentHTML("afterbegin", `<p class="zh-note" lang="zh-CN">🚧 本栏目的中文版正在翻译中，暂时显示英文原文。<a href="#crash">先看「10 分钟速成」→</a></p>`);
+    });
+  }
+
+  window.I18N = { lang, switchTo, page };
+})();

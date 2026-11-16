@@ -17,9 +17,9 @@
 </head>
 <body>
 <header>
-  <h1>IBM webMethods BPMS Academy</h1>
-  <p>A cited knowledge base and interactive course on IBM webMethods BPMS — Process Engine, Task Engine, Business Rules, BPMN and agent-era patterns. Public sources only.</p>
-  <p style="font-size:.85rem;opacity:.85">by Daniel Yuanpeng Xu · <a href="read.html" style="color:#fff">Prefer to just read? Reading version →</a></p>
+  <h1 data-i18n="h1">IBM webMethods BPMS Academy</h1>
+  <p data-i18n="tagline">A cited knowledge base and interactive course on IBM webMethods BPMS — Process Engine, Task Engine, Business Rules, BPMN and agent-era patterns. Public sources only.</p>
+  <p style="font-size:.85rem;opacity:.85" data-i18n="byread">by Daniel Yuanpeng Xu · <a href="read.html" style="color:#fff">Prefer to just read? Reading version →</a></p>
 </header>
 <nav aria-label="Sections">
   <button data-section="start">Start here</button>
@@ -48,109 +48,109 @@
 <main>
   <section id="start" class="section">
     <div class="card">
-      <h2>What is this, and why should anyone care?</h2>
-      <p class="lead">Every organisation runs processes — approvals, claims, onboarding, shipment exceptions. A <strong>BPMS</strong> is the software that makes those processes run on rails: it routes the work, applies the rules, puts tasks in front of the right people, and records what happened. Now AI agents are arriving, and they need exactly those rails. Six short, hands-on steps explain why.</p>
-      <p class="cc-cta"><a class="btn" href="#crash">⚡ Know nothing? Take the 10-minute course</a></p>
-      <p class="byline">Written by <strong>Daniel Yuanpeng Xu</strong>, a product manager who has worked on business-process and decision-automation products. Sections marked <span class="pill">Author's view</span> are personal opinions, not the position of any employer or vendor.</p>
+      <h2 data-i18n="s.h2">What is this, and why should anyone care?</h2>
+      <p class="lead" data-i18n="s.lead">Every organisation runs processes — approvals, claims, onboarding, shipment exceptions. A <strong>BPMS</strong> is the software that makes those processes run on rails: it routes the work, applies the rules, puts tasks in front of the right people, and records what happened. Now AI agents are arriving, and they need exactly those rails. Six short, hands-on steps explain why.</p>
+      <p class="cc-cta"><a class="btn" href="#crash" data-i18n="s.cta">⚡ Know nothing? Take the 10-minute course</a></p>
+      <p class="byline" data-i18n="s.byline">Written by <strong>Daniel Yuanpeng Xu</strong>, a product manager who has worked on business-process and decision-automation products. Sections marked <span class="pill">Author's view</span> are personal opinions, not the position of any employer or vendor.</p>
     </div>
 
     <div class="card beginner" id="path-card">
-      <h3>👋 Who are you? Get your own path</h3>
-      <p>Pick one. You'll get 3–5 steps instead of 17 sections, and each step ticks itself off as you go.</p>
-      <div class="role-chips" id="role-chips" role="radiogroup" aria-label="Choose your role"></div>
+      <h3 data-i18n="p.h3">👋 Who are you? Get your own path</h3>
+      <p data-i18n="p.p">Pick one. You'll get 3–5 steps instead of 17 sections, and each step ticks itself off as you go.</p>
+      <div class="role-chips" id="role-chips" role="radiogroup" aria-label="Choose your role" data-i18n-attr="aria-label:p.aria"></div>
       <p class="path-intro" id="path-intro"></p>
       <ol class="path" id="beginner-path"></ol>
-      <p class="sources">Have a webMethods development environment? Do the <a href="#lab">30-minute hands-on lab</a>. Showing this to a customer? Use the <a href="#howto" data-demo="1">10-minute demo script</a>.</p>
+      <p class="sources" data-i18n="p.src">Have a webMethods development environment? Do the <a href="#lab">30-minute hands-on lab</a>. Showing this to a customer? Use the <a href="#howto" data-demo="1">10-minute demo script</a>.</p>
     </div>
 
     <div class="card" id="map-card">
-      <h3>🗺️ IBM webMethods BPMS in one picture</h3>
-      <p>Follow a process from drawing board to audit trail. <strong>Tap any box</strong> to jump to the guide for that step.</p>
+      <h3 data-i18n="m.h3">🗺️ IBM webMethods BPMS in one picture</h3>
+      <p data-i18n="m.p">Follow a process from drawing board to audit trail. <strong>Tap any box</strong> to jump to the guide for that step.</p>
       <div id="bpms-map"></div>
     </div>
 
     <details class="card phone" id="phone-guide">
-      <summary><strong>📱 On your phone? Save it as an app</strong> <small>Home Screen, offline, finding your way</small></summary>
+      <summary data-i18n="ph.sum"><strong>📱 On your phone? Save it as an app</strong> <small>Home Screen, offline, finding your way</small></summary>
       <div id="phone-guide-body"></div>
-      <div class="qr-box"><img src="assets/qr-site.png" alt="QR code linking to xudaniel.github.io/webmethods-bpms-academy" width="132" height="132"><p>On a laptop? Scan this with your phone camera to open the academy there.</p></div>
+      <div class="qr-box"><img src="assets/qr-site.png" alt="QR code linking to xudaniel.github.io/webmethods-bpms-academy" width="132" height="132"><p data-i18n="ph.qr">On a laptop? Scan this with your phone camera to open the academy there.</p></div>
     </details>
 
     <div class="card">
-      <h3>IBM webMethods knowledge at a glance</h3>
+      <h3 data-i18n="kb.h3">IBM webMethods knowledge at a glance</h3>
       <div class="grid" id="kb-counter"></div>
-      <p class="sources">Every fact in the knowledge base links to public IBM or Software AG documentation. <a href="#knowledge">Open the knowledge base →</a></p>
+      <p class="sources" data-i18n="kb.src">Every fact in the knowledge base links to public IBM or Software AG documentation. <a href="#knowledge">Open the knowledge base →</a></p>
     </div>
 
     <div class="card">
-      <h3>1 · One request, two worlds</h3>
-      <div class="row" id="ex-toggle"><button class="tile" data-mode="without"><strong>Without a BPMS</strong></button><button class="tile" data-mode="with"><strong>With a BPMS</strong></button></div>
+      <h3 data-i18n="e1.h3">1 · One request, two worlds</h3>
+      <div class="row" id="ex-toggle"><button class="tile" data-mode="without" data-i18n="e1.wo"><strong>Without a BPMS</strong></button><button class="tile" data-mode="with" data-i18n="e1.w"><strong>With a BPMS</strong></button></div>
       <div id="ex-story"></div>
     </div>
 
     <div class="card">
-      <h3>2 · Who should own each job?</h3>
-      <p>Pick an owner for each piece of work. <span class="mono">Process</span> moves work, <span class="mono">Rules</span> decide, <span class="mono">People</span> judge exceptions, <span class="mono">Agent</span> reads and proposes.</p>
-      <p id="ex-sort-score" class="lead">0 / 0 right</p>
+      <h3 data-i18n="e2.h3">2 · Who should own each job?</h3>
+      <p data-i18n="e2.p">Pick an owner for each piece of work. <span class="mono">Process</span> moves work, <span class="mono">Rules</span> decide, <span class="mono">People</span> judge exceptions, <span class="mono">Agent</span> reads and proposes.</p>
+      <p id="ex-sort-score" class="lead" data-i18n="e2.score">0 / 0 right</p>
       <div id="ex-sort"></div>
     </div>
 
     <div class="card">
-      <h3>3 · Agents need a rulebook <span class="pill">Author's view</span></h3>
-      <p>An AI agent reads delay reports and proposes a customer credit. It never pays on its own: a rule decides <em>allow</em>, <em>refer to a person</em> or <em>deny</em>, and every decision is logged with the rule version. Change the policy and watch the outcomes and the log.</p>
-      <label>Auto-approve limit: <strong id="ex-limit-v"></strong><input type="range" id="ex-limit" min="100" max="3000" step="50" value="500"></label>
-      <label>Minimum delay for any credit: <strong id="ex-mindelay-v"></strong><input type="range" id="ex-mindelay" min="0" max="24" step="1" value="4"></label>
-      <div class="row"><label><input type="checkbox" id="ex-key" checked> Key accounts get double the auto limit</label></div>
+      <h3 data-i18n="e3.h3">3 · Agents need a rulebook <span class="pill">Author's view</span></h3>
+      <p data-i18n="e3.p">An AI agent reads delay reports and proposes a customer credit. It never pays on its own: a rule decides <em>allow</em>, <em>refer to a person</em> or <em>deny</em>, and every decision is logged with the rule version. Change the policy and watch the outcomes and the log.</p>
+      <label><span data-i18n="e3.lim">Auto-approve limit:</span> <strong id="ex-limit-v"></strong><input type="range" id="ex-limit" min="100" max="3000" step="50" value="500"></label>
+      <label><span data-i18n="e3.min">Minimum delay for any credit:</span> <strong id="ex-mindelay-v"></strong><input type="range" id="ex-mindelay" min="0" max="24" step="1" value="4"></label>
+      <div class="row"><label><input type="checkbox" id="ex-key" checked> <span data-i18n="e3.key">Key accounts get double the auto limit</span></label></div>
       <div id="ex-guard"></div>
       <div class="log" id="ex-guard-log"></div>
-      <p class="sources">The agent is good at reading and proposing; the rules hold the money limits; people handle what the rules refer. That split is what makes agent decisions explainable to an auditor.</p>
+      <p class="sources" data-i18n="e3.src">The agent is good at reading and proposing; the rules hold the money limits; people handle what the rules refer. That split is what makes agent decisions explainable to an auditor.</p>
     </div>
 
     <div class="card">
-      <h3>4 · The clock that drives this market</h3>
-      <p>Click a date. Upgrade deadlines and regulation, more than technology fashion, decide when organisations re-evaluate their process platforms.</p>
+      <h3 data-i18n="e4.h3">4 · The clock that drives this market</h3>
+      <p data-i18n="e4.p">Click a date. Upgrade deadlines and regulation, more than technology fashion, decide when organisations re-evaluate their process platforms.</p>
       <div class="grid" id="ex-timeline"></div><div id="ex-timeline-detail"></div>
     </div>
 
     <div class="card">
-      <h3>5 · Where the market really is <span class="pill">Author's view</span></h3>
-      <p>Tap each layer to reveal it.</p>
+      <h3 data-i18n="e5.h3">5 · Where the market really is <span class="pill">Author's view</span></h3>
+      <p data-i18n="e5.p">Tap each layer to reveal it.</p>
       <div id="ex-market"></div>
     </div>
 
     <div class="card">
-      <h3>6 · Five ideas for the agent era <span class="pill">Author's view</span></h3>
+      <h3 data-i18n="e6.h3">6 · Five ideas for the agent era <span class="pill">Author's view</span></h3>
       <div id="ex-ideas"></div>
     </div>
 
     <div class="card">
-      <h3>Go deeper</h3>
+      <h3 data-i18n="gd.h3">Go deeper</h3>
       <div class="grid">
-        <button class="tile" onclick="location.hash='architecture'"><strong>How it's built</strong><small>Engines, databases, audit tables</small></button>
-        <button class="tile" onclick="location.hash='simulator'"><strong>Run a process</strong><small>Loan with rules and a human task</small></button>
-        <button class="tile" onclick="location.hash='scan'"><strong>Find agent candidates</strong><small>Score process history</small></button>
-        <button class="tile" onclick="location.hash='quiz'"><strong>Test yourself</strong><small id="quiz-count-tile">Quiz</small></button>
+        <button class="tile" onclick="location.hash='architecture'"><strong data-i18n="gd.a">How it's built</strong><small data-i18n="gd.as">Engines, databases, audit tables</small></button>
+        <button class="tile" onclick="location.hash='simulator'"><strong data-i18n="gd.b">Run a process</strong><small data-i18n="gd.bs">Loan with rules and a human task</small></button>
+        <button class="tile" onclick="location.hash='scan'"><strong data-i18n="gd.c">Find agent candidates</strong><small data-i18n="gd.cs">Score process history</small></button>
+        <button class="tile" onclick="location.hash='quiz'"><strong data-i18n="gd.d">Test yourself</strong><small id="quiz-count-tile">Quiz</small></button>
       </div>
     </div>
   </section>
 
   <section id="crash" class="section">
     <div class="card">
-      <h2>10-minute course: IBM webMethods BPMS from zero</h2>
-      <p class="lead">No experience needed. Five 2-minute steps, one picture each, then three quick questions. Read one, tap <strong>Next</strong>.</p>
+      <h2 data-i18n="c.h2">10-minute course: IBM webMethods BPMS from zero</h2>
+      <p class="lead" data-i18n="c.lead">No experience needed. Five 2-minute steps, one picture each, then three quick questions. Read one, tap <strong>Next</strong>.</p>
       <div class="lab-progress"><div class="bar"><span id="crash-bar"></span></div><span id="crash-left"></span></div>
     </div>
     <div class="card" id="crash-body"></div>
-    <div class="cc-nav" id="crash-nav" data-i="0"><button type="button" class="cc-back">← Back</button><button type="button" class="cc-next btn">Next →</button></div>
+    <div class="cc-nav" id="crash-nav" data-i="0"><button type="button" class="cc-back" data-i18n="c.back">← Back</button><button type="button" class="cc-next btn">Next →</button></div>
   </section>
 
   <section id="basics" class="section">
     <div class="card">
-      <h2>Basics 101: the ideas behind every process platform</h2>
+      <h2 data-i18n="b.h2">Basics 101: the ideas behind every process platform</h2>
       <p class="lead" id="basics-intro"></p>
-      <div class="lab-progress"><div class="bar"><span id="basics-bar"></span></div><span id="basics-count"></span> <button class="link" id="basics-reset" type="button">Reset</button></div>
+      <div class="lab-progress"><div class="bar"><span id="basics-bar"></span></div><span id="basics-count"></span> <button class="link" id="basics-reset" type="button" data-i18n="b.reset">Reset</button></div>
     </div>
     <div id="basics-lessons"></div>
-    <div class="card" id="basics-done" hidden><h3>🎉 You know the basics</h3><p>Next, pick a path: <a href="#lab">build your first process in the hands-on lab</a>, <a href="#decisions">play with a decision table</a>, or <a href="#start">choose your role on Start here</a>.</p></div>
+    <div class="card" id="basics-done" hidden><h3 data-i18n="b.done">🎉 You know the basics</h3><p data-i18n="b.donep">Next, pick a path: <a href="#lab">build your first process in the hands-on lab</a>, <a href="#decisions">play with a decision table</a>, or <a href="#start">choose your role on Start here</a>.</p></div>
   </section>
 
   <section id="overview" class="section">
@@ -334,7 +334,11 @@
     <div class="card"><h2>Knowledge check</h2><p id="quiz-score">Score: 0 / 0</p><div id="quiz-list"></div></div>
   </section>
 </main>
-<footer>Created by <strong>Daniel Yuanpeng Xu</strong> · <a href="https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v2.2.0" id="version">v2.2.0</a> · © 2026 · independent learning resource · not affiliated with IBM · <a href="read.html">reading version</a> · <a href="https://github.com/Xudaniel/webmethods-bpms-academy">source on GitHub</a></footer>
+<footer><span data-i18n="f.by">Created by</span> <strong>Daniel Yuanpeng Xu</strong> · <a href="https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v2.2.0" id="version">v2.2.0</a> · © 2026 · <span data-i18n="f.ind">independent learning resource · not affiliated with IBM</span> · <a href="read.html" data-i18n="f.read">reading version</a> · <a href="https://github.com/Xudaniel/webmethods-bpms-academy" data-i18n="f.src">source on GitHub</a></footer>
+<script src="js/i18n.js"></script>
+<script src="js/zh/core.js"></script>
+<script src="js/zh/beginner.js"></script>
+<script>I18N.page();</script>
 <script src="js/content.js"></script>
 <script src="js/knowledge.js"></script>
 <script src="js/howto.js"></script>

@@ -365,3 +365,9 @@ body.pro header { background: #161616; }
 body.pro .cc-remember { background: transparent; }
 .cc-nav button.btn { background: var(--primary); color: #fff; border: none; }
 .cc-nav [hidden] { display: none; }
+
+/* 中文 / English (#68) */
+.lang-toggle { margin-right: .4rem; }
+:lang(zh) body, body:lang(zh) { font-family: system-ui, -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", "Noto Sans SC", sans-serif; }
+:lang(zh) .lead, :lang(zh) p, :lang(zh) li { line-height: 1.75; }
+.zh-note { background: #fcf4d6; border: 1px solid #f1c21b; border-radius: 8px; padding: .5rem .75rem; font-size: .92rem; }

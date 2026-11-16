@@ -3,6 +3,11 @@
 All notable changes to the IBM webMethods BPMS Academy. Author: **Daniel Yuanpeng Xu**.
 Versions follow [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+- 🌐 **中文版, batch 1** (#68): a 中文 / English switch in the header (`?lang=zh`, remembered on the device). Start here (six steps, role paths, the one-picture map, Mia's story), the 10-minute course, Basics 101, menus, tap-to-explain terms, Beginner and Professional mode, badges, reading times and the diagrams used there are in Simplified Chinese. Untranslated sections say so and show the English text. Product and screen names stay in English.
+
 ## [2.2.0] — 2026-11-16
 
 From zero in ten minutes. **Author: Daniel Yuanpeng Xu.**

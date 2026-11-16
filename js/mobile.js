@@ -30,15 +30,21 @@ window.PHONE = {
 
 (function () {
   const $ = (id) => document.getElementById(id);
+  const tl = window.L || ((en) => en);
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const P = window.PHONE;
+  const ZP = window.LANG === "zh" && window.ZH && window.ZH.phone;
+  if (ZP) { P.groups = ZP.groups; P.guide = ZP.guide; }
+  const U = ZP ? ZP.ui : { sections: "Sections", all: "All sections", close: "Close", other: "Other", read: "Reading version", readSub: "Everything on one page, printable",
+    phone: "On your phone", phoneSub: "Save to Home Screen, read offline", prev: "Previous", next: "Next", top: "Back to top", toc: "Back to contents",
+    using: "Using it", iphone: "iPhone (Safari)", android: "Android (Chrome)" };
   const isCourse = !!document.querySelector("nav button[data-section]");
 
   // --- Back to top (both pages); reading version also gets a Contents button ---
   const fab = document.createElement("div");
   fab.className = "fab";
-  fab.innerHTML = (document.querySelector("nav.toc") ? `<button type="button" id="fab-toc" aria-label="Back to contents">Contents</button>` : "") +
-    `<button type="button" id="fab-top" aria-label="Back to top">↑</button>`;
+  fab.innerHTML = (document.querySelector("nav.toc") ? `<button type="button" id="fab-toc" aria-label="${U.toc}">${tl("Contents", "目录")}</button>` : "") +
+    `<button type="button" id="fab-top" aria-label="${U.top}">↑</button>`;
   document.body.appendChild(fab);
   const onScroll = () => fab.classList.toggle("show", window.scrollY > window.innerHeight * 1.5);
   window.addEventListener("scroll", onScroll, { passive: true });
@@ -51,16 +57,16 @@ window.PHONE = {
     const btn = document.createElement("button");
     btn.type = "button"; btn.id = "menu-btn"; btn.className = "menu-btn";
     btn.setAttribute("aria-haspopup", "dialog"); btn.setAttribute("aria-expanded", "false");
-    btn.innerHTML = "☰ <span>Sections</span>";
+    btn.innerHTML = `☰ <span>${U.sections}</span>`;
     nav.insertBefore(btn, nav.firstChild);
     const sheet = document.createElement("div");
     sheet.id = "menu-sheet"; sheet.className = "menu-sheet"; sheet.hidden = true;
-    sheet.setAttribute("role", "dialog"); sheet.setAttribute("aria-label", "All sections");
-    sheet.innerHTML = `<div class="menu-panel"><div class="menu-head"><strong>All sections</strong><button type="button" id="menu-close" aria-label="Close">✕</button></div>` +
+    sheet.setAttribute("role", "dialog"); sheet.setAttribute("aria-label", U.all);
+    sheet.innerHTML = `<div class="menu-panel"><div class="menu-head"><strong>${U.all}</strong><button type="button" id="menu-close" aria-label="${U.close}">✕</button></div>` +
       P.groups.map(([g, items]) => `<p class="menu-group">${esc(g)}</p><div class="menu-grid">` +
         items.map(([id, t, d]) => `<button type="button" class="menu-item" data-goto="${id}"><strong>${esc(t)}</strong><small>${esc(d)}</small></button>`).join("") + `</div>`).join("") +
-      `<p class="menu-group">Other</p><div class="menu-grid"><a class="menu-item" href="read.html"><strong>Reading version</strong><small>Everything on one page, printable</small></a>` +
-      `<button type="button" class="menu-item" data-goto="start" data-phone="1"><strong>On your phone</strong><small>Save to Home Screen, read offline</small></button></div></div>`;
+      `<p class="menu-group">${U.other}</p><div class="menu-grid"><a class="menu-item" href="read.html"><strong>${U.read}</strong><small>${U.readSub}</small></a>` +
+      `<button type="button" class="menu-item" data-goto="start" data-phone="1"><strong>${U.phone}</strong><small>${U.phoneSub}</small></button></div></div>`;
     document.body.appendChild(sheet);
     const open = (v) => { sheet.hidden = !v; btn.setAttribute("aria-expanded", String(v)); document.body.classList.toggle("menu-open", v); if (v) $("menu-close").focus(); };
     btn.addEventListener("click", () => open(true));
@@ -81,8 +87,8 @@ window.PHONE = {
       const prev = order[i - 1], next = order[i + 1];
       const pn = document.createElement("div");
       pn.className = "prevnext";
-      pn.innerHTML = (prev ? `<a href="#${prev[0]}" class="pn-prev"><small>Previous</small><strong>← ${esc(prev[1])}</strong></a>` : "<span></span>") +
-        (next ? `<a href="#${next[0]}" class="pn-next"><small>Next</small><strong>${esc(next[1])} →</strong></a>` : "<span></span>");
+      pn.innerHTML = (prev ? `<a href="#${prev[0]}" class="pn-prev"><small>${U.prev}</small><strong>← ${esc(prev[1])}</strong></a>` : "<span></span>") +
+        (next ? `<a href="#${next[0]}" class="pn-next"><small>${U.next}</small><strong>${esc(next[1])} →</strong></a>` : "<span></span>");
       sec.appendChild(pn);
     });
 
@@ -98,9 +104,9 @@ window.PHONE = {
     const G = P.guide;
     if ($("phone-guide-body")) {
       $("phone-guide-body").innerHTML =
-        `<div class="phone-cols"><div><p><strong>iPhone (Safari)</strong></p><ol>${G.iphone.map((s) => `<li>${esc(s)}</li>`).join("")}</ol></div>` +
-        `<div><p><strong>Android (Chrome)</strong></p><ol>${G.android.map((s) => `<li>${esc(s)}</li>`).join("")}</ol></div></div>` +
-        `<p><strong>Using it</strong></p><ul>${G.use.map(([t, d]) => `<li><strong>${esc(t)}:</strong> ${esc(d)}</li>`).join("")}</ul>`;
+        `<div class="phone-cols"><div><p><strong>${U.iphone}</strong></p><ol>${G.iphone.map((s) => `<li>${esc(s)}</li>`).join("")}</ol></div>` +
+        `<div><p><strong>${U.android}</strong></p><ol>${G.android.map((s) => `<li>${esc(s)}</li>`).join("")}</ol></div></div>` +
+        `<p><strong>${U.using}</strong></p><ul>${G.use.map(([t, d]) => `<li><strong>${esc(t)}${tl(":", "：")}</strong> ${esc(d)}</li>`).join("")}</ul>`;
     }
   }
 

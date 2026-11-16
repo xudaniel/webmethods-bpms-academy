@@ -37,6 +37,15 @@ window.STORY = {
 
 (function () {
   const S = window.STORY;
+  const ZS = window.LANG === "zh" && window.ZH && window.ZH.story;
+  if (ZS) {
+    S.cast.forEach((c) => { const z = ZS.cast[c.id]; if (z) { c.role = z[0]; c.line = z[1]; } });
+    S.stages = ZS.stages;
+    Object.entries(S.chapters).forEach(([k, ch]) => { if (ZS.chapters[k]) ch.text = ZS.chapters[k]; });
+  }
+  const U = ZS ? ZS.ui : { where: "Where Mia's request is", tag: "📦 Mia's request", part: (n, m) => `part ${n} of ${m}`, next: "Next in Mia's story: ",
+    done: "🎉 Story complete. Back to Start here →", follow: "Follow Mia's story from the start →", cast: "Meet the cast",
+    castLead: "One fictional purchase request, followed from click to audit trail. Everyone here is invented.", go: "Follow Mia's request →" };
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const person = (id) => S.cast.find((c) => c.id === id);
@@ -44,7 +53,7 @@ window.STORY = {
     const p = person(id), r = big ? 22 : 15;
     return `<svg class="avatar${big ? " big" : ""}" viewBox="0 0 ${2 * r} ${2 * r}" width="${2 * r}" height="${2 * r}" role="img" aria-label="${esc(p.name + ", " + p.role)}"><circle cx="${r}" cy="${r}" r="${r}" fill="${p.color}"/><text x="${r}" y="${r + (big ? 7 : 5)}" text-anchor="middle" font-size="${big ? 19 : 14}" font-weight="700" fill="#fff" font-family="system-ui,sans-serif">${esc(p.name[0])}</text></svg>`;
   };
-  const strip = (ch) => ch.stage === undefined ? "" : `<ol class="story-strip" aria-label="Where Mia's request is">${S.stages.map((t, i) =>
+  const strip = (ch) => ch.stage === undefined ? "" : `<ol class="story-strip" aria-label="${U.where}">${S.stages.map((t, i) =>
     `<li class="${i < ch.stage || ch.done ? "past" : i === ch.stage ? (ch.bad ? "now bad" : "now") : ""}">${esc(t)}</li>`).join("")}</ol>`;
   const isRead = !!document.querySelector("nav.toc");
   const titles = {};
@@ -52,10 +61,10 @@ window.STORY = {
 
   function card(key, ch) {
     const n = S.route.indexOf(key), next = n >= 0 ? S.route[n + 1] : null;
-    const head = `<div class="story-head">${ch.who.map((w) => avatar(w)).join("")}<span class="story-tag">📦 Mia's request${n >= 0 ? ` · part ${n + 1} of ${S.route.length}` : ""}</span></div>`;
+    const head = `<div class="story-head">${ch.who.map((w) => avatar(w)).join("")}<span class="story-tag">${U.tag}${n >= 0 ? ` · ${U.part(n + 1, S.route.length)}` : ""}</span></div>`;
     const body = `<p>${esc(ch.text)}</p>${strip(ch)}`;
-    const link = isRead ? "" : next ? `<a class="story-next" href="#${next}">Next in Mia's story: ${esc(titles[next] || next)} →</a>` :
-      n === S.route.length - 1 ? `<a class="story-next" href="#start">🎉 Story complete. Back to Start here →</a>` : `<a class="story-next" href="#${S.route[0]}">Follow Mia's story from the start →</a>`;
+    const link = isRead ? "" : next ? `<a class="story-next" href="#${next}">${U.next}${esc(titles[next] || next)} →</a>` :
+      n === S.route.length - 1 ? `<a class="story-next" href="#start">${U.done}</a>` : `<a class="story-next" href="#${S.route[0]}">${U.follow}</a>`;
     return `<aside class="story-card${ch.bad ? " bad" : ""}" data-story="${key}">${head}${body}${link}</aside>`;
   }
 
@@ -73,9 +82,9 @@ window.STORY = {
   });
 
   // Meet the cast (Start here / chapter 1)
-  const castHtml = `<div class="card story-cast" id="story-cast"><h3>Meet the cast</h3><p class="lead">One fictional purchase request, followed from click to audit trail. Everyone here is invented.</p>
+  const castHtml = `<div class="card story-cast" id="story-cast"><h3>${U.cast}</h3><p class="lead">${U.castLead}</p>
     <ul>${S.cast.map((c) => `<li>${avatar(c.id, true)}<div><strong>${esc(c.name)}</strong> <small>${esc(c.role)}</small><br>${esc(c.line)}</div></li>`).join("")}</ul>
-    ${isRead ? "" : `<a class="btn story-go" href="#${S.route[1]}">Follow Mia's request →</a>`}</div>`;
+    ${isRead ? "" : `<a class="btn story-go" href="#${S.route[1]}">${U.go}</a>`}</div>`;
   const startCard = document.querySelector(isRead ? '#r-why .story-card' : '#start .story-card');
   if (startCard) startCard.insertAdjacentHTML("afterend", castHtml);
 })();

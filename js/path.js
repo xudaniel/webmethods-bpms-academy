@@ -74,6 +74,9 @@ window.PATHS = {
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const P = window.PATHS;
+  const ZP = window.LANG === "zh" && window.ZH && window.ZH.paths;
+  if (ZP) { P.roles = ZP.roles; P.map.forEach((m) => { if (ZP.map[m.k]) m.t = ZP.map[m.k]; }); }
+  const U = ZP ? ZP.ui : { done: "done", min: "min", yourPath: "Your path", step: (i, n) => `step ${i} of ${n}`, next: "Next", complete: "Path complete 🎉", another: "Pick another role", mapTitle: "IBM webMethods BPMS in one picture" };
   const isRead = !!document.querySelector("nav.toc");
 
   // ---------- the map (SVG) ----------
@@ -101,7 +104,7 @@ window.PATHS = {
       `<text x="170" y="444" class="note" text-anchor="middle">everything is logged</text>`,
       `<text x="170" y="526" class="note" text-anchor="middle">Numbers show the order a request flows through.</text>`
     ].join("");
-    return G.svg("map", 348, 540, "IBM webMethods BPMS in one picture", `<g transform="translate(6,6)">${edges + nodes}</g>`, false);
+    return G.tr(G.svg("map", 348, 540, "IBM webMethods BPMS in one picture", `<g transform="translate(6,6)">${edges + nodes}</g>`, false));
   }
 
   if (isRead) {
@@ -160,9 +163,9 @@ window.PATHS = {
     const r = role();
     document.querySelectorAll(".role-chip").forEach((b) => { const on = b.dataset.r === r.id; b.classList.toggle("selected", on); b.setAttribute("aria-checked", String(on)); });
     const n = r.steps.filter((_, i) => st.done[stepKey(r, i)]).length;
-    $("path-intro").innerHTML = `${esc(r.intro)} <strong class="path-count">${n} / ${r.steps.length} done</strong>`;
+    $("path-intro").innerHTML = `${esc(r.intro)} <strong class="path-count">${n} / ${r.steps.length} ${U.done}</strong>`;
     $("beginner-path").innerHTML = r.steps.map((s, i) => `<li class="${st.done[stepKey(r, i)] ? "done-step" : ""}">
-      <a href="#${s.go}" data-step="${i}"><strong>${esc(s.t)}</strong></a>${mins(s) ? ` <span class="rt">· ${mins(s)} min</span>` : ""}<br><small>${esc(s.why)}</small></li>`).join("");
+      <a href="#${s.go}" data-step="${i}"><strong>${esc(s.t)}</strong></a>${mins(s) ? ` <span class="rt">· ${mins(s)} ${U.min}</span>` : ""}<br><small>${esc(s.why)}</small></li>`).join("");
   }
   $("role-chips").addEventListener("click", (e) => { const b = e.target.closest(".role-chip"); if (!b) return; st.role = b.dataset.r; save(); paint(); });
   $("beginner-path").addEventListener("click", (e) => {
@@ -182,8 +185,8 @@ window.PATHS = {
     const sec = document.getElementById(cur), pn = sec && sec.querySelector(".prevnext");
     if (!sec) return;
     const nxt = r.steps[i + 1];
-    const html = `<div class="path-next">${r.icon} <strong>Your path (${esc(r.name)})</strong>: step ${i + 1} of ${r.steps.length}. ` +
-      (nxt ? `<a href="#${nxt.go}" data-next="${i + 1}">Next: ${esc(nxt.t)} →</a>` : `<span>Path complete 🎉 <a href="#start">Pick another role</a></span>`) + `</div>`;
+    const html = `<div class="path-next">${r.icon} <strong>${U.yourPath} (${esc(r.name)})</strong>: ${U.step(i + 1, r.steps.length)}. ` +
+      (nxt ? `<a href="#${nxt.go}" data-next="${i + 1}">${U.next}: ${esc(nxt.t)} →</a>` : `<span>${U.complete} <a href="#start">${U.another}</a></span>`) + `</div>`;
     if (pn) pn.insertAdjacentHTML("beforebegin", html); else sec.insertAdjacentHTML("beforeend", html);
   }
   document.addEventListener("click", (e) => {

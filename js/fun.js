@@ -4,17 +4,24 @@
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const isRead = !!document.querySelector("nav.toc");
-  const WPM = 200;
+  const WPM = 200, CPM = 400; // English words per minute; Chinese characters per minute
+  const ZF = window.LANG === "zh" && window.ZH && window.ZH.fun;
+  const U = ZF ? ZF.ui : { read: "read", handsOn: "hands-on", total: (t) => `⏱ The whole course is about ${t} of reading. Each section shows its own time at the top.`,
+    totalRead: (t) => `⏱ About ${t} to read everything. Each chapter shows its own time.`, progress: "Your progress", local: "(saved only in this browser)",
+    explored: (n, m) => `🧭 ${n} / ${m} sections explored`, unlocked: "Unlocked", badge: "Badge unlocked: ", dyk: "💡 Did you know?", another: "Another fact",
+    readTopic: "Read the topic →", h: "h", min: "min" };
 
   // ---------- reading time ----------
   function minutesFor(el) {
     const c = el.cloneNode(true);
     c.querySelectorAll(".sources, .prevnext, .readtime, script, svg, nav.toc, .fab").forEach((x) => x.remove());
-    const words = (c.textContent || "").trim().split(/\s+/).filter(Boolean).length;
+    const text = c.textContent || "";
+    const cjk = (text.match(/[\u3400-\u9fff]/g) || []).length;
+    const words = text.replace(/[\u3400-\u9fff]/g, " ").trim().split(/\s+/).filter((w) => /[A-Za-z0-9]/.test(w)).length;
     const figs = el.querySelectorAll("figure.dg, .kb-fig").length;
-    return Math.max(1, Math.round(words / WPM + figs * 0.25));
+    return Math.max(1, Math.round(words / WPM + cjk / CPM + figs * 0.25));
   }
-  const fmt = (m) => (m >= 60 ? `${Math.floor(m / 60)} h ${m % 60 ? (m % 60) + " min" : ""}`.trim() : `${m} min`);
+  const fmt = (m) => (m >= 60 ? `${Math.floor(m / 60)} ${U.h} ${m % 60 ? (m % 60) + " " + U.min : ""}`.trim() : `${m} ${U.min}`);
   const handsOn = { lab: () => (window.LAB ? window.LAB.stages.reduce((n, s) => n + s.min, 0) : 30), simulator: () => 5, scan: () => 5, quiz: () => 10 };
 
   const times = {};
@@ -23,24 +30,24 @@
     let total = 0;
     document.querySelectorAll("main > .section").forEach((sec) => {
       const m = minutesFor(sec); times[sec.id] = m; total += m;
-      const extra = handsOn[sec.id] ? ` · ${handsOn[sec.id]()} min hands-on` : "";
-      sec.insertAdjacentHTML("afterbegin", `<p class="readtime">⏱ ${fmt(m)} read${extra}</p>`);
+      const extra = handsOn[sec.id] ? (ZF ? ` · 动手 ${handsOn[sec.id]()} 分钟` : ` · ${handsOn[sec.id]()} min hands-on`) : "";
+      sec.insertAdjacentHTML("afterbegin", `<p class="readtime">⏱ ${ZF ? "阅读 " + fmt(m) : fmt(m) + " read"}${extra}</p>`);
     });
     document.querySelectorAll("#menu-sheet [data-goto]").forEach((b) => {
       const sm = b.querySelector("small"); const m = times[b.dataset.goto];
-      if (sm && m && !b.dataset.phone) sm.insertAdjacentHTML("beforeend", ` <span class="rt">· ${m} min</span>`);
+      if (sm && m && !b.dataset.phone) sm.insertAdjacentHTML("beforeend", ` <span class="rt">· ${m} ${U.min}</span>`);
     });
     const intro = document.querySelector("#start .card .lead");
-    if (intro) intro.insertAdjacentHTML("afterend", `<p class="readtime total">⏱ The whole course is about ${fmt(total)} of reading. Each section shows its own time at the top.</p>`);
+    if (intro) intro.insertAdjacentHTML("afterend", `<p class="readtime total">${U.total(fmt(total))}</p>`);
   } else {
     let total = 0;
     document.querySelectorAll("main section.card").forEach((sec) => {
       const h = sec.querySelector("h2"); if (!h) return;
       const m = minutesFor(sec); total += m;
-      h.insertAdjacentHTML("afterend", `<p class="readtime">⏱ ${fmt(m)} read</p>`);
+      h.insertAdjacentHTML("afterend", `<p class="readtime">⏱ ${ZF ? "阅读 " + fmt(m) : fmt(m) + " read"}</p>`);
     });
     const toc = document.querySelector("nav.toc h2");
-    if (toc) toc.insertAdjacentHTML("afterend", `<p class="readtime total">⏱ About ${fmt(total)} to read everything. Each chapter shows its own time.</p>`);
+    if (toc) toc.insertAdjacentHTML("afterend", `<p class="readtime total">${U.totalRead(fmt(total))}</p>`);
     return; // progress and badges live on the interactive version
   }
 
@@ -62,30 +69,31 @@
     ["lab", "🧪", "Lab finisher", "Tick every step of the hands-on lab"],
     ["quiz", "🏆", "Quiz ace", "Answer every quiz question correctly"]
   ];
+  if (ZF) BADGES.forEach((b) => { const z = ZF.badges[b[0]]; if (z) { b[2] = z[0]; b[3] = z[1]; } });
 
   // Start-page card: progress, badges, did you know
   const anchor = document.getElementById("phone-guide") || document.querySelector("#start .card");
   if (anchor) anchor.insertAdjacentHTML("afterend", `<div class="card fun" id="fun-card">
-      <h3>Your progress <small class="muted">(saved only in this browser)</small></h3>
+      <h3>${U.progress} <small class="muted">${U.local}</small></h3>
       <div class="lab-progress"><div class="bar"><span id="fun-bar"></span></div><span id="fun-count"></span></div>
       <div class="badges" id="fun-badges"></div>
-      <div class="dyk" id="dyk"><p class="dyk-h">💡 Did you know?</p><p id="dyk-text"></p><p class="dyk-act"><a href="#knowledge" id="dyk-link">Read the topic →</a> <button type="button" class="link" id="dyk-next">Another fact</button></p></div>
+      <div class="dyk" id="dyk"><p class="dyk-h">${U.dyk}</p><p id="dyk-text"></p><p class="dyk-act"><a href="#knowledge" id="dyk-link">${U.readTopic}</a> <button type="button" class="link" id="dyk-next">${U.another}</button></p></div>
     </div>`);
   const head = document.querySelector("#menu-sheet .menu-head strong");
   if (head) head.insertAdjacentHTML("afterend", ` <span class="menu-progress" id="menu-progress"></span>`);
 
   function paint() {
     const n = sections.filter((s) => st.visited[s]).length;
-    if ($("fun-count")) $("fun-count").textContent = `🧭 ${n} / ${sections.length} sections explored`;
+    if ($("fun-count")) $("fun-count").textContent = U.explored(n, sections.length);
     if ($("fun-bar")) $("fun-bar").style.width = Math.round((n / sections.length) * 100) + "%";
     if ($("menu-progress")) $("menu-progress").textContent = `🧭 ${n} / ${sections.length}`;
     if ($("fun-badges")) $("fun-badges").innerHTML = BADGES.map(([k, ic, name, how]) =>
-      `<div class="badge${st.badges[k] ? " earned" : ""}" title="${esc(how)}"><span class="ic">${ic}</span><strong>${esc(name)}</strong><small>${st.badges[k] ? "Unlocked" : esc(how)}</small></div>`).join("");
+      `<div class="badge${st.badges[k] ? " earned" : ""}" title="${esc(how)}"><span class="ic">${ic}</span><strong>${esc(name)}</strong><small>${st.badges[k] ? U.unlocked : esc(how)}</small></div>`).join("");
   }
   function award(k) {
     if (st.badges[k]) return;
     st.badges[k] = new Date().toISOString().slice(0, 10); save(); paint();
-    const b = BADGES.find((x) => x[0] === k); celebrate(`${b[1]} Badge unlocked: ${b[2]}`);
+    const b = BADGES.find((x) => x[0] === k); celebrate(`${b[1]} ${U.badge}${b[2]}`);
   }
   function celebrate(msg) {
     if (document.body.classList.contains("pro")) return; // professional mode: no toasts or confetti
@@ -123,7 +131,9 @@
   }, 30));
 
   // Did you know?
-  const K = window.KNOWLEDGE;
+  // In Chinese, facts come from the translated knowledge base; until it exists, hide the box
+  const K = ZF ? window.ZH.knowledge : window.KNOWLEDGE;
+  if (ZF && !K && $("dyk")) $("dyk").hidden = true;
   if (K && $("dyk-text")) {
     const pool = []; K.topics.forEach((t) => t.facts.forEach((f) => pool.push([t.id, t.title, f])));
     let last = -1;
