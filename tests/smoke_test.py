@@ -113,6 +113,26 @@ async def main():
         await page.click("#sim-next")
         if "status=COMPLETED" not in await page.inner_text("#sim-log"):
             failures.append("simulator did not complete")
+        # Instance time machine (issue #51): replay the finished instance from its audit rows
+        if not await page.is_visible("#tm"):
+            failures.append("time machine: should appear when the instance completes")
+        else:
+            await page.evaluate("const r = document.getElementById('tm-slider'); r.value = 3; r.dispatchEvent(new Event('input', { bubbles: true }))")
+            on = await page.locator("#tm-rows li.tm-on").get_attribute("data-k")
+            cx = await page.evaluate("document.querySelector('#simulator .tm-tok').getAttribute('cx')")
+            if on != "3" or not cx or "4 / " not in await page.inner_text("#tm-now"):
+                failures.append("time machine: scrubbing to row 4 should highlight it and move the token")
+            await page.focus("#tm .tm-ctl .btn")
+            await page.keyboard.press("ArrowRight")
+            if await page.locator("#tm-rows li.tm-on").get_attribute("data-k") != "4":
+                failures.append("time machine: arrow keys should step through rows")
+            await page.check("#tm-vt")
+            if not await page.is_visible("#tm-vt-note"):
+                failures.append("time machine: volatile tracking note missing")
+            await page.uncheck("#tm-vt")
+        await page.click("#sim-start")
+        if await page.is_visible("#tm"):
+            failures.append("time machine: a new instance should hide the old replay")
         await page.click("nav button[data-section=scan]")
         await page.click("#scan-sample")
         if "Rule candidate" not in await page.inner_text("#scan-out"):

@@ -395,3 +395,18 @@ body.pro .cc-remember { background: transparent; }
 .sw-btns button { padding: .7rem .3rem; }
 .sw-share { background: #edf5ff; border-radius: 8px; padding: .5rem .7rem; }
 @media (prefers-reduced-motion: reduce) { .sw-card { transition: none; } }
+
+/* Instance time machine (#51) */
+.tm-ctl { display: flex; gap: .4rem; margin: .4rem 0; }
+.tm-ctl .btn { min-width: 3rem; }
+#tm-slider { width: 100%; margin: .4rem 0; }
+.tm-now { margin: .2rem 0 .6rem; }
+.tm-rows { list-style: none; padding: 0; margin: .6rem 0 0; font-size: .78rem; }
+.tm-rows li { padding: .35rem .45rem; border-left: 3px solid transparent; border-radius: 4px; cursor: pointer; overflow-wrap: anywhere; }
+.tm-rows li.tm-past { opacity: .7; }
+.tm-rows li.tm-on { background: #edf5ff; border-left-color: var(--primary); opacity: 1; }
+.tm-ts { font-weight: 600; margin-right: .3rem; }
+.tm-tok { transition: cx .45s ease, cy .45s ease; }
+.tm-volatile .tm-rows li { opacity: .3; text-decoration: line-through; }
+.tm-volatile .tm-tok { opacity: .25; }
+@media (prefers-reduced-motion: reduce) { .tm-tok { transition: none; } }
