@@ -341,3 +341,14 @@ button.pill.fw-pill { font-size: .75rem; }
 .fw small { color: var(--muted); }
 .fw p { margin: .35rem 0; font-size: .9rem; }
 .ctl-flash { background: var(--primary-light); }
+
+/* Professional mode (#59) */
+.pro-bar { display: none; background: #161616; color: #f4f4f4; font-size: .82rem; padding: .45rem 1rem; text-align: center; }
+.pro-bar a { color: #a6c8ff; }
+body.pro .pro-bar { display: block; }
+body.pro .fun, body.pro .dyk, body.pro .toast, body.pro .confetti, body.pro .story-card, body.pro #story-cast, body.pro .menu-progress { display: none !important; }
+body.pro header { background: #161616; }
+.pro-toggle { margin-left: .4rem; }
+.pro-toggle[aria-pressed="true"] { background: #f4f4f4; color: #161616; border-color: #f4f4f4; }
+.kb-reviewed { font-size: .78rem; color: var(--muted); margin: .2rem 0 0; }
+@media print { .pro-bar, .pro-toggle { display: none !important; } }

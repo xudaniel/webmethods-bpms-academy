@@ -65,7 +65,7 @@
     $("r-kb").innerHTML = K.topics.map((t, i) => `<h3>${kbN}.${i + 1} ${esc(t.title)}</h3><p>${esc(t.summary)}</p>
       <ul>${t.facts.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
       <p class="callout"><strong>In practice:</strong> ${esc(t.practice)}</p>
-      <p class="sources">${t.sources.length ? "Sources: " + t.sources.map(link).join(" · ") : "Synthesis of the topics above; author's practitioner view."}</p>`).join("");
+      <p class="sources">${t.sources.length ? "Sources: " + t.sources.map(link).join(" · ") : "Synthesis of the topics above; author's practitioner view."}${t.reviewed ? ` · Last reviewed ${new Date(t.reviewed + "T12:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}` : ""}</p>`).join("");
   }
 
   // How to use

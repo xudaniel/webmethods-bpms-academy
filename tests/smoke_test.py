@@ -237,6 +237,27 @@ async def main():
         await page.wait_for_timeout(300)
         if await page.evaluate("location.hash") != "#controls":
             failures.append("framework jump should stay on the Controls section")
+        # Professional mode, executive briefs, review dates (issue #59)
+        ctx = await browser.new_context(viewport={"width": 390, "height": 844})
+        pro = await ctx.new_page()
+        pro.on("pageerror", lambda e: errors.append("pro: " + str(e)))
+        await pro.goto("http://127.0.0.1:8765/index.html?mode=pro#start")
+        await pro.wait_for_timeout(300)
+        if not await pro.evaluate("document.body.classList.contains('pro')") or await pro.is_visible("#start .story-card") or await pro.is_visible("#fun-card"):
+            failures.append("?mode=pro should hide the story and the badges")
+        await pro.click("#pro-toggle")
+        if not await pro.is_visible("#start .story-card"):
+            failures.append("turning professional mode off should bring the story back")
+        await pro.evaluate("location.hash='knowledge'")
+        await pro.wait_for_timeout(100)
+        if await pro.locator("#knowledge .kb-reviewed").count() < 8:
+            failures.append("knowledge topics should show a last-reviewed date")
+        await pro.goto("http://127.0.0.1:8765/brief.html")
+        await pro.wait_for_timeout(300)
+        for ind in ["banking", "insurance"]:
+            if await pro.locator(f"#{ind} tr").count() != 6 or await pro.locator(f"#{ind} .foot li").count() < 8 or await pro.locator(f"#{ind} figure svg").count() != 1:
+                failures.append(f"{ind} brief incomplete")
+        await ctx.close()
         # Hotfix (issue #41): index.html must be the real page, and the Decision lab must work
         html = open("index.html", encoding="utf-8").read()
         if len(html) < 10000 or "$(cat" in html:
