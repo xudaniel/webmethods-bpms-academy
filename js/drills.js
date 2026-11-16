@@ -114,7 +114,7 @@
   function choose(i) {
     const { d } = run, s = d.steps[run.step], c = s.choices[i];
     run.min += c[1]; run.path.push({ step: run.step, choice: c[0], ok: c[2], cost: c[1] });
-    if (!c[2]) { run.wrong++; return paint(`<p class="pz-bad">❌ <strong>+${c[1]} ${T("min.", "分钟。")}</strong> ${esc(c[3])}</p>`); }
+    if (!c[2]) { run.wrong++; window.REVIEW && window.REVIEW.miss("drill", `${d.id}:${run.step}`); return paint(`<p class="pz-bad">❌ <strong>+${c[1]} ${T("min.", "分钟。")}</strong> ${esc(c[3])}</p>`); }
     if (run.step < d.steps.length - 1) { run.step++; return paint(`<p class="pz-ok">✅ ${esc(c[3])}</p>`); }
     finish(c);
   }

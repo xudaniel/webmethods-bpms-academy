@@ -109,7 +109,7 @@
   function answer(a) {
     if (!playing || pos >= deck.length) return;
     const c = deck[pos], ok = a === c.answer, card = $("sw-card");
-    if (ok) { right++; streak++; best = Math.max(best, streak); } else streak = 0;
+    if (ok) { right++; streak++; best = Math.max(best, streak); } else { streak = 0; window.REVIEW && window.REVIEW.miss("swipe", c.i); }
     $("sw-why").innerHTML = `<p class="${ok ? "pz-ok" : "pz-bad"}">${ok ? "✅" : "❌"} <strong>${esc(c.step)}${T(": ", "：")}${NAMES[c.answer]}${T(".", "。")}</strong> ${esc(why(c))}</p>`;
     pos++; paint(); enable(false);
     if (card && !reduce) {
@@ -166,4 +166,5 @@
 
   // For the smoke test: every card's answer must come from the shared classifier
   window.SWIPE_CARDS = CARDS;
+  window.SWIPE_INFO = { names: NAMES, why }; // for the review book
 })();

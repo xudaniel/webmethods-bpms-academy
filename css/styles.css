@@ -421,3 +421,8 @@ body.pro .cc-remember { background: transparent; }
 .dr-choice:hover, .dr-choice:focus-visible { border-color: var(--primary); }
 .dr-path { padding-left: 1.2rem; } .dr-path li.bad { color: #a2191f; }
 .dr-debrief li { margin-bottom: .4rem; }
+
+/* Review book (#76) */
+.rv-home { border-left: 4px solid var(--primary); }
+.rv-q { border-top: 1px solid var(--border); padding-top: .7rem; }
+.rv-from { font-size: .82rem; color: var(--muted, #525252); margin: 0 0 .2rem; }

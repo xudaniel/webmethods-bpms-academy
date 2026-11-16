@@ -6,6 +6,7 @@ Versions follow [Semantic Versioning](https://semver.org/).
 ## [Unreleased]
 
 ### Added
+- 📒 **Review book** (#76): every question answered wrong anywhere on the site comes back after 1 day and 3 days (plus 7 days after a repeat miss) until you get it right twice. A card on Start here shows what is due today. Stored by reference, so items appear in the language you are reading; browser only. English and Chinese.
 - 🚨 **On-call drills** (#50): three branching incidents (the process never starts, a manual decision is ignored, Monitor shows nothing) with a running clock. Wrong checks cost minutes and explain why; each drill ends with your path, the ideal time and a debrief citing IBM / Software AG documentation. New 🚨 *On-call hero* badge for three clean runs. English and Chinese.
 - ⏪ **Instance time machine** (#51): after the loan simulator completes, replay the instance from its audit rows. Slider, ⏮ ◀ ▶ ▶▶ and arrow keys move a token on the loan diagram while the matching `PRA_*` row lights up; a *Volatile Tracking* toggle shows which rows Monitor would not have. English and Chinese.
 - 👆 **Swipe sort** (#53): a phone-first card game. Judge 20 synthetic steps in 60 seconds: swipe left for a rule, right for an agent, up to keep a person (buttons and arrow keys too). Answers come from the Agent Scan Lab's own classifier, now shared as `SCAN_CLASSIFY`. In English and Chinese.

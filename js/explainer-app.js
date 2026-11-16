@@ -1,6 +1,7 @@
 (function () {
   const ZX = window.LANG === "zh" && window.ZH && window.ZH.explainer;
   const X = ZX || window.EXPLAINER;
+  window.EXPLAINER_LIVE = X;
   const U = ZX ? ZX.ui : { right: "Right. ", better: (o) => `Better owner: ${o}. `, score: (r, n) => `${r} / ${n} right`,
     wrap: " — process orchestrates, rules judge, people handle exceptions, agents propose.", h: " h", case: "Case", agent: "Agent", rules: "Rules decide",
     proposes: "Agent proposes credit", auto: "automatic", toPerson: "to a person", denied: "denied",
@@ -29,7 +30,7 @@
     const b = e.target.closest("button[data-o]"); if (!b) return;
     const box = b.closest(".quiz-q"); if (box.dataset.done) return;
     const s = X.sort[box.dataset.i]; box.dataset.done = 1; sortDone++;
-    const ok = b.dataset.o === s.owner; if (ok) sortRight++;
+    const ok = b.dataset.o === s.owner; if (ok) sortRight++; else window.REVIEW && window.REVIEW.miss("sort", box.dataset.i);
     box.querySelectorAll("button[data-o]").forEach((x) => {
       if (x.dataset.o === s.owner) x.style.cssText += ";background:#defbe6;border-color:#24a148;color:#0e6027";
       else if (x === b) x.style.cssText += ";background:#fff1f1;border-color:#da1e28;color:#a2191f";
