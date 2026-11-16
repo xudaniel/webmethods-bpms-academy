@@ -132,8 +132,8 @@
 
   // Did you know?
   // In Chinese, facts come from the translated knowledge base; until it exists, hide the box
-  const K = ZF ? window.ZH.knowledge : window.KNOWLEDGE;
-  if (ZF && !K && $("dyk")) $("dyk").hidden = true;
+  const K = ZF && !window.ZH.knowledge ? null : window.KNOWLEDGE;
+  if (!K && $("dyk")) $("dyk").hidden = true;
   if (K && $("dyk-text")) {
     const pool = []; K.topics.forEach((t) => t.facts.forEach((f) => pool.push([t.id, t.title, f])));
     let last = -1;

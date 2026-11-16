@@ -106,6 +106,18 @@ window.LAB = {
   }
 };
 
+// 中文 (#68): lab text; the "where" menu paths stay in English to match the product
+(function () {
+  const Z = window.LANG === "zh" && window.ZH && window.ZH.lab, L = window.LAB;
+  if (!Z) return;
+  ["title", "scenario", "flow", "prereqs", "practice", "levelup"].forEach((k) => { L[k] = Z[k]; });
+  L.stages.forEach((st) => {
+    const z = Z.stages[st.id]; if (!z) return;
+    st.t = z.t; st.check = z.check; st.steps.forEach((s, i) => { if (z.steps[i]) s[0] = z.steps[i]; });
+  });
+  L.pitfalls.forEach((p, i) => { const z = Z.pitfalls[i]; if (z) { p[0] = z[0]; p[1] = z[1]; } });
+})();
+
 // Merge glossary, quiz and sources into the main course.
 (function () {
   const A = window.ACADEMY, L = window.LAB;

@@ -219,6 +219,14 @@ window.KNOWLEDGE = {
   }
 };
 
+// 中文 (#68): swap in the translated family table and topic text; ids, sources, images and review dates stay shared
+(function () {
+  const Z = window.LANG === "zh" && window.ZH && window.ZH.knowledge, K = window.KNOWLEDGE;
+  if (!Z) return;
+  K.family = Z.family;
+  K.topics.forEach((t) => Object.assign(t, Z.topics[t.id] || {}));
+})();
+
 // Merge new glossary terms and quiz questions into the main course so every view uses them.
 (function () {
   const A = window.ACADEMY, K = window.KNOWLEDGE;

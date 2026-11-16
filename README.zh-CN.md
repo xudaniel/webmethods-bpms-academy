@@ -65,7 +65,7 @@
 | 📦 | **跟着一个故事学**：Mia 申请一台 1,200 美元的笔记本电脑，这张单子走遍整门课，经理 Sam、业务分析师 Priya、开发 Leo、运维 Omar 依次登场；每个栏目讲下一段故事，并显示单子现在走到哪一步 | [从这里开始](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
 | ⚡ | **什么都不会？先上 10 分钟速成**：5 步、每步 2 分钟（BPMS 是什么、每一步谁来做、IBM webMethods 的几个组件、从画图到运行、为什么对 AI agent 重要），每步一张图，最后 3 道小题 | [10 分钟速成](https://xudaniel.github.io/webmethods-bpms-academy/#crash) |
 | 🧱 | **先学基础**：7 节 2 分钟小课（流程与实例、每一步谁来做、五个 BPMN 图形、规则与流程分开、人工任务、引擎与审计记录、从画图到运行），每节配一张图和一道题 | [基础 101](https://xudaniel.github.io/webmethods-bpms-academy/#basics) |
-| 🌐 | **用中文学**：点页头的 **中文** 按钮（或打开 `?lang=zh`），选择会被记住。「从这里开始」、10 分钟速成和基础 101 已经全部译好，连示意图都是中文；其他栏目分批翻译，翻译完成前会提示并显示英文原文 | [中文版](https://xudaniel.github.io/webmethods-bpms-academy/?lang=zh) |
+| 🌐 | **用中文学**：点页头的 **中文** 按钮（或打开 `?lang=zh`），选择会被记住。「从这里开始」、10 分钟速成、基础 101、知识库、使用指南、动手实验、故障排查和开课教学已经全部译好，连示意图都是中文；其他栏目分批翻译，翻译完成前会提示并显示英文原文 | [中文版](https://xudaniel.github.io/webmethods-bpms-academy/?lang=zh) |
 | 🌱 | **每个术语都看得懂**：点任意带下划线的术语（BPMN、IS、MWS、Hot Deploy……），弹出一句大白话解释；打开**新手模式**，只显示最先需要的 10 个栏目 | 全站 |
 | 🗺️ | **用一张图看懂整个产品**：从建模到审计记录，点任意一个框就跳到对应教程 | [从这里开始](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
 | 🎛️ | **动手调设置**：切换服务质量设置，看各自换来什么、牺牲什么；或者调 AI agent 的审批额度，看决策日志怎么变 | [知识库](https://xudaniel.github.io/webmethods-bpms-academy/#knowledge) · [从这里开始](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
@@ -157,7 +157,7 @@
 - **讲课方案**（作者观点）：3 小时工作坊议程，每个环节链接到网站对应栏目，并附打印清单和讲师提示。
 
 ### 给新手的大白话
-- **🌐 中文 / English**（页头开关，会记在你的设备上；也可以用 `?lang=zh` / `?lang=en`）：和英文版一样详细的简体中文版。产品和界面名称保留英文，方便你对照真实产品和 IBM 文档。正在分批翻译（[#68](https://github.com/Xudaniel/webmethods-bpms-academy/issues/68)）：「从这里开始」、10 分钟速成、基础 101、菜单、术语解释和相关示意图已完成。
+- **🌐 中文 / English**（页头开关，会记在你的设备上；也可以用 `?lang=zh` / `?lang=en`）：和英文版一样详细的简体中文版。产品和界面名称保留英文，方便你对照真实产品和 IBM 文档。正在分批翻译（[#68](https://github.com/Xudaniel/webmethods-bpms-academy/issues/68)）：「从这里开始」、10 分钟速成、基础 101、知识库、使用指南和速查卡、动手实验、故障排查、开课教学、菜单、术语解释和相关示意图已完成。
 - **点任意带下划线的术语**（课程和阅读版都有），弹出一句大白话解释、技术定义和术语表链接；手机上从屏幕底部弹出。测验题不加下划线，照样考得到你。
 - **🌱 新手模式**（页头开关，记在你的设备上）：标签栏和 ☰ 菜单只显示 12 个新手栏目；每个栏目开头有一段「In plain words」通俗说明；进阶栏目会提示可以先跳过，「上一节 / 下一节」也会自动跳过它们。
 
@@ -426,7 +426,7 @@ webmethods-bpms-academy/
 │   ├── diagrams.js       # 原创 SVG 示意图（服务质量互动图、角色图、实验 BPMN、排查流程图、时间轴）
 │   ├── path.js           # 角色选择与个人路线、可点击的全流程总图
 │   ├── i18n.js           # 中文 / English 切换（?lang=zh），最先加载
-│   ├── zh/               # 中文文本：core.js（菜单、路线、术语、故事）、beginner.js（入门、速成、基础课、示意图）
+│   ├── zh/               # 中文文本：core.js（菜单、路线、术语、故事）、beginner.js（入门、速成、基础课）、guides.js（知识库、指南、实验、排查、教学）
 │   ├── words.js          # 点术语看大白话解释、新手模式
 │   ├── basics.js         # 基础 101：七节基础课和自测
 │   ├── crash.js          # 10 分钟速成：五步和三道自测

@@ -249,17 +249,18 @@
       [A.glossary.length, T("glossary terms", "个术语")], [A.quiz.length, T("quiz questions", "道测验题")]
     ].map(([n, l]) => `<div class="tile kb-stat"><strong>${n}</strong><small>${esc(l)}</small></div>`).join("");
     $("quiz-count-tile").textContent = A.quiz.length + T(" questions", " 道题");
-    $("kb-family").innerHTML = "<tr><th>Component</th><th>What it does in a BPMS solution</th></tr>" +
+    const zh = window.LANG === "zh";
+    $("kb-family").innerHTML = `<tr><th>${T("Component", "组件")}</th><th>${T("What it does in a BPMS solution", "在 BPMS 方案里做什么")}</th></tr>` +
       K.family.map(([n, d]) => `<tr><td><strong>${esc(n)}</strong></td><td>${esc(d)}</td></tr>`).join("");
-    $("kb-family-src").innerHTML = "Sources: " + srcLinks(K.familySources.concat([9, 17]));
+    $("kb-family-src").innerHTML = T("Sources: ", "来源：") + srcLinks(K.familySources.concat([9, 17]));
     $("kb-tabs").innerHTML = K.topics.map((t) => `<button class="tile" data-kb="${t.id}"><strong>${esc(t.title)}</strong></button>`).join("");
     $("kb-topics").innerHTML = K.topics.map((t) => `<div class="card kb-topic" id="kb-${t.id}">
       <h3>${esc(t.title)}</h3><p class="lead">${esc(t.summary)}</p>
-      ${t.image ? `<figure class="kb-fig"><img src="${esc(t.image)}" alt="Diagram: ${esc(t.title)}" loading="lazy" onerror="this.closest('figure').remove()"></figure>` : ""}
+      ${t.image ? `<figure class="kb-fig"><img src="${esc(t.image)}" alt="${T("Diagram: ", "示意图：")}${esc(t.title)}" loading="lazy" onerror="this.closest('figure').remove()"></figure>` : ""}
       <ul class="kb-facts">${t.facts.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
-      <p class="callout"><strong>In practice:</strong> ${esc(t.practice)}</p>
-      ${t.sources.length ? `<p class="sources">Sources: ${srcLinks(t.sources)}</p>` : `<p class="sources">Synthesis of the topics above; author's practitioner view.</p>`}
-      ${t.reviewed ? `<p class="kb-reviewed">Last reviewed against its sources: ${new Date(t.reviewed + "T12:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}</p>` : ""}
+      <p class="callout"><strong>${T("In practice:", "实践建议：")}</strong> ${esc(t.practice)}</p>
+      ${t.sources.length ? `<p class="sources">${T("Sources: ", "来源：")}${srcLinks(t.sources)}</p>` : `<p class="sources">${T("Synthesis of the topics above; author's practitioner view.", "以上主题的归纳；作者的实践观点。")}</p>`}
+      ${t.reviewed ? `<p class="kb-reviewed">${T("Last reviewed against its sources: ", "最近一次对照来源核对：")}${new Date(t.reviewed + "T12:00:00").toLocaleDateString(zh ? "zh-CN" : "en-GB", { day: "numeric", month: zh ? "long" : "short", year: "numeric" })}</p>` : ""}
     </div>`).join("");
     $("kb-tabs").addEventListener("click", (e) => {
       const b = e.target.closest("[data-kb]"); if (!b) return;
@@ -272,24 +273,27 @@
   if (H) {
     const hl = (k) => `<a href="${esc(H.sources[k][1])}" target="_blank" rel="noopener">${esc(H.sources[k][0])}</a>`;
     $("beginner-path").innerHTML = H.beginner.map(([t, id, d]) => `<li><a href="#${id}"><strong>${esc(t)}</strong></a> — ${esc(d)}</li>`).join("");
-    const tabs = H.roles.map((r) => [r.id, r.role]).concat([["demo", "Show a customer (10 min)"]]);
+    const HU = (window.LANG === "zh" && window.ZH && window.ZH.howto && window.ZH.howto.ui) || { demoTab: "Show a customer (10 min)", demoH: `Customer demo script <span class="pill">Author's view</span>`,
+      demoLead: "Six beats, about ten minutes. Click the step, say the line, and you answer the question the customer is really asking.", say: "Say: ", answers: "Answers: ",
+      source: "Source: ", worked: "You'll know it worked when:", tip: "Tip:" };
+    const tabs = H.roles.map((r) => [r.id, r.role]).concat([["demo", HU.demoTab]]);
     $("howto-tabs").innerHTML = tabs.map(([id, n]) => `<button class="tile" data-role="${id}"><strong>${esc(n)}</strong></button>`).join("");
     function renderRole(id) {
       document.querySelectorAll("#howto-tabs .tile").forEach((b) => b.classList.toggle("selected", b.dataset.role === id));
       if (id === "demo") {
-        $("howto-body").innerHTML = `<div class="card"><h3>Customer demo script <span class="pill">Author's view</span></h3>
-          <p>Six beats, about ten minutes. Click the step, say the line, and you answer the question the customer is really asking.</p>
+        $("howto-body").innerHTML = `<div class="card"><h3>${HU.demoH}</h3>
+          <p>${HU.demoLead}</p>
           <ol class="howto-steps">${H.demo.map(([t, sec, click, say, q]) => `<li><strong>${esc(t)}</strong>
             <div class="where"><a href="#${sec}">${esc(click)}</a></div>
-            <p>Say: “${esc(say)}”</p><p class="sources">Answers: ${esc(q)}</p></li>`).join("")}</ol></div>`;
+            <p>${HU.say}“${esc(say)}”</p><p class="sources">${HU.answers}${esc(q)}</p></li>`).join("")}</ol></div>`;
         return;
       }
       const r = H.roles.find((x) => x.id === id);
       $("howto-body").innerHTML = `<div class="card"><h3>${esc(r.title)}</h3><p class="lead">${esc(r.who)}</p>
         <ol class="howto-steps">${r.steps.map(([t, d, where, src]) => `<li><label class="done"><input type="checkbox"> <strong>${esc(t)}</strong></label>
-          <div class="where">${esc(where)}</div><p>${esc(d)}</p><p class="sources">Source: ${src.map(hl).join(" · ")}</p></li>`).join("")}</ol>
-        <p class="callout ok"><strong>You'll know it worked when:</strong> ${esc(r.check)}</p>
-        <p class="callout"><strong>Tip:</strong> ${esc(r.tip)}</p></div>`;
+          <div class="where">${esc(where)}</div><p>${esc(d)}</p><p class="sources">${HU.source}${src.map(hl).join(" · ")}</p></li>`).join("")}</ol>
+        <p class="callout ok"><strong>${HU.worked}</strong> ${esc(r.check)}</p>
+        <p class="callout"><strong>${HU.tip}</strong> ${esc(r.tip)}</p></div>`;
       if (window.renderCheat) window.renderCheat(id);
     }
     $("howto-tabs").addEventListener("click", (e) => { const b = e.target.closest("[data-role]"); if (b) renderRole(b.dataset.role); });
@@ -313,18 +317,18 @@
     $("lab-flow").innerHTML = L.flow.map((f) => `<li>${esc(f)}</li>`).join("");
     $("lab-prereqs").innerHTML = L.prereqs.map((x) => `<li>${esc(x)}</li>`).join("");
     $("lab-stages").innerHTML = L.stages.map((st, i) => `<div class="card lab-stage" id="lab-${st.id}">
-      <h3>${i + 1}. ${esc(st.t)} <span class="pill">${st.min} min</span></h3>
+      <h3>${i + 1}. ${esc(st.t)} <span class="pill">${st.min} ${T("min", "分钟")}</span></h3>
       <ol class="howto-steps">${st.steps.map(([t, where], j) => `<li><label class="done"><input type="checkbox" data-k="${st.id}-${j}"> <span>${esc(t)}</span></label><div class="where">${esc(where)}</div></li>`).join("")}</ol>
-      <p class="callout ok"><strong>Checkpoint:</strong> ${esc(st.check)}</p>
-      <p class="sources">Source: ${st.src.map(link).filter(Boolean).join(" · ")}</p></div>`).join("");
-    $("lab-pitfalls").innerHTML = "<tr><th>Symptom</th><th>Likely cause and fix</th></tr>" +
+      <p class="callout ok"><strong>${T("Checkpoint:", "检查点：")}</strong> ${esc(st.check)}</p>
+      <p class="sources">${T("Source: ", "来源：")}${st.src.map(link).filter(Boolean).join(" · ")}</p></div>`).join("");
+    $("lab-pitfalls").innerHTML = `<tr><th>${T("Symptom", "症状")}</th><th>${T("Likely cause and fix", "可能的原因和办法")}</th></tr>` +
       L.pitfalls.map(([a, b, ks]) => `<tr><td><strong>${esc(a)}</strong></td><td>${esc(b)} <span class="sources">${ks.map(link).filter(Boolean).join(" · ")}</span></td></tr>`).join("");
     $("lab-practice").innerHTML = L.practice.map(([t, id, d]) => `<li><a href="#${id}"><strong>${esc(t)}</strong></a> — ${esc(d)}</li>`).join("");
     $("lab-levelup").textContent = L.levelup;
     function paint() {
       document.querySelectorAll("#lab-stages input[data-k]").forEach((c) => { c.checked = !!done[c.dataset.k]; });
       const n = Object.keys(done).filter((k) => done[k]).length;
-      $("lab-count").textContent = `${n} / ${total} steps done` + (n === total ? " — lab complete!" : "");
+      $("lab-count").textContent = T(`${n} / ${total} steps done`, `已完成 ${n} / ${total} 步`) + (n === total ? T(" — lab complete!", "：实验完成！") : "");
       $("lab-bar").style.width = Math.round((n / total) * 100) + "%";
     }
     $("lab-stages").addEventListener("change", (e) => { const c = e.target.closest("input[data-k]"); if (!c) return; done[c.dataset.k] = c.checked; save(done); paint(); });
@@ -336,19 +340,21 @@
   const S = window.SUPPORT;
   if (S) {
     const sl = (k) => { const x = S.src(k); return x ? `<a href="${esc(x[1])}" target="_blank" rel="noopener">${esc(x[0])}</a>` : ""; };
+    const ZS = window.LANG === "zh" && window.ZH && window.ZH.support;
+    const areaName = (a) => (ZS && ZS.areaNames[a]) || a;
     let area = "All";
-    $("tr-areas").innerHTML = ["All"].concat(S.areas).map((a) => `<button class="tile" data-area="${esc(a)}"><strong>${esc(a)}</strong></button>`).join("");
+    $("tr-areas").innerHTML = ["All"].concat(S.areas).map((a) => `<button class="tile" data-area="${esc(a)}"><strong>${esc(areaName(a))}</strong></button>`).join("");
     function renderTrouble() {
       const q = $("tr-search").value.trim().toLowerCase();
       const items = S.trouble.filter((t) => (area === "All" || t.area === area) &&
         (!q || [t.s, t.fix, t.where].concat(t.check).join(" ").toLowerCase().includes(q)));
       document.querySelectorAll("#tr-areas .tile").forEach((b) => b.classList.toggle("selected", b.dataset.area === area));
-      $("tr-count").textContent = `${items.length} of ${S.trouble.length} problems shown`;
-      $("tr-list").innerHTML = items.map((t) => `<details class="card trouble"${q ? " open" : ""}><summary><span class="pill">${esc(t.area)}</span>
-        <h3>${esc(t.s)}</h3></summary><p><strong>Check first</strong></p><ul>${t.check.map((c) => `<li>${esc(c)}</li>`).join("")}</ul>
-        <p class="callout ok"><strong>Fix:</strong> ${esc(t.fix)}</p><div class="where">${esc(t.where)}</div>
-        <p class="sources">Source: ${t.src.map(sl).filter(Boolean).join(" · ")}</p></details>`).join("") ||
-        `<div class="card"><p>No match. Try another word, or <a href="https://github.com/Xudaniel/webmethods-bpms-academy/issues/new" target="_blank" rel="noopener">ask for a new entry</a>.</p></div>`;
+      $("tr-count").textContent = ZS ? ZS.ui.shown(items.length, S.trouble.length) : `${items.length} of ${S.trouble.length} problems shown`;
+      $("tr-list").innerHTML = items.map((t) => `<details class="card trouble"${q ? " open" : ""}><summary><span class="pill">${esc(areaName(t.area))}</span>
+        <h3>${esc(t.s)}</h3></summary><p><strong>${T("Check first", "先查这些")}</strong></p><ul>${t.check.map((c) => `<li>${esc(c)}</li>`).join("")}</ul>
+        <p class="callout ok"><strong>${T("Fix:", "解决办法：")}</strong> ${esc(t.fix)}</p><div class="where">${esc(t.where)}</div>
+        <p class="sources">${T("Source: ", "来源：")}${t.src.map(sl).filter(Boolean).join(" · ")}</p></details>`).join("") ||
+        `<div class="card"><p>${ZS ? ZS.ui.none : `No match. Try another word, or <a href="https://github.com/Xudaniel/webmethods-bpms-academy/issues/new" target="_blank" rel="noopener">ask for a new entry</a>.`}</p></div>`;
     }
     $("tr-search").addEventListener("input", renderTrouble);
     $("tr-areas").addEventListener("click", (e) => { const b = e.target.closest("[data-area]"); if (b) { area = b.dataset.area; renderTrouble(); } });
@@ -357,12 +363,12 @@
     window.renderCheat = function (id) {
       const c = S.cheats.find((x) => x.id === id); if (!c) return;
       const box = document.createElement("div");
-      box.innerHTML = `<div class="card cheat-sheet"><h3>${esc(c.role)} cheat sheet</h3>
+      box.innerHTML = `<div class="card cheat-sheet"><h3>${ZS ? esc(ZS.ui.cheat(c.role)) : esc(c.role) + " cheat sheet"}</h3>
         <table class="cheat">${c.actions.map(([a, w]) => `<tr><td><strong>${esc(a)}</strong></td><td><span class="where">${esc(w)}</span></td></tr>`).join("")}</table>
-        <p><strong>Golden rules</strong></p><ol>${c.rules.map((r) => `<li>${esc(r)}</li>`).join("")}</ol>
-        <p class="sources">IBM webMethods BPMS Academy · by Daniel Yuanpeng Xu · xudaniel.github.io/webmethods-bpms-academy · independent, not affiliated with IBM</p>
-        <button class="tile print-cheat-btn" type="button"><strong>Print this cheat sheet</strong></button></div>
-        <div class="card self-check"><h3>Check yourself: ${esc(c.role)}</h3><p id="sc-score" class="lead">0 / ${c.check.length}</p>
+        <p><strong>${T("Golden rules", "黄金法则")}</strong></p><ol>${c.rules.map((r) => `<li>${esc(r)}</li>`).join("")}</ol>
+        <p class="sources">${ZS ? ZS.ui.byline : "IBM webMethods BPMS Academy · by Daniel Yuanpeng Xu · xudaniel.github.io/webmethods-bpms-academy · independent, not affiliated with IBM"}</p>
+        <button class="tile print-cheat-btn" type="button"><strong>${T("Print this cheat sheet", "打印这张速查卡")}</strong></button></div>
+        <div class="card self-check"><h3>${ZS ? esc(ZS.ui.checkYou(c.role)) : "Check yourself: " + esc(c.role)}</h3><p id="sc-score" class="lead">0 / ${c.check.length}</p>
         ${c.check.map((q, i) => `<div class="quiz-q" data-i="${i}"><strong>${i + 1}. ${esc(q.q)}</strong>${q.a.map((a, j) => `<button data-j="${j}">${esc(a)}</button>`).join("")}<div class="explain"></div></div>`).join("")}</div>`;
       while (box.firstChild) $("howto-body").appendChild(box.firstChild);
       let right = 0;
@@ -372,7 +378,7 @@
         const q = c.check[qd.dataset.i], j = +b.dataset.j;
         qd.querySelectorAll("button").forEach((x, k) => { if (k === q.c) x.classList.add("correct"); else if (k === j) x.classList.add("wrong"); });
         if (j === q.c) right++;
-        qd.querySelector(".explain").textContent = (j === q.c ? "Right. " : "Not quite. ") + q.e;
+        qd.querySelector(".explain").textContent = (j === q.c ? T("Right. ", "答对了。") : T("Not quite. ", "还差一点。")) + q.e;
         $("sc-score").textContent = `${right} / ${c.check.length}`;
       });
       $("howto-body").querySelector(".print-cheat-btn").addEventListener("click", () => {
@@ -386,9 +392,9 @@
     const K2 = S.klass;
     $("teach-title").textContent = K2.title;
     $("teach-audience").textContent = K2.audience;
-    $("teach-agenda").innerHTML = "<tr><th>Time</th><th>Min</th><th>Module</th><th>How to run it</th></tr>" +
+    $("teach-agenda").innerHTML = `<tr><th>${T("Time", "时间")}</th><th>${T("Min", "分钟")}</th><th>${T("Module", "模块")}</th><th>${T("How to run it", "怎么上")}</th></tr>` +
       K2.agenda.map(([t, m, n, sec, how]) => `<tr><td>${esc(t)}</td><td>${m}</td><td>${sec ? `<a href="#${sec}"><strong>${esc(n)}</strong></a>` : `<strong>${esc(n)}</strong>`}</td><td>${esc(how)}</td></tr>`).join("") +
-      `<tr><td></td><td><strong>${K2.agenda.reduce((n, x) => n + x[1], 0)}</strong></td><td colspan="2">minutes in total</td></tr>`;
+      `<tr><td></td><td><strong>${K2.agenda.reduce((n, x) => n + x[1], 0)}</strong></td><td colspan="2">${T("minutes in total", "分钟合计")}</td></tr>`;
     $("teach-print").innerHTML = K2.print.map((x) => `<li>${esc(x)}</li>`).join("");
     $("teach-tips").innerHTML = K2.tips.map((x) => `<li>${esc(x)}</li>`).join("");
   }

@@ -417,6 +417,24 @@ async def main():
         await zp.wait_for_timeout(150)
         if await zp.locator("#basics .basics-lesson").count() != 7 or "流程就是一份" not in await zp.inner_text("#b-process summary"):
             failures.append("zh: Basics 101 not translated")
+        # 中文版 batch 2: knowledge base, how-to guides, lab, troubleshooting, teach
+        for sec, needle in [("knowledge", "服务质量"), ("howto", "接受任务"), ("lab", "30 分钟做出你的第一个流程"), ("trouble", "个问题"), ("teach", "半天工作坊")]:
+            await zp.evaluate(f"location.hash='{sec}'")
+            await zp.wait_for_timeout(120)
+            if needle not in await zp.inner_text(f"#{sec}") or await zp.locator(f"#{sec} .zh-note").count():
+                failures.append(f"zh: {sec} not translated")
+        if "更有保证" not in await zp.inner_text("#kb-engine .qos") or "在 Monitor 里" not in await zp.inner_text("#kb-engine .qos-out"):
+            failures.append("zh: quality-of-service widget not translated")
+        await zp.evaluate("location.hash='trouble'")
+        await zp.wait_for_timeout(120)
+        await zp.click("#tr-areas [data-area='Tasks']")
+        if (await zp.inner_text("#tr-areas .selected")) != "任务" or "显示 4 / 16" not in await zp.inner_text("#tr-count"):
+            failures.append("zh: troubleshooting area filter")
+        await zp.evaluate("location.hash='howto'")
+        await zp.wait_for_timeout(120)
+        await zp.click("#howto-tabs [data-role='dev']")
+        if "流程开发人员速查卡" not in await zp.inner_text("#howto-body") or "从模型到运行中的实例" not in await zp.inner_text("#howto-body figure.dg"):
+            failures.append("zh: developer guide, cheat sheet or diagram not translated")
         await zp.click("#lang-toggle")
         await zp.wait_for_timeout(600)
         if await zp.evaluate("document.documentElement.lang") != "en" or (await zp.inner_text("nav button[data-section='start']")) != "Start here":
