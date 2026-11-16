@@ -68,6 +68,7 @@
 | 🗺️ | **See the whole product in one picture**, from model to audit trail, and tap any box to jump to its guide | [Start here](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
 | 🎛️ | **Play with the settings**: toggle quality of service and watch the trade-offs, or move an AI agent's approval limit and watch the decision log | [Knowledge base](https://xudaniel.github.io/webmethods-bpms-academy/#knowledge) · [Start here](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
 | 🧪 | **Learn by doing**: run a loan process in the simulator, then build your first real process in a 30-minute lab | [Simulator](https://xudaniel.github.io/webmethods-bpms-academy/#simulator) · [Lab](https://xudaniel.github.io/webmethods-bpms-academy/#lab) |
+| 🧩 | **Repair broken processes**: five tap-to-place puzzles (a missing end event, the wrong gateway, a limit welded into a gateway, a task with no timer, a manager who checks everything); press ▶ Run and watch a token get through, or get stuck and tell you why | [Fix the diagram](https://xudaniel.github.io/webmethods-bpms-academy/#puzzles) |
 | 🛠️ | **Fix a problem**: search 16 symptoms ("the process never starts", "Hot Deploy is greyed out") for the cause and the fix | [Troubleshooting](https://xudaniel.github.io/webmethods-bpms-academy/#trouble) |
 | 📱 | **Take it with you**: install it on your phone, read it offline, print it as a PDF | [On your phone](#-using-it-on-your-phone) |
 | 🎓 | **Teach or present it**: a 10-minute customer demo script and a 3-hour workshop plan | [Teach a class](https://xudaniel.github.io/webmethods-bpms-academy/#teach) |
@@ -114,6 +115,8 @@ No prior webMethods experience is needed.
 **Diagrams** (original SVG, no IBM artwork; 26, in both the course and the reading version), including: where each part runs (architecture); the lifecycle loop; BPMN gateways and lanes; agent proposes, rules decide, process executes; one flow per worked case; the simulator's loan process; a decision table's anatomy; how the Agent Scan Lab sorts steps; four Basics 101 pictures (model vs instances, who does each step, five BPMN shapes, engine and audit trail); an **interactive quality-of-service** diagram; process vs rules; the Hot Deploy path; task lifecycle; build pipeline; instance states; the lab process with an **animated token**; a "process won't start" flowchart; and the workshop timeline. There are also architecture, BPMN, patterns, worked cases, market, a 33-term glossary and a 22-question quiz.
 
 ### Do: step-by-step guides, a lab and troubleshooting
+**Fix the diagram:** five puzzle levels, each with one broken piece. Tap a piece into the dashed slot, press ▶ Run, and a token animates through the process. A wrong piece explains why it fails and links the lesson that covers it. Progress is saved in your browser, and fixing all five earns the 🧩 *Process fixer* badge.
+
 **Decision lab:** move a decision table's limits and test an application (approve, refer or decline), compare changing a rule with changing the process, and review common rules-configuration pitfalls.
 
 **How to use**, by role. Each step gives the menu path and an official source, and ends with *how you'll know it worked*. Every role also has a printable **cheat sheet** and a 3-question **self-check**:
@@ -150,7 +153,7 @@ No prior webMethods experience is needed.
 
 ### Stay motivated
 - **⏱ Reading time** on every section, in the Sections menu and for each chapter of the reading version. The whole course is about 40 minutes of reading.
-- **Progress and badges:** sections explored out of 19, and nine badges with a small celebration (Explorer, Basics done, Agent tamer, Simulator, Scanner, Fixer, Role ready, Lab finisher, Quiz ace). There's also a **Did you know?** fact. Everything stays in your browser.
+- **Progress and badges:** sections explored out of 20, and ten badges with a small celebration (Explorer, Basics done, Process fixer, Agent tamer, Simulator, Scanner, Fixer, Role ready, Lab finisher, Quiz ace). There's also a **Did you know?** fact. Everything stays in your browser.
 
 ## Curriculum, in site order
 
@@ -163,18 +166,19 @@ No prior webMethods experience is needed.
 | 5 | **How to use** | Role guides, cheat sheets, self-checks, demo script | Day-to-day use for four roles, plus presenting to customers |
 | 6 | **Hands-on lab** | 30-minute exercise with a tracker | Build, enable, run and monitor your first process |
 | 7 | **Decision lab** | Interactive decision table + comparison | Change a rule's limits, test an application, see why rules change faster than processes |
-| 8 | **Troubleshooting** | Search + flowchart | Symptom → check first → fix → where |
-| 9 | **Teach a class** | Workshop plan + timeline | A 3-hour class for users or customers |
-| 10 | **Lifecycle** | Clickable stages + release table | Model → implement → build and upload → execute → monitor → optimize → govern; release dates |
-| 11 | **Architecture** | Clickable component map | Engines, databases and `PRA_*` audit tables |
-| 12 | **BPMN** | Reference tables | Activities, gateways, events, pools and lanes |
-| 13 | **Patterns** | Filterable cards | Four classic and three agent-era patterns |
-| 14 | **Cases** | Flow diagrams | Purchase approval, loan decisioning, logistics exception |
-| 15 | **Simulator** | Interactive | A loan instance through a rule task and an underwriter task, with an audit log |
-| 16 | **Agent Scan Lab** | Interactive | Find rule and agent candidates in process history (synthetic data or your CSV) |
-| 17 | **Market** | Reading + sources | Sizing, analyst views, competitor signals, regulatory dates |
-| 18 | **Glossary** | Searchable | 33 terms; underlined terms anywhere open a plain-English explanation |
-| 19 | **Quiz** | 24 questions | Instant feedback and a score |
+| 8 | **Fix the diagram** | 5 puzzle levels with a running token | Repair broken processes: end event, gateway choice, rule task, timer, exception path |
+| 9 | **Troubleshooting** | Search + flowchart | Symptom → check first → fix → where |
+| 10 | **Teach a class** | Workshop plan + timeline | A 3-hour class for users or customers |
+| 11 | **Lifecycle** | Clickable stages + release table | Model → implement → build and upload → execute → monitor → optimize → govern; release dates |
+| 12 | **Architecture** | Clickable component map | Engines, databases and `PRA_*` audit tables |
+| 13 | **BPMN** | Reference tables | Activities, gateways, events, pools and lanes |
+| 14 | **Patterns** | Filterable cards | Four classic and three agent-era patterns |
+| 15 | **Cases** | Flow diagrams | Purchase approval, loan decisioning, logistics exception |
+| 16 | **Simulator** | Interactive | A loan instance through a rule task and an underwriter task, with an audit log |
+| 17 | **Agent Scan Lab** | Interactive | Find rule and agent candidates in process history (synthetic data or your CSV) |
+| 18 | **Market** | Reading + sources | Sizing, analyst views, competitor signals, regulatory dates |
+| 19 | **Glossary** | Searchable | 33 terms; underlined terms anywhere open a plain-English explanation |
+| 20 | **Quiz** | 24 questions | Instant feedback and a score |
 
 Every section has its own link (for example [`#lab`](https://xudaniel.github.io/webmethods-bpms-academy/#lab)), plus Previous / Next at the bottom.
 
@@ -480,7 +484,7 @@ GitHub Actions runs the same test (`.github/workflows/smoke-test.yml`) on every 
 - [ ] Module on moving webMethods Business Rules to IBM ODM decision services
 - [ ] Agent Scan Lab: adjustable thresholds and CSV export
 
-**Done since v1.3.0:** Mia's request, a story through the whole course. automatic smoke test on every pull request, `main` accepts changes only through pull requests, 11 more diagrams, cited rules pitfalls, and knowledge topics on Monitor/Optimize and upgrading from 10.15.
+**Done since v1.3.0:** Fix the diagram (five puzzle levels); Mia's request, a story through the whole course. automatic smoke test on every pull request, `main` accepts changes only through pull requests, 11 more diagrams, cited rules pitfalls, and knowledge topics on Monitor/Optimize and upgrading from 10.15.
 
 **Done in v1.3.0:** Basics 101 and the Decision lab.
 

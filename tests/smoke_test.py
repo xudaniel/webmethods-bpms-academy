@@ -7,7 +7,7 @@ Usage:  pip install playwright && playwright install chromium
 import asyncio, functools, http.server, sys, threading
 from playwright.async_api import async_playwright
 
-SECTIONS = ["start", "basics", "overview", "knowledge", "howto", "lab", "decisions", "trouble", "teach", "lifecycle", "architecture", "bpmn", "patterns", "cases",
+SECTIONS = ["start", "basics", "overview", "knowledge", "howto", "lab", "decisions", "puzzles", "trouble", "teach", "lifecycle", "architecture", "bpmn", "patterns", "cases",
             "simulator", "scan", "market", "glossary", "quiz"]
 
 class QuietHandler(http.server.SimpleHTTPRequestHandler):
@@ -202,6 +202,28 @@ async def main():
         await page.wait_for_timeout(200)
         if await page.evaluate("location.hash") != "#patterns" or not await page.is_visible("#patterns .story-card"):
             failures.append("Next in Mia's story should open the next chapter")
+        # Fix the diagram (issue #52): solve level 1, fail level 2 on purpose
+        await page.evaluate("location.hash='puzzles'")
+        await page.wait_for_timeout(100)
+        if await page.locator("#pz-chips .pz-chip").count() != 5:
+            failures.append("puzzles should have 5 levels")
+        await page.click("#pz-chips [data-l='1']")
+        await page.click("#pz-1 .pz-piece[data-k='end']")
+        await page.click("#pz-1 .pz-run")
+        try:
+            await page.wait_for_selector("#pz-1 .pz-ok", timeout=6000)
+        except Exception:
+            failures.append("level 1 should be solved with the end event")
+        await page.click("#pz-chips [data-l='2']")
+        await page.click("#pz-2 .pz-piece[data-k='x']")
+        await page.click("#pz-2 .pz-run")
+        try:
+            await page.wait_for_selector("#pz-2 .pz-bad", timeout=6000)
+        except Exception:
+            failures.append("level 2 should fail with an exclusive gateway")
+        if not (await page.inner_text("#pz-count")).startswith("1 / 5"):
+            failures.append("puzzle progress should count level 1")
+        await page.click("#pz-reset")
         # Hotfix (issue #41): index.html must be the real page, and the Decision lab must work
         html = open("index.html", encoding="utf-8").read()
         if len(html) < 10000 or "$(cat" in html:
