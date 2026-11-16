@@ -14,7 +14,7 @@ window.KNOWLEDGE = {
 
   topics: [
     {
-      id: "releases", title: "Releases and lifecycle",
+      id: "releases", reviewed: "2026-11-15", title: "Releases and lifecycle",
       summary: "Three releases matter for most estates today: 10.15 (the long-term on-premises release), 11.1 and 12.1.",
       facts: [
         "webMethods 10.15 became generally available on 18 Oct 2022.",
@@ -27,7 +27,7 @@ window.KNOWLEDGE = {
       sources: [3, 4, 20, 5, 6]
     },
     {
-      id: "engine", title: "Process Engine runtime and quality of service",
+      id: "engine", reviewed: "2026-11-15", title: "Process Engine runtime and quality of service",
       summary: "The Process Engine runs inside Integration Server and passes work between steps using transition documents, either locally or through a messaging layer.",
       facts: [
         "Quality of service is a trade-off: persisting data as a process runs gives reliability, visibility and control; volatile in-memory storage gives speed.",
@@ -43,7 +43,7 @@ window.KNOWLEDGE = {
       sources: [7, 8, 9]
     },
     {
-      id: "history", title: "Execution history and audit",
+      id: "history", reviewed: "2026-11-15", title: "Execution history and audit",
       summary: "Three stores hold execution data; only two are meant for analysis.",
       facts: [
         "The Process Engine database holds private, real-time instance state for the engine.",
@@ -55,7 +55,7 @@ window.KNOWLEDGE = {
       sources: [10, 11, 12, 13]
     },
     {
-      id: "tasks", title: "Task Engine and human work",
+      id: "tasks", reviewed: "2026-11-15", title: "Task Engine and human work",
       summary: "User tasks in a process become task instances in the Task Engine on My webMethods Server.",
       facts: [
         "Tasks appear in inboxes in My webMethods; the audit view shows every operation performed on a task.",
@@ -66,7 +66,7 @@ window.KNOWLEDGE = {
       sources: [12, 14]
     },
     {
-      id: "rules", title: "webMethods Business Rules",
+      id: "rules", reviewed: "2026-11-15", title: "webMethods Business Rules",
       summary: "Business Rules keep decision logic out of the process diagram so it can change without redeploying the process.",
       image: "assets/diagrams/process-vs-rules.svg",
       facts: [
@@ -80,7 +80,7 @@ window.KNOWLEDGE = {
       sources: [16, 17, 18]
     },
     {
-      id: "rules-config", title: "Rule Engine configuration & Rule Tasks",
+      id: "rules-config", reviewed: "2026-11-16", title: "Rule Engine configuration & Rule Tasks",
       summary: "How to wire webMethods Business Rules into a process and deploy them so changes stay agile.",
       image: "assets/diagrams/rule-task-hot-deploy.svg",
       facts: [
@@ -97,7 +97,7 @@ window.KNOWLEDGE = {
       sources: [21, 22, 23, 24, 25, 26, 27, 28, 29]
     },
     {
-      id: "monitor", title: "Monitor, resubmit and Optimize",
+      id: "monitor", reviewed: "2026-11-16", title: "Monitor, resubmit and Optimize",
       summary: "Monitor is where operations find, fix and re-run process instances; Optimize for Process adds KPIs and analytics on top.",
       facts: [
         "Monitor runs in My webMethods: Navigate > Applications > Monitoring. Process instances are under Monitoring > Business > Process Instances.",
@@ -112,7 +112,7 @@ window.KNOWLEDGE = {
       sources: [30, 31, 32, 33, 34, 35, 36]
     },
     {
-      id: "upgrade", title: "Upgrading from 10.15",
+      id: "upgrade", reviewed: "2026-11-16", title: "Upgrading from 10.15",
       summary: "10.15 reaches end of maintenance in Oct 2027. An upgrade installs the new release side by side, then migrates databases, configuration and process models.",
       facts: [
         "The webMethods upgrade guide for 10.15 states that it applies to the 10.15 Migration Framework and all later releases; check the guide for your target release for any changes.",

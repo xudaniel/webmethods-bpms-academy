@@ -6,6 +6,9 @@ Versions follow [Semantic Versioning](https://semver.org/).
 ## [Unreleased]
 
 ### Added
+- **Professional mode** (#59): a 💼 header switch, or a `?mode=pro` link, hides badges, progress, confetti, toasts, *Did you know?* and Mia's story for client meetings.
+- **Executive briefs** (`brief.html`, #59): one printable A4 page each for banking and insurance, built from the cited control map, with numbered sources.
+- **Last reviewed** dates on every cited knowledge topic (#59).
 - **Controls for regulated industries** (#58): seven controls mapped to the frameworks that ask for them (SR 11-7, OSFI E-23, EU AI Act, GDPR Art. 22, NAIC AI Model Bulletin, DORA), with how BPMS and rules provide each one and the evidence an auditor sees. Framework entries cite the regulator; product entries cite IBM / Software AG documentation. Also a new reading-version chapter (23 chapters).
 
 ### Fixed

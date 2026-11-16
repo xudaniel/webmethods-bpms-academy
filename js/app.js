@@ -258,6 +258,7 @@
       <ul class="kb-facts">${t.facts.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
       <p class="callout"><strong>In practice:</strong> ${esc(t.practice)}</p>
       ${t.sources.length ? `<p class="sources">Sources: ${srcLinks(t.sources)}</p>` : `<p class="sources">Synthesis of the topics above; author's practitioner view.</p>`}
+      ${t.reviewed ? `<p class="kb-reviewed">Last reviewed against its sources: ${new Date(t.reviewed + "T12:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}</p>` : ""}
     </div>`).join("");
     $("kb-tabs").addEventListener("click", (e) => {
       const b = e.target.closest("[data-kb]"); if (!b) return;

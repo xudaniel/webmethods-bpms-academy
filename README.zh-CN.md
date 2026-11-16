@@ -69,6 +69,7 @@
 | 🎛️ | **动手调设置**：切换服务质量设置，看各自换来什么、牺牲什么；或者调 AI agent 的审批额度，看决策日志怎么变 | [知识库](https://xudaniel.github.io/webmethods-bpms-academy/#knowledge) · [从这里开始](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
 | 🧪 | **边做边学**：先在模拟器里跑一遍贷款流程，再用 30 分钟的动手实验做出你的第一个真实流程 | [模拟器](https://xudaniel.github.io/webmethods-bpms-academy/#simulator) · [动手实验](https://xudaniel.github.io/webmethods-bpms-academy/#lab) |
 | 🧩 | **修好坏掉的流程**：五关点选拼图（缺结束事件、网关选错、额度写死在网关里、人工任务没有超时、经理什么都要亲自审）；点 ▶ 运行，看令牌能不能走通，走不通就告诉你原因 | [修图闯关](https://xudaniel.github.io/webmethods-bpms-academy/#puzzles) |
+| 💼 | **给客户做演示**：打开专业模式（或分享带 `?mode=pro` 的链接），隐藏徽章和故事；再打印一页银行或保险的高管简报 | [简报](https://xudaniel.github.io/webmethods-bpms-academy/brief.html) |
 | 🏦 | **给银行和保险客户看合规控制**：七项常见控制（四眼审批、职责分离、决策可追溯、人工监督、变更控制、留存、韧性），对应要求它们的监管框架，以及 IBM webMethods BPMS 能提供的证据；每条法规都链接到监管机构原文 | [合规控制](https://xudaniel.github.io/webmethods-bpms-academy/#controls) |
 | 🛠️ | **解决问题**：搜索 16 个常见症状（「流程不启动」「Hot Deploy 是灰的」），找到原因和解决办法 | [故障排查](https://xudaniel.github.io/webmethods-bpms-academy/#trouble) |
 | 📱 | **随身带着**：存到手机主屏幕，离线也能看，还能打印成 PDF | [在手机上使用](#-在手机上使用) |
@@ -114,6 +115,8 @@
 | 实践设计清单 | 设计评审和升级时用的十项检查 |
 
 **面向受监管行业的控制**：七项控制，每项写明监管期望、BPMS 与规则如何实现（附产品文档出处），以及审计时能看到的证据。法规说明涵盖 SR 11-7、OSFI E-23（2027 年 5 月 1 日生效）、欧盟 AI 法案附件三及第 12、14 条、GDPR 第 22 条、NAIC 的 AI 示范公告和 DORA（2025 年 1 月 17 日起适用），全部引用监管机构原文。仅为教育性对照，不构成法律或合规建议。
+
+**专业模式与高管简报**：页头的 💼 开关（或 `?mode=pro` 链接）切换到适合客户会议的简洁呈现：隐藏徽章、进度、彩纸动画、「你知道吗」和 Mia 的故事，保留图、出处和事实。[`brief.html`](https://xudaniel.github.io/webmethods-bpms-academy/brief.html) 为银行和保险各生成一页 A4 简报：问题、流程加规则能帮什么、关键控制、时间节点和编号出处。每个知识主题都标注了最近一次对照出处复核的日期。
 
 **示意图**都是原创 SVG，不使用 IBM 素材，课程和阅读版各 26 张，包括：各组件在哪里运行（架构图）、流程生命周期循环、BPMN 网关与泳道、「agent 提议、规则决定、流程执行」、每个实例的流程图、模拟器的贷款流程、决策表的结构、Agent 扫描实验室的分类方法、基础 101 的四张图（模型与实例、每一步谁来做、五个 BPMN 图形、引擎与审计记录）；**服务质量互动图**、流程与规则的分工、Hot Deploy 路径、任务生命周期、构建流程、实例状态、带**令牌动画**的实验流程图、「流程不启动」排查流程图，以及工作坊时间轴。此外还有架构、BPMN、设计模式、实例、市场，以及 33 个术语和 22 道测验题。
 
@@ -397,6 +400,7 @@ python3 -m http.server 8000
 webmethods-bpms-academy/
 ├── index.html            # 互动版
 ├── read.html             # 阅读版：一页读完，附图和带答案的测验
+├── brief.html            # 银行与保险的一页式高管简报（可打印成 PDF）
 ├── README.md             # 英文说明
 ├── README.zh-CN.md       # 中文说明（本文件）
 ├── CHANGELOG.md          # 版本更新日志
@@ -419,6 +423,9 @@ webmethods-bpms-academy/
 │   ├── words.js          # 点术语看大白话解释、新手模式
 │   ├── basics.js         # 基础 101：七节基础课和自测
 │   ├── decision-lab.js   # 决策实验室：决策表、改规则与改流程对比、规则配置陷阱
+│   ├── controls.js       # 面向受监管行业的控制：控制项、监管框架、证据
+│   ├── pro.js            # 专业模式（页头开关或 ?mode=pro）
+│   ├── brief.js          # 根据控制对照表生成高管简报
 │   ├── fun.js            # 阅读时间、学习进度、徽章、「你知道吗」
 │   ├── mobile.js         # 手机指南、栏目菜单、上一页/下一页、回到顶部、离线支持
 │   ├── explainer.js      # 「从这里开始」的内容（作者观点已标注）

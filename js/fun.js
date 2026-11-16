@@ -88,6 +88,7 @@
     const b = BADGES.find((x) => x[0] === k); celebrate(`${b[1]} Badge unlocked: ${b[2]}`);
   }
   function celebrate(msg) {
+    if (document.body.classList.contains("pro")) return; // professional mode: no toasts or confetti
     const t = document.createElement("div"); t.className = "toast"; t.setAttribute("role", "status"); t.textContent = msg;
     document.body.appendChild(t); setTimeout(() => t.classList.add("out"), 2600); setTimeout(() => t.remove(), 3200);
     if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;

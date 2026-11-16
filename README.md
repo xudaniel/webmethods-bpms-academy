@@ -69,6 +69,7 @@
 | 🎛️ | **Play with the settings**: toggle quality of service and watch the trade-offs, or move an AI agent's approval limit and watch the decision log | [Knowledge base](https://xudaniel.github.io/webmethods-bpms-academy/#knowledge) · [Start here](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
 | 🧪 | **Learn by doing**: run a loan process in the simulator, then build your first real process in a 30-minute lab | [Simulator](https://xudaniel.github.io/webmethods-bpms-academy/#simulator) · [Lab](https://xudaniel.github.io/webmethods-bpms-academy/#lab) |
 | 🧩 | **Repair broken processes**: five tap-to-place puzzles (a missing end event, the wrong gateway, a limit welded into a gateway, a task with no timer, a manager who checks everything); press ▶ Run and watch a token get through, or get stuck and tell you why | [Fix the diagram](https://xudaniel.github.io/webmethods-bpms-academy/#puzzles) |
+| 💼 | **Present it to a client**: switch on Professional mode (or share a `?mode=pro` link) to hide badges and the story, and print a one-page executive brief for banking or insurance | [Briefs](https://xudaniel.github.io/webmethods-bpms-academy/brief.html) |
 | 🏦 | **Show the controls to a bank or insurer**: seven common controls (four-eyes approval, segregation of duties, decision traceability, human oversight, change control, retention, resilience) mapped to the frameworks that ask for them and to the evidence IBM webMethods BPMS produces; every regulation cited to the regulator's own page | [Controls](https://xudaniel.github.io/webmethods-bpms-academy/#controls) |
 | 🛠️ | **Fix a problem**: search 16 symptoms ("the process never starts", "Hot Deploy is greyed out") for the cause and the fix | [Troubleshooting](https://xudaniel.github.io/webmethods-bpms-academy/#trouble) |
 | 📱 | **Take it with you**: install it on your phone, read it offline, print it as a PDF | [On your phone](#-using-it-on-your-phone) |
@@ -114,6 +115,8 @@ No prior webMethods experience is needed.
 | Practitioner design checklist | Ten checks for design reviews and upgrades |
 
 **Controls for regulated industries:** seven controls, each with what is expected, how BPMS and rules provide it (cited product docs) and the evidence an auditor sees. The framework panel covers SR 11-7, OSFI E-23 (effective 1 May 2027), EU AI Act Annex III and Articles 12 and 14, GDPR Article 22, the NAIC AI Model Bulletin and DORA (applies from 17 January 2025), each cited to the regulator. Educational mapping, not legal or compliance advice.
+
+**Professional mode and executive briefs:** a 💼 header switch, or a `?mode=pro` link, gives a calmer presentation for client meetings. It hides badges, progress, confetti, *Did you know?* and Mia's story, and keeps diagrams, sources and facts. [`brief.html`](https://xudaniel.github.io/webmethods-bpms-academy/brief.html) prints one A4 page each for banking and insurance: the problem, where process plus rules help, the controls that matter, the dates on the horizon and numbered sources. Every knowledge topic shows when it was last reviewed against its sources.
 
 **Diagrams** (original SVG, no IBM artwork; 26, in both the course and the reading version), including: where each part runs (architecture); the lifecycle loop; BPMN gateways and lanes; agent proposes, rules decide, process executes; one flow per worked case; the simulator's loan process; a decision table's anatomy; how the Agent Scan Lab sorts steps; four Basics 101 pictures (model vs instances, who does each step, five BPMN shapes, engine and audit trail); an **interactive quality-of-service** diagram; process vs rules; the Hot Deploy path; task lifecycle; build pipeline; instance states; the lab process with an **animated token**; a "process won't start" flowchart; and the workshop timeline. There are also architecture, BPMN, patterns, worked cases, market, a 33-term glossary and a 22-question quiz.
 
@@ -399,6 +402,7 @@ Opening `index.html` directly also works in most browsers; a local server avoids
 webmethods-bpms-academy/
 ├── index.html          # interactive version
 ├── read.html           # reading version: one page, diagrams, quiz with answer key
+├── brief.html          # one-page executive briefs for banking and insurance (print to PDF)
 ├── README.md           # English README
 ├── README.zh-CN.md     # Chinese README (中文说明)
 ├── CHANGELOG.md        # release history
@@ -421,6 +425,9 @@ webmethods-bpms-academy/
 │   ├── words.js        # Tap-to-explain terms in plain English, Beginner mode
 │   ├── basics.js       # Basics 101: seven fundamental lessons with checks
 │   ├── decision-lab.js # Decision lab: decision table, agility comparison, rules pitfalls
+│   ├── controls.js     # Controls for regulated industries: controls, frameworks, evidence
+│   ├── pro.js          # Professional mode (header switch or ?mode=pro)
+│   ├── brief.js        # Builds the executive briefs from the control map
 │   ├── fun.js          # Reading times, explorer progress, badges, did-you-know
 │   ├── mobile.js       # Phone guide, sections menu, previous/next, back to top, offline registration
 │   ├── explainer.js    # "Start here" content (author's view items labelled)
