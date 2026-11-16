@@ -410,3 +410,14 @@ body.pro .cc-remember { background: transparent; }
 .tm-volatile .tm-rows li { opacity: .3; text-decoration: line-through; }
 .tm-volatile .tm-tok { opacity: .25; }
 @media (prefers-reduced-motion: reduce) { .tm-tok { transition: none; } }
+
+/* On-call drills (#50) */
+.dr-list { display: grid; gap: .5rem; }
+.dr-head { display: flex; justify-content: space-between; align-items: center; gap: .5rem; }
+.dr-clock { font-variant-numeric: tabular-nums; font-weight: 700; background: #161616; color: #fff; border-radius: 6px; padding: .2rem .5rem; }
+.dr-step { color: var(--muted, #525252); font-size: .85rem; margin: .5rem 0 0; }
+.dr-choices { display: grid; gap: .45rem; margin: .7rem 0; }
+.dr-choice { text-align: left; font: inherit; padding: .65rem .8rem; border: 1px solid var(--border); border-radius: 10px; background: #fff; cursor: pointer; }
+.dr-choice:hover, .dr-choice:focus-visible { border-color: var(--primary); }
+.dr-path { padding-left: 1.2rem; } .dr-path li.bad { color: #a2191f; }
+.dr-debrief li { margin-bottom: .4rem; }

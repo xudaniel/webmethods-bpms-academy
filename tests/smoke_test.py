@@ -7,7 +7,7 @@ Usage:  pip install playwright && playwright install chromium
 import asyncio, functools, http.server, sys, threading
 from playwright.async_api import async_playwright
 
-SECTIONS = ["start", "crash", "basics", "overview", "knowledge", "controls", "howto", "lab", "decisions", "puzzles", "swipe", "trouble", "teach", "lifecycle", "architecture", "bpmn", "patterns", "cases",
+SECTIONS = ["start", "crash", "basics", "overview", "knowledge", "controls", "howto", "lab", "decisions", "puzzles", "swipe", "trouble", "drills", "teach", "lifecycle", "architecture", "bpmn", "patterns", "cases",
             "simulator", "scan", "market", "glossary", "quiz"]
 
 class QuietHandler(http.server.SimpleHTTPRequestHandler):
@@ -227,6 +227,30 @@ async def main():
         await page.wait_for_timeout(400)
         if "1 /" in await page.inner_text("#sw-card") or not (await page.inner_text("#sw-score")).endswith(("1", "2")) or "✅" not in await page.inner_text("#sw-why") and "❌" not in await page.inner_text("#sw-why"):
             failures.append("swipe sort: buttons or arrow keys did not score and explain")
+        # On-call drills (issue #50): ideal path, a wrong turn, debrief sources, and the badge for three clean runs
+        await page.evaluate("location.hash='drills'")
+        await page.wait_for_timeout(120)
+        async def play(did, wrong_first=False):
+            await page.click(f"#drills-body .dr-pick[data-d='{did}']")
+            steps = await page.evaluate(f"DRILLS.find(d => d.id === '{did}').steps.map(s => s.choices.findIndex(c => c[2]))")
+            for k, good in enumerate(steps):
+                if wrong_first and k == 0:
+                    await page.click(f"#drills-body .dr-choice[data-c='{1 if good == 0 else 0}']")
+                    if "❌" not in await page.inner_text("#dr-run"):
+                        failures.append("drills: a wrong choice should explain and cost time")
+                await page.click(f"#drills-body .dr-choice[data-c='{good}']")
+            return await page.inner_text("#drills-body")
+        txt = await play("rule", wrong_first=True)
+        if "Solved" not in txt or "wrong turn" not in txt or await page.locator("#drills-body .dr-debrief a").count() < 3:
+            failures.append("drills: debrief after a wrong turn should show the cost and cited sources")
+        await page.click("#drills-body .dr-quit")
+        for did in ["start", "rule", "monitor"]:
+            txt = await play(did)
+            if "ideal path" not in txt:
+                failures.append(f"drills: {did} should be solved on the ideal path")
+            await page.click("#drills-body .dr-quit")
+        if await page.locator("#fun-badges .badge.earned:has-text('On-call hero')").count() != 1:
+            failures.append("drills: three clean runs should unlock the On-call hero badge")
         # Basics 101 (issue #40): seven lessons, pictures, checks, progress
         await page.evaluate("location.hash='basics'")
         await page.wait_for_timeout(150)
@@ -501,6 +525,11 @@ async def main():
         await zp.click("#sw-start")
         if "合成数据" not in await zp.inner_text("#sw-card") or "规则" not in await zp.inner_text("#swipe .sw-btns"):
             failures.append("zh: swipe sort not translated")
+        await zp.evaluate("location.hash='drills'")
+        await zp.wait_for_timeout(120)
+        await zp.click("#drills-body .dr-pick[data-d='start']")
+        if "你先查什么" not in await zp.inner_text("#dr-run") or "决定 1 / 2" not in await zp.inner_text("#dr-run"):
+            failures.append("zh: on-call drills not translated")
         # 中文版 batch 3b: controls, decision lab, fix the diagram
         await zp.evaluate("location.hash='controls'")
         await zp.wait_for_timeout(120)
