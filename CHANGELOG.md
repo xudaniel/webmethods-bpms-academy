@@ -3,6 +3,14 @@
 All notable changes to the IBM webMethods BPMS Academy. Author: **Daniel Yuanpeng Xu**.
 Versions follow [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+- **Controls for regulated industries** (#58): seven controls mapped to the frameworks that ask for them (SR 11-7, OSFI E-23, EU AI Act, GDPR Art. 22, NAIC AI Model Bulletin, DORA), with how BPMS and rules provide each one and the evidence an auditor sees. Framework entries cite the regulator; product entries cite IBM / Software AG documentation. Also a new reading-version chapter (23 chapters).
+
+### Fixed
+- Reading-version knowledge sub-headings are numbered from the real chapter number (they still said 3.x).
+
 ## [2.0.0] — 2026-11-16
 
 Learn by story and by play. **Author: Daniel Yuanpeng Xu.**
