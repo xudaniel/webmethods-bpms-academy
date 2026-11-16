@@ -95,7 +95,7 @@ No prior webMethods experience is needed.
 - **Six hands-on steps** for a general audience: before and after a BPMS, who owns which job, and an AI agent governed by a rulebook (see [Start here: the public explainer](#start-here-the-public-explainer)).
 
 ### Learn: a cited knowledge base and diagrams
-**7 topics and 42 facts**, each linked to public IBM or Software AG documentation, plus a practitioner note per topic:
+**9 topics and 55 facts**, each linked to public IBM or Software AG documentation, plus a practitioner note per topic:
 
 | Topic | What you learn |
 | --- | --- |
@@ -104,7 +104,9 @@ No prior webMethods experience is needed.
 | Execution history and audit | Process Engine DB versus Process Audit DB (`PRA_*` tables), logging levels, where task history lives in 10.15 |
 | Task Engine and human work | Inboxes on My webMethods Server, `getTaskAudit`, task archiving |
 | webMethods Business Rules | Rule projects, rule sets, decision tables, decision trees, event rules; Data/Service/Process actions; deploying to Integration Server and My webMethods Server |
-| Rule Engine configuration and Rule Tasks | Where the Rules Engine runs (WmBusinessRules), configuring a Rule Task, Process Aware tables, event rules and JMS triggers, Hot Deploy |
+| Rule Engine configuration and Rule Tasks | Where the Rules Engine runs (WmBusinessRules) and how to point it at a remote Integration Server (`businessrulesruntime` alias), configuring a Rule Task, Process Aware tables, rule actions and logging level, event rules and JMS triggers, Hot Deploy and its server connections |
+| Monitor, resubmit and Optimize | Where Monitor lives, resubmitting failed and completed instances (Resubmit Closest / Earliest, editing the pipeline), the privileges you need, Optimize KPIs and Process Analytics |
+| Upgrading from 10.15 | Side-by-side upgrade: Database Component Configurator, migration utilities or Command Central, keeping in-flight instances, re-versioning models, post-upgrade checks |
 | Practitioner design checklist | Ten checks for design reviews and upgrades |
 
 **Diagrams** (original SVG, no IBM artwork; 26, in both the course and the reading version), including: where each part runs (architecture); the lifecycle loop; BPMN gateways and lanes; agent proposes, rules decide, process executes; one flow per worked case; the simulator's loan process; a decision table's anatomy; how the Agent Scan Lab sorts steps; four Basics 101 pictures (model vs instances, who does each step, five BPMN shapes, engine and audit trail); an **interactive quality-of-service** diagram; process vs rules; the Hot Deploy path; task lifecycle; build pipeline; instance states; the lab process with an **animated token**; a "process won't start" flowchart; and the workshop timeline. There are also architecture, BPMN, patterns, worked cases, market, a 33-term glossary and a 22-question quiz.
@@ -155,7 +157,7 @@ No prior webMethods experience is needed.
 | 1 | **Start here** | Role picker, map, six hands-on steps | Find your path; see the big picture; why process platforms matter for AI agents |
 | 2 | **Basics 101** | 7 lessons, each with a picture and a check | The ideas behind every process platform, for complete beginners, then the IBM webMethods names |
 | 3 | **Overview** | Reading + family table | The core idea, and IBM webMethods at a glance (9 components) |
-| 4 | **Knowledge base** | Cited reference + interactive diagram | 7 topics, 42 facts on how the product behaves |
+| 4 | **Knowledge base** | Cited reference + interactive diagram | 9 topics, 55 facts on how the product behaves |
 | 5 | **How to use** | Role guides, cheat sheets, self-checks, demo script | Day-to-day use for four roles, plus presenting to customers |
 | 6 | **Hands-on lab** | 30-minute exercise with a tracker | Build, enable, run and monitor your first process |
 | 7 | **Decision lab** | Interactive decision table + comparison | Change a rule's limits, test an application, see why rules change faster than processes |
@@ -170,7 +172,7 @@ No prior webMethods experience is needed.
 | 16 | **Agent Scan Lab** | Interactive | Find rule and agent candidates in process history (synthetic data or your CSV) |
 | 17 | **Market** | Reading + sources | Sizing, analyst views, competitor signals, regulatory dates |
 | 18 | **Glossary** | Searchable | 33 terms; underlined terms anywhere open a plain-English explanation |
-| 19 | **Quiz** | 22 questions | Instant feedback and a score |
+| 19 | **Quiz** | 24 questions | Instant feedback and a score |
 
 Every section has its own link (for example [`#lab`](https://xudaniel.github.io/webmethods-bpms-academy/#lab)), plus Previous / Next at the bottom.
 
@@ -453,7 +455,7 @@ playwright install chromium
 python3 tests/smoke_test.py
 ```
 
-The test serves the site locally, opens every section at phone width (390 × 844), checks the IBM webMethods title, knowledge counter, family table and cited knowledge topics, the beginner path, every how-to guide, the demo script and the hands-on lab with its progress tracker, troubleshooting search and filters, a role self-check and the class agenda, exercises the Start-here interactions, runs the simulator to completion and the Agent Scan Lab on the synthetic sample, checks that `read.html` has five diagrams, a complete quiz and answer key and all sections filled, checks the phone guide, the sections menu, Previous/Next on every section, back to top, no horizontal overflow at 360 px in any section, and that the manifest icons and service worker exist, and fails on any JavaScript error.
+GitHub Actions runs the same test (`.github/workflows/smoke-test.yml`) on every pull request, and `main` only accepts changes that pass it. The test serves the site locally, opens every section at phone width (390 × 844), checks the IBM webMethods title, knowledge counter, family table and cited knowledge topics, the beginner path, every how-to guide, the demo script and the hands-on lab with its progress tracker, troubleshooting search and filters, a role self-check and the class agenda, exercises the Start-here interactions, runs the simulator to completion and the Agent Scan Lab on the synthetic sample, checks that `read.html` has five diagrams, a complete quiz and answer key and all sections filled, checks the phone guide, the sections menu, Previous/Next on every section, back to top, no horizontal overflow at 360 px in any section, and that the manifest icons and service worker exist, and fails on any JavaScript error.
 
 ## Design principles
 
@@ -468,13 +470,15 @@ The test serves the site locally, opens every section at phone width (390 × 844
 
 **Next**
 - [ ] **Practice sandbox:** simplified, clearly labelled practice screens to accept a task, tick Execution Enabled and hot deploy a rule, with no environment needed
-- [ ] **Knowledge base:** Monitor/Optimize, deployment and upgrade topics, and what changes from 10.15 to 12.1
+- [ ] **Knowledge base:** what changes from 10.15 to 12.1, release by release
 - [ ] **Simulator:** timer escalation and parallel-gateway scenarios
 
 **Later**
 - [ ] Chinese user interface
 - [ ] Module on moving webMethods Business Rules to IBM ODM decision services
 - [ ] Agent Scan Lab: adjustable thresholds and CSV export
+
+**Done since v1.3.0:** automatic smoke test on every pull request, `main` accepts changes only through pull requests, 11 more diagrams, cited rules pitfalls, and knowledge topics on Monitor/Optimize and upgrading from 10.15.
 
 **Done in v1.3.0:** Basics 101 and the Decision lab.
 

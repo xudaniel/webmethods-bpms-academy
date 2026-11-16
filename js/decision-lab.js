@@ -22,7 +22,7 @@
         <button class="btn" id="dt-run">Evaluate</button>
       </div>
       <div id="dt-result" class="detail" style="display:none"></div>
-      <p class="sources">This mirrors a simple decision table. In production the same logic lives in a Rule Project and is Hot Deployed without touching the process.</p>
+      <p class="sources">This mirrors a simple decision table. In production the same logic lives in a rule project that is hot deployed to Integration Server without touching the process. Source: <a href="https://documentation.softwareag.com/webmethods/compendiums/v10-3/C_Digital_Event_Comm/intsagdes-compendium/co-about_hot_deployment.html" target="_blank" rel="noopener">About hot deployment</a>.</p>
     `;
     $("dt-run").addEventListener("click", () => {
       const scoreMin = +$("dt-score-min").value;
@@ -47,19 +47,28 @@
   function initPitfalls() {
     const container = $("rules-pitfalls");
     if (!container) return;
+    // Each pitfall cites a public IBM / Software AG source; the last one is labelled as the author's view.
+    const D = "https://documentation.softwareag.com/webmethods/";
     const pitfalls = [
-      ["Process Aware not checked", "Decision table with a Task Action fails or ignores the task. Mark Process Aware and map TaskData / ProcessData (outbound only)."],
-      ["Hot Deploy partial failure", "Some Integration Server nodes succeed, others fail. Check Rules Engine logs and engine pool; redeploy to the failed nodes."],
-      ["Input/output mismatch", "Rule Task Inputs/Outputs do not match the decision table. Designer or runtime reports mapping errors. Align names and types exactly."],
-      ["Event rule missing JMS trigger", "Event rule does not fire. Create the corresponding JMS trigger on the target Integration Server."],
-      ["Rules and process version drift", "Process expects an old rule signature. Version rule projects with processes and test together."],
-      ["Remote Rules Engine misconfigured", "Rule Task times out. In MWS → Rules Engine Configuration set the correct host, port, and credentials."],
+      ["A manual decision (task action) is ignored or fails", "The decision table must be Process Aware, TaskData must be mapped, and the task's inputs and outputs must match the table's.",
+        "About decision tables (Designer 10.7)", D + "designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/proc.about.decision.tables.html"],
+      ["Odd runtime errors after editing the mapping", "ProcessData holds runtime data: never overwrite or drop it, and map it outbound only.",
+        "About decision tables (Designer 10.15)", D + "designer/sdf10-15/webhelp/sdf-webhelp/sdf-webhelp/proc.about.decision.tables.html"],
+      ["An event rule never fires", "A rule task that uses an event rule needs a JMS trigger on the corresponding Integration Server.",
+        "Advanced rule task properties (Designer 10.7)", D + "designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/proc.advanced.rule.task.properties.html"],
+      ["A rule action does nothing in the process", "Set the process's Minimum Logging Level to 5 (Process and all steps); Designer needs it to work out what the rule action requires.",
+        "About rule actions (Designer 10.7)", D + "designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/proc.about.rule.actions.html"],
+      ["Rules run on the wrong server", "By default rules run on the Integration Server where the Process Engine is installed. For a remote one, create a remote server alias named businessrulesruntime in Integration Server Administrator.",
+        "Configuring a remote Integration Server (Designer 10.15)", D + "designer/sdf10-15/webhelp/sdf-webhelp/sdf-webhelp/to-proc-rules_2.html"],
+      ["Hot Deploy cannot reach a server", "Configure each Integration Server connection first: Administration > My webMethods > System Settings > webMethods Business Rules Settings (host, port, user, password). For SSL, every target must use SSL on its primary port.",
+        "Configuring an Integration Server connection (10.5)", D + "compendiums/v10-5/C_Digital_Event_Comm/intsagdes-compendium/ta-configure_master_is.html"],
+      ["The process expects an older rule signature", "Author's view: version rule projects together with the processes that call them, and test them together.", "", ""]
     ];
     container.innerHTML = `
-      <h3>Rules Configuration Pitfalls</h3>
+      <h3>Rules configuration pitfalls</h3>
       <div class="table-wrap"><table>
-        <tr><th>Symptom</th><th>Likely cause & fix</th></tr>
-        ${pitfalls.map(([s, f]) => `<tr><td><strong>${esc(s)}</strong></td><td>${esc(f)}</td></tr>`).join("")}
+        <tr><th>Symptom</th><th>Cause and fix</th><th>Source</th></tr>
+        ${pitfalls.map(([s, f, t, u]) => `<tr><td><strong>${esc(s)}</strong></td><td>${esc(f)}</td><td>${u ? `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>` : `<span class="pill">Author's view</span>`}</td></tr>`).join("")}
       </table></div>
     `;
   }
@@ -78,13 +87,13 @@
       <div class="grid" style="grid-template-columns:1fr 1fr;gap:1rem;margin-top:.8rem">
         <div class="card" style="margin:0">
           <strong>Hard-coded in process / gateway</strong>
-          <p id="ag-hard" class="lead">Change requires editing BPMN, rebuild, and redeploy of the process model.</p>
-          <p><span class="pill red">Days to weeks</span></p>
+          <p id="ag-hard" class="lead">Edit the gateway condition in Designer, build and upload a new version, then enable it for execution.</p>
+          <p><span class="pill red">Days to weeks</span> <span class="pill">Author's view</span></p>
         </div>
         <div class="card" style="margin:0">
           <strong>Decision table + Hot Deploy</strong>
           <p id="ag-rules" class="lead">Edit the rule, Hot Deploy the rule project. Process model unchanged.</p>
-          <p><span class="pill green">Minutes</span></p>
+          <p><span class="pill green">Minutes</span> <span class="pill">Author's view</span></p>
         </div>
       </div>
       <div id="ag-log" class="log" style="margin-top:.8rem;min-height:60px">Click Apply to simulate.</div>
@@ -93,7 +102,7 @@
       const t = $("ag-threshold").value;
       const log = $("ag-log");
       log.textContent = `Threshold changed to $${t}\n`;
-      log.textContent += `Hard-coded: open Designer → edit gateway condition → rebuild process → upload → restart instances (days)\n`;
+      log.textContent += `Hard-coded: open Designer → edit gateway condition → build and upload a new version → enable it for execution (days to weeks with testing and approval)\n`;
       log.textContent += `Rules: edit decision table row → Hot Deploy rule project → live (minutes)\n`;
       log.textContent += `Process model version: unchanged`;
     });

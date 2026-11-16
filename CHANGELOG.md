@@ -17,6 +17,12 @@ Versions follow [Semantic Versioning](https://semver.org/).
   - **Agent Scan Lab:** how steps are sorted.
 
   The course and the reading version now have 26 diagrams each.
+- **Knowledge base:** two new cited topics, **Monitor, resubmit and Optimize** and **Upgrading from 10.15** (9 topics, 55 facts), plus 2 quiz questions (24) (#46).
+- **Continuous integration:** GitHub Actions runs the smoke test and a JavaScript syntax check on every pull request and push to `main` (#46).
+
+### Fixed
+- **Rules facts:** a remote Rules Engine is configured with a remote server alias named `businessrulesruntime` in Integration Server Administrator, not under "Rules Engine Configuration" in My webMethods. Fixed in the knowledge base and the Decision lab (#46).
+- **Decision lab pitfalls:** every factual pitfall now cites public IBM / Software AG documentation; unsupported claims were replaced, and opinions are labelled *Author's view* (#46).
 
 ## [1.3.0] — 2026-11-15
 

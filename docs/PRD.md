@@ -145,7 +145,7 @@ Because the site collects no analytics by design, success is measured from outsi
 
 | Version | Date | What shipped |
 | --- | --- | --- |
-| Unreleased | — | 11 more diagrams: architecture, lifecycle loop, BPMN gateways and lanes, agent pattern, three case flows, simulator loan process, decision table, scan method (#44) |
+| Unreleased | — | CI on every PR; main protected; Monitor/Optimize and upgrade knowledge topics; cited rules pitfalls and a corrected remote-rules fact (#46). 11 more diagrams: architecture, lifecycle loop, BPMN gateways and lanes, agent pattern, three case flows, simulator loan process, decision table, scan method (#44) |
 | 1.3.0 | 2026-11-15 | Basics 101: seven fundamental lessons for complete beginners, each with a story, a picture and a check, plus a reading-version chapter with an answer key and a new badge; Decision lab (interactive decision table, agility comparison, rules pitfalls); hotfix for the live site after direct commits overwrote index.html |
 | 1.2.0 | 2026-11-15 | Plain words for beginners: tap any underlined term for a plain-English explanation; Beginner mode shows the 10 beginner sections with *In plain words* boxes; duplicate glossary entries removed (33 terms) |
 | 1.1.0 | 2026-11-15 | Role paths and a clickable one-picture map; hands-on lab; troubleshooting, cheat sheets and self-checks; teach-a-class plan; phone app with offline mode; reading times; 14 diagrams; badges; author credit; README rewritten |
