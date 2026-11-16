@@ -426,3 +426,16 @@ body.pro .cc-remember { background: transparent; }
 .rv-home { border-left: 4px solid var(--primary); }
 .rv-q { border-top: 1px solid var(--border); padding-top: .7rem; }
 .rv-from { font-size: .82rem; color: var(--muted, #525252); margin: 0 0 .2rem; }
+
+/* Site search (#77) */
+.search-btn { padding-left: .6rem; padding-right: .6rem; }
+.search-panel .menu-head { gap: .5rem; }
+#search-q { flex: 1; font: inherit; font-size: 1rem; padding: .55rem .7rem; border: 1px solid var(--border); border-radius: 8px; min-width: 0; }
+.search-hint { color: var(--muted, #525252); font-size: .85rem; }
+.search-results { list-style: none; padding: 0; margin: .4rem 0 0; }
+.search-hit { padding: .55rem .6rem; border-radius: 8px; cursor: pointer; border: 1px solid transparent; }
+.search-hit small { display: block; color: var(--muted, #525252); margin-top: .15rem; line-height: 1.4; }
+.search-hit.sel, .search-hit:hover { background: #edf5ff; border-color: #a6c8ff; }
+.search-hit mark { background: #fcf4d6; padding: 0 .1em; border-radius: 2px; }
+.search-none { padding: .6rem; color: var(--muted, #525252); }
+nav .search-btn { z-index: 1; }

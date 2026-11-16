@@ -145,6 +145,7 @@ Because the site collects no analytics by design, success is measured from outsi
 
 | Version | Date | What shipped |
 | --- | --- | --- |
+| Unreleased | 2026-11-16 | Site search: 🔍 or "/" searches every section in the browser, English and Chinese, and opens the exact place (#77) |
 | Unreleased | 2026-11-16 | Review book: spaced review of every wrong answer across seven question sources (1 → 3 days, 7 after a lapse); English and Chinese (#76) |
 | Unreleased | 2026-11-16 | On-call drills: three branching incidents with a clock and cited debriefs; On-call hero badge; English and Chinese (#50) |
 | Unreleased | 2026-11-16 | Instance time machine: replay a finished simulator instance from its audit rows, with a volatile-tracking toggle; English and Chinese (#51) |
