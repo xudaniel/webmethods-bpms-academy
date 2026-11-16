@@ -23,6 +23,7 @@
 </header>
 <nav aria-label="Sections">
   <button data-section="start">Start here</button>
+  <button data-section="crash">10-minute course</button>
   <button data-section="basics">Basics 101</button>
   <button data-section="overview">Overview</button>
   <button data-section="knowledge">Knowledge base</button>
@@ -49,6 +50,7 @@
     <div class="card">
       <h2>What is this, and why should anyone care?</h2>
       <p class="lead">Every organisation runs processes — approvals, claims, onboarding, shipment exceptions. A <strong>BPMS</strong> is the software that makes those processes run on rails: it routes the work, applies the rules, puts tasks in front of the right people, and records what happened. Now AI agents are arriving, and they need exactly those rails. Six short, hands-on steps explain why.</p>
+      <p class="cc-cta"><a class="btn" href="#crash">⚡ Know nothing? Take the 10-minute course</a></p>
       <p class="byline">Written by <strong>Daniel Yuanpeng Xu</strong>, a product manager who has worked on business-process and decision-automation products. Sections marked <span class="pill">Author's view</span> are personal opinions, not the position of any employer or vendor.</p>
     </div>
 
@@ -129,6 +131,16 @@
         <button class="tile" onclick="location.hash='quiz'"><strong>Test yourself</strong><small id="quiz-count-tile">Quiz</small></button>
       </div>
     </div>
+  </section>
+
+  <section id="crash" class="section">
+    <div class="card">
+      <h2>10-minute course: IBM webMethods BPMS from zero</h2>
+      <p class="lead">No experience needed. Five 2-minute steps, one picture each, then three quick questions. Read one, tap <strong>Next</strong>.</p>
+      <div class="lab-progress"><div class="bar"><span id="crash-bar"></span></div><span id="crash-left"></span></div>
+    </div>
+    <div class="card" id="crash-body"></div>
+    <div class="cc-nav" id="crash-nav" data-i="0"><button type="button" class="cc-back">← Back</button><button type="button" class="cc-next btn">Next →</button></div>
   </section>
 
   <section id="basics" class="section">
@@ -331,6 +343,7 @@
 <script src="js/explainer.js"></script>
 <script src="js/explainer-app.js"></script>
 <script src="js/basics.js"></script>
+<script src="js/crash.js"></script>
 <script src="js/controls.js"></script>
 <script src="js/app.js"></script>
 <script src="js/decision-lab.js"></script>

@@ -352,3 +352,16 @@ body.pro header { background: #161616; }
 .pro-toggle[aria-pressed="true"] { background: #f4f4f4; color: #161616; border-color: #f4f4f4; }
 .kb-reviewed { font-size: .78rem; color: var(--muted); margin: .2rem 0 0; }
 @media print { .pro-bar, .pro-toggle { display: none !important; } }
+
+/* 10-minute course (#64) */
+.cc-cta { margin: .6rem 0 0; }
+.cc-cta .btn, .cc-nav .btn { display: inline-block; text-decoration: none; }
+.cc-kicker { font-size: .85rem; color: var(--muted, #525252); text-transform: uppercase; letter-spacing: .04em; margin: 0 0 .2rem; }
+.cc-remember { background: #edf5ff; border-left: 4px solid var(--accent, #0f62fe); padding: .55rem .75rem; border-radius: 6px; }
+.cc-nav { display: flex; justify-content: space-between; gap: .6rem; margin: .4rem 0 1.2rem; }
+.cc-nav button { padding: .6rem 1rem; font: inherit; border-radius: 8px; cursor: pointer; border: 1px solid var(--border); background: #fff; }
+.cc-nav button:disabled { opacity: .4; cursor: default; }
+.cc-done { margin-top: 1rem; padding: .8rem 1rem; border-radius: 10px; background: #defbe6; }
+body.pro .cc-remember { background: transparent; }
+.cc-nav button.btn { background: var(--primary); color: #fff; border: none; }
+.cc-nav [hidden] { display: none; }

@@ -7,7 +7,7 @@ Usage:  pip install playwright && playwright install chromium
 import asyncio, functools, http.server, sys, threading
 from playwright.async_api import async_playwright
 
-SECTIONS = ["start", "basics", "overview", "knowledge", "controls", "howto", "lab", "decisions", "puzzles", "trouble", "teach", "lifecycle", "architecture", "bpmn", "patterns", "cases",
+SECTIONS = ["start", "crash", "basics", "overview", "knowledge", "controls", "howto", "lab", "decisions", "puzzles", "trouble", "teach", "lifecycle", "architecture", "bpmn", "patterns", "cases",
             "simulator", "scan", "market", "glossary", "quiz"]
 
 class QuietHandler(http.server.SimpleHTTPRequestHandler):
@@ -171,6 +171,26 @@ async def main():
         await page.wait_for_timeout(300)
         if await page.evaluate("location.hash") != "#trouble" or not await page.evaluate("document.querySelector('#trouble details.dg-more').open"):
             failures.append("map 'Enable' box should open the won't-start flowchart")
+        # 10-minute course (issue #64): five steps with pictures, Back/Next, three checks, finish card
+        await page.evaluate("location.hash='crash'")
+        await page.wait_for_timeout(150)
+        if await page.locator("#crash .cc-step").count() != 6 or await page.locator("#crash figure.dg svg").count() != 5:
+            failures.append("10-minute course should have 5 steps with pictures plus a check step")
+        if not await page.is_visible("#crash .cc-step[data-i='0']") or await page.is_visible("#crash .cc-step[data-i='1']"):
+            failures.append("10-minute course should show one step at a time")
+        for _ in range(5):
+            await page.click("#crash-nav .cc-next")
+        if not await page.is_visible("#crash .cc-step[data-i='5']") or await page.is_visible("#crash-nav .cc-next"):
+            failures.append("Next should reach the checks and then hide")
+        for i in range(3):
+            await page.click(f"#crash .cc-check[data-i='{i}'] button[data-j='1']")
+        if "3 / 3" not in await page.inner_text("#cc-done"):
+            failures.append("10-minute course finish card should show 3 / 3")
+        await page.click("#crash-nav .cc-back")
+        if not await page.is_visible("#crash .cc-step[data-i='4']"):
+            failures.append("Back should return to step 5")
+        if "10-minute course" not in await page.inner_text("#beginner-path") and "10-minute course" not in await page.inner_text("nav"):
+            failures.append("10-minute course not linked")
         # Basics 101 (issue #40): seven lessons, pictures, checks, progress
         await page.evaluate("location.hash='basics'")
         await page.wait_for_timeout(150)

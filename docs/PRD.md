@@ -145,6 +145,7 @@ Because the site collects no analytics by design, success is measured from outsi
 
 | Version | Date | What shipped |
 | --- | --- | --- |
+| Unreleased | 2026-11-16 | 10-minute course: five steps, five pictures, three checks; first step of the New-here path (#64) |
 | 2.1.0 | 2026-11-16 | Professional mode (?mode=pro), one-page executive briefs for banking and insurance, last-reviewed dates (#59) |
 | 2.1.0 | 2026-11-16 | Controls for regulated industries: seven controls mapped to SR 11-7, OSFI E-23, EU AI Act, GDPR Art. 22, NAIC, DORA, with BPMS evidence (#58) |
 | 2.0.0 | 2026-11-16 | Learn by story and by play: Fix the diagram, five puzzle levels (#52). Mia's request: one fictional story through the course (#48). CI on every PR (branch protection ready for the owner to switch on); Monitor/Optimize and upgrade knowledge topics; cited rules pitfalls and a corrected remote-rules fact (#46). 11 more diagrams: architecture, lifecycle loop, BPMN gateways and lanes, agent pattern, three case flows, simulator loan process, decision table, scan method (#44) |
