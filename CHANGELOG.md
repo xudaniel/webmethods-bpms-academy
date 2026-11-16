@@ -3,7 +3,9 @@
 All notable changes to the IBM webMethods BPMS Academy. Author: **Daniel Yuanpeng Xu**.
 Versions follow [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [2.2.0] — 2026-11-16
+
+From zero in ten minutes. **Author: Daniel Yuanpeng Xu.**
 
 ### Added
 - ⚡ **10-minute course** for people who know nothing yet (#64): five 2-minute steps, one at a time, each with a picture and a *Remember* line, then three checks and a finish card. Linked from Start, the nav, the phone menu and the first step of the *New here* path. The reading version keeps Basics 101 as its first stop.
