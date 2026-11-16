@@ -62,6 +62,7 @@
 | | You can… | Where |
 | --- | --- | --- |
 | 👋 | **Pick your role** (New here, Customer, Business user, Process developer, Business analyst, Operations, Trainer) and get a 3–5 step path that ticks itself off | [Start here](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
+| 📦 | **Follow one story**: Mia's $1,200 laptop request travels through the whole course with Sam (manager), Priya (analyst), Leo (developer) and Omar (operations); each section shows the next moment and where her request is now | [Start here](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
 | 🧱 | **Learn the fundamentals first**: seven 2-minute lessons (process vs instance, who does each step, five BPMN shapes, rules vs process, tasks, the engine and audit trail, drawing to running), each with a picture and one question | [Basics 101](https://xudaniel.github.io/webmethods-bpms-academy/#basics) |
 | 🌱 | **Understand every word**: tap any underlined term (BPMN, IS, MWS, Hot Deploy…) for a one-line plain-English explanation, and switch on **Beginner mode** to see only the 10 sections you need first | Everywhere |
 | 🗺️ | **See the whole product in one picture**, from model to audit trail, and tap any box to jump to its guide | [Start here](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
@@ -89,6 +90,7 @@ No prior webMethods experience is needed.
 ## What's inside
 
 ### Start: your path and the big picture
+- **Mia's request**, a fictional story told across the whole course. Mia needs a $1,200 laptop. A *Meet the cast* card introduces her, her manager Sam, analyst Priya, developer Leo and Omar from operations. A short story card opens 17 sections with the next moment of her request, a five-stage tracker (Submitted → Rules check → Manager approves → Order created → On record) and a *Next in Mia's story* link that walks a 12-part route. The reading version has the same boxes.
 - **Basics 101** for complete beginners: seven short lessons on the ideas behind every process platform, each with a plain story, three key points, a picture, one check question and links to go deeper. The last lesson maps every idea to its IBM webMethods name. Progress is saved in your browser.
 - **Who are you?** Seven roles, each with a 3–5 step path. Each step shows its purpose and reading time, deep-links to the right guide, knowledge topic or troubleshooting area, and ticks itself off. A **Your path: Next →** link closes every section on the path.
 - **IBM webMethods BPMS in one picture:** a numbered, clickable map: *Model → Build and upload → **Enable*** (the step beginners miss) *→ Process Engine → people work tasks / rules decide → Monitor and fix → audit history*, and where AI agents fit.
@@ -478,7 +480,7 @@ GitHub Actions runs the same test (`.github/workflows/smoke-test.yml`) on every 
 - [ ] Module on moving webMethods Business Rules to IBM ODM decision services
 - [ ] Agent Scan Lab: adjustable thresholds and CSV export
 
-**Done since v1.3.0:** automatic smoke test on every pull request, `main` accepts changes only through pull requests, 11 more diagrams, cited rules pitfalls, and knowledge topics on Monitor/Optimize and upgrading from 10.15.
+**Done since v1.3.0:** Mia's request, a story through the whole course. automatic smoke test on every pull request, `main` accepts changes only through pull requests, 11 more diagrams, cited rules pitfalls, and knowledge topics on Monitor/Optimize and upgrading from 10.15.
 
 **Done in v1.3.0:** Basics 101 and the Decision lab.
 
