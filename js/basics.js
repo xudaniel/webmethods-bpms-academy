@@ -107,6 +107,7 @@ window.BASICS = {
 (function () {
   const ZB = window.LANG === "zh" && window.ZH && window.ZH.basics;
   const B = ZB || window.BASICS;
+  window.BASICS_LIVE = B; // the lessons in the language on screen (used by the review book)
   const U = ZB ? ZB.ui : { mapH: "The same ideas, with IBM webMethods names", idea: "The idea", inWm: "In IBM webMethods", min: "min", check: "Check yourself: ",
     deeper: "Go deeper:", nextLesson: "Next lesson: ", right: "Right.", notQuite: "Not quite.", retry: "Try again",
     count: (n, m) => `${n} / ${m} checks passed`, all: (n, m) => `${n} / ${m} checks passed: you know the basics! 🎉`, checkR: "Check:", key: "Answer key" };
@@ -171,7 +172,7 @@ window.BASICS = {
       st.done[l.id] = new Date().toISOString().slice(0, 10); save(st); paint();
       if (L.every((x) => st.done[x.id])) document.dispatchEvent(new CustomEvent("basics:done"));
     } else {
-      b.classList.add("wrong");
+      b.classList.add("wrong"); window.REVIEW && window.REVIEW.miss("basics", l.id);
       box.querySelector(".explain").innerHTML = `${U.notQuite} ${esc(l.check.e)} <button type="button" class="link b-retry">${U.retry}</button>`;
     }
   });

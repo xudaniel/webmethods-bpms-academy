@@ -70,6 +70,7 @@
 | 🗺️ | **用一张图看懂整个产品**：从建模到审计记录，点任意一个框就跳到对应教程 | [从这里开始](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
 | 🎛️ | **动手调设置**：切换服务质量设置，看各自换来什么、牺牲什么；或者调 AI agent 的审批额度，看决策日志怎么变 | [知识库](https://xudaniel.github.io/webmethods-bpms-academy/#knowledge) · [从这里开始](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
 | 🧪 | **边做边学**：先在模拟器里跑一遍贷款流程，再用 30 分钟的动手实验做出你的第一个真实流程 | [模拟器](https://xudaniel.github.io/webmethods-bpms-academy/#simulator) · [动手实验](https://xudaniel.github.io/webmethods-bpms-academy/#lab) |
+| 📒 | **记住答错的题**：全站任何地方答错的题（测验、基础 101、10 分钟速成、身份自测、刷卡分类、值班演练）都会收进复习本，1 天后、3 天后再考；答对两次就移出。「从这里开始」会显示今天要复习几题 | [复习本](https://xudaniel.github.io/webmethods-bpms-academy/#review) |
 | 🚨 | **练习值班**：三个小故障（流程不启动、人工决定被忽略、Monitor 里什么都看不到），时钟一直在走。查对了往下走，查错了要多花时间；每个都以带出处的复盘收尾 | [值班演练](https://xudaniel.github.io/webmethods-bpms-academy/#drills) |
 | 👆 | **刷卡分类：规则、agent 还是人？** 60 秒判断 20 个合成步骤；滑动（或点按钮、用方向键），每个答案都用 Agent 扫描实验室的同一套门槛来解释。有连对、最高分和分享语 | [刷卡分类](https://xudaniel.github.io/webmethods-bpms-academy/#swipe) |
 | 🧩 | **修好坏掉的流程**：五关点选拼图（缺结束事件、网关选错、额度写死在网关里、人工任务没有超时、经理什么都要亲自审）；点 ▶ 运行，看令牌能不能走通，走不通就告诉你原因 | [修图闯关](https://xudaniel.github.io/webmethods-bpms-academy/#puzzles) |
@@ -169,7 +170,7 @@
 
 ### 学得下去
 - **⏱ 阅读时间：** 每个栏目、「☰ Sections」菜单和阅读版的每一章都标注阅读时间。整门课大约 40 分钟读完。
-- **学习进度和徽章：** 显示已浏览的栏目数（共 24 个）；11 枚徽章解锁时有小小的庆祝动画；还有「你知道吗？」小知识。这些都只保存在你的浏览器里。
+- **学习进度和徽章：** 显示已浏览的栏目数（共 25 个）；11 枚徽章解锁时有小小的庆祝动画；还有「你知道吗？」小知识。这些都只保存在你的浏览器里。
 
 ## 课程安排（按网站顺序）
 
@@ -199,6 +200,7 @@
 | 22 | **市场**（Market） | 阅读 + 出处 | 市场规模、分析机构观点、竞争信号、监管日期 |
 | 23 | **术语表**（Glossary） | 可搜索 | 33 个术语；全站带下划线的术语都能点开看大白话解释 |
 | 24 | **测验**（Quiz） | 24 道题 | 即时反馈并计分 |
+| 25 | **复习本**（Review book） | 间隔复习 | 答错的题 1 天后、3 天后再考（又错了就 7 天后再考一次），直到记住 |
 
 每个栏目都有自己的链接（例如 [`#lab`](https://xudaniel.github.io/webmethods-bpms-academy/#lab)），底部还有「上一页 / 下一页」。
 
@@ -440,6 +442,7 @@ webmethods-bpms-academy/
 │   ├── swipe.js          # 刷卡分类：规则、agent 还是人？（#53）
 │   ├── timemachine.js    # 模拟器下的实例时光机（#51）
 │   ├── drills.js         # 带时钟和出处复盘的值班演练（#50）
+│   ├── review.js         # 复习本：答错的题按时回来（#76）
 │   ├── words.js          # 点术语看大白话解释、新手模式
 │   ├── basics.js         # 基础 101：七节基础课和自测
 │   ├── crash.js          # 10 分钟速成：五步和三道自测

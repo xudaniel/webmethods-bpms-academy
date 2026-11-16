@@ -245,7 +245,7 @@
     const q = A.quiz[box.dataset.i], j = +b.dataset.j;
     box.dataset.done = 1; answered++;
     box.querySelectorAll("button")[q.c].classList.add("correct");
-    if (j === q.c) correct++; else b.classList.add("wrong");
+    if (j === q.c) correct++; else { b.classList.add("wrong"); window.REVIEW && window.REVIEW.miss("quiz", box.dataset.i); }
     box.querySelector(".explain").textContent = q.e;
     $("quiz-score").textContent = T(`Score: ${correct} / ${answered}`, `得分：${correct} / ${answered}`) + (answered === A.quiz.length ? T(" — done!", "：全部完成！") : "");
   });
@@ -393,7 +393,7 @@
         const qd = b.closest(".quiz-q"); if (qd.dataset.done) return; qd.dataset.done = "1";
         const q = c.check[qd.dataset.i], j = +b.dataset.j;
         qd.querySelectorAll("button").forEach((x, k) => { if (k === q.c) x.classList.add("correct"); else if (k === j) x.classList.add("wrong"); });
-        if (j === q.c) right++;
+        if (j === q.c) right++; else window.REVIEW && window.REVIEW.miss("cheat", `${c.id}:${qd.dataset.i}`);
         qd.querySelector(".explain").textContent = (j === q.c ? T("Right. ", "答对了。") : T("Not quite. ", "还差一点。")) + q.e;
         $("sc-score").textContent = `${right} / ${c.check.length}`;
       });

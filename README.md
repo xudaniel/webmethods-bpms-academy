@@ -70,6 +70,7 @@
 | 🗺️ | **See the whole product in one picture**, from model to audit trail, and tap any box to jump to its guide | [Start here](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
 | 🎛️ | **Play with the settings**: toggle quality of service and watch the trade-offs, or move an AI agent's approval limit and watch the decision log | [Knowledge base](https://xudaniel.github.io/webmethods-bpms-academy/#knowledge) · [Start here](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
 | 🧪 | **Learn by doing**: run a loan process in the simulator, then build your first real process in a 30-minute lab | [Simulator](https://xudaniel.github.io/webmethods-bpms-academy/#simulator) · [Lab](https://xudaniel.github.io/webmethods-bpms-academy/#lab) |
+| 📒 | **Remember what you got wrong**: every wrong answer anywhere on the site (quiz, Basics 101, the 10-minute course, role self-checks, Swipe sort, on-call drills) goes into a review book and comes back after 1 day and 3 days; two right answers and it leaves. Start here shows how many are due today | [Review book](https://xudaniel.github.io/webmethods-bpms-academy/#review) |
 | 🚨 | **Practise being on call**: three short incidents (the process never starts, a manual decision is ignored, Monitor shows nothing) with a clock that keeps running. Good checks move you on, wrong ones cost minutes; each ends with a cited debrief | [On-call drills](https://xudaniel.github.io/webmethods-bpms-academy/#drills) |
 | 👆 | **Swipe sort: rule, agent or human?** 20 synthetic steps in 60 seconds; swipe (or tap, or use the arrow keys) and every answer is explained with the same thresholds the Agent Scan Lab uses. Streaks, a best score and a share line | [Swipe sort](https://xudaniel.github.io/webmethods-bpms-academy/#swipe) |
 | 🧩 | **Repair broken processes**: five tap-to-place puzzles (a missing end event, the wrong gateway, a limit welded into a gateway, a task with no timer, a manager who checks everything); press ▶ Run and watch a token get through, or get stuck and tell you why | [Fix the diagram](https://xudaniel.github.io/webmethods-bpms-academy/#puzzles) |
@@ -169,7 +170,7 @@ No prior webMethods experience is needed.
 
 ### Stay motivated
 - **⏱ Reading time** on every section, in the Sections menu and for each chapter of the reading version. The whole course is about 40 minutes of reading.
-- **Progress and badges:** sections explored out of 24, and eleven badges with a small celebration (Explorer, Basics done, Process fixer, Agent tamer, Simulator, Scanner, Fixer, Role ready, Lab finisher, Quiz ace, On-call hero). There's also a **Did you know?** fact. Everything stays in your browser.
+- **Progress and badges:** sections explored out of 25, and eleven badges with a small celebration (Explorer, Basics done, Process fixer, Agent tamer, Simulator, Scanner, Fixer, Role ready, Lab finisher, Quiz ace, On-call hero). There's also a **Did you know?** fact. Everything stays in your browser.
 
 ## Curriculum, in site order
 
@@ -199,6 +200,7 @@ No prior webMethods experience is needed.
 | 22 | **Market** | Reading + sources | Sizing, analyst views, competitor signals, regulatory dates |
 | 23 | **Glossary** | Searchable | 33 terms; underlined terms anywhere open a plain-English explanation |
 | 24 | **Quiz** | 24 questions | Instant feedback and a score |
+| 25 | **Review book** | Spaced review | Every question you got wrong comes back after 1 and 3 days (and 7 if you miss it again) until it sticks |
 
 Every section has its own link (for example [`#lab`](https://xudaniel.github.io/webmethods-bpms-academy/#lab)), plus Previous / Next at the bottom.
 
@@ -442,6 +444,7 @@ webmethods-bpms-academy/
 │   ├── swipe.js        # Swipe sort: rule, agent or human? (#53)
 │   ├── timemachine.js  # Instance time machine under the simulator (#51)
 │   ├── drills.js       # On-call drills with a clock and a cited debrief (#50)
+│   ├── review.js       # Review book: spaced review of wrong answers (#76)
 │   ├── words.js        # Tap-to-explain terms in plain English, Beginner mode
 │   ├── basics.js       # Basics 101: seven fundamental lessons with checks
 │   ├── crash.js        # 10-minute course: five steps and three checks

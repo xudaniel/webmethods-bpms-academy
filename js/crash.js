@@ -37,6 +37,7 @@ window.CRASH = {
 (function () {
   const ZC = window.LANG === "zh" && window.ZH && window.ZH.crash;
   const X = ZC || window.CRASH, $ = (id) => document.getElementById(id);
+  window.CRASH_LIVE = X; // the checks in the language on screen (used by the review book)
   const U = ZC ? ZC.ui : { kicker: (a, b, i, n) => `Minutes ${a}–${b} · step ${i} of ${n}`, remember: "Remember:", deeper: "Go deeper later:", lastKicker: "Final minute · check yourself",
     three: "Three quick questions", left: (i, n, m) => `Step ${i} of ${n} · about ${m} min left`, last: "Last step: check yourself", next: "Next →", toCheck: "Check yourself →",
     allRight: "🎉 You know the core of IBM webMethods BPMS.", good: "👍 Good start.", score: (r, n, m) => `${r} / ${n} right, in about ${m} min. Next, pick one:`,
@@ -82,7 +83,7 @@ window.CRASH = {
     const c = X.checks[box.dataset.i], j = +b.dataset.j;
     box.dataset.done = "1"; answered++;
     box.querySelectorAll("button")[c.c].classList.add("correct");
-    if (j === c.c) right++; else b.classList.add("wrong");
+    if (j === c.c) right++; else { b.classList.add("wrong"); window.REVIEW && window.REVIEW.miss("crash", box.dataset.i); }
     box.querySelector(".explain").textContent = c.e;
     if (answered === X.checks.length) {
       const mins = Math.max(1, Math.round((Date.now() - (started || Date.now())) / 60000));

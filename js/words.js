@@ -59,7 +59,8 @@ window.WORDS = {
     cases: "Real examples from start to finish, each with the lesson behind it.",
     simulator: "Run a pretend process step by step and watch what the engine does. Nothing can break.",
     glossary: "Every word in the course in one searchable list. You can also tap any underlined word anywhere.",
-    quiz: "Check yourself. Wrong answers are fine: each one explains why."
+    quiz: "Check yourself. Wrong answers are fine: each one explains why.",
+    review: "Every question you got wrong comes back here a few days later, until it sticks."
   }
 };
 

@@ -8,7 +8,7 @@ import asyncio, functools, http.server, sys, threading
 from playwright.async_api import async_playwright
 
 SECTIONS = ["start", "crash", "basics", "overview", "knowledge", "controls", "howto", "lab", "decisions", "puzzles", "swipe", "trouble", "drills", "teach", "lifecycle", "architecture", "bpmn", "patterns", "cases",
-            "simulator", "scan", "market", "glossary", "quiz"]
+            "simulator", "scan", "market", "glossary", "quiz", "review"]
 
 class QuietHandler(http.server.SimpleHTTPRequestHandler):
     def log_message(self, *args):
@@ -267,6 +267,32 @@ async def main():
         if not await page.evaluate("document.querySelector('#b-workers').open"):
             failures.append("Next lesson should open lesson 2")
         await page.click("#basics-reset")
+        # Review book (issue #76): wrong answers elsewhere land here and come back on a schedule
+        saved = await page.evaluate("REVIEW.ids()")
+        if "basics|process" not in saved or "drill|rule:0" not in saved:
+            failures.append(f"review book: wrong answers in Basics 101 and the drills should be saved, got {saved}")
+        if await page.evaluate("REVIEW.dueIds().length") != 0:
+            failures.append("review book: a new item should be due tomorrow, not today")
+        await page.evaluate("Object.values(REVIEW.state.items).forEach(it => it.due = '2000-01-01')")
+        await page.evaluate("location.hash='review'")
+        await page.wait_for_timeout(150)
+        box = page.locator("#review-body .rv-q[data-id='basics|process']")
+        right = await page.evaluate("BASICS_LIVE.lessons.find(l => l.id === 'process').check.c")
+        await box.locator(f"button[data-j='{right}']").click()
+        if "3 days" not in await box.inner_text() or await page.evaluate("REVIEW.state.items['basics|process'].box") != 1:
+            failures.append("review book: a right answer should schedule the next check in 3 days")
+        await page.evaluate("REVIEW.state.items['basics|process'].due = '2000-01-01'")
+        await page.click("#rv-all")
+        await page.click("#rv-all")
+        await page.locator("#review-body .rv-q[data-id='basics|process']").locator(f"button[data-j='{right}']").click()
+        if "basics|process" in await page.evaluate("REVIEW.ids()"):
+            failures.append("review book: two right answers should remove the item")
+        if await page.evaluate("REVIEW.answer('drill|rule:0', false)") != "again" or await page.evaluate("[REVIEW.answer('drill|rule:0', true), REVIEW.answer('drill|rule:0', true), REVIEW.answer('drill|rule:0', true)].join()") != "3,7,done":
+            failures.append("review book: a lapse should add a 7-day check before the item leaves")
+        await page.evaluate("location.hash='start'")
+        await page.wait_for_timeout(100)
+        if await page.evaluate("REVIEW.ids().length") and not await page.is_visible("#review-home"):
+            failures.append("review book: Start here should show the review card")
         # More diagrams (issue #44): every section that teaches a structure has a picture
         for key, sec in [("arch-map", "architecture"), ("lifecycle-loop", "lifecycle"), ("bpmn-gateways", "bpmn"), ("bpmn-lanes", "bpmn"),
                          ("agent-pattern", "patterns"), ("case-0", "cases"), ("case-1", "cases"), ("case-2", "cases"), ("sim-loan", "simulator"),
@@ -530,6 +556,10 @@ async def main():
         await zp.click("#drills-body .dr-pick[data-d='start']")
         if "你先查什么" not in await zp.inner_text("#dr-run") or "决定 1 / 2" not in await zp.inner_text("#dr-run"):
             failures.append("zh: on-call drills not translated")
+        await zp.evaluate("REVIEW.miss('crash', 1); Object.values(REVIEW.state.items).forEach(it => it.due = '2000-01-01'); location.hash='review'")
+        await zp.wait_for_timeout(150)
+        if "复习本" not in await zp.inner_text("#review") or "什么都没启动" not in await zp.inner_text("#review-body"):
+            failures.append("zh: review book should show its questions in Chinese")
         # 中文版 batch 3b: controls, decision lab, fix the diagram
         await zp.evaluate("location.hash='controls'")
         await zp.wait_for_timeout(120)
