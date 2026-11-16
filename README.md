@@ -4,7 +4,7 @@
 
 <p>
   <a href="https://github.com/Xudaniel"><img alt="Author: Daniel Yuanpeng Xu" src="https://img.shields.io/badge/author-Daniel_Yuanpeng_Xu-0f62fe?style=for-the-badge"></a>
-  <a href="https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v2.1.0"><img alt="Release v2.1.0" src="https://img.shields.io/badge/release-v2.1.0-24a148?style=for-the-badge"></a>
+  <a href="https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v2.2.0"><img alt="Release v2.2.0" src="https://img.shields.io/badge/release-v2.2.0-24a148?style=for-the-badge"></a>
   <a href="https://xudaniel.github.io/webmethods-bpms-academy/"><img alt="Live site" src="https://img.shields.io/badge/live-open_the_course-8a3ffc?style=for-the-badge"></a>
   <img alt="Works offline" src="https://img.shields.io/badge/phone-installable_·_offline-161616?style=for-the-badge">
 </p>
@@ -499,6 +499,8 @@ GitHub Actions runs the same test (`.github/workflows/smoke-test.yml`) on every 
 - [ ] Module on moving webMethods Business Rules to IBM ODM decision services
 - [ ] Agent Scan Lab: adjustable thresholds and CSV export
 
+**Done in v2.2.0:** a 10-minute course for people who know nothing yet: five steps, five pictures, three checks; the first step of the *New here* path.
+
 **Done in v2.1.0:** Controls for regulated industries; Professional mode; executive briefs for banking and insurance; last-reviewed dates.
 
 **Done in v2.0.0:** Fix the diagram (five puzzle levels); Mia's request, a story through the whole course; 11 more diagrams; knowledge topics on Monitor/Optimize and upgrading from 10.15; cited rules pitfalls; an automatic smoke test on every pull request.
@@ -525,7 +527,7 @@ He set the product direction, defined the audiences and scope, chose and checked
 
 ## How to cite
 
-> Xu, Daniel Yuanpeng (2026). *IBM webMethods BPMS Academy* (Version 2.1.0) [Interactive course]. https://github.com/xudaniel/webmethods-bpms-academy
+> Xu, Daniel Yuanpeng (2026). *IBM webMethods BPMS Academy* (Version 2.2.0) [Interactive course]. https://github.com/xudaniel/webmethods-bpms-academy
 
 GitHub's **Cite this repository** button (from [`CITATION.cff`](CITATION.cff)) gives the same citation in APA and BibTeX. If you reuse or adapt any material, please credit **Daniel Yuanpeng Xu** and link to this repository.
 
