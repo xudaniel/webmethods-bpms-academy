@@ -7,7 +7,7 @@ Usage:  pip install playwright && playwright install chromium
 import asyncio, functools, http.server, sys, threading
 from playwright.async_api import async_playwright
 
-SECTIONS = ["start", "basics", "overview", "knowledge", "howto", "lab", "decisions", "puzzles", "trouble", "teach", "lifecycle", "architecture", "bpmn", "patterns", "cases",
+SECTIONS = ["start", "basics", "overview", "knowledge", "controls", "howto", "lab", "decisions", "puzzles", "trouble", "teach", "lifecycle", "architecture", "bpmn", "patterns", "cases",
             "simulator", "scan", "market", "glossary", "quiz"]
 
 class QuietHandler(http.server.SimpleHTTPRequestHandler):
@@ -224,6 +224,19 @@ async def main():
         if not (await page.inner_text("#pz-count")).startswith("1 / 5"):
             failures.append("puzzle progress should count level 1")
         await page.click("#pz-reset")
+        # Controls for regulated industries (issue #58)
+        await page.evaluate("location.hash='controls'")
+        await page.wait_for_timeout(100)
+        if await page.locator("#controls .ctl-row").count() != 7 or await page.locator("#controls .fw").count() != 6:
+            failures.append("control map should have 7 controls and 6 frameworks")
+        if await page.locator("#controls .fw .sources a").count() != 6 or await page.locator("#controls .ctl-row .sources a").count() < 7:
+            failures.append("every framework and control should cite a source")
+        if "not legal or compliance advice" not in await page.inner_text("#controls"):
+            failures.append("control map needs its disclaimer")
+        await page.click("#ctl-trace .fw-pill >> nth=0")
+        await page.wait_for_timeout(300)
+        if await page.evaluate("location.hash") != "#controls":
+            failures.append("framework jump should stay on the Controls section")
         # Hotfix (issue #41): index.html must be the real page, and the Decision lab must work
         html = open("index.html", encoding="utf-8").read()
         if len(html) < 10000 or "$(cat" in html:
@@ -323,6 +336,8 @@ async def main():
             failures.append("read.html Basics 101 chapter missing pictures or answer key")
         if await page2.locator("main .story-card").count() != 15 or await page2.locator("#story-cast li").count() != 5:
             failures.append("read.html story boxes or cast missing")
+        if await page2.locator("#r-controls .ctl-row").count() != 7 or not (await page2.inner_text("#r-kb h3 >> nth=0")).startswith("4.1"):
+            failures.append("read.html controls chapter or knowledge numbering wrong")
         if await page2.locator("main .term").count() < 40:
             failures.append("read.html should underline key terms")
         if await page2.locator("#r-kb h3").count() < 6 or await page2.locator("#r-family tr").count() < 8:

@@ -145,6 +145,7 @@ Because the site collects no analytics by design, success is measured from outsi
 
 | Version | Date | What shipped |
 | --- | --- | --- |
+| Unreleased | — | Controls for regulated industries: seven controls mapped to SR 11-7, OSFI E-23, EU AI Act, GDPR Art. 22, NAIC, DORA, with BPMS evidence (#58) |
 | 2.0.0 | 2026-11-16 | Learn by story and by play: Fix the diagram, five puzzle levels (#52). Mia's request: one fictional story through the course (#48). CI on every PR (branch protection ready for the owner to switch on); Monitor/Optimize and upgrade knowledge topics; cited rules pitfalls and a corrected remote-rules fact (#46). 11 more diagrams: architecture, lifecycle loop, BPMN gateways and lanes, agent pattern, three case flows, simulator loan process, decision table, scan method (#44) |
 | 1.3.0 | 2026-11-15 | Basics 101: seven fundamental lessons for complete beginners, each with a story, a picture and a check, plus a reading-version chapter with an answer key and a new badge; Decision lab (interactive decision table, agility comparison, rules pitfalls); hotfix for the live site after direct commits overwrote index.html |
 | 1.2.0 | 2026-11-15 | Plain words for beginners: tap any underlined term for a plain-English explanation; Beginner mode shows the 10 beginner sections with *In plain words* boxes; duplicate glossary entries removed (33 terms) |

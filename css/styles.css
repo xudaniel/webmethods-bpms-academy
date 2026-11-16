@@ -321,3 +321,23 @@ body.beginner .menu-note { display: block; }
 .pz-ok { background: #defbe6; color: #0e6027; border-radius: 10px; padding: .6rem .8rem; }
 .pz-bad { background: #fff1f1; color: #a2191f; border-radius: 10px; padding: .6rem .8rem; }
 .pz-level .link { font: inherit; color: var(--primary-dark); background: none; border: 0; text-decoration: underline; cursor: pointer; }
+
+/* Controls for regulated industries (#58) */
+.ctl-note { margin-top: .4rem; }
+.ctl-matrix th, .ctl-matrix td { text-align: center; font-size: .82rem; }
+.ctl-matrix th:first-child, .ctl-matrix td:first-child { text-align: left; }
+.ctl-matrix td.yes { color: var(--primary); font-size: 1rem; }
+.ctl-row { border-top: 1px solid var(--border); padding-top: .7rem; margin-top: .9rem; scroll-margin-top: 4rem; border-radius: 8px; transition: background .4s; }
+.ctl-row h3 { margin: .2rem 0 .3rem; }
+.ctl-row dl { margin: .4rem 0; }
+.ctl-row dt { font-weight: 600; font-size: .85rem; color: var(--muted); margin-top: .45rem; }
+.ctl-row dd { margin: .1rem 0 0; }
+.ctl-ask { margin: .2rem 0; font-size: .88rem; }
+.fw-pill, .ctl-link { font: inherit; cursor: pointer; border: 0; }
+.ctl-link { background: none; color: var(--primary-dark); text-decoration: underline; padding: 0; text-align: left; font-size: .85rem; }
+button.pill.fw-pill { font-size: .75rem; }
+.fw-grid { display: grid; gap: .7rem; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+.fw { border: 1px solid var(--border); border-radius: 10px; padding: .7rem .8rem; scroll-margin-top: 4rem; transition: background .4s; }
+.fw small { color: var(--muted); }
+.fw p { margin: .35rem 0; font-size: .9rem; }
+.ctl-flash { background: var(--primary-light); }

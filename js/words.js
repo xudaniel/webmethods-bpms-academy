@@ -41,7 +41,7 @@ window.WORDS = {
     ["boat", ["BOAT"], "Gartner's name for platforms that combine processes, connections and AI agents.", "BOAT"]
   ],
   // Sections a beginner can skip on the first pass
-  advanced: ["knowledge", "teach", "lifecycle", "architecture", "patterns", "scan", "market"],
+  advanced: ["knowledge", "controls", "teach", "lifecycle", "architecture", "patterns", "scan", "market"],
   // “In plain words” box shown at the top of each beginner section in Beginner mode
   plain: {
     start: "Pick who you are and follow 3 to 5 steps. You do not need to install anything to begin.",

@@ -61,7 +61,8 @@
     $("r-kb-count").innerHTML = `<strong>${K.topics.length}</strong> knowledge topics · <strong>${facts}</strong> cited facts · <strong>${K.family.length}</strong> components · <strong>${A.glossary.length}</strong> glossary terms · <strong>${A.quiz.length}</strong> quiz questions`;
     $("r-family").innerHTML = "<tr><th>Component</th><th>Role in a BPMS solution</th></tr>" + K.family.map(([n, d]) => `<tr><td><strong>${esc(n)}</strong></td><td>${esc(d)}</td></tr>`).join("");
     const link = (n) => `<a href="${esc(K.sources[n][1])}" target="_blank" rel="noopener">${esc(K.sources[n][0])}</a>`;
-    $("r-kb").innerHTML = K.topics.map((t, i) => `<h3>3.${i + 1} ${esc(t.title)}</h3><p>${esc(t.summary)}</p>
+    const kbCh = ((document.querySelector("#r-knowledge h2") || {}).textContent || "").match(/^(\d+)\./); const kbN = kbCh ? kbCh[1] : "";
+    $("r-kb").innerHTML = K.topics.map((t, i) => `<h3>${kbN}.${i + 1} ${esc(t.title)}</h3><p>${esc(t.summary)}</p>
       <ul>${t.facts.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
       <p class="callout"><strong>In practice:</strong> ${esc(t.practice)}</p>
       <p class="sources">${t.sources.length ? "Sources: " + t.sources.map(link).join(" · ") : "Synthesis of the topics above; author's practitioner view."}</p>`).join("");
