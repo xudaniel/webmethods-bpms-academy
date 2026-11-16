@@ -4,7 +4,7 @@
 
 <p>
   <a href="https://github.com/Xudaniel"><img alt="Author: Daniel Yuanpeng Xu" src="https://img.shields.io/badge/author-Daniel_Yuanpeng_Xu-0f62fe?style=for-the-badge"></a>
-  <a href="https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.3.0"><img alt="Release v1.3.0" src="https://img.shields.io/badge/release-v1.3.0-24a148?style=for-the-badge"></a>
+  <a href="https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v2.0.0"><img alt="Release v2.0.0" src="https://img.shields.io/badge/release-v2.0.0-24a148?style=for-the-badge"></a>
   <a href="https://xudaniel.github.io/webmethods-bpms-academy/"><img alt="Live site" src="https://img.shields.io/badge/live-open_the_course-8a3ffc?style=for-the-badge"></a>
   <img alt="Works offline" src="https://img.shields.io/badge/phone-installable_·_offline-161616?style=for-the-badge">
 </p>
@@ -16,7 +16,7 @@
 
 **按你真正会用到的方式学 IBM webMethods BPMS。** 这是一门免费的课程，优先为手机设计。选好你的角色，就能拿到一条 3–5 步的专属路线；先用一张图看懂整个产品，再动手学：流程模拟器、30 分钟动手实验，以及每个角色的分步教程。每条事实都附有公开文档出处。
 
-**[▶ 打开课程](https://xudaniel.github.io/webmethods-bpms-academy/)** · [阅读版](https://xudaniel.github.io/webmethods-bpms-academy/read.html) · 当前版本 **[v1.3.0](https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.3.0)** · [更新日志](CHANGELOG.md) · [产品需求文档（PRD，英文）](docs/PRD.md)
+**[▶ 打开课程](https://xudaniel.github.io/webmethods-bpms-academy/)** · [阅读版](https://xudaniel.github.io/webmethods-bpms-academy/read.html) · 当前版本 **[v2.0.0](https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v2.0.0)** · [更新日志](CHANGELOG.md) · [产品需求文档（PRD，英文）](docs/PRD.md)
 
 <p>
   <img src="assets/screenshots/role-picker.png" width="240" alt="选择角色，获得专属学习路线">
@@ -459,7 +459,7 @@ playwright install chromium
 python3 tests/smoke_test.py
 ```
 
-GitHub Actions 会在每个 pull request 上自动运行同一个测试（`.github/workflows/smoke-test.yml`），`main` 只接受测试通过的改动。测试会在本地启动网站，以手机宽度（390 × 844）打开每个栏目，检查标题以 IBM webMethods 开头、知识计数器、产品家族表和附出处的知识主题、入门路线、每个角色教程、演示脚本，以及动手实验和进度记录、故障排查搜索与筛选、角色自测和讲课议程，操作「从这里开始」的各项互动，把模拟器跑完，并用模拟数据运行扫描实验室；同时检查 `read.html` 有五张图、测验与答案数量一致、各章节都有内容。还会检查手机指南、栏目菜单、每个栏目的上一页/下一页、回到顶部按钮、360 像素宽度下各栏目都没有横向溢出，以及 App 图标和离线脚本是否存在。出现任何 JavaScript 错误即判为失败。
+GitHub Actions 会在每个 pull request 上自动运行同一个测试（`.github/workflows/smoke-test.yml`），每次推送到 `main` 也会运行。为 `main` 开启分支保护（要求 `smoke` 检查通过）后，测试失败的改动就无法合并。测试会在本地启动网站，以手机宽度（390 × 844）打开每个栏目，检查标题以 IBM webMethods 开头、知识计数器、产品家族表和附出处的知识主题、入门路线、每个角色教程、演示脚本，以及动手实验和进度记录、故障排查搜索与筛选、角色自测和讲课议程，操作「从这里开始」的各项互动，把模拟器跑完，并用模拟数据运行扫描实验室；同时检查 `read.html` 有五张图、测验与答案数量一致、各章节都有内容。还会检查手机指南、栏目菜单、每个栏目的上一页/下一页、回到顶部按钮、360 像素宽度下各栏目都没有横向溢出，以及 App 图标和离线脚本是否存在。出现任何 JavaScript 错误即判为失败。
 
 ## 设计原则
 
@@ -482,7 +482,7 @@ GitHub Actions 会在每个 pull request 上自动运行同一个测试（`.gith
 - [ ] 从 webMethods Business Rules 迁移到 IBM ODM 决策服务的模块
 - [ ] 扫描实验室：可调整门槛，可导出 CSV
 
-**v1.3.0 之后已完成：** 修图闯关（五关拼图）；Mia 的申请单，一个贯穿整门课的故事； 每个 PR 自动跑冒烟测试，`main` 只接受 PR 合并；新增 11 张示意图；规则配置陷阱附上出处；知识库新增 Monitor/Optimize 与「从 10.15 升级」两个主题。
+**v2.0.0 已完成：** 修图闯关（五关拼图）；Mia 的申请单，一个贯穿整门课的故事；新增 11 张示意图；知识库新增 Monitor/Optimize 与「从 10.15 升级」两个主题；规则配置陷阱附上出处；每个 PR 自动跑冒烟测试。
 
 **v1.3.0 已完成：** 基础 101、决策实验室。
 
@@ -506,7 +506,7 @@ GitHub Actions 会在每个 pull request 上自动运行同一个测试（`.gith
 
 ## 如何引用
 
-> Xu, Daniel Yuanpeng (2026). *IBM webMethods BPMS Academy* (Version 1.3.0) [Interactive course]. https://github.com/xudaniel/webmethods-bpms-academy
+> Xu, Daniel Yuanpeng (2026). *IBM webMethods BPMS Academy* (Version 2.0.0) [Interactive course]. https://github.com/xudaniel/webmethods-bpms-academy
 
 点 GitHub 页面上的 **Cite this repository** 按钮（来自 [`CITATION.cff`](CITATION.cff)），就能拿到 APA 和 BibTeX 格式的引用。复用或改编本项目内容时，请注明作者 **Daniel Yuanpeng Xu**，并附上本仓库链接。
 

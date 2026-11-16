@@ -3,7 +3,16 @@
 All notable changes to the IBM webMethods BPMS Academy. Author: **Daniel Yuanpeng Xu**.
 Versions follow [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [2.0.0] — 2026-11-16
+
+Learn by story and by play. **Author: Daniel Yuanpeng Xu.**
+
+### Highlights
+- 🧩 **Fix the diagram:** five broken processes to repair by tapping, with a token that runs through.
+- 📦 **Mia's request:** one story through the whole course, with a cast of five and a 12-part route.
+- 🎨 **26 diagrams** in both the course and the reading version.
+- 📚 **Knowledge base:** 9 cited topics and 55 facts, including Monitor/Optimize and upgrading from 10.15.
+- ✅ **Trust:** an automatic smoke test on every PR; every rules pitfall cited; a wrong fact corrected.
 
 ### Added
 - **Fix the diagram** (#52): five tap-to-place puzzle levels (end event, parallel gateway, limit in a rule task, timer escalation, human exception path). ▶ Run animates a token, and each wrong piece explains itself and links the lesson. A new 🧩 *Process fixer* badge.
@@ -121,6 +130,7 @@ See the [product requirements](docs/PRD.md).
 ## [0.1.0] — 2026-11-14
 - Initial interactive course: architecture, lifecycle, BPMN, patterns, cases, simulator, Agent Scan Lab, market, glossary and quiz (PR #1).
 
+[2.0.0]: https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v2.0.0
 [1.3.0]: https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.3.0
 [1.2.0]: https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.2.0
 [1.1.0]: https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.1.0

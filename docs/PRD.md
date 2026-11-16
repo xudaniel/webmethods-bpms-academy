@@ -3,7 +3,7 @@
 > ### ✍️ Author and product owner: **Daniel Yuanpeng Xu**
 > Daniel created the IBM webMethods BPMS Academy. He conceived, designed, directed, reviewed and published the curriculum, the knowledge base, the guides, the diagrams, the lab, this PRD and every *Author's view*, and he maintains every release. [GitHub @Xudaniel](https://github.com/Xudaniel) · [LinkedIn](https://www.linkedin.com/in/danielxuvision/)
 
-**Status:** v1.0.0 scope released 15 Nov 2026 · **Current release:** [v1.3.0](https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v1.3.0) (see §14)
+**Status:** v1.0.0 scope released 15 Nov 2026 · **Current release:** [v2.0.0](https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v2.0.0) (see §14)
 **Live site:** <https://xudaniel.github.io/webmethods-bpms-academy/> · **Changelog:** [CHANGELOG.md](../CHANGELOG.md)
 
 > Independent learning resource. Not an official IBM site, and not affiliated with or endorsed by IBM. This document uses public information only.
@@ -139,13 +139,13 @@ Because the site collects no analytics by design, success is measured from outsi
 **Daniel Yuanpeng Xu** is the author and product owner. He is a product manager in business process and decision automation, based in Toronto. He set the product direction, defined the audiences and scope, chose and verified the public sources, wrote the *Author's view* frameworks, directed and reviewed every change, and decides each release. The academy is his independent work and is not affiliated with or endorsed by IBM.
 
 - **Contact:** [GitHub @Xudaniel](https://github.com/Xudaniel) · [LinkedIn](https://www.linkedin.com/in/danielxuvision/)
-- **Cite as:** Xu, Daniel Yuanpeng (2026). *IBM webMethods BPMS Academy* (v1.3.0). https://github.com/xudaniel/webmethods-bpms-academy
+- **Cite as:** Xu, Daniel Yuanpeng (2026). *IBM webMethods BPMS Academy* (v2.0.0). https://github.com/xudaniel/webmethods-bpms-academy
 
 ## 14. Release history
 
 | Version | Date | What shipped |
 | --- | --- | --- |
-| Unreleased | — | Fix the diagram, five puzzle levels (#52). Mia's request: one fictional story through the course (#48). CI on every PR; main protected; Monitor/Optimize and upgrade knowledge topics; cited rules pitfalls and a corrected remote-rules fact (#46). 11 more diagrams: architecture, lifecycle loop, BPMN gateways and lanes, agent pattern, three case flows, simulator loan process, decision table, scan method (#44) |
+| 2.0.0 | 2026-11-16 | Learn by story and by play: Fix the diagram, five puzzle levels (#52). Mia's request: one fictional story through the course (#48). CI on every PR (branch protection ready for the owner to switch on); Monitor/Optimize and upgrade knowledge topics; cited rules pitfalls and a corrected remote-rules fact (#46). 11 more diagrams: architecture, lifecycle loop, BPMN gateways and lanes, agent pattern, three case flows, simulator loan process, decision table, scan method (#44) |
 | 1.3.0 | 2026-11-15 | Basics 101: seven fundamental lessons for complete beginners, each with a story, a picture and a check, plus a reading-version chapter with an answer key and a new badge; Decision lab (interactive decision table, agility comparison, rules pitfalls); hotfix for the live site after direct commits overwrote index.html |
 | 1.2.0 | 2026-11-15 | Plain words for beginners: tap any underlined term for a plain-English explanation; Beginner mode shows the 10 beginner sections with *In plain words* boxes; duplicate glossary entries removed (33 terms) |
 | 1.1.0 | 2026-11-15 | Role paths and a clickable one-picture map; hands-on lab; troubleshooting, cheat sheets and self-checks; teach-a-class plan; phone app with offline mode; reading times; 14 diagrams; badges; author credit; README rewritten |
