@@ -14,14 +14,15 @@
   btn.type = "button"; btn.id = "pro-toggle"; btn.className = "mode-toggle pro-toggle";
   const bar = document.createElement("div");
   bar.className = "pro-bar"; bar.setAttribute("role", "note");
-  bar.innerHTML = `<strong>Professional mode</strong> · Executive briefs: <a href="brief.html#banking">Banking</a> · <a href="brief.html#insurance">Insurance</a> · <a href="index.html#controls">Controls</a>`;
+  const ZP = window.LANG === "zh" && window.ZH && window.ZH.pro;
+  bar.innerHTML = ZP ? ZP.bar : `<strong>Professional mode</strong> · Executive briefs: <a href="brief.html#banking">Banking</a> · <a href="brief.html#insurance">Insurance</a> · <a href="index.html#controls">Controls</a>`;
   if (head) { head.appendChild(btn); head.insertAdjacentElement("afterend", bar); }
 
   function set(v, persist) {
     on = v;
     document.body.classList.toggle("pro", v);
     btn.setAttribute("aria-pressed", String(v));
-    btn.innerHTML = v ? "💼 Professional mode: <strong>on</strong>" : "💼 <strong>Professional mode</strong>";
+    btn.innerHTML = ZP ? (v ? ZP.on : ZP.off) : v ? "💼 Professional mode: <strong>on</strong>" : "💼 <strong>Professional mode</strong>";
     if (persist) save(v);
   }
   btn.addEventListener("click", () => set(!on, true));

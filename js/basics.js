@@ -105,14 +105,18 @@ window.BASICS = {
 };
 
 (function () {
-  const B = window.BASICS;
+  const ZB = window.LANG === "zh" && window.ZH && window.ZH.basics;
+  const B = ZB || window.BASICS;
+  const U = ZB ? ZB.ui : { mapH: "The same ideas, with IBM webMethods names", idea: "The idea", inWm: "In IBM webMethods", min: "min", check: "Check yourself: ",
+    deeper: "Go deeper:", nextLesson: "Next lesson: ", right: "Right.", notQuite: "Not quite.", retry: "Try again",
+    count: (n, m) => `${n} / ${m} checks passed`, all: (n, m) => `${n} / ${m} checks passed: you know the basics! 🎉`, checkR: "Check:", key: "Answer key" };
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const KEY = "wm-academy-basics-v1";
   const load = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } };
   const save = (s) => { try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) { /* private mode */ } };
   const L = B.lessons;
-  const mapTable = (l) => l.map ? `<h4>The same ideas, with IBM webMethods names</h4><div class="table-wrap"><table class="basics-map"><tr><th>The idea</th><th>In IBM webMethods</th></tr>` +
+  const mapTable = (l) => l.map ? `<h4>${U.mapH}</h4><div class="table-wrap"><table class="basics-map"><tr><th>${U.idea}</th><th>${U.inWm}</th></tr>` +
     l.map.map(([a, b]) => `<tr><td>${esc(a)}</td><td>${esc(b)}</td></tr>`).join("") + `</table></div>` : "";
   // Diagram placeholder; js/diagrams.js draws it
   const fig = (l) => `<div data-mount-dg="${l.dg}"></div>`;
@@ -122,8 +126,8 @@ window.BASICS = {
   if (rb) {
     rb.innerHTML = `<p class="lead">${esc(B.intro)}</p>` + L.map((l, i) => `<h3>${i + 1}. ${l.icon} ${esc(l.title)}</h3><p>${esc(l.story)}</p>` +
       `<ul>${l.points.map((p) => `<li>${esc(p)}</li>`).join("")}</ul>${fig(l)}${mapTable(l)}` +
-      `<p><strong>Check:</strong> ${esc(l.check.q)}</p><ol type="a">${l.check.a.map((a) => `<li>${esc(a)}</li>`).join("")}</ol>`).join("") +
-      `<h3>Answer key</h3><ol>${L.map((l) => `<li><strong>${"abc"[l.check.c]}.</strong> ${esc(l.check.e)}</li>`).join("")}</ol>`;
+      `<p><strong>${U.checkR}</strong> ${esc(l.check.q)}</p><ol type="a">${l.check.a.map((a) => `<li>${esc(a)}</li>`).join("")}</ol>`).join("") +
+      `<h3>${U.key}</h3><ol>${L.map((l) => `<li><strong>${"abc"[l.check.c]}.</strong> ${esc(l.check.e)}</li>`).join("")}</ol>`;
     return;
   }
 
@@ -132,19 +136,19 @@ window.BASICS = {
   $("basics-intro").textContent = B.intro;
   const st = Object.assign({ done: {} }, load());
   root.innerHTML = L.map((l, i) => `<details class="card basics-lesson" id="b-${l.id}" data-i="${i}">
-    <summary><span class="b-num">${i + 1}</span><span class="b-title">${l.icon} ${esc(l.title)}</span><span class="b-meta">${l.mins} min</span></summary>
+    <summary><span class="b-num">${i + 1}</span><span class="b-title">${l.icon} ${esc(l.title)}</span><span class="b-meta">${l.mins} ${U.min}</span></summary>
     <p class="lead">${esc(l.story)}</p>
     <ul class="b-points">${l.points.map((p) => `<li>${esc(p)}</li>`).join("")}</ul>
     ${fig(l)}${mapTable(l)}
-    <div class="quiz-q basics-check" data-i="${i}"><strong>Check yourself: ${esc(l.check.q)}</strong>${l.check.a.map((a, j) => `<button type="button" data-j="${j}">${esc(a)}</button>`).join("")}<div class="explain"></div></div>
-    <p class="b-deeper"><strong>Go deeper:</strong> ${l.deeper.map(([t, go]) => `<a href="#${go}">${esc(t)} →</a>`).join(" · ")}</p>
-    ${i < L.length - 1 ? `<button type="button" class="b-next" data-next="${i + 1}">Next lesson: ${esc(L[i + 1].title)} →</button>` : ""}
+    <div class="quiz-q basics-check" data-i="${i}"><strong>${U.check}${esc(l.check.q)}</strong>${l.check.a.map((a, j) => `<button type="button" data-j="${j}">${esc(a)}</button>`).join("")}<div class="explain"></div></div>
+    <p class="b-deeper"><strong>${U.deeper}</strong> ${l.deeper.map(([t, go]) => `<a href="#${go}">${esc(t)} →</a>`).join(" · ")}</p>
+    ${i < L.length - 1 ? `<button type="button" class="b-next" data-next="${i + 1}">${U.nextLesson}${esc(L[i + 1].title)} →</button>` : ""}
   </details>`).join("");
 
   function paint() {
     const n = L.filter((l) => st.done[l.id]).length;
     $("basics-bar").style.width = (100 * n / L.length) + "%";
-    $("basics-count").textContent = n === L.length ? `${n} / ${L.length} checks passed: you know the basics! 🎉` : `${n} / ${L.length} checks passed`;
+    $("basics-count").textContent = n === L.length ? U.all(n, L.length) : U.count(n, L.length);
     root.querySelectorAll(".basics-lesson").forEach((d) => d.classList.toggle("passed", !!st.done[L[d.dataset.i].id]));
     $("basics-done").hidden = n !== L.length;
   }
@@ -163,12 +167,12 @@ window.BASICS = {
     box.querySelectorAll("button")[l.check.c].classList.add("correct");
     if (ok) {
       box.dataset.done = "1";
-      box.querySelector(".explain").innerHTML = `✅ <strong>Right.</strong> ${esc(l.check.e)}`;
+      box.querySelector(".explain").innerHTML = `✅ <strong>${U.right}</strong> ${esc(l.check.e)}`;
       st.done[l.id] = new Date().toISOString().slice(0, 10); save(st); paint();
       if (L.every((x) => st.done[x.id])) document.dispatchEvent(new CustomEvent("basics:done"));
     } else {
       b.classList.add("wrong");
-      box.querySelector(".explain").innerHTML = `Not quite. ${esc(l.check.e)} <button type="button" class="link b-retry">Try again</button>`;
+      box.querySelector(".explain").innerHTML = `${U.notQuite} ${esc(l.check.e)} <button type="button" class="link b-retry">${U.retry}</button>`;
     }
   });
   root.addEventListener("click", (e) => {

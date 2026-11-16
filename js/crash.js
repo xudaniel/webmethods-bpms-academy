@@ -35,21 +35,26 @@ window.CRASH = {
 };
 
 (function () {
-  const X = window.CRASH, $ = (id) => document.getElementById(id);
+  const ZC = window.LANG === "zh" && window.ZH && window.ZH.crash;
+  const X = ZC || window.CRASH, $ = (id) => document.getElementById(id);
+  const U = ZC ? ZC.ui : { kicker: (a, b, i, n) => `Minutes ${a}–${b} · step ${i} of ${n}`, remember: "Remember:", deeper: "Go deeper later:", lastKicker: "Final minute · check yourself",
+    three: "Three quick questions", left: (i, n, m) => `Step ${i} of ${n} · about ${m} min left`, last: "Last step: check yourself", next: "Next →", toCheck: "Check yourself →",
+    allRight: "🎉 You know the core of IBM webMethods BPMS.", good: "👍 Good start.", score: (r, n, m) => `${r} / ${n} right, in about ${m} min. Next, pick one:`,
+    after: ['<a href="#basics">Basics 101</a>: the same ideas in seven 2-minute lessons, with a check each.', '<a href="#puzzles">Fix the diagram</a>: repair five broken processes by tapping.', '<a href="#lab">Hands-on lab</a>: build a real one in 30 minutes.'] };
   const root = $("crash-body"); if (!root) return;
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const N = X.steps.length;
   let started = null;
 
   root.innerHTML = X.steps.map((s, i) => `<div class="cc-step" data-i="${i}" ${i ? "hidden" : ""}>
-      <p class="cc-kicker">Minutes ${2 * i}–${2 * i + 2} · step ${i + 1} of ${N}</p>
+      <p class="cc-kicker">${U.kicker(2 * i, 2 * i + 2, i + 1, N)}</p>
       <h3>${esc(s.title)}</h3>
       ${s.body.map((p) => `<p>${p}</p>`).join("")}
       <div data-mount-dg="${s.dg}"></div>
-      <p class="cc-remember">📌 <strong>Remember:</strong> ${esc(s.remember)}</p>
-      <p class="b-deeper">Go deeper later: <a href="#${s.more[1]}">${esc(s.more[0])} →</a></p>
+      <p class="cc-remember">📌 <strong>${U.remember}</strong> ${esc(s.remember)}</p>
+      <p class="b-deeper">${U.deeper} <a href="#${s.more[1]}">${esc(s.more[0])} →</a></p>
     </div>`).join("") +
-    `<div class="cc-step" data-i="${N}" hidden><p class="cc-kicker">Final minute · check yourself</p><h3>Three quick questions</h3>
+    `<div class="cc-step" data-i="${N}" hidden><p class="cc-kicker">${U.lastKicker}</p><h3>${U.three}</h3>
       ${X.checks.map((c, i) => `<div class="quiz-q cc-check" data-i="${i}"><strong>${i + 1}. ${esc(c.q)}</strong>${c.a.map((a, j) => `<button type="button" data-j="${j}">${esc(a)}</button>`).join("")}<div class="explain"></div></div>`).join("")}
       <div class="cc-done" id="cc-done" hidden></div></div>`;
 
@@ -58,10 +63,10 @@ window.CRASH = {
     root.querySelectorAll(".cc-step").forEach((el) => { el.hidden = +el.dataset.i !== i; });
     const left = Math.max(0, 10 - 2 * i);
     $("crash-bar").style.width = (100 * Math.min(i, N) / N) + "%";
-    $("crash-left").textContent = i >= N ? "Last step: check yourself" : `Step ${i + 1} of ${N} · about ${left} min left`;
+    $("crash-left").textContent = i >= N ? U.last : U.left(i + 1, N, left);
     nav.querySelector(".cc-back").disabled = i === 0;
     nav.querySelector(".cc-next").hidden = i >= N;
-    nav.querySelector(".cc-next").textContent = i === N - 1 ? "Check yourself →" : "Next →";
+    nav.querySelector(".cc-next").textContent = i === N - 1 ? U.toCheck : U.next;
     nav.dataset.i = i;
     if (!started) started = Date.now();
   }
@@ -82,11 +87,9 @@ window.CRASH = {
     if (answered === X.checks.length) {
       const mins = Math.max(1, Math.round((Date.now() - (started || Date.now())) / 60000));
       const done = $("cc-done"); done.hidden = false;
-      done.innerHTML = `<h3>${right === X.checks.length ? "🎉 You know the core of IBM webMethods BPMS." : "👍 Good start."}</h3>
-        <p>${right} / ${X.checks.length} right, in about ${mins} min. Next, pick one:</p>
-        <ul><li><a href="#basics">Basics 101</a>: the same ideas in seven 2-minute lessons, with a check each.</li>
-        <li><a href="#puzzles">Fix the diagram</a>: repair five broken processes by tapping.</li>
-        <li><a href="#lab">Hands-on lab</a>: build a real one in 30 minutes.</li></ul>`;
+      done.innerHTML = `<h3>${right === X.checks.length ? U.allRight : U.good}</h3>
+        <p>${U.score(right, X.checks.length, mins)}</p>
+        <ul>${U.after.map((a) => `<li>${a}</li>`).join("")}</ul>`;
     }
   });
   show(0); started = null;

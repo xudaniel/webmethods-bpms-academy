@@ -386,6 +386,42 @@ async def main():
         for sel in ["#r-kb-count", "#r-arch-list", "#r-pat", "#r-gloss", "#r-guard-table", "#r-src"]:
             if len(await page2.inner_text(sel)) < 50:
                 failures.append(f"read.html {sel} empty")
+        # 中文版 (issue #68): own context so the remembered language does not leak into the English checks
+        zctx = await browser.new_context(viewport={"width": 390, "height": 844})
+        zp = await zctx.new_page()
+        zp.on("pageerror", lambda e: errors.append("zh: " + str(e)))
+        await zp.goto("http://127.0.0.1:8765/index.html?lang=zh#start")
+        await zp.wait_for_timeout(500)
+        if await zp.evaluate("document.documentElement.lang") != "zh-CN" or (await zp.inner_text("nav button[data-section='start']")) != "从这里开始":
+            failures.append("zh: language or nav not switched")
+        missing = await zp.evaluate("[...document.querySelectorAll('[data-i18n]')].map(e => e.dataset.i18n).filter(k => !(k in ZH.page))")
+        if missing:
+            failures.append(f"zh: page keys without a translation: {missing}")
+        if "认识一下登场人物" not in await zp.inner_text("#story-cast") or await zp.locator("#start .zh-note").count() != 0:
+            failures.append("zh: Start here not translated")
+        if await zp.locator("#overview .zh-note").count() != 1:
+            failures.append("zh: untranslated sections should say so")
+        if "画出流程" not in await zp.inner_text("#bpms-map"):
+            failures.append("zh: map labels not translated")
+        await zp.evaluate("location.hash='crash'")
+        await zp.wait_for_timeout(150)
+        if "BPMS 是什么" not in await zp.inner_text("#crash .cc-step[data-i='0']") or "流程模型" not in await zp.inner_text("#crash figure.dg >> nth=0"):
+            failures.append("zh: 10-minute course or its diagram not translated")
+        for _ in range(5):
+            await zp.click("#crash-nav .cc-next")
+        for i in range(3):
+            await zp.click(f"#crash .cc-check[data-i='{i}'] button[data-j='1']")
+        if "答对 3 / 3" not in await zp.inner_text("#cc-done"):
+            failures.append("zh: 10-minute course finish card")
+        await zp.evaluate("location.hash='basics'")
+        await zp.wait_for_timeout(150)
+        if await zp.locator("#basics .basics-lesson").count() != 7 or "流程就是一份" not in await zp.inner_text("#b-process summary"):
+            failures.append("zh: Basics 101 not translated")
+        await zp.click("#lang-toggle")
+        await zp.wait_for_timeout(600)
+        if await zp.evaluate("document.documentElement.lang") != "en" or (await zp.inner_text("nav button[data-section='start']")) != "Start here":
+            failures.append("zh: switching back to English failed")
+        await zctx.close()
         await browser.close()
     srv.shutdown()
     # Diagram images referenced by knowledge topics must exist (missing ones are hidden on the page, but reported here)

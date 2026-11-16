@@ -1,5 +1,6 @@
 (function () {
   const A = window.ACADEMY;
+  const T = window.L || ((en) => en);
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
@@ -243,11 +244,11 @@
     const srcLinks = (ns) => ns.map((n) => `<a href="${esc(src(n)[1])}" target="_blank" rel="noopener">${esc(src(n)[0])}</a>`).join(" · ");
     const factCount = K.topics.reduce((t, x) => t + x.facts.length, 0);
     $("kb-counter").innerHTML = [
-      [K.topics.length, "knowledge topics"], [factCount, "cited facts"],
-      [K.family.length, "IBM webMethods components"], [Object.keys(K.sources).length, "public sources"],
-      [A.glossary.length, "glossary terms"], [A.quiz.length, "quiz questions"]
+      [K.topics.length, T("knowledge topics", "个知识主题")], [factCount, T("cited facts", "条带出处的事实")],
+      [K.family.length, T("IBM webMethods components", "个 IBM webMethods 组件")], [Object.keys(K.sources).length, T("public sources", "个公开来源")],
+      [A.glossary.length, T("glossary terms", "个术语")], [A.quiz.length, T("quiz questions", "道测验题")]
     ].map(([n, l]) => `<div class="tile kb-stat"><strong>${n}</strong><small>${esc(l)}</small></div>`).join("");
-    $("quiz-count-tile").textContent = A.quiz.length + " questions";
+    $("quiz-count-tile").textContent = A.quiz.length + T(" questions", " 道题");
     $("kb-family").innerHTML = "<tr><th>Component</th><th>What it does in a BPMS solution</th></tr>" +
       K.family.map(([n, d]) => `<tr><td><strong>${esc(n)}</strong></td><td>${esc(d)}</td></tr>`).join("");
     $("kb-family-src").innerHTML = "Sources: " + srcLinks(K.familySources.concat([9, 17]));
