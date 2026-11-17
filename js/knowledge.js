@@ -125,6 +125,21 @@ window.KNOWLEDGE = {
       sources: [37, 38, 39, 40, 3]
     },
     {
+      id: "iwhi", reviewed: "2026-11-17", title: "webMethods and IBM webMethods Hybrid Integration (IWHI)",
+      summary: "IWHI is IBM's newer integration offering with one hybrid control plane. It brings runtimes together under central management; BPMS keeps running in the webMethods estate it manages.",
+      facts: [
+        "IBM announced webMethods Hybrid Integration at IBM Think on 6 May 2025, with general availability in June 2025.",
+        "IBM positions it as one integration offering across on-premises and multicloud landscapes, with a hybrid control plane for centralized management, troubleshooting, governance and authentication.",
+        "The hybrid control plane covers IBM, third-party and hybrid runtimes, naming App Connect, API Connect, webMethods and IBM MQ, on premises, multicloud or at the edge, SaaS or self-managed.",
+        "It monitors APIs, events, messaging and integrations end to end; MQ transactions can be traced on the control plane.",
+        "Self-managed webMethods Integration Server runtimes can be registered with the hybrid control plane and managed remotely from it.",
+        "IWHI uses transaction-based, consumption pricing, so customers pay for actual usage.",
+        "The announcement also adds an AI Gateway and lays foundations for the Model Context Protocol (MCP); neither the announcement nor the control-plane page mentions BPM, process instances or human tasks."
+      ],
+      practice: "Treat IWHI as a layer around the existing webMethods estate, not a replacement for BPMS: the Process Engine still runs inside Integration Server and human tasks on My webMethods Server. Keep long-running, human-centric processes in BPMS, send integration-centric work to IWHI, and never present IWHI as a forced migration. Before promising one view of everything, ask IBM whether BPMS process and task status shows in the control plane.",
+      sources: [19, 41, 42]
+    },
+    {
       id: "checklist", title: "Practitioner design checklist",
       summary: "Ten checks that come from how the product actually behaves.",
       facts: [
@@ -215,7 +230,9 @@ window.KNOWLEDGE = {
     37: ["Upgrading Software AG Products On Premises 10.15 (PDF)", "https://documentation.softwareag.com/webmethods/wmsuites/wmsuite10-15/related/SysReqs_Installation_and_Upgrade/upgrading-sag-products.pdf"],
     38: ["Migrate database components with Database Component Configurator (10.15)", "https://documentation.softwareag.com/webmethods/wmsuites/wmsuite10-15/webhelp/mig-webhelp/mig-webhelp/to-migrate_db_components_4.html"],
     39: ["Complete the business process upgrade (10.15)", "https://documentation.softwareag.com/webmethods/wmsuites/wmsuite10-15/webhelp/mig-webhelp/mig-webhelp/to-migrate_designer_busprocruntime_13.html"],
-    40: ["Upgrade using Command Central (10.15)", "https://documentation.softwareag.com/webmethods/wmsuites/wmsuite10-15/webhelp/mig-webhelp/mig-webhelp/to-command_central_8.html"]
+    40: ["Upgrade using Command Central (10.15)", "https://documentation.softwareag.com/webmethods/wmsuites/wmsuite10-15/webhelp/mig-webhelp/mig-webhelp/to-command_central_8.html"],
+    41: ["A single control plane for every runtime, everywhere (IBM)", "https://www.ibm.com/products/webmethods-hybrid-integration/webmethods-hybrid-control-plane"],
+    42: ["IBM webMethods Hybrid Integration documentation: managing Integration Server runtimes (IBM Docs)", "https://www.ibm.com/docs/en/hybrid-integration/saas"]
   }
 };
 

@@ -124,6 +124,18 @@
           "迁移完成后，把 ProcessEngine 和 ProcessAudit 功能连到它们的数据库组件（Integration Server Administrator > Settings > JDBC Pools），重新加载 WmMonitor 包，并确认所有 webMethods Messaging 触发器都启用了文档获取。"
         ],
         practice: "先在生产环境的副本上演练。盘点正在进行中的实例，决定哪些必须在旧版本上跑完；规则项目、任务应用和 Monitor 权限要和流程模型一起规划。" },
+      iwhi: { title: "webMethods 与 IBM webMethods Hybrid Integration（IWHI）",
+        summary: "IWHI 是 IBM 较新的集成产品，有一个统一的混合控制平面。它把各种运行时放在一起集中管理；BPMS 继续在它所管理的 webMethods 环境里运行。",
+        facts: [
+          "IBM 在 2025 年 5 月 6 日的 IBM Think 大会上发布 webMethods Hybrid Integration，2025 年 6 月正式上市。",
+          "IBM 把它定位为一个覆盖本地和多云环境的集成产品，用一个混合控制平面做集中管理、排障、治理和身份认证。",
+          "混合控制平面覆盖 IBM、第三方和混合环境的运行时，点名了 App Connect、API Connect、webMethods 和 IBM MQ；可以在本地、多云或边缘，SaaS 或自管。",
+          "它端到端监控 API、事件、消息和集成；MQ 交易可以在控制平面上追踪。",
+          "自管的 webMethods Integration Server 运行时可以登记到混合控制平面，并从那里远程管理。",
+          "IWHI 按交易量计费、用多少付多少。",
+          "发布公告还加入了 AI Gateway，并为模型上下文协议（MCP）打下基础；公告和控制平面页面都没有提到 BPM、流程实例或人工任务。"
+        ],
+        practice: "把 IWHI 看成套在现有 webMethods 环境外面的一层，而不是 BPMS 的替代品：Process Engine 仍然在 Integration Server 里运行，人工任务仍然在 My webMethods Server 上。长时间、以人为中心的流程留在 BPMS，以集成为主的工作交给 IWHI，绝不把 IWHI 说成必须迁移的去处。承诺「一个界面看全部」之前，先问 IBM：BPMS 的流程和任务状态能不能在控制平面里看到。" },
       checklist: { title: "实践者的设计清单",
         summary: "十条检查，都来自产品真实的运行方式。",
         facts: [
