@@ -1,5 +1,6 @@
 // Language switch (#68): English (default) or 简体中文. Load first, before every other script.
-// ?lang=zh or ?lang=en sets it; the choice is remembered on this device.
+// ?lang=zh or ?lang=en sets it; the choice is remembered on this device. With no choice yet,
+// a browser whose first language is Chinese opens in Chinese.
 // Translations live in js/zh/*.js and register on window.ZH. Modules pick their data with
 // (window.LANG === "zh" && ZH.x) || window.X, and short UI strings with L("English", "中文").
 (function () {
@@ -7,7 +8,9 @@
   const get = () => { try { return localStorage.getItem(KEY); } catch (e) { return null; } };
   const put = (v) => { try { localStorage.setItem(KEY, v); } catch (e) { /* private mode */ } };
   const param = new URLSearchParams(location.search).get("lang");
-  const lang = param === "zh" || param === "en" ? param : get() === "zh" ? "zh" : "en";
+  const saved = get();
+  const nav = (navigator.languages && navigator.languages[0]) || navigator.language || "";
+  const lang = param === "zh" || param === "en" ? param : saved === "zh" || saved === "en" ? saved : /^zh\b/i.test(nav) ? "zh" : "en";
   if (param === "zh" || param === "en") put(param);
 
   window.LANG = lang;
@@ -31,7 +34,7 @@
     btn.innerHTML = lang === "zh" ? "🌐 <strong>English</strong>" : "🌐 <strong>中文</strong>";
     btn.title = lang === "zh" ? "Read this site in English" : "切换到中文";
     btn.addEventListener("click", () => switchTo(lang === "zh" ? "en" : "zh"));
-    const head = document.querySelector("header");
+    const head = document.querySelector("header") || document.querySelector(".brief-bar");
     if (head) head.appendChild(btn);
     if (lang !== "zh") return;
 
@@ -43,6 +46,18 @@
     document.querySelectorAll("[data-i18n-attr]").forEach((el) => {
       el.dataset.i18nAttr.split(";").forEach((pair) => { const [a, k] = pair.split(":"); if (P[k] != null) el.setAttribute(a, P[k]); });
     });
+    // Plain text (reading version, briefs): ZH.text maps an English text node, trimmed, to its Chinese
+    const TX = Z.text || {};
+    if (Object.keys(TX).length) {
+      const skip = (n) => n.parentElement && n.parentElement.closest("script, style, pre, code, noscript");
+      const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+      const hits = [];
+      for (let n = w.nextNode(); n; n = w.nextNode()) {
+        const k = n.nodeValue.trim().replace(/\s+/g, " ");
+        if (k && TX[k] != null && !skip(n)) hits.push([n, k]);
+      }
+      hits.forEach(([n, k]) => { const m = n.nodeValue.match(/^(\s*)[\s\S]*?(\s*)$/); n.nodeValue = m[1] + TX[k] + m[2]; });
+    }
     const N = Z.nav || {};
     document.querySelectorAll("nav button[data-section]").forEach((b) => { if (N[b.dataset.section]) b.textContent = N[b.dataset.section]; });
     const done = new Set(Z.done || []);

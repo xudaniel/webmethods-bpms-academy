@@ -65,7 +65,7 @@
 | 📦 | **Follow one story**: Mia's $1,200 laptop request travels through the whole course with Sam (manager), Priya (analyst), Leo (developer) and Omar (operations); each section shows the next moment and where her request is now | [Start here](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
 | ⚡ | **Know nothing? Take the 10-minute course**: five 2-minute steps (what a BPMS is, who does each step, the IBM webMethods parts, drawing to running, why it matters for AI agents), one picture each, then three quick checks | [10-minute course](https://xudaniel.github.io/webmethods-bpms-academy/#crash) |
 | 🧱 | **Learn the fundamentals first**: seven 2-minute lessons (process vs instance, who does each step, five BPMN shapes, rules vs process, tasks, the engine and audit trail, drawing to running), each with a picture and one question | [Basics 101](https://xudaniel.github.io/webmethods-bpms-academy/#basics) |
-| 🌐 | **Read it in Chinese**: tap **中文** in the header (or open `?lang=zh`). The switch is remembered. every section of the interactive course is translated, diagrams, games and quizzes included; the reading version and the executive briefs follow | [中文版](https://xudaniel.github.io/webmethods-bpms-academy/?lang=zh) |
+| 🌐 | **Read it in Chinese**: tap **中文** in the header (or open `?lang=zh`). A browser set to Chinese opens in Chinese, and the switch is remembered. The whole site is translated: every course section, diagrams, games and quizzes, the reading version and both executive briefs | [中文版](https://xudaniel.github.io/webmethods-bpms-academy/?lang=zh) |
 | 🌱 | **Understand every word**: tap any underlined term (BPMN, IS, MWS, Hot Deploy…) for a one-line plain-English explanation, and switch on **Beginner mode** to see only the 10 sections you need first | Everywhere |
 | 🗺️ | **See the whole product in one picture**, from model to audit trail, and tap any box to jump to its guide | [Start here](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
 | 🎛️ | **Play with the settings**: toggle quality of service and watch the trade-offs, or move an AI agent's approval limit and watch the decision log | [Knowledge base](https://xudaniel.github.io/webmethods-bpms-academy/#knowledge) · [Start here](https://xudaniel.github.io/webmethods-bpms-academy/#start) |
@@ -166,7 +166,7 @@ No prior webMethods experience is needed.
 
 ### Plain words for beginners
 - **Tap any underlined term** in the course or the reading version for a one-line plain-English explanation, the technical definition and a link to the glossary. On a phone it opens as a sheet at the bottom of the screen. Quizzes are never underlined, so they still test you.
-- **🌐 中文 / English** (switch in the header, remembered on your device, or `?lang=zh` / `?lang=en`): a Simplified Chinese version, as detailed as the English one. Product and screen names stay in English so you can match the real product and IBM documentation. Translated in batches ([#68](https://github.com/Xudaniel/webmethods-bpms-academy/issues/68)): every section of the interactive course is done, including the glossary (33 terms), the quiz (24 questions), the controls for regulated industries, the decision lab, Fix the diagram and every diagram. The reading version and the executive briefs are next.
+- **🌐 中文 / English** (switch in the header, remembered on your device, or `?lang=zh` / `?lang=en`): a Simplified Chinese version, as detailed as the English one. Product and screen names stay in English so you can match the real product and IBM documentation. Translated in batches ([#68](https://github.com/Xudaniel/webmethods-bpms-academy/issues/68)): every section of the interactive course is done, including the glossary (33 terms), the quiz (24 questions), the controls for regulated industries, the decision lab, Fix the diagram and every diagram, plus the reading version (all 23 chapters) and both executive briefs. A browser whose first language is Chinese opens in Chinese until you pick a language.
 - **🌱 Beginner mode** (switch in the header, remembered on your device): the tab bar and ☰ menu show the 12 beginner sections, each section opens with an *In plain words* box, advanced sections say they can wait, and Previous / Next skip them.
 
 ### Stay motivated
@@ -442,7 +442,7 @@ webmethods-bpms-academy/
 │   ├── diagrams.js     # Original SVG diagrams (interactive QoS, role diagrams, lab BPMN, flowchart, timeline)
 │   ├── path.js         # Role picker with personal paths, clickable one-picture map
 │   ├── i18n.js         # 中文 / English switch (?lang=zh), loaded first
-│   ├── zh/             # Chinese text: core.js (menus, paths, terms, story), beginner.js (Start, course, Basics), guides.js (knowledge, how-to, lab, troubleshooting, teach), explore.js (overview to quiz), labs.js (controls, decision lab, Fix the diagram, Swipe sort)
+│   ├── zh/             # Chinese text: core.js (menus, paths, terms, story), beginner.js (Start, course, Basics), guides.js (knowledge, how-to, lab, troubleshooting, teach), explore.js (overview to quiz), labs.js (controls, decision lab, Fix the diagram, Swipe sort), read.js (reading version, executive briefs)
 │   ├── swipe.js        # Swipe sort: rule, agent or human? (#53)
 │   ├── timemachine.js  # Instance time machine under the simulator (#51)
 │   ├── drills.js       # On-call drills with a clock and a cited debrief (#50)
@@ -518,7 +518,7 @@ GitHub Actions runs the same test (`.github/workflows/smoke-test.yml`) on every 
 - [ ] **Simulator:** timer escalation and parallel-gateway scenarios
 
 **Later**
-- [ ] Chinese user interface
+- [x] Chinese user interface (#68)
 - [ ] Module on moving webMethods Business Rules to IBM ODM decision services
 - [ ] Agent Scan Lab: adjustable thresholds and CSV export
 

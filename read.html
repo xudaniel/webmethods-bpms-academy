@@ -24,7 +24,7 @@
 </header>
 <main>
   <div class="card no-print">
-    <p>Prefer to click and explore? <a href="index.html">Open the interactive version</a>. This page has no tabs, sliders or games — just read, look at the diagrams, and test yourself at the end. It prints cleanly (Ctrl/Cmd + P).</p>
+    <p data-i18n="r.intro">Prefer to click and explore? <a href="index.html">Open the interactive version</a>. This page has no tabs, sliders or games — just read, look at the diagrams, and test yourself at the end. It prints cleanly (Ctrl/Cmd + P).</p>
   </div>
   <noscript><p class="callout">The diagrams below work without JavaScript. The course text and quiz are filled in from the same files as the interactive site, so please enable JavaScript to see them, or read the <a href="README.md">README</a>.</p></noscript>
 
@@ -60,10 +60,10 @@
   <article>
     <section id="r-why" class="card">
       <h2>1. Why this matters</h2>
-      <p>Every organisation runs processes — approvals, claims, onboarding, shipment exceptions. A <strong>BPMS</strong> is the software that makes those processes run on rails: it routes the work, applies the rules, puts tasks in front of the right people, and records what happened. AI agents are now arriving, and they need exactly those rails.</p>
+      <p data-i18n="r.why1">Every organisation runs processes — approvals, claims, onboarding, shipment exceptions. A <strong>BPMS</strong> is the software that makes those processes run on rails: it routes the work, applies the rules, puts tasks in front of the right people, and records what happened. AI agents are now arriving, and they need exactly those rails.</p>
       <p><strong>One request, two worlds.</strong></p>
       <div id="r-story"></div>
-      <p><strong>Who owns which job.</strong> The process <em>orchestrates</em>, rules <em>judge</em>, people <em>handle exceptions</em>, and agents <em>read and propose</em>.</p>
+      <p data-i18n="r.why3"><strong>Who owns which job.</strong> The process <em>orchestrates</em>, rules <em>judge</em>, people <em>handle exceptions</em>, and agents <em>read and propose</em>.</p>
       <div class="table-wrap"><table id="r-sort"><tr><th>Job</th><th>Best owner</th><th>Why</th></tr></table></div>
     </section>
 
@@ -281,7 +281,7 @@ PRA_PROCESS       inst=LN-1234  status=COMPLETED</pre>
 
     <section id="r-scan" class="card">
       <h2>18. Finding agent candidates in process history</h2>
-      <p>Years of BPMS history show where people approve almost everything, wait for days, or make the same decision for the same inputs. Score each step on volume, human work time, waiting time, how often the most common outcome occurs, and <em>determinism</em> — whether the same inputs almost always produce the same outcome.</p>
+      <p data-i18n="r.scan1">Years of BPMS history show where people approve almost everything, wait for days, or make the same decision for the same inputs. Score each step on volume, human work time, waiting time, how often the most common outcome occurs, and <em>determinism</em> — whether the same inputs almost always produce the same outcome.</p>
       <div class="table-wrap"><table>
         <tr><th>Class</th><th>Rule</th><th>Meaning</th></tr>
         <tr><td>Rule candidate (ODM)</td><td>User task, determinism ≥ 80%</td><td>A rule nobody wrote down</td></tr>
@@ -325,9 +325,17 @@ PRA_PROCESS       inst=LN-1234  status=COMPLETED</pre>
     <section id="r-sources" class="card"><h2>23. Sources</h2><ol class="sources" id="r-src"></ol></section>
   </article>
 
-  <p class="callout">Independent learning resource by Daniel Yuanpeng Xu. Not an official IBM site and not affiliated with or endorsed by IBM or Software AG. <em>Author's view</em> sections are personal opinions. All facts come from the public sources listed; no customer or employer-internal data is used.</p>
+  <p class="callout" data-i18n="r.foot">Independent learning resource by Daniel Yuanpeng Xu. Not an official IBM site and not affiliated with or endorsed by IBM or Software AG. <em>Author's view</em> sections are personal opinions. All facts come from the public sources listed; no customer or employer-internal data is used.</p>
 </main>
 <footer>Created by <strong>Daniel Yuanpeng Xu</strong> · <a href="https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v2.2.0" id="version">v2.2.0</a> · © 2026 · <a href="index.html">interactive version</a> · <a href="https://github.com/Xudaniel/webmethods-bpms-academy">source on GitHub</a></footer>
+<script src="js/i18n.js"></script>
+<script src="js/zh/core.js"></script>
+<script src="js/zh/beginner.js"></script>
+<script src="js/zh/guides.js"></script>
+<script src="js/zh/explore.js"></script>
+<script src="js/zh/labs.js"></script>
+<script src="js/zh/read.js"></script>
+<script>I18N.page();</script>
 <script src="js/content.js"></script>
 <script src="js/knowledge.js"></script>
 <script src="js/howto.js"></script>
