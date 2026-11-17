@@ -107,7 +107,7 @@ No prior webMethods experience is needed.
 - **Six hands-on steps** for a general audience: before and after a BPMS, who owns which job, and an AI agent governed by a rulebook (see [Start here: the public explainer](#start-here-the-public-explainer)).
 
 ### Learn: a cited knowledge base and diagrams
-**10 topics and 62 facts**, each linked to public IBM or Software AG documentation, plus a practitioner note per topic:
+**11 topics and 72 facts**, each linked to public IBM or Software AG documentation, plus a practitioner note per topic:
 
 | Topic | What you learn |
 | --- | --- |
@@ -118,8 +118,9 @@ No prior webMethods experience is needed.
 | webMethods Business Rules | Rule projects, rule sets, decision tables, decision trees, event rules; Data/Service/Process actions; deploying to Integration Server and My webMethods Server |
 | Rule Engine configuration and Rule Tasks | Where the Rules Engine runs (WmBusinessRules) and how to point it at a remote Integration Server (`businessrulesruntime` alias), configuring a Rule Task, Process Aware tables, rule actions and logging level, event rules and JMS triggers, Hot Deploy and its server connections |
 | Monitor, resubmit and Optimize | Where Monitor lives, resubmitting failed and completed instances (Resubmit Closest / Earliest, editing the pipeline), the privileges you need, Optimize KPIs and Process Analytics |
-| Upgrading from 10.15 | Side-by-side upgrade: Database Component Configurator, migration utilities or Command Central, keeping in-flight instances, re-versioning models, post-upgrade checks |
-| webMethods and IBM webMethods Hybrid Integration (IWHI) | What IWHI is (announced May 2025), which runtimes its hybrid control plane manages, consumption pricing, and why BPMS keeps running in the webMethods estate rather than moving |
+| Upgrading from 10.15 | Side-by-side upgrade: Database Component Configurator, migration utilities or Command Central, keeping in-flight instances, re-versioning models, post-upgrade checks; what the 12.1 Pre-Upgrade Analyzer does and does not cover; license keys and metering after the upgrade |
+| IBM Integration (formerly webMethods Hybrid Integration, IWHI) | What it is (announced May 2025, renamed IBM Integration in 2026), which runtimes its hybrid control plane manages, how it is sold, its six capability areas (BPM is not one), REST APIs as MCP tools, and why BPMS keeps running in the webMethods estate rather than moving |
+| Agents and human tasks across IBM's process products | Human tasks in watsonx Orchestrate flows, MCP access to workflows, cases and tasks in Business Automation Workflow 26.0, MCP servers in Cloud Pak for Business Automation, MCP tools in webMethods Integration, and what the BPM 12.1 Task Engine API offers today |
 | Practitioner design checklist | Ten checks for design reviews and upgrades |
 
 **Controls for regulated industries:** seven controls, each with what is expected, how BPMS and rules provide it (cited product docs) and the evidence an auditor sees. The framework panel covers SR 11-7, OSFI E-23 (effective 1 May 2027), EU AI Act Annex III and Articles 12 and 14, GDPR Article 22, the NAIC AI Model Bulletin and DORA (applies from 17 January 2025), each cited to the regulator. Educational mapping, not legal or compliance advice.
@@ -182,7 +183,7 @@ No prior webMethods experience is needed.
 | 2 | **10-minute course** | 5 steps, 5 pictures, 3 checks | Know nothing? IBM webMethods BPMS from zero in ten minutes |
 | 3 | **Basics 101** | 7 lessons, each with a picture and a check | The ideas behind every process platform, for complete beginners, then the IBM webMethods names |
 | 4 | **Overview** | Reading + family table | The core idea, and IBM webMethods at a glance (9 components) |
-| 5 | **Knowledge base** | Cited reference + interactive diagram | 10 topics, 62 facts on how the product behaves |
+| 5 | **Knowledge base** | Cited reference + interactive diagram | 11 topics, 72 facts on how the product behaves |
 | 6 | **Controls** | Control map + framework panel | For banks and insurers: seven controls, the frameworks that ask for them (SR 11-7, OSFI E-23, EU AI Act, GDPR Art. 22, NAIC, DORA) and the BPMS evidence |
 | 7 | **How to use** | Role guides, cheat sheets, self-checks, demo script | Day-to-day use for four roles, plus presenting to customers |
 | 8 | **Hands-on lab** | 30-minute exercise with a tracker | Build, enable, run and monitor your first process |
@@ -585,6 +586,9 @@ Every step in the site links to its source; the main ones:
 - [From legacy integration to AI-ready architecture with IBM webMethods 12.1 — IBM community](https://community.ibm.com/community/user/blogs/noboru-tanaka/2026/07/23/ibm-webmethods12-ai-led-integration-arc)
 - [IBM webMethods 11.1 release notes (copy)](https://www.scribd.com/document/818628366/webmethods-release-notes)
 - [Introducing IBM webMethods Hybrid Integration — IBM](https://www.ibm.com/new/announcements/introducing-webmethods-hybrid-integration)
+- [IBM Integration product page — IBM](https://www.ibm.com/products/webmethods-hybrid-integration) · [From connectivity to control in the AI era — IBM, Jul 2026](https://www.ibm.com/new/announcements/ibm-webmethods-hybrid-integration-from-connectivity-to-control-in-the-ai-era) · [IBM Integration Software Capacity 16.2.1 — IBM PM blog](https://leifdavidsen.wordpress.com/2026/08/25/announcing-ibm-integration-software-capacity-16-2-1-a-simple-and-non-disruptive-next-step-and-new-release-for-cloud-pak-for-integration-customers/)
+- [Integration Server Pre-Upgrade Analyzer 12.1 — IBM community](https://community.ibm.com/community/user/question/integration-server-pre-upgrade-analyzer-121) · [License files for 12.1 — IBM Support](https://www.ibm.com/support/pages/node/7284828) · [Offering details for existing webMethods customers — IBM community](https://community.ibm.com/community/user/blogs/marianne-fuller/2024/11/20/webmethods-product-offering-details)
+- [watsonx Orchestrate, March 2026](https://community.ibm.com/community/user/blogs/alan-francis-cheeramvelil/2026/04/12/orchestrate-more-worry-less-whats-new-in-ibm-watso) · [Business Automation Workflow 26.0.0.0](https://community.ibm.com/community/user/blogs/aliannah-muzaffar/2026/07/29/product-release-ibm-business-automation-workflow) · [Cloud Pak for Business Automation 25.0.1](https://community.ibm.com/community/user/blogs/shipra-shaw/2025/12/11/cloud-pak-for-business-automation-2501) · [webMethods Integration what's new](https://www.ibm.com/docs/en/SSGOVO/pembroke_cumulative_whats_new.html) · [Task Engine Web Service API, BPM 12.1](https://www.ibm.com/docs/en/webmethods-bpm/wte/12.1.0?topic=reference-using-task-engine-web-service-api)
 
 **Lifecycle and regulation**
 - [webMethods support lifecycle — IBM](https://www.ibm.com/support/pages/node/7180543)

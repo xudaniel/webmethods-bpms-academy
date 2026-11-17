@@ -413,7 +413,9 @@ async def main():
             failures.append("rules pitfalls table missing")
         if await page.locator("#rules-pitfalls td a[href^='https://documentation.softwareag.com']").count() < 6:
             failures.append("every factual rules pitfall should cite a public source")
-        for kb in ["monitor", "upgrade"]:
+        if "IBM Integration" not in await page.inner_text("#kb-iwhi") or "Pre-Upgrade Analyzer" not in await page.inner_text("#kb-upgrade"):
+            failures.append("knowledge: IBM Integration rename or upgrade analyzer fact missing")
+        for kb in ["monitor", "upgrade", "agents"]:
             if await page.locator(f"#kb-{kb} .sources a").count() < 4:
                 failures.append(f"knowledge topic {kb} missing or uncited")
         # Plain words and Beginner mode (issue #38)
@@ -646,6 +648,8 @@ async def main():
         await cp.wait_for_timeout(400)
         if "混合控制平面" not in await cp.inner_text("#kb-iwhi"):
             failures.append("zh: IWHI knowledge topic not translated")
+        if "人工任务" not in await cp.inner_text("#kb-agents") or "Task Engine" not in await cp.inner_text("#kb-agents"):
+            failures.append("zh: agents knowledge topic not translated")
         await cp.goto("http://127.0.0.1:8765/brief.html")
         await cp.wait_for_timeout(400)
         if "银行的流程和决策自动化" not in await cp.inner_text("#banking") or "最重要的管控" not in await cp.inner_text("#insurance") or await cp.locator("#banking tr").count() != 6:

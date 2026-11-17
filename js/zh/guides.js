@@ -36,7 +36,7 @@
       ["Business Rules", "决策表、决策树和事件规则，在 Designer 里编写，部署到 Integration Server。"],
       ["Universal Messaging", "消息层，Process Engine 可以把它当作 JMS 提供方来传递流程中的步骤转移；Broker 已被弃用。"],
       ["Monitor / Optimize", "实例监控和重新提交；KPI 和业务活动监控。"],
-      ["webMethods Hybrid Integration", "IBM 的混合控制平面和许可证，把 webMethods 的各个运行时和 IBM 其他集成产品放在一起；BPMS 仍然是这个环境里自己管理的运行时。"]
+      ["IBM Integration（原 webMethods Hybrid Integration）", "IBM 的混合控制平面和许可证，把 webMethods 的各个运行时和 IBM 其他集成产品放在一起；BPMS 仍然是这个环境里自己管理的运行时。"]
     ],
     topics: {
       releases: { title: "版本和生命周期",
@@ -121,21 +121,36 @@
           "先安装新版本，用 Database Component Configurator 迁移数据库组件，再用迁移工具或 Command Central 迁移产品配置、数据和资产。",
           "如果想在新环境里把进行中的实例跑完，或者重新提交已完成、已失败的实例，就要迁移 ProcessEngine 和 ProcessAudit 两个数据库组件。",
           "对于还有实例在跑的流程模型，在新版 Designer 里重新生成之前，先把它的版本号调高；在 My webMethods 里启用新版本时，如果问你要不要升级正在运行的流程，回答 No。",
-          "迁移完成后，把 ProcessEngine 和 ProcessAudit 功能连到它们的数据库组件（Integration Server Administrator > Settings > JDBC Pools），重新加载 WmMonitor 包，并确认所有 webMethods Messaging 触发器都启用了文档获取。"
+          "迁移完成后，把 ProcessEngine 和 ProcessAudit 功能连到它们的数据库组件（Integration Server Administrator > Settings > JDBC Pools），重新加载 WmMonitor 包，并确认所有 webMethods Messaging 触发器都启用了文档获取。",
+          "12.1 版的 Integration Server 升级前分析工具（Pre-Upgrade Analyzer，2026 年 7 月）会报告自定义包、自定义 Java 服务，以及依赖已变更或已弃用内置服务的地方。它按原样提供、不含支持，也不覆盖 Process Engine、Task Engine、My webMethods Server 或 CAF 的资产。",
+          "从 11.1 和 12.1 起，IBM 去掉了大多数 webMethods 产品的许可证密钥；安装程序和 Update Manager 改用你的 IBMid 加授权密钥来核对授权。",
+          "按交易量计费的合同，10.x 在升级前沿用上一份 Software AG 合同里定的交易时长（没写明就是 3 秒）；11.x 及以后一律按 60 秒算一笔交易。"
         ],
-        practice: "先在生产环境的副本上演练。盘点正在进行中的实例，决定哪些必须在旧版本上跑完；规则项目、任务应用和 Monitor 权限要和流程模型一起规划。" },
-      iwhi: { title: "webMethods 与 IBM webMethods Hybrid Integration（IWHI）",
-        summary: "IWHI 是 IBM 较新的集成产品，有一个统一的混合控制平面。它把各种运行时放在一起集中管理；BPMS 继续在它所管理的 webMethods 环境里运行。",
+        practice: "先在生产环境的副本上演练。盘点正在进行中的实例，决定哪些必须在旧版本上跑完；规则项目、任务应用和 Monitor 权限要和流程模型一起规划。公开的分析工具只能估 Integration Server 那部分，BPM 那部分（流程模型、运行中的实例、任务应用、My webMethods 页面）要自己估；升级后合同类型意味着什么，要找 IBM 确认。" },
+      iwhi: { title: "IBM Integration（原 webMethods Hybrid Integration，IWHI）",
+        summary: "IWHI 现在以 IBM Integration 的名字销售，是 IBM 的集成产品，有一个统一的混合控制平面。它把各种运行时放在一起集中管理；BPMS 继续在它所管理的 webMethods 环境里运行。",
         facts: [
           "IBM 在 2025 年 5 月 6 日的 IBM Think 大会上发布 webMethods Hybrid Integration，2025 年 6 月正式上市。",
           "IBM 把它定位为一个覆盖本地和多云环境的集成产品，用一个混合控制平面做集中管理、排障、治理和身份认证。",
           "混合控制平面覆盖 IBM、第三方和混合环境的运行时，点名了 App Connect、API Connect、webMethods 和 IBM MQ；可以在本地、多云或边缘，SaaS 或自管。",
           "它端到端监控 API、事件、消息和集成；MQ 交易可以在控制平面上追踪。",
           "自管的 webMethods Integration Server 运行时可以登记到混合控制平面，并从那里远程管理。",
-          "IWHI 按交易量计费、用多少付多少。",
+          "IBM 现在把它叫作 IBM Integration，注明前身是 IBM webMethods Hybrid Integration 和 IBM Cloud Pak for Integration：IBM Integration SaaS 用按用量计费的点数；IBM Integration Software 由客户自管，按授权计费（有按容量的版本，2026 年 8 月起为 16.2.1，也有按用量的版本）。",
+          "IBM Integration 的产品页把能力分成六组：AI 网关、应用集成、B2B 集成、事件与消息、文件与数据传输、API 管理。其中没有 BPM；webMethods BPM 12.1 仍是单独的产品。",
+          "IBM 2026 年 7 月的公告还说，现有的 REST API 不用改业务逻辑就能变成模型上下文协议（MCP）工具，并由 IBM DataPower Interact Gateway 作为 agent、模型和工具之间的控制点。",
           "发布公告还加入了 AI Gateway，并为模型上下文协议（MCP）打下基础；公告和控制平面页面都没有提到 BPM、流程实例或人工任务。"
         ],
-        practice: "把 IWHI 看成套在现有 webMethods 环境外面的一层，而不是 BPMS 的替代品：Process Engine 仍然在 Integration Server 里运行，人工任务仍然在 My webMethods Server 上。长时间、以人为中心的流程留在 BPMS，以集成为主的工作交给 IWHI，绝不把 IWHI 说成必须迁移的去处。承诺「一个界面看全部」之前，先问 IBM：BPMS 的流程和任务状态能不能在控制平面里看到。" },
+        practice: "和 IBM 团队沟通时用新名字 IBM Integration。把它看成套在现有 webMethods 环境外面的一层，而不是 BPMS 的替代品：Process Engine 仍然在 Integration Server 里运行，人工任务仍然在 My webMethods Server 上。长时间、以人为中心的流程留在 BPMS，以集成为主的工作交给 IWHI，绝不把 IWHI 说成必须迁移的去处。承诺「一个界面看全部」之前，先问 IBM：BPMS 的流程和任务状态能不能在控制平面里看到。" },
+      agents: { title: "IBM 各流程产品里的 agent 与人工任务",
+        summary: "IBM 好几个产品已经能让 AI agent 发起工作，同时让人留在环节里。webMethods BPM 目前有任务 API，但没有公布 MCP 接口。",
+        facts: [
+          "watsonx Orchestrate 2026 年 3 月的版本给流程里的表单加了人员选择器，可以把任务指派给具体同事，还加了日期字段和校验规则；IBM 举的用途包括文件审阅和跨部门审批。",
+          "IBM Business Automation Workflow 26.0.0.0（2026 年 7 月）让 AI agent 通过标准的 MCP 接口发现、发起和管理流程、案例和任务。",
+          "Cloud Pak for Business Automation 25.0.1（2025 年 12 月）为各项能力（包括流程、内容和决策）运行符合 MCP 的本地服务器，并让流程能直接调用 watsonx Orchestrate 的 agent。",
+          "webMethods Integration（SaaS，2026 年 6 月）把工作流和 flow 服务通过 Streamable HTTP 开放成 MCP 工具；开放成工具的服务可以停用、再启用。",
+          "在 webMethods BPM 12.1 里，Task Engine 的 Web 服务 API 让客户端程序新增、删除、查找和更新任务。本站核对过的 IBM 12.1 文档和公告里，没有面向 BPM 流程或任务的 MCP 接口（2026 年 11 月 17 日核对）。"
+        ],
+        practice: "想让 agent 今天就能用现有的 BPMS 流程：把发起流程和 Task Engine 的操作做成服务，通过集成层发布成工具，人仍然在原来的收件箱里处理。让规则做决定，转人工的交给人，并记下规则版本，做法同下面的设计清单。" },
       checklist: { title: "实践者的设计清单",
         summary: "十条检查，都来自产品真实的运行方式。",
         facts: [

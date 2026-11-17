@@ -107,7 +107,7 @@
 - **六个动手小步骤**，面向大众：有无 BPMS 的对比、每项工作该由谁负责、用规则手册管住 AI agent（见[从这里开始：面向大众的互动讲解](#从这里开始面向大众的互动讲解)）。
 
 ### 学：附出处的知识库和示意图
-共 **10 个主题、62 条事实**，每条都链接到 IBM 或 Software AG 的公开文档，每个主题后附一段实践建议：
+共 **11 个主题、72 条事实**，每条都链接到 IBM 或 Software AG 的公开文档，每个主题后附一段实践建议：
 
 | 主题 | 学到什么 |
 | --- | --- |
@@ -118,8 +118,9 @@
 | webMethods Business Rules | 规则项目、规则集、决策表、决策树、事件规则；Data/Service/Process 动作；部署到 Integration Server 和 My webMethods Server |
 | 规则引擎配置与 Rule Task | 规则引擎在哪里运行（WmBusinessRules），以及如何指向远程 Integration Server（`businessrulesruntime` 别名）；如何配置 Rule Task、Process Aware 决策表、规则动作与日志级别、事件规则与 JMS 触发器、热部署及其服务器连接 |
 | Monitor、重新提交与 Optimize | Monitor 在哪里、如何重新提交失败或已完成的实例（Resubmit Closest / Earliest、修改 pipeline）、需要哪些权限、Optimize 的 KPI 与流程分析 |
-| 从 10.15 升级 | 新旧版本并行安装：Database Component Configurator、迁移工具或 Command Central、保留进行中的实例、模型升版本号、升级后检查 |
-| webMethods 与 IBM webMethods Hybrid Integration（IWHI） | IWHI 是什么（2025 年 5 月发布）、混合控制平面管理哪些运行时、按用量计费，以及为什么 BPMS 继续留在 webMethods 环境里而不是迁走 |
+| 从 10.15 升级 | 新旧版本并行安装：Database Component Configurator、迁移工具或 Command Central、保留进行中的实例、模型升版本号、升级后检查；12.1 升级前分析工具覆盖和不覆盖什么；升级后的许可证密钥与计量 |
+| IBM Integration（原 webMethods Hybrid Integration，IWHI） | 它是什么（2025 年 5 月发布，2026 年改名 IBM Integration）、混合控制平面管理哪些运行时、怎么卖、六组能力（其中没有 BPM）、REST API 变成 MCP 工具，以及为什么 BPMS 继续留在 webMethods 环境里而不是迁走 |
+| IBM 各流程产品里的 agent 与人工任务 | watsonx Orchestrate 流程里的人工任务、Business Automation Workflow 26.0 通过 MCP 开放流程/案例/任务、Cloud Pak for Business Automation 的 MCP 服务器、webMethods Integration 的 MCP 工具，以及 BPM 12.1 的 Task Engine API 目前能做什么 |
 | 实践设计清单 | 设计评审和升级时用的十项检查 |
 
 **面向受监管行业的控制**：七项控制，每项写明监管期望、BPMS 与规则如何实现（附产品文档出处），以及审计时能看到的证据。法规说明涵盖 SR 11-7、OSFI E-23（2027 年 5 月 1 日生效）、欧盟 AI 法案附件三及第 12、14 条、GDPR 第 22 条、NAIC 的 AI 示范公告和 DORA（2025 年 1 月 17 日起适用），全部引用监管机构原文。仅为教育性对照，不构成法律或合规建议。
@@ -182,7 +183,7 @@
 | 2 | **10 分钟速成**（10-minute course） | 5 步、5 张图、3 道题 | 完全零基础，10 分钟看懂 IBM webMethods BPMS |
 | 3 | **基础 101**（Basics 101） | 7 节小课，每节配图和一道题 | 零基础讲清每个流程平台背后的概念，再对应到 IBM webMethods 的名字 |
 | 4 | **概览**（Overview） | 阅读 + 产品家族表 | 核心理念，以及 IBM webMethods 一览（9 个组件） |
-| 5 | **知识库**（Knowledge base） | 附出处的参考 + 互动图 | 10 个主题、62 条事实，讲清产品实际怎么运作 |
+| 5 | **知识库**（Knowledge base） | 附出处的参考 + 互动图 | 11 个主题、72 条事实，讲清产品实际怎么运作 |
 | 6 | **合规控制**（Controls） | 控制对照表 + 法规说明 | 面向银行和保险：七项控制、对应的监管框架（SR 11-7、OSFI E-23、欧盟 AI 法案、GDPR 第 22 条、NAIC、DORA）以及 BPMS 能提供的证据 |
 | 7 | **如何使用**（How to use） | 角色教程、速查卡、自测、演示脚本 | 四类角色的日常操作，以及如何给客户演示 |
 | 8 | **动手实验**（Hands-on lab） | 30 分钟练习，带进度记录 | 构建、启用、运行并监控你的第一个流程 |
