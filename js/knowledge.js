@@ -9,7 +9,7 @@ window.KNOWLEDGE = {
     ["Business Rules", "Decision tables, decision trees and event rules authored in Designer and deployed to Integration Server."],
     ["Universal Messaging", "Messaging layer the Process Engine can use as its JMS provider for process transitions; Broker is deprecated."],
     ["Monitor / Optimize", "Instance monitoring and resubmission; KPIs and business activity monitoring."],
-    ["webMethods Hybrid Integration", "IBM's hybrid control plane and licence that brings the webMethods runtimes together with other IBM integration products; BPMS stays a self-managed runtime within the estate."]
+    ["IBM Integration (formerly webMethods Hybrid Integration)", "IBM's hybrid control plane and licence that brings the webMethods runtimes together with other IBM integration products; BPMS stays a self-managed runtime within the estate."]
   ],
 
   topics: [
@@ -119,25 +119,43 @@ window.KNOWLEDGE = {
         "You install the new release, migrate database components with Database Component Configurator, then migrate product configuration, data and assets with the migration utilities or Command Central.",
         "Migrate the ProcessEngine and ProcessAudit database components if you want to finish in-progress instances, or resubmit completed or failed ones, in the new installation.",
         "For a process model with running instances, raise its version number before regenerating it in the new Designer; when you enable the new version in My webMethods and are asked whether to upgrade running processes, answer No.",
-        "After migrating, connect the ProcessEngine and ProcessAudit functions to their database components (Integration Server Administrator > Settings > JDBC Pools), reload the WmMonitor package, and make sure document retrieval is enabled for all webMethods Messaging triggers."
+        "After migrating, connect the ProcessEngine and ProcessAudit functions to their database components (Integration Server Administrator > Settings > JDBC Pools), reload the WmMonitor package, and make sure document retrieval is enabled for all webMethods Messaging triggers.",
+        "The Integration Server Pre-Upgrade Analyzer for 12.1 (July 2026) reports on custom packages, custom Java services and dependencies on changed or deprecated built-in services. It is provided as is, without support, and does not cover Process Engine, Task Engine, My webMethods Server or CAF assets.",
+        "From 11.1 and 12.1, IBM removed license keys from most webMethods products; the installer and Update Manager check your entitlement with your IBMid and an entitlement key.",
+        "For metered (transaction-based) contracts, 10.x keeps the transaction time defined in the last Software AG contract (3 seconds if none was defined) until you upgrade; 11.x and later always count 60 seconds as one transaction."
       ],
-      practice: "Rehearse on a copy of production first. Inventory in-flight instances and decide which must finish on the old release; plan rule projects, task applications and Monitor privileges together with the process models.",
-      sources: [37, 38, 39, 40, 3]
+      practice: "Rehearse on a copy of production first. Inventory in-flight instances and decide which must finish on the old release; plan rule projects, task applications and Monitor privileges together with the process models. The public analyzer only sizes the Integration Server part, so estimate the BPM part (process models, running instances, task applications, My webMethods pages) yourself, and confirm with IBM what your contract type means after the move.",
+      sources: [37, 38, 39, 40, 3, 46, 47, 48]
     },
     {
-      id: "iwhi", reviewed: "2026-11-17", title: "webMethods and IBM webMethods Hybrid Integration (IWHI)",
-      summary: "IWHI is IBM's newer integration offering with one hybrid control plane. It brings runtimes together under central management; BPMS keeps running in the webMethods estate it manages.",
+      id: "iwhi", reviewed: "2026-11-17", title: "IBM Integration (formerly webMethods Hybrid Integration, IWHI)",
+      summary: "IWHI, now sold as IBM Integration, is IBM's integration offering with one hybrid control plane. It brings runtimes together under central management; BPMS keeps running in the webMethods estate it manages.",
       facts: [
         "IBM announced webMethods Hybrid Integration at IBM Think on 6 May 2025, with general availability in June 2025.",
         "IBM positions it as one integration offering across on-premises and multicloud landscapes, with a hybrid control plane for centralized management, troubleshooting, governance and authentication.",
         "The hybrid control plane covers IBM, third-party and hybrid runtimes, naming App Connect, API Connect, webMethods and IBM MQ, on premises, multicloud or at the edge, SaaS or self-managed.",
         "It monitors APIs, events, messaging and integrations end to end; MQ transactions can be traced on the control plane.",
         "Self-managed webMethods Integration Server runtimes can be registered with the hybrid control plane and managed remotely from it.",
-        "IWHI uses transaction-based, consumption pricing, so customers pay for actual usage.",
+        "IBM now sells it as IBM Integration, described as formerly IBM webMethods Hybrid Integration and IBM Cloud Pak for Integration: IBM Integration SaaS with usage-based credits, or IBM Integration Software, self-managed, with entitlement-based licensing (a capacity offering, 16.2.1 since August 2026, and a consumption offering).",
+        "The IBM Integration product page groups its capabilities in six areas: AI gateway, application integration, B2B integration, events and messaging, file and data transfer, and API management. BPM is not one of them; webMethods BPM 12.1 remains a separate product.",
+        "IBM's July 2026 announcement adds that existing REST APIs can be exposed as Model Context Protocol (MCP) tools without rewriting business logic, with IBM DataPower Interact Gateway as a control point between agents, models and tools.",
         "The announcement also adds an AI Gateway and lays foundations for the Model Context Protocol (MCP); neither the announcement nor the control-plane page mentions BPM, process instances or human tasks."
       ],
-      practice: "Treat IWHI as a layer around the existing webMethods estate, not a replacement for BPMS: the Process Engine still runs inside Integration Server and human tasks on My webMethods Server. Keep long-running, human-centric processes in BPMS, send integration-centric work to IWHI, and never present IWHI as a forced migration. Before promising one view of everything, ask IBM whether BPMS process and task status shows in the control plane.",
-      sources: [19, 41, 42]
+      practice: "Use the new name, IBM Integration, with IBM teams. Treat it as a layer around the existing webMethods estate, not a replacement for BPMS: the Process Engine still runs inside Integration Server and human tasks on My webMethods Server. Keep long-running, human-centric processes in BPMS, send integration-centric work to IWHI, and never present IWHI as a forced migration. Before promising one view of everything, ask IBM whether BPMS process and task status shows in the control plane.",
+      sources: [19, 41, 42, 43, 44, 45]
+    },
+    {
+      id: "agents", reviewed: "2026-11-17", title: "Agents and human tasks across IBM's process products",
+      summary: "Several IBM products now let AI agents start work and keep a person in the loop. webMethods BPM offers a task API today but no announced MCP interface.",
+      facts: [
+        "watsonx Orchestrate's March 2026 release added user pickers to forms in flows, so a task can be assigned to named colleagues, plus date fields and validation rules; IBM names document review and cross-functional approvals as uses.",
+        "IBM Business Automation Workflow 26.0.0.0 (July 2026) lets AI agents discover, start and manage workflows, cases and tasks through standardized MCP interfaces.",
+        "Cloud Pak for Business Automation 25.0.1 (December 2025) runs MCP-compliant local servers for its capabilities, including workflow, content and decisions, and lets workflows invoke watsonx Orchestrate agents natively.",
+        "webMethods Integration (SaaS, June 2026) exposes workflows and flow services as MCP tools over Streamable HTTP; a service exposed as a tool can be disabled and re-enabled.",
+        "In webMethods BPM 12.1, the Task Engine web-service API lets a client program add, delete, locate and update tasks. The IBM 12.1 documentation and announcements reviewed for this site describe no MCP interface for BPM processes or tasks (checked 17 Nov 2026)."
+      ],
+      practice: "To let an agent work with an existing BPMS process today, expose process start and the Task Engine operations as services, publish them as tools through the integration layer, and keep the person in the existing inbox. Let rules decide, route referrals to a person, and log the rule version, as in the checklist below.",
+      sources: [49, 50, 51, 52, 53]
     },
     {
       id: "checklist", title: "Practitioner design checklist",
@@ -232,7 +250,18 @@ window.KNOWLEDGE = {
     39: ["Complete the business process upgrade (10.15)", "https://documentation.softwareag.com/webmethods/wmsuites/wmsuite10-15/webhelp/mig-webhelp/mig-webhelp/to-migrate_designer_busprocruntime_13.html"],
     40: ["Upgrade using Command Central (10.15)", "https://documentation.softwareag.com/webmethods/wmsuites/wmsuite10-15/webhelp/mig-webhelp/mig-webhelp/to-command_central_8.html"],
     41: ["A single control plane for every runtime, everywhere (IBM)", "https://www.ibm.com/products/webmethods-hybrid-integration/webmethods-hybrid-control-plane"],
-    42: ["IBM webMethods Hybrid Integration documentation: managing Integration Server runtimes (IBM Docs)", "https://www.ibm.com/docs/en/hybrid-integration/saas"]
+    42: ["IBM webMethods Hybrid Integration documentation: managing Integration Server runtimes (IBM Docs)", "https://www.ibm.com/docs/en/hybrid-integration/saas"],
+    43: ["IBM Integration (formerly IBM webMethods Hybrid Integration and Cloud Pak for Integration), product page (IBM)", "https://www.ibm.com/products/webmethods-hybrid-integration"],
+    44: ["IBM webMethods Hybrid Integration: from connectivity to control in the AI era (IBM, Jul 2026)", "https://www.ibm.com/new/announcements/ibm-webmethods-hybrid-integration-from-connectivity-to-control-in-the-ai-era"],
+    45: ["Announcing IBM Integration Software Capacity 16.2.1 (IBM product manager blog, Aug 2026)", "https://leifdavidsen.wordpress.com/2026/08/25/announcing-ibm-integration-software-capacity-16-2-1-a-simple-and-non-disruptive-next-step-and-new-release-for-cloud-pak-for-integration-customers/"],
+    46: ["Integration Server Pre-Upgrade Analyzer 12.1 (IBM community)", "https://community.ibm.com/community/user/question/integration-server-pre-upgrade-analyzer-121"],
+    47: ["License files for IS, TN and Terracotta for 12.1 (IBM Support)", "https://www.ibm.com/support/pages/node/7284828"],
+    48: ["Product offering details for existing webMethods customers (IBM community)", "https://community.ibm.com/community/user/blogs/marianne-fuller/2024/11/20/webmethods-product-offering-details"],
+    49: ["What's new in IBM watsonx Orchestrate, March 2026 (IBM community)", "https://community.ibm.com/community/user/blogs/alan-francis-cheeramvelil/2026/04/12/orchestrate-more-worry-less-whats-new-in-ibm-watso"],
+    50: ["Product release: IBM Business Automation Workflow 26.0.0.0 (IBM community)", "https://community.ibm.com/community/user/blogs/aliannah-muzaffar/2026/07/29/product-release-ibm-business-automation-workflow"],
+    51: ["Cloud Pak for Business Automation 25.0.1 (IBM community)", "https://community.ibm.com/community/user/blogs/shipra-shaw/2025/12/11/cloud-pak-for-business-automation-2501"],
+    52: ["webMethods Integration: what's new (IBM Docs)", "https://www.ibm.com/docs/en/SSGOVO/pembroke_cumulative_whats_new.html"],
+    53: ["Using the Task Engine Web Service API (webMethods BPM 12.1, IBM Docs)", "https://www.ibm.com/docs/en/webmethods-bpm/wte/12.1.0?topic=reference-using-task-engine-web-service-api"]
   }
 };
 
