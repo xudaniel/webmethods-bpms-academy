@@ -111,7 +111,7 @@ No prior webMethods experience is needed.
 
 | Topic | What you learn |
 | --- | --- |
-| Releases and lifecycle | 10.15 (GA Oct 2022; end of maintenance Oct 2027, end of support Oct 2028; last release on AIX and z/Linux), 11.1 (Sep 2024), 12.1 (Java 21, Jakarta EE 10, FIPS 140-3, containers) |
+| Releases and lifecycle | 10.15 (GA Oct 2022; end of support 31 Oct 2027, paid extended support to Oct 2028 and Oct 2030; last release on AIX and z/Linux), 11.1 (Sep 2024), 12.1 (Java 21, Jakarta EE 10, FIPS 140-3, containers) |
 | Process Engine runtime and quality of service | Transition documents; the speed-versus-guarantee trade-off; **Optimize Locally** (on by default), **Volatile Transition Documents** (on), **Volatile Tracking** (off); Universal Messaging as JMS provider; Broker deprecated |
 | Execution history and audit | Process Engine DB versus Process Audit DB (`PRA_*` tables), logging levels, where task history lives in 10.15 |
 | Task Engine and human work | Inboxes on My webMethods Server, `getTaskAudit`, task archiving |
@@ -391,9 +391,9 @@ Summarised from public sources (2026). See the Market page for details.
 | Date | Event |
 | --- | --- |
 | 18 Oct 2022 | webMethods 10.15 general availability |
-| Oct 2027 | webMethods 10.15 end of maintenance (last release supporting AIX and z/Linux) |
+| 31 Oct 2027 | webMethods 10.15 end of support (last release supporting AIX and z/Linux) |
 | 2 Dec 2027 | EU AI Act obligations for Annex III high-risk systems (e.g. credit scoring) |
-| Oct 2028 | webMethods 10.15 end of support |
+| 31 Oct 2028 | webMethods 10.15 initial extended support ends (ongoing extended support, usage and known defects only, to 31 Oct 2030) |
 
 ## Getting started
 

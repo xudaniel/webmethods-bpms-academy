@@ -14,11 +14,11 @@ window.KNOWLEDGE = {
 
   topics: [
     {
-      id: "releases", reviewed: "2026-11-15", title: "Releases and lifecycle",
+      id: "releases", reviewed: "2026-11-17", title: "Releases and lifecycle",
       summary: "Three releases matter for most estates today: 10.15 (the long-term on-premises release), 11.1 and 12.1.",
       facts: [
         "webMethods 10.15 became generally available on 18 Oct 2022.",
-        "10.15 end of maintenance is Oct 2027 and end of support Oct 2028; 10.15 is the last release supported on AIX and z/Linux.",
+        "10.15 reaches end of support on 31 Oct 2027. Paid extended support runs to 31 Oct 2028 (initial) and 31 Oct 2030 (ongoing, usage and known defects only). 10.15 is the last release supported on AIX and z/Linux.",
         "IBM webMethods 11.1 release notes were published in September 2024 and include an IBM webMethods BPM section.",
         "IBM webMethods Integration 12.1 moves to a newer runtime based on Java 21 and Jakarta EE 10, adds FIPS 140-3 support and is easier to run in containers.",
         "12.1 is aimed mainly at self-managed, on-premises, container and hybrid deployments; SaaS follows IBM's continuous-delivery model instead."
@@ -112,8 +112,8 @@ window.KNOWLEDGE = {
       sources: [30, 31, 32, 33, 34, 35, 36]
     },
     {
-      id: "upgrade", reviewed: "2026-11-16", title: "Upgrading from 10.15",
-      summary: "10.15 reaches end of maintenance in Oct 2027. An upgrade installs the new release side by side, then migrates databases, configuration and process models.",
+      id: "upgrade", reviewed: "2026-11-17", title: "Upgrading from 10.15",
+      summary: "10.15 reaches end of support on 31 Oct 2027. An upgrade installs the new release side by side, then migrates databases, configuration and process models.",
       facts: [
         "The webMethods upgrade guide for 10.15 states that it applies to the 10.15 Migration Framework and all later releases; check the guide for your target release for any changes.",
         "You install the new release, migrate database components with Database Component Configurator, then migrate product configuration, data and assets with the migration utilities or Command Central.",

@@ -19,6 +19,7 @@ Versions follow [Semantic Versioning](https://semver.org/).
 - 🌐 **中文版, batch 2** (#68): the knowledge base (9 topics, quality-of-service widget), the four role guides, cheat sheets and self-checks, the customer demo script, the hands-on lab, all 16 troubleshooting entries and the workshop plan are in Simplified Chinese, with their diagrams. Menu paths stay in English to match the product.
 
 ### Fixed
+- Lifecycle wording (#83): IBM's webMethods 10.x lifecycle page (updated 4 Nov 2026) gives 10.15 end of support on 31 Oct 2027, with paid extended support to 31 Oct 2028 and 31 Oct 2030. The knowledge base, lifecycle table, timeline, quiz, glossary, executive briefs, reading-version figure and READMEs now say this instead of "end of maintenance Oct 2027, end of support Oct 2028" (English and 中文).
 - Reading version: the how-to guides, lab stages and cheat sheets were numbered 4.x, 5.x and 7.x; they now take their chapter number (6, 7 and 9) from the heading.
 - The Chinese text now credits the author as Daniel Yuanpeng Xu, like the English.
 - The workshop print list pointed to "section 5" of the reading version for the lab sheet; the lab is chapter 7.

@@ -127,15 +127,16 @@ window.ACADEMY = {
     ["BOAT", "Business Orchestration and Automation Technologies, Gartner's category for platforms that combine process orchestration, connectivity and agentic features."],
     ["MCP", "Model Context Protocol, an open protocol for exposing tools and data to AI agents."],
     ["Human-in-the-loop", "Design where a person reviews or approves an automated or agent action."],
-    ["EOM / EOS", "End of Maintenance / End of Support dates in a product lifecycle."],
+    ["EOM / EOS", "End of Maintenance / End of Support dates in a product lifecycle. IBM's webMethods lifecycle page lists an End of Support date, followed by paid extended support."],
     ["Hot Deploy", "Push an updated rule project to Integration Server without redeploying the process."],
     ["Process Aware", "Decision table flag required when the rule contains a manual decision / task action."]
   ],
 
   lifecycleDates: [
     ["webMethods 10.15 GA", "18 Oct 2022"],
-    ["10.15 End of Maintenance", "Oct 2027"],
-    ["10.15 End of Support", "Oct 2028"],
+    ["10.15 End of Support", "31 Oct 2027"],
+    ["10.15 initial extended support ends", "31 Oct 2028"],
+    ["10.15 ongoing extended support ends (usage and known defects only)", "31 Oct 2030"],
     ["Last release with AIX and z/Linux support", "10.15"]
   ],
 
@@ -173,8 +174,8 @@ window.ACADEMY = {
       e: "A parallel (AND) gateway activates every outgoing path." },
     { q: "In the 'agent proposes, rules decide' pattern, who makes the final policy decision?", a: ["The agent", "The rules engine (e.g. ODM), with escalation to a person", "The BPMN diagram", "Nobody"], c: 1,
       e: "The agent proposes; deterministic rules decide; the process executes or escalates." },
-    { q: "When does webMethods 10.15 reach End of Maintenance?", a: ["Oct 2025", "Oct 2027", "Oct 2030", "It has no end date"], c: 1,
-      e: "EOM is Oct 2027 and EOS Oct 2028." },
+    { q: "When does standard support for webMethods 10.15 end?", a: ["Oct 2025", "Oct 2027", "Oct 2030", "It has no end date"], c: 1,
+      e: "End of support is 31 Oct 2027; paid extended support runs to Oct 2028 and Oct 2030." },
     { q: "From when do EU AI Act obligations apply to Annex III high-risk systems such as credit scoring?", a: ["2 Aug 2025", "2 Dec 2026", "2 Dec 2027", "2 Aug 2030"], c: 2,
       e: "The Digital Omnibus moved Annex III obligations to 2 Dec 2027." },
     { q: "In the Agent Scan Lab, a user task whose outcome is the same for the same inputs 95% of the time is best treated as…", a: ["An agent candidate", "A rule candidate", "Keep human", "An integration fix"], c: 1,

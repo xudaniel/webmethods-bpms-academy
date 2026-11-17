@@ -28,7 +28,7 @@
         ["1 May 2027", "OSFI Guideline E-23 (Model Risk Management) takes effect for all federally regulated financial institutions in Canada.", "e23"],
         ["17 Jan 2025", "DORA has applied to EU financial entities since this date: ICT risk, incident management, testing and third-party risk.", "dora"],
         ["Ongoing", "EU AI Act: creditworthiness assessment and credit scoring of natural persons are listed as high-risk (Annex III 5(b)). Check current application dates on the official site.", "aiact"],
-        ["Oct 2027", "webMethods 10.15 reaches end of maintenance (end of support Oct 2028): the natural moment to modernise.", "life"]
+        ["31 Oct 2027", "webMethods 10.15 reaches end of support (paid extended support runs to Oct 2028 and Oct 2030): the natural moment to modernise.", "life"]
       ]
     },
     insurance: {
@@ -44,7 +44,7 @@
         ["4 Dec 2023", "NAIC adopted its Model Bulletin on the Use of AI Systems by Insurers; it applies as each state adopts it.", "naic"],
         ["1 May 2027", "OSFI Guideline E-23 takes effect for all federally regulated financial institutions in Canada, including insurers.", "e23"],
         ["Ongoing", "EU AI Act: risk assessment and pricing for natural persons in life and health insurance are listed as high-risk (Annex III 5(c)). Check current application dates on the official site.", "aiact"],
-        ["Oct 2027", "webMethods 10.15 reaches end of maintenance (end of support Oct 2028).", "life"]
+        ["31 Oct 2027", "webMethods 10.15 reaches end of support (paid extended support runs to Oct 2028 and Oct 2030).", "life"]
       ]
     }
   };
