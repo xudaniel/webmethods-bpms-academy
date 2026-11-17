@@ -3,7 +3,7 @@
 // 方便读者对照真实产品和 IBM 官方文档。
 (function (Z) {
   Z.title = "IBM webMethods BPMS 学院：互动课程";
-  Z.description = "徐远鹏（Daniel Yuanpeng Xu）制作的独立互动课程和带出处的知识库，讲解 IBM webMethods BPMS（Process Engine、Task Engine、Business Rules）：架构、BPMN、决策自动化、AI agent 时代的模式和市场背景，只用公开资料。";
+  Z.description = "Daniel Yuanpeng Xu 制作的独立互动课程和带出处的知识库，讲解 IBM webMethods BPMS（Process Engine、Task Engine、Business Rules）：架构、BPMN、决策自动化、AI agent 时代的模式和市场背景，只用公开资料。";
 
   // 已翻译完的栏目；其余栏目会显示「正在翻译」提示
   Z.done = ["start", "crash", "basics"];
@@ -18,11 +18,11 @@
   Z.page = {
     h1: "IBM webMethods BPMS 学院",
     tagline: "一个带出处的知识库加互动课程，讲解 IBM webMethods BPMS：Process Engine（流程引擎）、Task Engine（任务引擎）、Business Rules（业务规则）、BPMN，以及 AI agent 时代的设计模式。只用公开资料。",
-    byread: '作者：徐远鹏（Daniel Yuanpeng Xu）· <a href="read.html" style="color:#fff">只想安静阅读？打开阅读版 →</a>',
+    byread: '作者：Daniel Yuanpeng Xu· <a href="read.html" style="color:#fff">只想安静阅读？打开阅读版 →</a>',
     "s.h2": "这是什么？为什么值得关心？",
     "s.lead": "每个组织都在跑流程：审批、理赔、入职、货运异常处理。<strong>BPMS</strong>（业务流程管理套件）就是让这些流程「在轨道上运行」的软件：它分派工作、执行规则、把任务送到对的人面前，并记录发生过的每一件事。现在 AI agent 来了，而它们需要的正是这样的轨道。下面六个动手小步骤会告诉你为什么。",
     "s.cta": "⚡ 什么都不会？先上 10 分钟速成",
-    "s.byline": "作者 <strong>徐远鹏（Daniel Yuanpeng Xu）</strong>，做过业务流程和决策自动化产品的产品经理。标有 <span class=\"pill\">作者观点</span> 的部分是个人看法，不代表任何雇主或厂商的立场。",
+    "s.byline": "作者 <strong>Daniel Yuanpeng Xu</strong>，做过业务流程和决策自动化产品的产品经理。标有 <span class=\"pill\">作者观点</span> 的部分是个人看法，不代表任何雇主或厂商的立场。",
     "p.h3": "👋 你是谁？领一条属于你的路线",
     "p.p": "选一个身份。你只需要走 3 到 5 步，不用把 17 个栏目全看完；每走完一步会自动打勾。",
     "p.aria": "选择你的身份",

@@ -362,7 +362,7 @@
     ui: { shown: (n, m) => `显示 ${n} / ${m} 个问题`, checkFirst: "先查这些", fix: "解决办法：", source: "来源：",
       none: "没有找到。换个词试试，或者<a href=\"https://github.com/Xudaniel/webmethods-bpms-academy/issues/new\" target=\"_blank\" rel=\"noopener\">请我们加一条</a>。",
       cheat: (r) => `${r}速查卡`, golden: "黄金法则", printBtn: "打印这张速查卡", checkYou: (r) => `自测：${r}`, right: "答对了。", notQuite: "还差一点。",
-      byline: "IBM webMethods BPMS 学院 · 作者 徐远鹏（Daniel Yuanpeng Xu）· xudaniel.github.io/webmethods-bpms-academy · 独立课程，与 IBM 无隶属关系",
+      byline: "IBM webMethods BPMS 学院 · 作者 Daniel Yuanpeng Xu· xudaniel.github.io/webmethods-bpms-academy · 独立课程，与 IBM 无隶属关系",
       time: "时间", min: "分钟", module: "模块", how: "怎么上", total: "分钟合计" }
   };
 

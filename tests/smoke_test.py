@@ -620,6 +620,34 @@ async def main():
         if await zp.evaluate("document.documentElement.lang") != "en" or (await zp.inner_text("nav button[data-section='start']")) != "Start here":
             failures.append("zh: switching back to English failed")
         await zctx.close()
+        # 中文版 batch 4: a Chinese browser opens in Chinese; reading version and executive briefs are translated
+        cctx = await browser.new_context(viewport={"width": 390, "height": 844}, locale="zh-CN")
+        cp = await cctx.new_page()
+        cp.on("pageerror", lambda e: errors.append("zh read: " + str(e)))
+        await cp.goto("http://127.0.0.1:8765/read.html")
+        await cp.wait_for_timeout(600)
+        if await cp.evaluate("document.documentElement.lang") != "zh-CN":
+            failures.append("zh: a Chinese-language browser should open in Chinese")
+        if not (await cp.inner_text("#r-why h2")).startswith("1. 为什么值得关心") or "目录" not in await cp.inner_text("nav.toc"):
+            failures.append("zh: reading version headings not translated")
+        if not (await cp.inner_text("#r-roles h3 >> nth=0")).startswith("6.1") or not (await cp.inner_text("#r-lab-stages h3 >> nth=0")).startswith("7.1") or not (await cp.inner_text("#r-ch h3 >> nth=0")).startswith("9.1"):
+            failures.append("read.html sub-sections should follow their chapter numbers")
+        if "答案" not in await cp.inner_text("#r-basics") or "没有 BPMS" not in await cp.inner_text("#r-story") or "转人工" not in await cp.inner_text("#r-guard-table"):
+            failures.append("zh: reading version body not translated")
+        if await cp.locator('#r-kb figure[data-dg="qos"], #r-roles figure[data-dg="task-lifecycle"], #r-roles figure[data-dg="instance-states"]').count() != 3:
+            failures.append("zh: reading version diagrams should still find their topics")
+        if "我该读哪几章" not in await cp.inner_text("#r-why") or "执行数据的三个存储" not in await cp.inner_html("#r-history"):
+            failures.append("zh: reading version map table or figures not translated")
+        await cp.goto("http://127.0.0.1:8765/brief.html")
+        await cp.wait_for_timeout(400)
+        if "银行的流程和决策自动化" not in await cp.inner_text("#banking") or "最重要的管控" not in await cp.inner_text("#insurance") or await cp.locator("#banking tr").count() != 6:
+            failures.append("zh: executive briefs not translated")
+        await cp.click("#lang-toggle")
+        await cp.wait_for_timeout(500)
+        await cp.goto("http://127.0.0.1:8765/read.html")
+        if await cp.evaluate("document.documentElement.lang") != "en":
+            failures.append("zh: choosing English should win over the browser language")
+        await cctx.close()
         await browser.close()
     srv.shutdown()
     # Diagram images referenced by knowledge topics must exist (missing ones are hidden on the page, but reported here)

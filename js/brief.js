@@ -4,7 +4,14 @@
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const fw = (id) => C.frameworks.find((f) => f.id === id);
   const row = (id) => C.rows.find((r) => r.id === id);
-  const checked = new Date(C.checked + "T12:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+  // 中文 (#68): the control rows are translated in place by controls.js; brief text comes from ZH.briefs
+  const ZB = window.LANG === "zh" && window.ZH && window.ZH.briefs;
+  const checked = new Date(C.checked + "T12:00:00").toLocaleDateString(ZB ? "zh-CN" : "en-GB", { day: "numeric", month: ZB ? "long" : "short", year: "numeric" });
+  const U = ZB ? ZB.ui : { sub: (d) => `One-page brief · IBM webMethods BPMS and Business Rules · public sources only · prepared by Daniel Yuanpeng Xu · sources checked ${d}`,
+    problem: "The problem", view: "Author's view", helps: "Where process plus rules help", controls: "Controls that matter", control: "Control",
+    askedBy: "Asked for by", evidence: "Evidence the platform produces", dates: "Dates on the horizon", sources: "Sources", practice: "common practice",
+    fig: "Where each part runs: Designer, Integration Server (Process Engine, Business Rules), the two databases, and My webMethods Server (Task Engine, Monitor).",
+    foot: "Educational material, not legal, compliance or investment advice. Independent learning resource; not affiliated with or endorsed by IBM. Product names are trademarks of their owners.\n        Full detail: xudaniel.github.io/webmethods-bpms-academy (Controls section)." };
   const LIFECYCLE = ["webMethods support lifecycle (IBM)", "https://www.ibm.com/support/pages/node/7180543"];
 
   const BRIEFS = {
@@ -42,30 +49,35 @@
     }
   };
 
+  // Chinese text keeps the English ids (controls, framework refs), so only the words change
+  if (ZB) Object.keys(BRIEFS).forEach((k) => {
+    const b = BRIEFS[k], z = ZB[k];
+    Object.assign(b, { title: z.title, problem: z.problem, helps: z.helps, dates: b.dates.map((d, i) => [z.dates[i][0], z.dates[i][1], d[2]]) });
+  });
+
   Object.entries(BRIEFS).forEach(([key, b]) => {
     const refs = [], ref = (t, u) => { let i = refs.findIndex((r) => r[1] === u); if (i < 0) { refs.push([t, u]); i = refs.length - 1; } return `<sup>[${i + 1}]</sup>`; };
     const fwRef = (id) => id === "life" ? ref(LIFECYCLE[0], LIFECYCLE[1]) : ref(fw(id).src, fw(id).url);
     const ctlRows = b.controls.map((id) => {
       const r = row(id);
-      const asks = r.ask.map((a) => a === "practice" ? "common practice" : fw(a).name + fwRef(a)).join(", ");
+      const asks = r.ask.map((a) => a === "practice" ? U.practice : fw(a).name + fwRef(a)).join(", ");
       return `<tr><td><strong>${esc(r.control)}</strong></td><td>${asks}</td><td>${esc(r.evidence)}${ref(r.src[0][0], r.src[0][1])}</td></tr>`;
     }).join("");
-    const fig = G && G.D["arch-map"] ? `<figure>${G.D["arch-map"].draw(false)}<figcaption>Where each part runs: Designer, Integration Server (Process Engine, Business Rules), the two databases, and My webMethods Server (Task Engine, Monitor).</figcaption></figure>` : "";
+    const fig = G && G.D["arch-map"] ? `<figure>${G.tr(G.D["arch-map"].draw(false))}<figcaption>${U.fig}</figcaption></figure>` : "";
     document.getElementById(key).innerHTML = `
       <h1>${esc(b.title)}</h1>
-      <p class="sub">One-page brief · IBM webMethods BPMS and Business Rules · public sources only · prepared by Daniel Yuanpeng Xu · sources checked ${checked}</p>
+      <p class="sub">${U.sub(checked)}</p>
       <div class="brief-grid"><div>
-        <h2>The problem <span class="tag">Author's view</span></h2><p>${esc(b.problem)}</p>
-        <h2>Where process plus rules help <span class="tag">Author's view</span></h2>
-        <ul>${b.helps.map(([t, d]) => `<li><strong>${esc(t)}:</strong> ${esc(d)}</li>`).join("")}</ul>
+        <h2>${U.problem} <span class="tag">${U.view}</span></h2><p>${esc(b.problem)}</p>
+        <h2>${U.helps} <span class="tag">${U.view}</span></h2>
+        <ul>${b.helps.map(([t, d]) => `<li><strong>${esc(t)}${ZB ? "：" : ":"}</strong> ${esc(d)}</li>`).join("")}</ul>
       </div>${fig}</div>
-      <h2>Controls that matter</h2>
-      <div class="table-wrap"><table><tr><th>Control</th><th>Asked for by</th><th>Evidence the platform produces</th></tr>${ctlRows}</table></div>
-      <h2>Dates on the horizon</h2>
-      <ul>${b.dates.map(([d, t, id]) => `<li><strong>${esc(d)}:</strong> ${esc(t)}${fwRef(id)}</li>`).join("")}</ul>
-      <div class="foot"><strong>Sources</strong><ol>${refs.map(([t, u]) => `<li><a href="${esc(u)}">${esc(t)}</a> <span class="host">(${esc(new URL(u).hostname.replace(/^www\./, ""))})</span></li>`).join("")}</ol>
-        Educational material, not legal, compliance or investment advice. Independent learning resource; not affiliated with or endorsed by IBM. Product names are trademarks of their owners.
-        Full detail: xudaniel.github.io/webmethods-bpms-academy (Controls section).</div>`;
+      <h2>${U.controls}</h2>
+      <div class="table-wrap"><table><tr><th>${U.control}</th><th>${U.askedBy}</th><th>${U.evidence}</th></tr>${ctlRows}</table></div>
+      <h2>${U.dates}</h2>
+      <ul>${b.dates.map(([d, t, id]) => `<li><strong>${esc(d)}${ZB ? "：" : ":"}</strong> ${esc(t)}${fwRef(id)}</li>`).join("")}</ul>
+      <div class="foot"><strong>${U.sources}</strong><ol>${refs.map(([t, u]) => `<li><a href="${esc(u)}">${esc(t)}</a> <span class="host">(${esc(new URL(u).hostname.replace(/^www\./, ""))})</span></li>`).join("")}</ol>
+        ${U.foot}</div>`;
   });
 
   document.querySelectorAll("[data-print]").forEach((btn) => btn.addEventListener("click", () => {

@@ -1,19 +1,28 @@
 // Reading version: renders the whole course as static text from the same
 // content files as the interactive site, so the two never drift apart.
 (function () {
-  const A = window.ACADEMY, X = window.EXPLAINER;
+  // 中文 (#68): course data is already translated in place by content/knowledge/howto/lab/support;
+  // the explainer, glossary and quiz are swapped here, and short labels go through T().
+  const ZH = window.LANG === "zh" && window.ZH;
+  const T = window.L || ((en) => en);
+  const A = window.ACADEMY, X = (ZH && ZH.explainer) || window.EXPLAINER;
+  if (ZH && ZH.gloss) A.glossary = A.glossary.map(([t, d]) => ZH.gloss[t] ? [ZH.gloss[t][0], ZH.gloss[t][1]] : [t, d]);
+  if (ZH && ZH.quiz) A.quiz = A.quiz.map((q) => ZH.quiz[q.q] ? Object.assign({}, q, ZH.quiz[q.q]) : q);
+  const day = (iso) => new Date(iso + "T12:00:00").toLocaleDateString(ZH ? "zh-CN" : "en-GB", { day: "numeric", month: ZH ? "long" : "short", year: "numeric" });
+  // Sub-sections are numbered from their chapter heading, so moving a chapter never breaks them
+  const chap = (id) => { const m = ((document.querySelector(`#${id} h2`) || {}).textContent || "").match(/^(\d+)\./); return m ? m[1] + "." : ""; };
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const rows = (arr) => arr.map((r) => `<tr>${r.map((c) => `<td>${c}</td>`).join("")}</tr>`).join("");
 
   // 1. Why this matters
-  $("r-story").innerHTML = `<div class="table-wrap"><table><tr><th>Without a BPMS</th><th>With a BPMS</th></tr>${X.story.without
+  $("r-story").innerHTML = `<div class="table-wrap"><table><tr><th>${T("Without a BPMS", "没有 BPMS")}</th><th>${T("With a BPMS", "有了 BPMS")}</th></tr>${X.story.without
     .map((w, i) => `<tr><td>${esc(w)}</td><td>${esc(X.story.with[i])}</td></tr>`).join("")}</table></div>`;
   $("r-sort").insertAdjacentHTML("beforeend", rows(X.sort.map((s) => [esc(s.item), `<strong>${X.owners[s.owner]}</strong>`, esc(s.why)])));
 
   // 3. Architecture components
   $("r-arch-list").innerHTML = A.architecture
-    .map((c) => `<h3>${esc(c.name)} <span class="pill">${esc(c.role)}</span></h3><p>${esc(c.text)}</p><p class="sources">Tip: ${esc(c.tip)}</p>`).join("");
+    .map((c) => `<h3>${esc(c.name)} <span class="pill">${esc(c.role)}</span></h3><p>${esc(c.text)}</p><p class="sources">${T("Tip: ", "提示：")}${esc(c.tip)}</p>`).join("");
 
   // 4. Audit tables
   $("r-audit").insertAdjacentHTML("beforeend", rows(A.auditTables.map(([t, d]) => [`<code>${esc(t)}</code>`, esc(d)])));
@@ -29,22 +38,23 @@
   // 7. Patterns
   $("r-pat").innerHTML = A.patterns
     .map((p) => `<h3>${esc(p.name)} <span class="pill ${p.tag === "classic" ? "green" : ""}">${esc(p.tag)}</span></h3>
-      <p><strong>Problem:</strong> ${esc(p.problem)} <strong>Solution:</strong> ${esc(p.solution)} <strong>Use for:</strong> ${esc(p.when)}</p>`).join("");
+      <p><strong>${T("Problem:", "问题：")}</strong> ${esc(p.problem)} <strong>${T("Solution:", "解法：")}</strong> ${esc(p.solution)} <strong>${T("Use for:", "适用于：")}</strong> ${esc(p.when)}</p>`).join("");
 
   // 8. Decision guard example (fixed policy: min delay 4 h, limit $500, key accounts 2x)
   const limit = 500, minDelay = 4;
+  const GU = ZH ? X.ui : null, money = (n) => ZH ? `${n.toLocaleString("en-US")} 美元` : `$${n}`;
   $("r-guard-table").insertAdjacentHTML("beforeend", rows(X.guardCases.map((c) => {
     let o, r;
-    if (c.delay < minDelay) { o = "DENY"; r = `delay under ${minDelay} h`; }
-    else if (c.amount <= limit || (c.tier === "key" && c.amount <= limit * 2)) { o = "ALLOW"; r = c.amount <= limit ? `≤ $${limit}` : `key account ≤ $${limit * 2}`; }
-    else { o = "REFER"; r = `over the limit → person approves`; }
+    if (c.delay < minDelay) { o = "DENY"; r = GU ? GU.lt(minDelay) : `delay under ${minDelay} h`; }
+    else if (c.amount <= limit || (c.tier === "key" && c.amount <= limit * 2)) { o = "ALLOW"; r = c.amount <= limit ? (GU ? GU.le(limit) : `≤ $${limit}`) : (GU ? GU.key(limit * 2) : `key account ≤ $${limit * 2}`); }
+    else { o = "REFER"; r = GU ? GU.gt(limit) : `over the limit → person approves`; }
     const pill = o === "ALLOW" ? "green" : o === "REFER" ? "yellow" : "red";
-    return [`<strong>${c.id}</strong> ${esc(c.desc)}`, `$${c.amount}`, `<span class="pill ${pill}">${o}</span> ${esc(r)}`];
+    return [`<strong>${c.id}</strong> ${esc(c.desc)}`, money(c.amount), `<span class="pill ${pill}">${GU ? GU.out[o] : o}</span> ${esc(r)}`];
   })));
 
   // 9. Cases
   $("r-case-list").innerHTML = A.cases
-    .map((c) => `<h3>${esc(c.name)}</h3><p>${c.flow.map(esc).join(" → ")}</p><p class="sources">Lesson: ${esc(c.lesson)}</p>`).join("");
+    .map((c) => `<h3>${esc(c.name)}</h3><p>${c.flow.map(esc).join(" → ")}</p><p class="sources">${T("Lesson: ", "要点：")}${esc(c.lesson)}</p>`).join("");
 
   // 11. Market
   $("r-sizing").insertAdjacentHTML("beforeend", rows(A.market.sizing.map((r) => r.map(esc))));
@@ -58,14 +68,17 @@
   const K = window.KNOWLEDGE;
   if (K) {
     const facts = K.topics.reduce((t, x) => t + x.facts.length, 0);
-    $("r-kb-count").innerHTML = `<strong>${K.topics.length}</strong> knowledge topics · <strong>${facts}</strong> cited facts · <strong>${K.family.length}</strong> components · <strong>${A.glossary.length}</strong> glossary terms · <strong>${A.quiz.length}</strong> quiz questions`;
-    $("r-family").innerHTML = "<tr><th>Component</th><th>Role in a BPMS solution</th></tr>" + K.family.map(([n, d]) => `<tr><td><strong>${esc(n)}</strong></td><td>${esc(d)}</td></tr>`).join("");
+    const n = (v) => `<strong>${v}</strong>`;
+    $("r-kb-count").innerHTML = ZH
+      ? `${n(K.topics.length)} 个知识主题 · ${n(facts)} 条带出处的事实 · ${n(K.family.length)} 个组件 · ${n(A.glossary.length)} 个术语 · ${n(A.quiz.length)} 道测验题`
+      : `${n(K.topics.length)} knowledge topics · ${n(facts)} cited facts · ${n(K.family.length)} components · ${n(A.glossary.length)} glossary terms · ${n(A.quiz.length)} quiz questions`;
+    $("r-family").innerHTML = `<tr><th>${T("Component", "组件")}</th><th>${T("Role in a BPMS solution", "在 BPMS 方案里的角色")}</th></tr>` + K.family.map(([n, d]) => `<tr><td><strong>${esc(n)}</strong></td><td>${esc(d)}</td></tr>`).join("");
     const link = (n) => `<a href="${esc(K.sources[n][1])}" target="_blank" rel="noopener">${esc(K.sources[n][0])}</a>`;
-    const kbCh = ((document.querySelector("#r-knowledge h2") || {}).textContent || "").match(/^(\d+)\./); const kbN = kbCh ? kbCh[1] : "";
-    $("r-kb").innerHTML = K.topics.map((t, i) => `<h3>${kbN}.${i + 1} ${esc(t.title)}</h3><p>${esc(t.summary)}</p>
+    const kbN = chap("r-knowledge");
+    $("r-kb").innerHTML = K.topics.map((t, i) => `<h3 data-kb="${esc(t.id)}">${kbN}${i + 1} ${esc(t.title)}</h3><p>${esc(t.summary)}</p>
       <ul>${t.facts.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
-      <p class="callout"><strong>In practice:</strong> ${esc(t.practice)}</p>
-      <p class="sources">${t.sources.length ? "Sources: " + t.sources.map(link).join(" · ") : "Synthesis of the topics above; author's practitioner view."}${t.reviewed ? ` · Last reviewed ${new Date(t.reviewed + "T12:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}` : ""}</p>`).join("");
+      <p class="callout"><strong>${T("In practice:", "实践中：")}</strong> ${esc(t.practice)}</p>
+      <p class="sources">${t.sources.length ? T("Sources: ", "出处：") + t.sources.map(link).join(" · ") : T("Synthesis of the topics above; author's practitioner view.", "综合以上主题；作者的实践观点。")}${t.reviewed ? T(` · Last reviewed ${day(t.reviewed)}`, ` · 最近核对：${day(t.reviewed)}`) : ""}</p>`).join("");
   }
 
   // How to use
@@ -73,10 +86,11 @@
   if (H) {
     const hl = (k) => `<a href="${esc(H.sources[k][1])}" target="_blank" rel="noopener">${esc(H.sources[k][0])}</a>`;
     $("r-path").innerHTML = H.beginner.map(([t, id, d]) => `<li><strong>${esc(t)}</strong> — ${esc(d)}</li>`).join("");
-    $("r-roles").innerHTML = H.roles.map((r, i) => `<h3>4.${i + 1} ${esc(r.role)}: ${esc(r.title)}</h3><p><em>${esc(r.who)}</em></p>
+    const hN = chap("r-howto");
+    $("r-roles").innerHTML = H.roles.map((r, i) => `<h3 data-role="${esc(r.id)}">${hN}${i + 1} ${esc(r.role)}${T(": ", "：")}${esc(r.title)}</h3><p><em>${esc(r.who)}</em></p>
       <ol>${r.steps.map(([t, d, where, src]) => `<li><strong>${esc(t)}.</strong> ${esc(d)} <br><code>${esc(where)}</code> <span class="sources">(${src.map(hl).join(" · ")})</span></li>`).join("")}</ol>
-      <p class="callout"><strong>You'll know it worked when:</strong> ${esc(r.check)} <strong>Tip:</strong> ${esc(r.tip)}</p>`).join("");
-    $("r-demo").innerHTML = H.demo.map(([t, sec, click, say, q]) => `<li><strong>${esc(t)}.</strong> ${esc(click)} Say: “${esc(say)}” <em>Answers: ${esc(q)}</em></li>`).join("");
+      <p class="callout"><strong>${T("You'll know it worked when:", "成功的标志：")}</strong> ${esc(r.check)} <strong>${T("Tip:", "提示：")}</strong> ${esc(r.tip)}</p>`).join("");
+    $("r-demo").innerHTML = H.demo.map(([t, sec, click, say, q]) => `<li><strong>${esc(t)}${T(".", "。")}</strong> ${esc(click)} ${T("Say:", "可以说：")} “${esc(say)}” <em>${T("Answers: ", "回答的问题：")}${esc(q)}</em></li>`).join("");
   }
 
   // Hands-on lab (printable sheet with tick boxes)
@@ -87,10 +101,11 @@
     $("r-lab-scenario").textContent = LB.scenario;
     $("r-lab-flow").textContent = LB.flow.join(" → ");
     $("r-lab-prereqs").innerHTML = LB.prereqs.map((x) => `<li>${esc(x)}</li>`).join("");
-    $("r-lab-stages").innerHTML = LB.stages.map((st, i) => `<h3>5.${i + 1} ${esc(st.t)} (${st.min} min)</h3>
+    const lN = chap("r-lab");
+    $("r-lab-stages").innerHTML = LB.stages.map((st, i) => `<h3>${lN}${i + 1} ${esc(st.t)}${T(` (${st.min} min)`, `（${st.min} 分钟）`)}</h3>
       <ul class="ticks">${st.steps.map(([t, where]) => `<li>☐ ${esc(t)} <br><code>${esc(where)}</code></li>`).join("")}</ul>
-      <p class="callout"><strong>Checkpoint:</strong> ${esc(st.check)} <span class="sources">(${st.src.map(ln).filter(Boolean).join(" · ")})</span></p>`).join("");
-    $("r-lab-pitfalls").innerHTML = "<tr><th>Symptom</th><th>Likely cause and fix</th></tr>" + LB.pitfalls.map(([a1, b1]) => `<tr><td>${esc(a1)}</td><td>${esc(b1)}</td></tr>`).join("");
+      <p class="callout"><strong>${T("Checkpoint:", "检查点：")}</strong> ${esc(st.check)} <span class="sources">(${st.src.map(ln).filter(Boolean).join(" · ")})</span></p>`).join("");
+    $("r-lab-pitfalls").innerHTML = `<tr><th>${T("Symptom", "症状")}</th><th>${T("Likely cause and fix", "可能的原因和修法")}</th></tr>` + LB.pitfalls.map(([a1, b1]) => `<tr><td>${esc(a1)}</td><td>${esc(b1)}</td></tr>`).join("");
     $("r-lab-levelup").textContent = LB.levelup;
   }
 
@@ -100,13 +115,14 @@
     const sl = (k) => { const x = SP.src(k); return x ? `<a href="${esc(x[1])}" target="_blank" rel="noopener">${esc(x[0])}</a>` : ""; };
     $("r-tr").innerHTML = SP.areas.map((ar) => `<h3>${esc(ar)}</h3>` + SP.trouble.filter((t) => t.area === ar).map((t) =>
       `<p><strong>${esc(t.s)}</strong></p><ul>${t.check.map((c) => `<li>${esc(c)}</li>`).join("")}</ul>
-       <p><em>Fix:</em> ${esc(t.fix)} <code>${esc(t.where)}</code> <span class="sources">(${t.src.map(sl).filter(Boolean).join(" · ")})</span></p>`).join("")).join("");
-    $("r-ch").innerHTML = SP.cheats.map((c, i) => `<h3>7.${i + 1} ${esc(c.role)}</h3>
+       <p><em>${T("Fix:", "修法：")}</em> ${esc(t.fix)} <code>${esc(t.where)}</code> <span class="sources">(${t.src.map(sl).filter(Boolean).join(" · ")})</span></p>`).join("")).join("");
+    const cN = chap("r-cheats");
+    $("r-ch").innerHTML = SP.cheats.map((c, i) => `<h3>${cN}${i + 1} ${esc(c.role)}</h3>
       <table>${c.actions.map(([x, w]) => `<tr><td><strong>${esc(x)}</strong></td><td><code>${esc(w)}</code></td></tr>`).join("")}</table>
-      <p><strong>Golden rules:</strong> ${c.rules.map(esc).join(" · ")}</p>
-      <p><strong>Self-check:</strong></p><ol>${c.check.map((q) => `<li>${esc(q.q)} <em>Answer: ${esc(q.a[q.c])}.</em> ${esc(q.e)}</li>`).join("")}</ol>`).join("");
-    $("r-teach-intro").textContent = SP.klass.title + ". " + SP.klass.audience;
-    $("r-teach-agenda").innerHTML = "<tr><th>Time</th><th>Min</th><th>Module</th><th>How to run it</th></tr>" +
+      <p><strong>${T("Golden rules:", "黄金法则：")}</strong> ${c.rules.map(esc).join(" · ")}</p>
+      <p><strong>${T("Self-check:", "自测：")}</strong></p><ol>${c.check.map((q) => `<li>${esc(q.q)} <em>${T("Answer: ", "答案：")}${esc(q.a[q.c])}${T(".", "。")}</em> ${esc(q.e)}</li>`).join("")}</ol>`).join("");
+    $("r-teach-intro").textContent = SP.klass.title + T(". ", "。") + SP.klass.audience;
+    $("r-teach-agenda").innerHTML = `<tr><th>${T("Time", "时间")}</th><th>${T("Min", "分钟")}</th><th>${T("Module", "模块")}</th><th>${T("How to run it", "怎么上")}</th></tr>` +
       SP.klass.agenda.map(([t, m, n, sec, how]) => `<tr><td>${esc(t)}</td><td>${m}</td><td>${esc(n)}</td><td>${esc(how)}</td></tr>`).join("");
     $("r-teach-print").innerHTML = SP.klass.print.map((x) => `<li>${esc(x)}</li>`).join("");
     $("r-teach-tips").innerHTML = SP.klass.tips.map((x) => `<li>${esc(x)}</li>`).join("");
@@ -116,9 +132,9 @@
   $("r-gloss").innerHTML = A.glossary.map(([t, d]) => `<dt>${esc(t)}</dt><dd>${esc(d)}</dd>`).join("");
 
   // 14. Quiz with answer key
-  const L = "ABCD";
+  const ABC = "ABCD";
   $("r-q").innerHTML = A.quiz.map((q) => `<li>${esc(q.q)}<ol>${q.a.map((a) => `<li>${esc(a)}</li>`).join("")}</ol></li>`).join("");
-  $("r-a").innerHTML = A.quiz.map((q) => `<li><strong>${L[q.c]}</strong> — ${esc(q.a[q.c])}. ${esc(q.e)}</li>`).join("");
+  $("r-a").innerHTML = A.quiz.map((q) => `<li><strong>${ABC[q.c]}</strong> — ${esc(q.a[q.c])}${T(".", "。")} ${esc(q.e)}</li>`).join("");
 
   // 15. Sources
   $("r-src").innerHTML = A.sources.map(([t, u]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a></li>`).join("");

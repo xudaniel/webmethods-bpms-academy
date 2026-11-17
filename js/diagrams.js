@@ -500,14 +500,15 @@
     after(q("#scan .card p"), fig("scan-method"));
     after(q("#decisions .card .lead"), fig("decision-table"));
   } else {
-    const h3 = (re) => [...document.querySelectorAll("#r-kb h3, #r-roles h3")].find((h) => re.test(h.textContent));
+    // Headings carry the topic / role id (read.js), so this works in every language
+    const h3 = (sel) => document.querySelector(sel);
     const afterPara = (h, html) => { if (h && h.nextElementSibling) h.nextElementSibling.insertAdjacentHTML("afterend", html); };
-    afterPara(h3(/Process Engine runtime/), fig("qos", true));
-    afterPara(h3(/webMethods Business Rules$/), fig("process-vs-rules"));
-    afterPara(h3(/Rule Engine configuration/), fig("rule-task-hot-deploy"));
-    afterPara(h3(/Business user/), fig("task-lifecycle"));
-    afterPara(h3(/Process developer/), fig("build-pipeline"));
-    afterPara(h3(/Operations/), fig("instance-states"));
+    afterPara(h3('#r-kb h3[data-kb="engine"]'), fig("qos", true));
+    afterPara(h3('#r-kb h3[data-kb="rules"]'), fig("process-vs-rules"));
+    afterPara(h3('#r-kb h3[data-kb="rules-config"]'), fig("rule-task-hot-deploy"));
+    afterPara(h3('#r-roles h3[data-role="user"]'), fig("task-lifecycle"));
+    afterPara(h3('#r-roles h3[data-role="dev"]'), fig("build-pipeline"));
+    afterPara(h3('#r-roles h3[data-role="ops"]'), fig("instance-states"));
     const lf = document.getElementById("r-lab-flow"); if (lf) lf.parentElement.insertAdjacentHTML("afterend", fig("lab-process", true));
     const tr = document.getElementById("r-tr"); if (tr) tr.insertAdjacentHTML("beforebegin", fig("trouble-flow"));
     // More diagrams (#44)
@@ -515,7 +516,7 @@
     const rb = document.getElementById("r-bpmn-body"); if (rb) rb.insertAdjacentHTML("beforeend", fig("bpmn-gateways") + fig("bpmn-lanes"));
     const rp = document.getElementById("r-pat"); if (rp) rp.insertAdjacentHTML("afterend", fig("agent-pattern"));
     const rc = document.getElementById("r-case-list");
-    if (rc) rc.querySelectorAll("h3").forEach((h, i) => { if (D["case-" + i] && !/Loan/.test(h.textContent)) h.nextElementSibling.insertAdjacentHTML("afterend", fig("case-" + i)); });
+    if (rc) rc.querySelectorAll("h3").forEach((h, i) => { if (D["case-" + i] && !/^Application received/.test(((root.ACADEMY.cases[i] || {}).flowEn || (root.ACADEMY.cases[i] || {}).flow || [""])[0])) h.nextElementSibling.insertAdjacentHTML("afterend", fig("case-" + i)); });
     const rs = document.querySelector("#r-scan .table-wrap"); if (rs) rs.insertAdjacentHTML("afterend", fig("scan-method"));
     const ta = document.getElementById("r-teach-agenda"); if (ta) ta.closest(".table-wrap").insertAdjacentHTML("afterend", `<div id="teach-timeline"></div>`);
     document.querySelectorAll('.qos[data-still="1"]').forEach(wireQos);

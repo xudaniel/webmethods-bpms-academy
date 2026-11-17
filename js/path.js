@@ -111,16 +111,17 @@ window.PATHS = {
     // Static map + "which chapters should I read?" table in chapter 1 (the 10-minute course is interactive only; Basics covers it here)
     const why = document.getElementById("r-why");
     if (why) {
-      const fig = `<figure class="dg" data-dg="map">${mapSvg((m) => "#" + m.r)}<figcaption><strong>IBM webMethods BPMS in one picture.</strong> From model to audit trail; each box links to the chapter that explains it.</figcaption></figure>`;
+      const tl = window.L || ((en) => en);
+      const fig = `<figure class="dg" data-dg="map">${mapSvg((m) => "#" + m.r)}<figcaption>${tl("<strong>IBM webMethods BPMS in one picture.</strong> From model to audit trail; each box links to the chapter that explains it.", "<strong>一张图看懂 IBM webMethods BPMS。</strong>从模型到审计记录；每个方框都链接到讲解它的那一章。")}</figcaption></figure>`;
       const rid = { start: "r-why", overview: "r-overview", basics: "r-basics", knowledge: "r-knowledge", howto: "r-howto", lab: "r-lab", trouble: "r-trouble", teach: "r-teach",
         quiz: "r-quiz", glossary: "r-glossary", cases: "r-cases", market: "r-market", patterns: "r-patterns", architecture: "r-arch" };
       const chap = (go) => {
         const sec = document.getElementById(rid[go] || ""), h = sec && sec.querySelector("h2"), m = h && h.textContent.match(/^(\d+)\./);
-        return m ? "ch. " + m[1] : "interactive version";
+        return m ? tl("ch. ", "第 ") + m[1] + tl("", " 章") : tl("interactive version", "互动版");
       };
-      const rows = P.roles.map((r) => `<tr><td><strong>${r.icon} ${esc(r.name)}</strong></td><td>${r.steps.filter((st) => st.go !== "crash").map((st) => esc(st.t) + " (" + esc(chap(st.go)) + ")").join(" → ")}</td></tr>`).join("");
+      const rows = P.roles.map((r) => `<tr><td><strong>${r.icon} ${esc(r.name)}</strong></td><td>${r.steps.filter((st) => st.go !== "crash").map((st) => esc(st.t) + tl(" (", "（") + esc(chap(st.go)) + tl(")", "）")).join(" → ")}</td></tr>`).join("");
       why.querySelector("h2").insertAdjacentHTML("afterend", fig +
-        `<h3>Which chapters should I read?</h3><div class="table-wrap"><table id="r-paths"><tr><th>You are</th><th>Read in this order</th></tr>${rows}</table></div>`);
+        `<h3>${tl("Which chapters should I read?", "我该读哪几章？")}</h3><div class="table-wrap"><table id="r-paths"><tr><th>${tl("You are", "你是")}</th><th>${tl("Read in this order", "按这个顺序读")}</th></tr>${rows}</table></div>`);
     }
     return;
   }
