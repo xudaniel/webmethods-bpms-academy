@@ -111,7 +111,7 @@
 
 | 主题 | 学到什么 |
 | --- | --- |
-| 版本与生命周期 | 10.15（2022 年 10 月正式发布；2027 年 10 月结束维护，2028 年 10 月结束支持；最后一个支持 AIX 和 z/Linux 的版本）、11.1（2024 年 9 月）、12.1（Java 21、Jakarta EE 10、FIPS 140-3、容器化） |
+| 版本与生命周期 | 10.15（2022 年 10 月正式发布；2027 年 10 月 31 日结束支持，可付费延长支持到 2028 年 10 月和 2030 年 10 月；最后一个支持 AIX 和 z/Linux 的版本）、11.1（2024 年 9 月）、12.1（Java 21、Jakarta EE 10、FIPS 140-3、容器化） |
 | Process Engine 运行与服务质量（QoS） | 转移文档；速度与可靠性的取舍；**Optimize Locally**（默认开）、**Volatile Transition Documents**（默认开）、**Volatile Tracking**（默认关）；Universal Messaging 作为 JMS 提供方；Broker 已弃用 |
 | 执行历史与审计 | Process Engine 数据库与 Process Audit 数据库（`PRA_*` 表）、日志级别、10.15 中人工任务历史存在哪里 |
 | Task Engine 与人工工作 | My webMethods Server 上的任务收件箱、`getTaskAudit`、任务归档 |
@@ -389,9 +389,9 @@ python3 agent_scan.py synthetic_audit.csv
 | 日期 | 事件 |
 | --- | --- |
 | 2022 年 10 月 18 日 | webMethods 10.15 正式发布 |
-| 2027 年 10 月 | webMethods 10.15 结束主流维护（也是最后一个支持 AIX 和 z/Linux 的版本） |
+| 2027 年 10 月 31 日 | webMethods 10.15 结束支持（也是最后一个支持 AIX 和 z/Linux 的版本） |
 | 2027 年 12 月 2 日 | 欧盟 AI 法案对附件 III 高风险系统（如信用评分）的义务开始适用 |
-| 2028 年 10 月 | webMethods 10.15 结束支持 |
+| 2028 年 10 月 31 日 | webMethods 10.15 第一阶段延长支持结束（后续延长支持只含使用咨询和已知缺陷，到 2030 年 10 月 31 日） |
 
 ## 快速开始
 

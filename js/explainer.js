@@ -42,9 +42,9 @@ window.EXPLAINER = {
     ["2024", "IBM acquires webMethods from Software AG", "webMethods BPMS becomes part of IBM's automation portfolio next to ODM and Business Automation Workflow."],
     ["2026", "webMethods 12.1 available", "The upgrade target for 10.15 customers."],
     ["Sep 2026", "Gartner publishes the 2026 BOAT Magic Quadrant", "Process orchestration, connectivity and AI agents are evaluated as one category."],
-    ["Oct 2027", "10.15 end of maintenance", "Customers must upgrade or re-evaluate — the moment competitors target."],
+    ["Oct 2027", "10.15 end of support", "Customers must upgrade, buy extended support or re-evaluate — the moment competitors target."],
     ["2 Dec 2027", "EU AI Act Annex III obligations apply", "High-risk uses such as credit scoring need logging and human oversight."],
-    ["Oct 2028", "10.15 end of support", "Last date for standard support."]
+    ["Oct 2028", "10.15 initial extended support ends", "Paid extended support can continue to Oct 2030, for usage and known defects only."]
   ],
 
   ideas: [

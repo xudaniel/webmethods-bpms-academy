@@ -104,7 +104,7 @@ async def main():
         if "rule_version=v2" not in await page.inner_text("#ex-guard-log"):
             failures.append("explainer decision guard did not re-evaluate")
         await page.click("#ex-timeline .tile >> nth=4")
-        if "end of maintenance" not in await page.inner_text("#ex-timeline-detail"):
+        if "end of support" not in await page.inner_text("#ex-timeline-detail"):
             failures.append("explainer timeline")
         await page.click("nav button[data-section=simulator]")
         await page.click("#sim-start")

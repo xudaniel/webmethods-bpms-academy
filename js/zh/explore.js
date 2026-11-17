@@ -136,8 +136,9 @@
     ],
     lifecycleDates: [
       ["webMethods 10.15 正式发布", "2022 年 10 月 18 日"],
-      ["10.15 维护结束", "2027 年 10 月"],
-      ["10.15 支持结束", "2028 年 10 月"],
+      ["10.15 支持结束", "2027 年 10 月 31 日"],
+      ["10.15 第一阶段延长支持结束", "2028 年 10 月 31 日"],
+      ["10.15 后续延长支持结束（只含使用咨询和已知缺陷）", "2030 年 10 月 31 日"],
       ["最后一个支持 AIX 和 z/Linux 的版本", "10.15"]
     ],
     market: {
@@ -174,7 +175,7 @@
     "Decision table": ["决策表", "一种决策实体，每一行是一条规则，有 IF（条件）列和 THEN（结果）列。"],
     "Decision tree / event rule": ["决策树 / 事件规则", "webMethods Business Rules 里的另外两种决策实体。"],
     "Delegate": ["转交（Delegate）", "把一个任务转给另一个用户；会记进任务的审计日志。"],
-    "EOM / EOS": ["EOM / EOS", "产品生命周期里的维护结束（End of Maintenance）和支持结束（End of Support）日期。"],
+    "EOM / EOS": ["EOM / EOS", "产品生命周期里的维护结束（End of Maintenance）和支持结束（End of Support）日期。IBM 的 webMethods 生命周期页列的是支持结束日期，之后是付费的延长支持。"],
     "Execution Enabled": ["启用执行（Execution Enabled）", "My webMethods 里的设置，打开后 Process Engine 才能启动这个流程模型版本的实例。"],
     "Hot Deploy": ["Hot Deploy（热部署）", "把更新后的规则项目推到 Integration Server，不用重新部署流程。"],
     "Human-in-the-loop": ["人在回路（Human-in-the-loop）", "一种设计：由一个人复核或批准自动化或 agent 的动作。"],
@@ -208,7 +209,7 @@
     "A discount threshold changes every quarter. Where should it live?": { q: "一个折扣门槛每季度都会变。它应该放在哪里？", a: ["网关条件里", "写死在一个 IS 服务里", "规则任务或 ODM 决策里", "BPMN 图的标签里"], e: "规则带来决策敏捷，不用重新部署流程。" },
     "Which gateway runs all outgoing paths?": { q: "哪种网关会走所有出去的路？", a: ["排他网关", "并行网关", "事件网关", "只有一个条件为真的包容网关"], e: "并行（AND）网关会激活每一条出去的路。" },
     "In the 'agent proposes, rules decide' pattern, who makes the final policy decision?": { q: "在「agent 提议，规则决定」的模式里，最终的政策决定由谁做？", a: ["Agent", "规则引擎（比如 ODM），必要时升级给人", "BPMN 图", "没有人"], e: "Agent 提议；确定性的规则决定；流程执行或升级。" },
-    "When does webMethods 10.15 reach End of Maintenance?": { q: "webMethods 10.15 什么时候维护结束？", a: ["2025 年 10 月", "2027 年 10 月", "2030 年 10 月", "没有结束日期"], e: "维护结束是 2027 年 10 月，支持结束是 2028 年 10 月。" },
+    "When does standard support for webMethods 10.15 end?": { q: "webMethods 10.15 的标准支持什么时候结束？", a: ["2025 年 10 月", "2027 年 10 月", "2030 年 10 月", "没有结束日期"], e: "支持在 2027 年 10 月 31 日结束；付费的延长支持可以到 2028 年 10 月和 2030 年 10 月。" },
     "From when do EU AI Act obligations apply to Annex III high-risk systems such as credit scoring?": { q: "欧盟 AI 法案对信用评分这类附件三高风险系统的义务，从什么时候开始适用？", a: ["2025 年 8 月 2 日", "2026 年 12 月 2 日", "2027 年 12 月 2 日", "2030 年 8 月 2 日"], e: "数字综合法案把附件三的义务推迟到 2027 年 12 月 2 日。" },
     "In the Agent Scan Lab, a user task whose outcome is the same for the same inputs 95% of the time is best treated as…": { q: "在 Agent 扫描实验室里，一个人工任务在相同输入下 95% 的时候结果都一样，最好把它当作……", a: ["Agent 候选", "规则候选", "继续由人做", "集成问题"], e: "高度确定的结果，就是一条没人写下来的规则；把它写进 ODM。" },
     "What does BOAT stand for?": { q: "BOAT 是什么的缩写？", a: ["Business Orchestration and Automation Technologies（业务编排与自动化技术）", "Business Object Audit Trail", "BPM Online Analytics Tool", "Batch Orchestration And Transfer"], e: "Gartner 给统一编排和自动化平台起的类别名。" },
