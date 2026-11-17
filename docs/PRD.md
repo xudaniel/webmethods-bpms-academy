@@ -145,6 +145,7 @@ Because the site collects no analytics by design, success is measured from outsi
 
 | Version | Date | What shipped |
 | --- | --- | --- |
+| Unreleased | 2026-11-17 | Knowledge base: webMethods and IBM webMethods Hybrid Integration (IWHI), cited, EN + 中文; 10 topics, 62 facts (#81) |
 | Unreleased | 2026-11-16 | 中文版 batch 4: reading version and executive briefs in Chinese; Chinese browsers open in Chinese; the whole site is now bilingual (#68) |
 | Unreleased | 2026-11-16 | Site search: 🔍 or "/" searches every section in the browser, English and Chinese, and opens the exact place (#77) |
 | Unreleased | 2026-11-16 | Review book: spaced review of every wrong answer across seven question sources (1 → 3 days, 7 after a lapse); English and Chinese (#76) |

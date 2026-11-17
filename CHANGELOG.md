@@ -6,6 +6,7 @@ Versions follow [Semantic Versioning](https://semver.org/).
 ## [Unreleased]
 
 ### Added
+- 🔗 **Knowledge base: webMethods and IWHI** (#81): a new cited topic on how the webMethods estate, where BPMS runs, relates to IBM webMethods Hybrid Integration: what it is, which runtimes its hybrid control plane manages, consumption pricing, and what IBM's public pages do not say about process and task monitoring. English and 中文, reading version included (10 topics, 62 facts).
 - 🌐 **中文版, batch 4: the whole site is in Chinese** (#68): the reading version (all 23 chapters, the five drawn figures, the map table, the answer keys) and both executive briefs. A browser whose first language is Chinese now opens in Chinese until you pick a language with the 🌐 switch.
 - 🔍 **Site search** (#77): 🔍 next to ☰, or press `/`. Searches knowledge facts, troubleshooting, glossary, how-to steps, cheat sheets, the lab, Basics 101, controls, patterns, cases, BPMN and section names in the language on screen, with highlighted snippets; a result opens the exact place (role tab, troubleshooting entry, knowledge topic, lab stage). In the browser, offline, nothing sent anywhere.
 - 📒 **Review book** (#76): every question answered wrong anywhere on the site comes back after 1 day and 3 days (plus 7 days after a repeat miss) until you get it right twice. A card on Start here shows what is due today. Stored by reference, so items appear in the language you are reading; browser only. English and Chinese.

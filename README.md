@@ -107,7 +107,7 @@ No prior webMethods experience is needed.
 - **Six hands-on steps** for a general audience: before and after a BPMS, who owns which job, and an AI agent governed by a rulebook (see [Start here: the public explainer](#start-here-the-public-explainer)).
 
 ### Learn: a cited knowledge base and diagrams
-**9 topics and 55 facts**, each linked to public IBM or Software AG documentation, plus a practitioner note per topic:
+**10 topics and 62 facts**, each linked to public IBM or Software AG documentation, plus a practitioner note per topic:
 
 | Topic | What you learn |
 | --- | --- |
@@ -119,6 +119,7 @@ No prior webMethods experience is needed.
 | Rule Engine configuration and Rule Tasks | Where the Rules Engine runs (WmBusinessRules) and how to point it at a remote Integration Server (`businessrulesruntime` alias), configuring a Rule Task, Process Aware tables, rule actions and logging level, event rules and JMS triggers, Hot Deploy and its server connections |
 | Monitor, resubmit and Optimize | Where Monitor lives, resubmitting failed and completed instances (Resubmit Closest / Earliest, editing the pipeline), the privileges you need, Optimize KPIs and Process Analytics |
 | Upgrading from 10.15 | Side-by-side upgrade: Database Component Configurator, migration utilities or Command Central, keeping in-flight instances, re-versioning models, post-upgrade checks |
+| webMethods and IBM webMethods Hybrid Integration (IWHI) | What IWHI is (announced May 2025), which runtimes its hybrid control plane manages, consumption pricing, and why BPMS keeps running in the webMethods estate rather than moving |
 | Practitioner design checklist | Ten checks for design reviews and upgrades |
 
 **Controls for regulated industries:** seven controls, each with what is expected, how BPMS and rules provide it (cited product docs) and the evidence an auditor sees. The framework panel covers SR 11-7, OSFI E-23 (effective 1 May 2027), EU AI Act Annex III and Articles 12 and 14, GDPR Article 22, the NAIC AI Model Bulletin and DORA (applies from 17 January 2025), each cited to the regulator. Educational mapping, not legal or compliance advice.
@@ -181,7 +182,7 @@ No prior webMethods experience is needed.
 | 2 | **10-minute course** | 5 steps, 5 pictures, 3 checks | Know nothing? IBM webMethods BPMS from zero in ten minutes |
 | 3 | **Basics 101** | 7 lessons, each with a picture and a check | The ideas behind every process platform, for complete beginners, then the IBM webMethods names |
 | 4 | **Overview** | Reading + family table | The core idea, and IBM webMethods at a glance (9 components) |
-| 5 | **Knowledge base** | Cited reference + interactive diagram | 9 topics, 55 facts on how the product behaves |
+| 5 | **Knowledge base** | Cited reference + interactive diagram | 10 topics, 62 facts on how the product behaves |
 | 6 | **Controls** | Control map + framework panel | For banks and insurers: seven controls, the frameworks that ask for them (SR 11-7, OSFI E-23, EU AI Act, GDPR Art. 22, NAIC, DORA) and the BPMS evidence |
 | 7 | **How to use** | Role guides, cheat sheets, self-checks, demo script | Day-to-day use for four roles, plus presenting to customers |
 | 8 | **Hands-on lab** | 30-minute exercise with a tracker | Build, enable, run and monitor your first process |

@@ -43,6 +43,8 @@ async def main():
             failures.append("knowledge-at-a-glance counter missing")
         if await page.locator("#kb-family tr").count() < 8:
             failures.append("IBM webMethods family table missing")
+        if await page.locator("#kb-iwhi").count() != 1 or "Hybrid control plane".lower() not in (await page.inner_text("#kb-iwhi")).lower():
+            failures.append("knowledge base: IWHI topic missing")
         if await page.locator("#kb-topics .kb-topic").count() < 6:
             failures.append("knowledge topics missing")
         if "Volatile Tracking" not in await page.inner_text("#kb-engine"):
@@ -638,6 +640,12 @@ async def main():
             failures.append("zh: reading version diagrams should still find their topics")
         if "我该读哪几章" not in await cp.inner_text("#r-why") or "执行数据的三个存储" not in await cp.inner_html("#r-history"):
             failures.append("zh: reading version map table or figures not translated")
+        await cp.goto("http://127.0.0.1:8765/brief.html")
+        await cp.wait_for_timeout(400)
+        await cp.goto("http://127.0.0.1:8765/index.html#knowledge")
+        await cp.wait_for_timeout(400)
+        if "混合控制平面" not in await cp.inner_text("#kb-iwhi"):
+            failures.append("zh: IWHI knowledge topic not translated")
         await cp.goto("http://127.0.0.1:8765/brief.html")
         await cp.wait_for_timeout(400)
         if "银行的流程和决策自动化" not in await cp.inner_text("#banking") or "最重要的管控" not in await cp.inner_text("#insurance") or await cp.locator("#banking tr").count() != 6:

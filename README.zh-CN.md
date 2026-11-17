@@ -107,7 +107,7 @@
 - **六个动手小步骤**，面向大众：有无 BPMS 的对比、每项工作该由谁负责、用规则手册管住 AI agent（见[从这里开始：面向大众的互动讲解](#从这里开始面向大众的互动讲解)）。
 
 ### 学：附出处的知识库和示意图
-共 **9 个主题、55 条事实**，每条都链接到 IBM 或 Software AG 的公开文档，每个主题后附一段实践建议：
+共 **10 个主题、62 条事实**，每条都链接到 IBM 或 Software AG 的公开文档，每个主题后附一段实践建议：
 
 | 主题 | 学到什么 |
 | --- | --- |
@@ -119,6 +119,7 @@
 | 规则引擎配置与 Rule Task | 规则引擎在哪里运行（WmBusinessRules），以及如何指向远程 Integration Server（`businessrulesruntime` 别名）；如何配置 Rule Task、Process Aware 决策表、规则动作与日志级别、事件规则与 JMS 触发器、热部署及其服务器连接 |
 | Monitor、重新提交与 Optimize | Monitor 在哪里、如何重新提交失败或已完成的实例（Resubmit Closest / Earliest、修改 pipeline）、需要哪些权限、Optimize 的 KPI 与流程分析 |
 | 从 10.15 升级 | 新旧版本并行安装：Database Component Configurator、迁移工具或 Command Central、保留进行中的实例、模型升版本号、升级后检查 |
+| webMethods 与 IBM webMethods Hybrid Integration（IWHI） | IWHI 是什么（2025 年 5 月发布）、混合控制平面管理哪些运行时、按用量计费，以及为什么 BPMS 继续留在 webMethods 环境里而不是迁走 |
 | 实践设计清单 | 设计评审和升级时用的十项检查 |
 
 **面向受监管行业的控制**：七项控制，每项写明监管期望、BPMS 与规则如何实现（附产品文档出处），以及审计时能看到的证据。法规说明涵盖 SR 11-7、OSFI E-23（2027 年 5 月 1 日生效）、欧盟 AI 法案附件三及第 12、14 条、GDPR 第 22 条、NAIC 的 AI 示范公告和 DORA（2025 年 1 月 17 日起适用），全部引用监管机构原文。仅为教育性对照，不构成法律或合规建议。
@@ -181,7 +182,7 @@
 | 2 | **10 分钟速成**（10-minute course） | 5 步、5 张图、3 道题 | 完全零基础，10 分钟看懂 IBM webMethods BPMS |
 | 3 | **基础 101**（Basics 101） | 7 节小课，每节配图和一道题 | 零基础讲清每个流程平台背后的概念，再对应到 IBM webMethods 的名字 |
 | 4 | **概览**（Overview） | 阅读 + 产品家族表 | 核心理念，以及 IBM webMethods 一览（9 个组件） |
-| 5 | **知识库**（Knowledge base） | 附出处的参考 + 互动图 | 9 个主题、55 条事实，讲清产品实际怎么运作 |
+| 5 | **知识库**（Knowledge base） | 附出处的参考 + 互动图 | 10 个主题、62 条事实，讲清产品实际怎么运作 |
 | 6 | **合规控制**（Controls） | 控制对照表 + 法规说明 | 面向银行和保险：七项控制、对应的监管框架（SR 11-7、OSFI E-23、欧盟 AI 法案、GDPR 第 22 条、NAIC、DORA）以及 BPMS 能提供的证据 |
 | 7 | **如何使用**（How to use） | 角色教程、速查卡、自测、演示脚本 | 四类角色的日常操作，以及如何给客户演示 |
 | 8 | **动手实验**（Hands-on lab） | 30 分钟练习，带进度记录 | 构建、启用、运行并监控你的第一个流程 |
