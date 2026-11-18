@@ -429,6 +429,7 @@ webmethods-bpms-academy/
 ├── CHANGELOG.md        # release history
 ├── manifest.webmanifest # install as an app (name, icons, theme colour)
 ├── sw.js               # offline support (network first, cache fallback)
+├── examples/optimization/ # optimization primer: MIP and CP algorithms, runnable C and Python
 ├── assets/             # app icons, QR code, diagrams (SVG), README screenshots
 ├── docs/
 │   └── PRD.md          # product requirements document
