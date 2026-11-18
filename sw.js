@@ -2,7 +2,7 @@
 // Network first: online visitors always get the latest version; the cache is the fallback when offline.
 const CACHE = "wm-academy-v2.2.0";
 const CORE = [
-  "./", "index.html", "read.html", "brief.html", "css/brief.css", "js/brief.js", "manifest.webmanifest",
+  "./", "index.html", "read.html", "brief.html", "optimization.html", "css/brief.css", "js/brief.js", "manifest.webmanifest",
   "css/styles.css", "css/read.css",
   "js/content.js", "js/knowledge.js", "js/howto.js", "js/lab.js", "js/support.js",
   "js/explainer.js", "js/explainer-app.js", "js/i18n.js", "js/zh/core.js", "js/zh/beginner.js", "js/zh/guides.js", "js/zh/explore.js", "js/zh/labs.js", "js/zh/read.js", "js/basics.js", "js/crash.js", "js/controls.js", "js/app.js", "js/decision-lab.js", "js/read.js", "js/mobile.js", "js/diagrams.js", "js/puzzles.js", "js/swipe.js", "js/timemachine.js", "js/drills.js", "js/review.js", "js/search.js", "js/fun.js", "js/path.js", "js/story.js", "js/words.js", "js/pro.js",

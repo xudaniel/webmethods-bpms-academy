@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0f62fe">
+<title>Optimization primer: MIP, CP and their solvers — IBM webMethods BPMS Academy</title>
+<meta name="author" content="Daniel Yuanpeng Xu">
+<meta name="description" content="A short, hands-on primer on the algorithms behind decision-optimization solvers: simplex, branch and bound, cutting planes, constraint propagation, backtracking, CP-SAT, routing and graph algorithms. English and 中文.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230f62fe'/%3E%3C/svg%3E">
+<style>
+:root{--blue:#0f62fe;--ink:#161616;--mute:#525252;--line:#e0e0e0;--bg:#f4f4f4;--ok:#198038;--bad:#da1e28}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,"PingFang SC","Noto Sans SC",sans-serif;color:var(--ink);background:#fff}
+header{background:var(--blue);color:#fff;padding:14px 16px;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+header a{color:#fff;text-decoration:none;font-weight:600}
+button{font:inherit;cursor:pointer}
+.lang button{background:transparent;border:1px solid #fff;color:#fff;border-radius:6px;padding:4px 10px}
+.lang button.on{background:#fff;color:var(--blue)}
+main{max-width:760px;margin:0 auto;padding:16px}
+h1{font-size:1.6rem;line-height:1.25;margin:.4em 0}
+h2{font-size:1.25rem;margin:1.6em 0 .4em;border-top:1px solid var(--line);padding-top:1em}
+.lead{color:var(--mute)}
+.note{background:var(--bg);border-left:4px solid var(--blue);padding:10px 12px;border-radius:4px;font-size:.92rem;color:var(--mute)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{background:var(--bg)}
+.card{border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:12px 0}
+.card h3{margin:0 0 .3em;font-size:1.05rem}
+.card ol{margin:.3em 0 .6em;padding-left:1.3em}
+.eg{background:#edf5ff;border-radius:6px;padding:8px 10px;font-size:.93rem}
+.demo{border:2px solid var(--blue);border-radius:10px;padding:12px 14px;margin:14px 0}
+.demo h3{margin:.1em 0 .4em}
+.btn{background:var(--blue);color:#fff;border:0;border-radius:6px;padding:8px 12px;margin:2px 4px 2px 0}
+.btn.alt{background:#fff;color:var(--blue);border:1px solid var(--blue)}
+pre{background:#161616;color:#f4f4f4;padding:10px;border-radius:6px;overflow-x:auto;font-size:.82rem;line-height:1.45;white-space:pre-wrap;word-break:break-word}
+.ok{color:var(--ok);font-weight:700}.bad{color:var(--bad);font-weight:700}
+input[type=range]{width:100%}
+.zh{display:none}
+body.zh-on .en{display:none}
+body.zh-on .zh{display:inline}
+body.zh-on div.zh,body.zh-on p.zh,body.zh-on ol.zh,body.zh-on ul.zh,body.zh-on table.zh{display:block}
+body.zh-on table.zh{display:table}
+footer{max-width:760px;margin:2em auto;padding:0 16px 40px;color:var(--mute);font-size:.88rem}
+code{background:var(--bg);padding:1px 4px;border-radius:3px}
+</style>
+</head>
+<body>
+<header>
+  <a href="index.html">← IBM webMethods BPMS Academy</a>
+  <span class="lang"><button type="button" id="b-en">English</button> <button type="button" id="b-zh">中文</button></span>
+</header>
+<main>
+<h1><span class="en">Optimization primer: how MIP and CP solvers think</span><span class="zh">优化入门：MIP 和 CP 求解器是怎么想的</span></h1>
+<p class="lead"><span class="en">Rules decide what is <b>allowed</b>. Optimization decides what is <b>best</b>. A process (BPMS) carries the result out. This page explains the two algorithm families behind solvers such as IBM CPLEX Optimizer, CP Optimizer and OR-Tools, with small examples you can check by hand and two demos that run in your browser.</span><span class="zh">规则决定什么<b>可以做</b>，优化决定什么<b>最好</b>，流程（BPMS）负责执行。本页讲 IBM CPLEX Optimizer、CP Optimizer、OR-Tools 这类求解器背后的两类算法，每个都有能手算核对的小例子，另有两个在浏览器里运行的演示。</span></p>
+<p class="note"><span class="en">Teaching material with self-written examples and public concepts only. Not an official IBM resource. Runnable C and Python code is in <a href="https://github.com/Xudaniel/webmethods-bpms-academy/tree/main/examples/optimization">examples/optimization</a>.</span><span class="zh">教学材料，例子为自编，只用公开概念，不是 IBM 官方资源。可运行的 C 和 Python 代码在 <a href="https://github.com/Xudaniel/webmethods-bpms-academy/tree/main/examples/optimization">examples/optimization</a>。</span></p>
+
+<h2><span class="en">Two families</span><span class="zh">两大类</span></h2>
+<table class="en"><tr><th></th><th>MIP (mixed-integer programming)</th><th>CP (constraint programming)</th></tr>
+<tr><td>Good at</td><td>amounts and cost: how many, how much</td><td>order and time: who, when, in what sequence</td></tr>
+<tr><td>Core idea</td><td>LP relaxation gives a bound; branch and prune</td><td>propagate constraints; search; backtrack</td></tr>
+<tr><td>IBM engine</td><td>CPLEX Optimizer</td><td>CP Optimizer</td></tr>
+<tr><td>OR-Tools</td><td>linear solver wrapper (GLOP, SCIP, CPLEX, Gurobi)</td><td>CP-SAT</td></tr></table>
+<table class="zh"><tr><th></th><th>MIP（混合整数规划）</th><th>CP（约束规划）</th></tr>
+<tr><td>擅长</td><td>数量和成本：多少、花多少钱</td><td>顺序和时间：谁、什么时候、什么顺序</td></tr>
+<tr><td>核心</td><td>LP 松弛给出界；分支、剪枝</td><td>约束传播；搜索；回溯</td></tr>
+<tr><td>IBM 引擎</td><td>CPLEX Optimizer</td><td>CP Optimizer</td></tr>
+<tr><td>OR-Tools</td><td>线性求解器封装（GLOP、SCIP、CPLEX、Gurobi）</td><td>CP-SAT</td></tr></table>
+
+<h2><span class="en">Demo 1: branch and bound on a snack budget</span><span class="zh">演示 1：用分支定界选零食</span></h2>
+<div class="demo">
+<p><span class="en">Cola costs 4 and gives 5 happiness; chocolate 5 and 6; chips 6 and 7. Each at most once. Move the budget and watch the solver compute a bound, try a branch, and prune.</span><span class="zh">可乐 4 元 5 分，巧克力 5 元 6 分，薯片 6 元 7 分，每样最多一份。拖动预算，看求解器怎么算上限、试分支、剪枝。</span></p>
+<label><span class="en">Budget:</span><span class="zh">预算：</span> <b id="bud">10</b></label>
+<input type="range" id="budget" min="4" max="15" value="10">
+<pre id="bb-out"></pre>
+</div>
+
+<h2><span class="en">Demo 2: constraint propagation on a duty roster</span><span class="zh">演示 2：用约束传播排值班</span></h2>
+<div class="demo">
+<p><span class="en">Three people, A, B and C, take the duty on Mon, Tue and Wed, one each. B is the day after A. C is not on Wed. Tap Propagate first, then guess if it is not enough.</span><span class="zh">甲、乙、丙三人周一到周三各值一天。乙在甲的第二天，丙不能周三。先点「传播」，不够再猜。</span></p>
+<button class="btn" id="p-run"><span class="en">Propagate</span><span class="zh">传播</span></button>
+<button class="btn alt" id="p-mon"><span class="en">Guess A = Mon</span><span class="zh">猜 甲 = 周一</span></button>
+<button class="btn alt" id="p-tue"><span class="en">Guess A = Tue</span><span class="zh">猜 甲 = 周二</span></button>
+<button class="btn alt" id="p-reset"><span class="en">Reset</span><span class="zh">重置</span></button>
+<pre id="cp-out"></pre>
+</div>
+
+<h2><span class="en">The eight algorithms, step by step</span><span class="zh">八个算法的步骤</span></h2>
+<div id="algos"></div>
+
+<h2><span class="en">Which tool for which job</span><span class="zh">什么工具做什么</span></h2>
+<table class="en"><tr><th>Tool</th><th>Use it for</th></tr>
+<tr><td>OR-Tools (free, open source)</td><td>learning to model; CP-SAT for scheduling; routing; graph algorithms</td></tr>
+<tr><td>IBM CPLEX Optimizer</td><td>large-scale MIP with commercial support; free community edition has a size limit</td></tr>
+<tr><td>IBM CP Optimizer</td><td>scheduling and sequencing with rich time rules</td></tr></table>
+<table class="zh"><tr><th>工具</th><th>用途</th></tr>
+<tr><td>OR-Tools（免费开源）</td><td>学建模；CP-SAT 排程；车辆路径；图算法</td></tr>
+<tr><td>IBM CPLEX Optimizer</td><td>大规模 MIP，有商业支持；免费社区版有规模上限</td></tr>
+<tr><td>IBM CP Optimizer</td><td>时间规则复杂的排程排序</td></tr></table>
+<p class="lead"><span class="en">Modelling matters more than writing the algorithm: you declare variables, constraints and an objective, and the solver does branch and bound or propagation for you.</span><span class="zh">会建模比会写算法更重要：你只声明变量、约束和目标，分支定界和传播交给求解器。</span></p>
+</main>
+<footer><span class="en">Author: Daniel Yuanpeng Xu. Independent learning resource, not affiliated with or endorsed by IBM. Product names belong to their owners. Teaching toys leave out presolve, general simplex and interior-point LP, many cut families, heuristics, stronger propagation and large-neighbourhood search.</span><span class="zh">作者：Daniel Yuanpeng Xu。独立学习资源，与 IBM 无关联，也未获其认可。产品名属于各自所有者。教学用的简化版没有预处理、一般单纯形和内点法、多种割、启发式、更强的传播和大邻域搜索。</span></footer>
+<script>
+(function(){
+var ZH=false;
+try{var q=new URLSearchParams(location.search).get("lang");var st=localStorage.getItem("opt-lang");
+  ZH=q?q==="zh":st?st==="zh":/^zh/i.test(navigator.language||"");}catch(e){ZH=/^zh/i.test(navigator.language||"");}
+function t(en,zh){return ZH?zh:en;}
+function setLang(z){ZH=z;document.body.classList.toggle("zh-on",z);document.documentElement.lang=z?"zh-CN":"en";
+  document.getElementById("b-en").className=z?"":"on";document.getElementById("b-zh").className=z?"on":"";
+  try{localStorage.setItem("opt-lang",z?"zh":"en");}catch(e){}
+  renderAlgos();bb();if(typeof replay==='function')replay();}
+document.getElementById("b-en").onclick=function(){setLang(false);};
+document.getElementById("b-zh").onclick=function(){setLang(true);};
+
+/* eight algorithms */
+var ALGOS=[
+{n:"1",en:"Simplex (solve the LP relaxation)",zh:"单纯形法（解 LP 松弛）",
+ sen:["The feasible region is a polygon; the optimum is at a corner.","Start at a corner, move along the edge that improves the objective most.","Stop when no edge improves."],
+ szh:["可行区域是个多边形，最优解在某个角上。","从一个角出发，沿最能改善目标的那条边走。","没有边能再改善就停。"],
+ een:"Maximise 2x + 3y with x + y ≤ 4 and x + 3y ≤ 6. Corners give 0, 8, 6 and 9, so x = 3, y = 1, value 9.",
+ ezh:"最大化 2x + 3y，约束 x + y ≤ 4、x + 3y ≤ 6。四个角分别是 0、8、6、9，所以 x = 3、y = 1，值为 9。"},
+{n:"2",en:"Branch and bound",zh:"分支定界",
+ sen:["Solve the LP for a bound.","If the solution is integer, keep it as the best so far.","Otherwise split on a fractional variable (buy / do not buy).","Prune a branch whose bound is no better than the best so far."],
+ szh:["解 LP 得到界。","解是整数，就记为当前最好。","否则对小数变量分支（买 / 不买）。","分支的界不比当前最好更好，就剪掉。"],
+ een:"Snack budget 10: root bound 12.17, best integer 12; the no-cola branch is bounded by 11.83 and pruned. Try Demo 1.",
+ ezh:"零食预算 10：根界 12.17，最好整数解 12；「不买可乐」的上限 11.83，被剪掉。见演示 1。"},
+{n:"3",en:"Cutting planes",zh:"割平面",
+ sen:["Find a constraint that removes the fractional LP solution but no integer solution.","Add it and solve again: the bound tightens, fewer branches are needed."],
+ szh:["找一条约束：去掉小数解，但不去掉任何整数解。","加进去重解，界变紧，需要的分支变少。"],
+ een:"Each box weighs 2, the van carries 3. LP says 1.5 boxes. Divide 2x ≤ 3 by 2 and round down: x ≤ 1. Now the LP answer is 1.",
+ ezh:"每箱重 2，车载 3。LP 说 1.5 箱。把 2x ≤ 3 两边除以 2 再向下取整：x ≤ 1。LP 直接给出 1。"},
+{n:"4",en:"Constraint propagation",zh:"约束传播",
+ sen:["Each variable has a domain of possible values.","Each constraint removes values that cannot be in any solution.","Repeat until nothing changes. An empty domain means a dead end."],
+ szh:["每个变量有一个候选值范围。","每条约束删掉不可能出现在任何解里的值。","重复到不再变化；范围变空就是死路。"],
+ een:"A (2 h) before B (1 h), B must end by 12:00, the day starts at 8:00: A starts 8 to 9, B starts 10 to 11. No guessing.",
+ ezh:"A（2 小时）在 B（1 小时）之前，B 要 12:00 前结束，8:00 开工：A 在 8–9 点开始，B 在 10–11 点开始，一次没猜。"},
+{n:"5",en:"Backtracking search",zh:"回溯搜索",
+ sen:["Pick the variable with the fewest values left.","Try a value and propagate.","On failure, back up and try the next value.","After a solution, demand a better objective and continue."],
+ szh:["挑剩余候选最少的变量。","试一个值，再传播。","失败就退回，换下一个值。","找到解后要求更好的目标，继续找。"],
+ een:"The duty roster: A = Mon fails, A = Tue works. Try Demo 2.",
+ ezh:"值班表：甲 = 周一失败，甲 = 周二成功。见演示 2。"},
+{n:"6",en:"CP-SAT (clause learning)",zh:"CP-SAT（冲突学习）",
+ sen:["Turn each integer variable into true / false literals.","On a conflict, work out which choices together caused it and store a new clause.","The same mistake is never repeated anywhere in the search.","Run LP bounds and several search strategies in parallel."],
+ szh:["把整数变量变成真 / 假开关。","遇到冲突，追出是哪几个选择一起导致的，记成新子句。","同样的错误在整个搜索中不再重复。","同时跑 LP 界和多种搜索策略。"],
+ een:"In the roster, the failure teaches the rule “A is not Mon”, reused wherever it would recur.",
+ ezh:"在值班表里，失败学到一条规则「甲不是周一」，之后任何会重复的地方都能直接用。"},
+{n:"7",en:"Vehicle routing (local search)",zh:"车辆路径（局部搜索）",
+ sen:["Build a first route greedily, for example nearest customer next.","Improve it with small moves: reverse a segment (2-opt), swap or relocate customers.","Escape local optima with a metaheuristic.","Stop on time: a good route, not a proof of optimality."],
+ szh:["贪心造初始路线，比如每次去最近的客户。","小改动：反转一段（2-opt）、交换或挪动客户。","卡住时用元启发式跳出局部最优。","到时间就停：得到好路线，但不证明最优。"],
+ een:"Depot (0,0), customers (0,1), (0,2), (2,0), (4,3), grid distance. Nearest-first gives 18; reversing the last two stops gives 14, the optimum.",
+ ezh:"仓库 (0,0)，客户 (0,1)、(0,2)、(2,0)、(4,3)，横竖走。「最近优先」是 18；把最后两站反过来走是 14，就是最优。"},
+{n:"8",en:"Graph algorithms",zh:"图算法",
+ sen:["Dijkstra: settle the nearest unsettled node, then relax its edges.","Max flow: push along a path with spare capacity, update the leftovers, repeat.","Hungarian method: subtract row and column minima, match on zeros."],
+ szh:["Dijkstra：定下最近的未定点，再更新它的邻居。","最大流：沿有空余的路推，更新剩余容量，重复。","匈牙利算法：行列各减最小值，在 0 上配对。"],
+ een:"Home to Work: Home→A 2, Home→B 5, A→B 1, A→Work 6, B→Work 2. Settled: A = 2, B = min(5, 3) = 3, Work = min(8, 5) = 5.",
+ ezh:"家到公司：家→A 2，家→B 5，A→B 1，A→公司 6，B→公司 2。依次定下 A = 2，B = min(5, 3) = 3，公司 = min(8, 5) = 5。"}];
+function renderAlgos(){
+  var h="";
+  ALGOS.forEach(function(a){
+    var s=(ZH?a.szh:a.sen).map(function(x){return "<li>"+x+"</li>";}).join("");
+    h+='<div class="card"><h3>'+a.n+". "+(ZH?a.zh:a.en)+"</h3><ol>"+s+'</ol><div class="eg"><b>'+t("Example: ","例子：")+"</b>"+(ZH?a.ezh:a.een)+"</div></div>";
+  });
+  document.getElementById("algos").innerHTML=h;
+}
+
+/* demo 1: branch and bound */
+var ITEMS=[{n:"cola",z:"可乐",p:4,v:5},{n:"chocolate",z:"巧克力",p:5,v:6},{n:"chips",z:"薯片",p:6,v:7}];
+function nm(i){return ZH?i.z:i.n;}
+function bound(k,left,val){var b=val;for(var i=k;i<ITEMS.length;i++){var it=ITEMS[i];
+  if(it.p<=left){left-=it.p;b+=it.v;}else{b+=it.v*left/it.p;break;}}return b;}
+function bb(){
+  var B=+document.getElementById("budget").value;document.getElementById("bud").textContent=B;
+  var best=0,bestSet=[],log=[];
+  function f(x){return (Math.round(x*100)/100).toString();}
+  function dfs(k,left,val,set,ind){
+    var pad=new Array(ind+1).join("  ");
+    if(k===ITEMS.length){if(val>best){best=val;bestSet=set.slice();log.push(pad+t("new best ","新的最好解 ")+val+" ["+set.map(function(i){return nm(ITEMS[i]);}).join(", ")+"]");}return;}
+    var ub=bound(k,left,val);
+    if(ub<=best){log.push(pad+t("prune before "+ITEMS[k].n+": bound "+f(ub)+" <= best "+best,"在「"+ITEMS[k].z+"」前剪枝：上限 "+f(ub)+" ≤ 当前最好 "+best));return;}
+    log.push(pad+t("at "+ITEMS[k].n+": bound "+f(ub),"到「"+ITEMS[k].z+"」：上限 "+f(ub)));
+    if(ITEMS[k].p<=left){log.push(pad+t("  buy "+ITEMS[k].n,"  买"+ITEMS[k].z));set.push(k);dfs(k+1,left-ITEMS[k].p,val+ITEMS[k].v,set,ind+1);set.pop();}
+    log.push(pad+t("  skip "+ITEMS[k].n,"  不买"+ITEMS[k].z));dfs(k+1,left,val,set,ind+1);
+  }
+  log.push(t("root bound (half bags allowed): ","根界（允许买半份）：")+f(bound(0,B,0)));
+  dfs(0,B,0,[],0);
+  log.push("");log.push(t("best happiness ","最大开心 ")+best+": "+(bestSet.length?bestSet.map(function(i){return nm(ITEMS[i]);}).join(", "):t("nothing","什么都不买")));
+  document.getElementById("bb-out").textContent=log.join("\n");
+}
+document.getElementById("budget").oninput=bb;
+
+/* demo 2: propagation */
+var DAY_EN=["","Mon","Tue","Wed"],DAY_ZH=["","周一","周二","周三"],NAME_EN={A:"A",B:"B",C:"C"},NAME_ZH={A:"甲",B:"乙",C:"丙"};
+function day(d){return (ZH?DAY_ZH:DAY_EN)[d];}function pn(v){return (ZH?NAME_ZH:NAME_EN)[v];}
+var dom,cpLog;
+function cpReset(){dom={A:[1,2,3],B:[1,2,3],C:[1,2,3]};cpLog=[t("Start: every person can take any day.","开始：每个人都可以任何一天。")];}
+function show(){return ["A","B","C"].map(function(v){return pn(v)+" {"+dom[v].map(day).join(", ")+"}";}).join("   ");}
+function rm(v,val,why){var i=dom[v].indexOf(val);if(i<0)return false;dom[v].splice(i,1);cpLog.push("  "+t(NAME_EN[v]+" cannot be "+DAY_EN[val]+" ("+why[0]+")",NAME_ZH[v]+"不能是"+DAY_ZH[val]+"（"+why[1]+"）"));return true;}
+function propagate(){
+  var changed=true,failed=false;
+  while(changed&&!failed){changed=false;
+    if(rm("C",3,["C is not on Wed","丙不能周三"]))changed=true;
+    [1,2,3].forEach(function(a){if(dom.A.indexOf(a)>=0&&dom.B.indexOf(a+1)<0){rm("A",a,["B would have no day after it","乙没有「甲的第二天」可选"]);changed=true;}});
+    [1,2,3].forEach(function(b){if(dom.B.indexOf(b)>=0&&dom.A.indexOf(b-1)<0){rm("B",b,["B must be the day after A","乙必须在甲的第二天"]);changed=true;}});
+    ["A","B","C"].forEach(function(v){if(dom[v].length===1){["A","B","C"].forEach(function(u){if(u!==v&&rm(u,dom[v][0],["one person per day","每天只一人"]))changed=true;});}});
+    ["A","B","C"].forEach(function(v){if(dom[v].length===0)failed=true;});
+  }
+  cpLog.push(show());
+  if(failed)cpLog.push(t("FAIL: someone has no day left. Back up and guess differently.","失败：有人没有可选的日子。退回，换一种猜法。"));
+  else if(["A","B","C"].every(function(v){return dom[v].length===1;}))cpLog.push(t("SOLVED: ","解出来了：")+["A","B","C"].map(function(v){return pn(v)+" = "+day(dom[v][0]);}).join(", "));
+  else cpLog.push(t("Propagation alone is not enough: now guess.","光靠传播还不够：现在要猜。"));
+}
+function cpShow(){document.getElementById("cp-out").textContent=cpLog.join("\n");}
+var acts=[];
+function doAct(a){
+  if(a==="reset"){cpReset();cpLog.push(show());}
+  else if(a==="run"){cpLog.push("");cpLog.push(t("Propagate:","传播："));propagate();}
+  else{var d=a==="mon"?1:2;cpReset();cpLog.push(t("Guess A = "+DAY_EN[d],"猜 甲 = "+DAY_ZH[d]));dom.A=[d];propagate();}
+}
+function act(a){if(a==="reset"||a==="mon"||a==="tue")acts=[];acts.push(a);doAct(a);cpShow();}
+function replay(){cpReset();cpLog.push(show());acts.forEach(doAct);cpShow();}
+document.getElementById("p-run").onclick=function(){act("run");};
+document.getElementById("p-mon").onclick=function(){act("mon");};
+document.getElementById("p-tue").onclick=function(){act("tue");};
+document.getElementById("p-reset").onclick=function(){act("reset");};
+cpReset();cpLog.push(show());
+setLang(ZH);
+})();
+</script>
+</body>
+</html>

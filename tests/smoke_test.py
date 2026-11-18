@@ -660,6 +660,26 @@ async def main():
         if await cp.evaluate("document.documentElement.lang") != "en":
             failures.append("zh: choosing English should win over the browser language")
         await cctx.close()
+        # optimization primer page: two demos, English and Chinese
+        op = await browser.new_page(viewport={"width": 390, "height": 844})
+        op.on("pageerror", lambda e: errors.append("optimization: " + str(e)))
+        await op.goto("http://127.0.0.1:8765/optimization.html?lang=en")
+        await op.wait_for_timeout(300)
+        if "best happiness 12: cola, chips" not in await op.inner_text("#bb-out"):
+            failures.append("optimization: snack demo should find 12 (cola, chips) at budget 10")
+        if await op.locator("#algos .card").count() != 8:
+            failures.append("optimization: expected 8 algorithm cards")
+        await op.click("#p-mon")
+        if "FAIL" not in await op.inner_text("#cp-out"):
+            failures.append("optimization: guessing A = Mon should fail")
+        await op.click("#p-tue")
+        if "SOLVED: A = Tue, B = Wed, C = Mon" not in await op.inner_text("#cp-out"):
+            failures.append("optimization: guessing A = Tue should solve the roster")
+        await op.click("#b-zh")
+        await op.wait_for_timeout(200)
+        if "最大开心 12" not in await op.inner_text("#bb-out") or "解出来了" not in await op.inner_text("#cp-out"):
+            failures.append("optimization: Chinese demo output missing")
+        await op.close()
         await browser.close()
     srv.shutdown()
     # Diagram images referenced by knowledge topics must exist (missing ones are hidden on the page, but reported here)

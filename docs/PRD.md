@@ -145,6 +145,7 @@ Because the site collects no analytics by design, success is measured from outsi
 
 | Version | Date | What shipped |
 | --- | --- | --- |
+| Unreleased | 2026-11-17 | optimization.html: optimization primer page, EN + 中文, eight algorithms with examples and two in-browser demos (branch and bound, constraint propagation); smoke-tested (#89) |
 | Unreleased | 2026-11-17 | Examples: optimization primer in examples/optimization (algorithm steps, C, OR-Tools, docplex/CPLEX code) (#87) |
 | Unreleased | 2026-11-17 | Knowledge base: IBM Integration rename, 12.1 upgrade tooling and licensing facts, new topic on agents and human tasks across IBM; EN + 中文; 11 topics, 72 facts (#85) |
 | Unreleased | 2026-11-17 | Lifecycle wording follows IBM's current page: 10.15 end of support 31 Oct 2027, extended support to 2028 and 2030; EN + 中文 (#83) |

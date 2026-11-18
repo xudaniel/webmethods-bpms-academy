@@ -2,6 +2,8 @@
 
 A short, runnable introduction to the two families of algorithms behind decision-optimization products such as IBM CPLEX Optimizer and CP Optimizer, and the open-source OR-Tools. It sits next to the Academy's decision-automation material: **rules** decide what is allowed, **optimization** decides what is best, **a process (BPMS)** carries the result out.
 
+**Read it as a page:** [optimization.html](https://xudaniel.github.io/webmethods-bpms-academy/optimization.html) (English and 中文, with two demos that run in the browser).
+
 Teaching examples written for this repo. Public concepts only. Not an official IBM resource.
 
 ## Two families
