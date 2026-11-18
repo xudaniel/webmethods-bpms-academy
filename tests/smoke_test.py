@@ -675,6 +675,12 @@ async def main():
         await op.click("#p-tue")
         if "SOLVED: A = Tue, B = Wed, C = Mon" not in await op.inner_text("#cp-out"):
             failures.append("optimization: guessing A = Tue should solve the roster")
+        if "total cost 380" not in await op.inner_text("#ro-out") or "380 − 375 = 5" not in await op.inner_text("#ro-out"):
+            failures.append("optimization: rules demo should cost 380 with the rule (price 5)")
+        await op.click("#rule-on")
+        if "total cost 375" not in await op.inner_text("#ro-out"):
+            failures.append("optimization: rules demo should cost 375 without the rule")
+        await op.click("#rule-on")
         await op.click("#b-zh")
         await op.wait_for_timeout(200)
         if "最大开心 12" not in await op.inner_text("#bb-out") or "解出来了" not in await op.inner_text("#cp-out"):

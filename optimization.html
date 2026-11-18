@@ -52,7 +52,7 @@ code{background:var(--bg);padding:1px 4px;border-radius:3px}
 </header>
 <main>
 <h1><span class="en">Optimization primer: how MIP and CP solvers think</span><span class="zh">优化入门：MIP 和 CP 求解器是怎么想的</span></h1>
-<p class="lead"><span class="en">Rules decide what is <b>allowed</b>. Optimization decides what is <b>best</b>. A process (BPMS) carries the result out. This page explains the two algorithm families behind solvers such as IBM CPLEX Optimizer, CP Optimizer and OR-Tools, with small examples you can check by hand and two demos that run in your browser.</span><span class="zh">规则决定什么<b>可以做</b>，优化决定什么<b>最好</b>，流程（BPMS）负责执行。本页讲 IBM CPLEX Optimizer、CP Optimizer、OR-Tools 这类求解器背后的两类算法，每个都有能手算核对的小例子，另有两个在浏览器里运行的演示。</span></p>
+<p class="lead"><span class="en">Rules decide what is <b>allowed</b>. Optimization decides what is <b>best</b>. A process (BPMS) carries the result out. This page explains the two algorithm families behind solvers such as IBM CPLEX Optimizer, CP Optimizer and OR-Tools, with small examples you can check by hand and three demos that run in your browser.</span><span class="zh">规则决定什么<b>可以做</b>，优化决定什么<b>最好</b>，流程（BPMS）负责执行。本页讲 IBM CPLEX Optimizer、CP Optimizer、OR-Tools 这类求解器背后的两类算法，每个都有能手算核对的小例子，另有三个在浏览器里运行的演示。</span></p>
 <p class="note"><span class="en">Teaching material with self-written examples and public concepts only. Not an official IBM resource. Runnable C and Python code is in <a href="https://github.com/Xudaniel/webmethods-bpms-academy/tree/main/examples/optimization">examples/optimization</a>.</span><span class="zh">教学材料，例子为自编，只用公开概念，不是 IBM 官方资源。可运行的 C 和 Python 代码在 <a href="https://github.com/Xudaniel/webmethods-bpms-academy/tree/main/examples/optimization">examples/optimization</a>。</span></p>
 
 <h2><span class="en">Two families</span><span class="zh">两大类</span></h2>
@@ -85,6 +85,13 @@ code{background:var(--bg);padding:1px 4px;border-radius:3px}
 <pre id="cp-out"></pre>
 </div>
 
+<h2><span class="en">Demo 3: rules first, then optimization</span><span class="zh">演示 3：先规则，后优化</span></h2>
+<div class="demo">
+<p><span class="en">Three electricians: Zhang San 50 an hour, Li Si 40, Wang Wu 45; at most 6 hours each. Orders: A 3 h, B 2 h, C 4 h. C is high-voltage work, and only Zhang San and Wang Wu hold the certificate. A rules engine decides who is <b>allowed</b>; the optimizer picks the <b>cheapest</b> plan among the allowed ones. Switch the rule off and on.</span><span class="zh">三个电工：张三时薪 50，李四 40，王五 45，每人最多 6 小时。工单：A 3 小时，B 2 小时，C 4 小时。C 是高压活，只有张三和王五持证。规则引擎决定谁<b>可以</b>做，优化器在可以的人里选<b>最省钱</b>的方案。把规则关掉、打开对比一下。</span></p>
+<label><input type="checkbox" id="rule-on" checked> <span class="en">Apply the high-voltage rule</span><span class="zh">启用高压持证规则</span></label>
+<pre id="ro-out"></pre>
+</div>
+
 <h2><span class="en">The eight algorithms, step by step</span><span class="zh">八个算法的步骤</span></h2>
 <div id="algos"></div>
 
@@ -109,7 +116,7 @@ function t(en,zh){return ZH?zh:en;}
 function setLang(z){ZH=z;document.body.classList.toggle("zh-on",z);document.documentElement.lang=z?"zh-CN":"en";
   document.getElementById("b-en").className=z?"":"on";document.getElementById("b-zh").className=z?"on":"";
   try{localStorage.setItem("opt-lang",z?"zh":"en");}catch(e){}
-  renderAlgos();bb();if(typeof replay==='function')replay();}
+  renderAlgos();bb();if(typeof ro==='function')ro();if(typeof replay==='function')replay();}
 document.getElementById("b-en").onclick=function(){setLang(false);};
 document.getElementById("b-zh").onclick=function(){setLang(true);};
 
@@ -211,6 +218,26 @@ function propagate(){
   else cpLog.push(t("Propagation alone is not enough: now guess.","光靠传播还不够：现在要猜。"));
 }
 function cpShow(){document.getElementById("cp-out").textContent=cpLog.join("\n");}
+
+/* demo 3: rules then optimization */
+var RW=[{en:"Zhang San",zh:"张三",r:50,hv:true},{en:"Li Si",zh:"李四",r:40,hv:false},{en:"Wang Wu",zh:"王五",r:45,hv:true}];
+var RO=[{n:"A",h:3,hv:false},{n:"B",h:2,hv:false},{n:"C",h:4,hv:true}];
+function solveRO(rule){var best=null;
+  for(var a=0;a<3;a++)for(var b=0;b<3;b++)for(var c=0;c<3;c++){var p=[a,b,c],hrs=[0,0,0],cost=0,ok=true;
+    for(var i=0;i<3;i++){var w=RW[p[i]],o=RO[i];if(rule&&o.hv&&!w.hv)ok=false;hrs[p[i]]+=o.h;cost+=w.r*o.h;}
+    if(ok&&Math.max.apply(null,hrs)<=6&&(!best||cost<best.cost))best={cost:cost,p:p};}
+  return best;}
+function wn(i){return ZH?RW[i].zh:RW[i].en;}
+function ro(){var on=document.getElementById("rule-on").checked,log=[];
+  if(on){log.push(t("Step 1, rules:","第 1 步，规则："));log.push("  "+t("Li Si may not do C (no high-voltage certificate)","李四不能做 C（没有高压证）"));}
+  else log.push(t("Step 1, rules: off, everyone may do everything","第 1 步，规则：关闭，人人都能做"));
+  var s=solveRO(on),s0=solveRO(false),s1=solveRO(true);
+  log.push(t("Step 2, optimization:","第 2 步，优化："));
+  RO.forEach(function(o,i){log.push("  "+o.n+" ("+o.h+t(" h"," 小时")+") → "+wn(s.p[i]));});
+  log.push("  "+t("total cost ","总成本 ")+s.cost);
+  log.push("");log.push(t("Price of the rule: ","规则的代价：")+s1.cost+" − "+s0.cost+" = "+(s1.cost-s0.cost));
+  document.getElementById("ro-out").textContent=log.join("\n");}
+document.getElementById("rule-on").onchange=ro;
 var acts=[];
 function doAct(a){
   if(a==="reset"){cpReset();cpLog.push(show());}

@@ -2,7 +2,7 @@
 
 A short, runnable introduction to the two families of algorithms behind decision-optimization products such as IBM CPLEX Optimizer and CP Optimizer, and the open-source OR-Tools. It sits next to the Academy's decision-automation material: **rules** decide what is allowed, **optimization** decides what is best, **a process (BPMS)** carries the result out.
 
-**Read it as a page:** [optimization.html](https://xudaniel.github.io/webmethods-bpms-academy/optimization.html) (English and 中文, with two demos that run in the browser).
+**Read it as a page:** [optimization.html](https://xudaniel.github.io/webmethods-bpms-academy/optimization.html) (English and 中文, with three demos that run in the browser).
 
 Teaching examples written for this repo. Public concepts only. Not an official IBM resource.
 
@@ -33,6 +33,7 @@ Teaching examples written for this repo. Public concepts only. Not an official I
 | `simple_demo.c` | snack knapsack by branch and bound; seat puzzle by propagation | `gcc -O2 -o simple_demo simple_demo.c && ./simple_demo` |
 | `opt_demo.c` | work-order assignment (MIP, answer 390) and technician schedule (CP, done at 14:00) | `gcc -O2 -o opt_demo opt_demo.c && ./opt_demo` |
 | `solver_examples.py` | the same problems with OR-Tools (SCIP, CP-SAT) and IBM docplex / CPLEX | `pip install ortools docplex cplex && python3 solver_examples.py` |
+| `rules_plus_optimization.py` | rules first (who is certified), then optimization (cheapest plan); the rule costs 5 (375 → 380), checked with OR-Tools and CPLEX | `python3 rules_plus_optimization.py` |
 | `algo_examples.py` | brute-force checks of the small examples above | `python3 algo_examples.py` |
 | `route_search.py` | finds the small routing example where one reversal beats nearest-neighbour | `python3 route_search.py` |
 
