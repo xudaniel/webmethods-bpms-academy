@@ -3,7 +3,7 @@
 > ### ✍️ Author and product owner: **Daniel Yuanpeng Xu**
 > Daniel created the IBM webMethods BPMS Academy. He conceived, designed, directed, reviewed and published the curriculum, the knowledge base, the guides, the diagrams, the lab, this PRD and every *Author's view*, and he maintains every release. [GitHub @Xudaniel](https://github.com/Xudaniel) · [LinkedIn](https://www.linkedin.com/in/danielxuvision/)
 
-**Status:** v1.0.0 scope released 15 Nov 2026 · **Current release:** [v2.2.0](https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v2.2.0) (see §14)
+**Status:** v1.0.0 scope released 15 Nov 2026 · **Current release:** [v2.3.0](https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v2.3.0) (see §14)
 **Live site:** <https://xudaniel.github.io/webmethods-bpms-academy/> · **Changelog:** [CHANGELOG.md](../CHANGELOG.md)
 
 > Independent learning resource. Not an official IBM site, and not affiliated with or endorsed by IBM. This document uses public information only.
@@ -139,28 +139,29 @@ Because the site collects no analytics by design, success is measured from outsi
 **Daniel Yuanpeng Xu** is the author and product owner. He is a product manager in business process and decision automation, based in Toronto. He set the product direction, defined the audiences and scope, chose and verified the public sources, wrote the *Author's view* frameworks, directed and reviewed every change, and decides each release. The academy is his independent work and is not affiliated with or endorsed by IBM.
 
 - **Contact:** [GitHub @Xudaniel](https://github.com/Xudaniel) · [LinkedIn](https://www.linkedin.com/in/danielxuvision/)
-- **Cite as:** Xu, Daniel Yuanpeng (2026). *IBM webMethods BPMS Academy* (v2.2.0). https://github.com/xudaniel/webmethods-bpms-academy
+- **Cite as:** Xu, Daniel Yuanpeng (2026). *IBM webMethods BPMS Academy* (v2.3.0). https://github.com/xudaniel/webmethods-bpms-academy
 
 ## 14. Release history
 
 | Version | Date | What shipped |
 | --- | --- | --- |
-| Unreleased | 2026-11-17 | optimization.html Demo 3: rules first (certificate decision table), then optimization (cheapest allowed plan); rule on/off shows its price, 375 → 380; Python version checked with OR-Tools and CPLEX; EN + 中文 (#91) |
-| Unreleased | 2026-11-17 | optimization.html: optimization primer page, EN + 中文, eight algorithms with examples and two in-browser demos (branch and bound, constraint propagation); smoke-tested (#89) |
-| Unreleased | 2026-11-17 | Examples: optimization primer in examples/optimization (algorithm steps, C, OR-Tools, docplex/CPLEX code) (#87) |
-| Unreleased | 2026-11-17 | Knowledge base: IBM Integration rename, 12.1 upgrade tooling and licensing facts, new topic on agents and human tasks across IBM; EN + 中文; 11 topics, 72 facts (#85) |
-| Unreleased | 2026-11-17 | Lifecycle wording follows IBM's current page: 10.15 end of support 31 Oct 2027, extended support to 2028 and 2030; EN + 中文 (#83) |
-| Unreleased | 2026-11-17 | Knowledge base: webMethods and IBM webMethods Hybrid Integration (IWHI), cited, EN + 中文; 10 topics, 62 facts (#81) |
-| Unreleased | 2026-11-16 | 中文版 batch 4: reading version and executive briefs in Chinese; Chinese browsers open in Chinese; the whole site is now bilingual (#68) |
-| Unreleased | 2026-11-16 | Site search: 🔍 or "/" searches every section in the browser, English and Chinese, and opens the exact place (#77) |
-| Unreleased | 2026-11-16 | Review book: spaced review of every wrong answer across seven question sources (1 → 3 days, 7 after a lapse); English and Chinese (#76) |
-| Unreleased | 2026-11-16 | On-call drills: three branching incidents with a clock and cited debriefs; On-call hero badge; English and Chinese (#50) |
-| Unreleased | 2026-11-16 | Instance time machine: replay a finished simulator instance from its audit rows, with a volatile-tracking toggle; English and Chinese (#51) |
-| Unreleased | 2026-11-16 | Swipe sort: rule, agent or human? 20 cards in 60 seconds, answers from the scan lab's classifier, English and Chinese (#53) |
-| Unreleased | 2026-11-16 | 中文版 batch 3b: controls for regulated industries, decision lab, Fix the diagram; all 22 course sections now in Chinese (#68) |
-| Unreleased | 2026-11-16 | 中文版 batch 3a: overview, lifecycle, architecture, BPMN, patterns, cases, simulator, Agent Scan Lab, market, glossary, quiz and their diagrams (#68) |
-| Unreleased | 2026-11-16 | 中文版 batch 2: knowledge base, how-to guides and cheat sheets, demo script, lab, troubleshooting, workshop plan and their diagrams (#68) |
-| Unreleased | 2026-11-16 | 中文版 batch 1: language switch; Start here, 10-minute course, Basics 101, menus, terms, story and their diagrams in Simplified Chinese (#68) |
+| 2.3.0 | 2026-11-18 | Release v2.3.0 published; version bumped everywhere (#93) |
+| 2.3.0 | 2026-11-17 | optimization.html Demo 3: rules first (certificate decision table), then optimization (cheapest allowed plan); rule on/off shows its price, 375 → 380; Python version checked with OR-Tools and CPLEX; EN + 中文 (#91) |
+| 2.3.0 | 2026-11-17 | optimization.html: optimization primer page, EN + 中文, eight algorithms with examples and two in-browser demos (branch and bound, constraint propagation); smoke-tested (#89) |
+| 2.3.0 | 2026-11-17 | Examples: optimization primer in examples/optimization (algorithm steps, C, OR-Tools, docplex/CPLEX code) (#87) |
+| 2.3.0 | 2026-11-17 | Knowledge base: IBM Integration rename, 12.1 upgrade tooling and licensing facts, new topic on agents and human tasks across IBM; EN + 中文; 11 topics, 72 facts (#85) |
+| 2.3.0 | 2026-11-17 | Lifecycle wording follows IBM's current page: 10.15 end of support 31 Oct 2027, extended support to 2028 and 2030; EN + 中文 (#83) |
+| 2.3.0 | 2026-11-17 | Knowledge base: webMethods and IBM webMethods Hybrid Integration (IWHI), cited, EN + 中文; 10 topics, 62 facts (#81) |
+| 2.3.0 | 2026-11-16 | 中文版 batch 4: reading version and executive briefs in Chinese; Chinese browsers open in Chinese; the whole site is now bilingual (#68) |
+| 2.3.0 | 2026-11-16 | Site search: 🔍 or "/" searches every section in the browser, English and Chinese, and opens the exact place (#77) |
+| 2.3.0 | 2026-11-16 | Review book: spaced review of every wrong answer across seven question sources (1 → 3 days, 7 after a lapse); English and Chinese (#76) |
+| 2.3.0 | 2026-11-16 | On-call drills: three branching incidents with a clock and cited debriefs; On-call hero badge; English and Chinese (#50) |
+| 2.3.0 | 2026-11-16 | Instance time machine: replay a finished simulator instance from its audit rows, with a volatile-tracking toggle; English and Chinese (#51) |
+| 2.3.0 | 2026-11-16 | Swipe sort: rule, agent or human? 20 cards in 60 seconds, answers from the scan lab's classifier, English and Chinese (#53) |
+| 2.3.0 | 2026-11-16 | 中文版 batch 3b: controls for regulated industries, decision lab, Fix the diagram; all 22 course sections now in Chinese (#68) |
+| 2.3.0 | 2026-11-16 | 中文版 batch 3a: overview, lifecycle, architecture, BPMN, patterns, cases, simulator, Agent Scan Lab, market, glossary, quiz and their diagrams (#68) |
+| 2.3.0 | 2026-11-16 | 中文版 batch 2: knowledge base, how-to guides and cheat sheets, demo script, lab, troubleshooting, workshop plan and their diagrams (#68) |
+| 2.3.0 | 2026-11-16 | 中文版 batch 1: language switch; Start here, 10-minute course, Basics 101, menus, terms, story and their diagrams in Simplified Chinese (#68) |
 | 2.2.0 | 2026-11-16 | 10-minute course: five steps, five pictures, three checks; first step of the New-here path (#64) |
 | 2.1.0 | 2026-11-16 | Professional mode (?mode=pro), one-page executive briefs for banking and insurance, last-reviewed dates (#59) |
 | 2.1.0 | 2026-11-16 | Controls for regulated industries: seven controls mapped to SR 11-7, OSFI E-23, EU AI Act, GDPR Art. 22, NAIC, DORA, with BPMS evidence (#58) |

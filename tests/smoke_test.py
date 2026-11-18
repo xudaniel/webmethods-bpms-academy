@@ -34,7 +34,7 @@ async def main():
             if not await page.is_visible(f"#{s}") or len(await page.inner_text(f"#{s}")) < 200:
                 failures.append(f"section {s} empty or hidden")
         # Knowledge base (issues #7, #8): IBM branding, counter, family, cited topics
-        if "v2.2.0" not in await page.inner_text("#version"):
+        if "v2.3.0" not in await page.inner_text("#version"):
             failures.append("footer should show the release version")
         if not (await page.title()).startswith("IBM webMethods"):
             failures.append("title should lead with IBM webMethods")
