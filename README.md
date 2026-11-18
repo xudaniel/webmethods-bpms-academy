@@ -423,6 +423,7 @@ Opening `index.html` directly also works in most browsers; a local server avoids
 webmethods-bpms-academy/
 ├── index.html          # interactive version
 ├── read.html           # reading version: one page, diagrams, quiz with answer key
+├── optimization.html   # optimization primer page with two demos (EN + 中文)
 ├── brief.html          # one-page executive briefs for banking and insurance (print to PDF)
 ├── README.md           # English README
 ├── README.zh-CN.md     # Chinese README (中文说明)
