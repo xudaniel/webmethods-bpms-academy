@@ -4,7 +4,7 @@
 
 <p>
   <a href="https://github.com/Xudaniel"><img alt="Author: Daniel Yuanpeng Xu" src="https://img.shields.io/badge/author-Daniel_Yuanpeng_Xu-0f62fe?style=for-the-badge"></a>
-  <a href="https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v2.2.0"><img alt="Release v2.2.0" src="https://img.shields.io/badge/release-v2.2.0-24a148?style=for-the-badge"></a>
+  <a href="https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v2.3.0"><img alt="Release v2.3.0" src="https://img.shields.io/badge/release-v2.3.0-24a148?style=for-the-badge"></a>
   <a href="https://xudaniel.github.io/webmethods-bpms-academy/"><img alt="Live site" src="https://img.shields.io/badge/live-open_the_course-8a3ffc?style=for-the-badge"></a>
   <img alt="Works offline" src="https://img.shields.io/badge/phone-installable_·_offline-161616?style=for-the-badge">
 </p>
@@ -16,7 +16,7 @@
 
 **Learn IBM webMethods BPMS the way you will actually use it.** This is a free, phone-first course. Pick your role and get a 3–5 step path. See the whole product in one picture, then learn by doing: a simulator, a 30-minute hands-on lab, and step-by-step guides for every role. Every fact is cited from public documentation.
 
-**[▶ Open the course](https://xudaniel.github.io/webmethods-bpms-academy/)** · [Reading version](https://xudaniel.github.io/webmethods-bpms-academy/read.html) · Current release **[v2.2.0](https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v2.2.0)** · [中文版](https://xudaniel.github.io/webmethods-bpms-academy/?lang=zh) · [What's new](CHANGELOG.md) · [Product requirements (PRD)](docs/PRD.md)
+**[▶ Open the course](https://xudaniel.github.io/webmethods-bpms-academy/)** · [Reading version](https://xudaniel.github.io/webmethods-bpms-academy/read.html) · Current release **[v2.2.0](https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v2.3.0)** · [中文版](https://xudaniel.github.io/webmethods-bpms-academy/?lang=zh) · [What's new](CHANGELOG.md) · [Product requirements (PRD)](docs/PRD.md)
 
 <p>
   <img src="assets/screenshots/role-picker.png" width="240" alt="Who are you? Pick a role and get a personal path">
@@ -526,6 +526,8 @@ GitHub Actions runs the same test (`.github/workflows/smoke-test.yml`) on every 
 - [ ] Module on moving webMethods Business Rules to IBM ODM decision services
 - [ ] Agent Scan Lab: adjustable thresholds and CSV export
 
+**Done in v2.3.0:** the whole site in Chinese (#68); site search; a review book with spaced review; on-call drills, instance time machine and swipe sort; knowledge base grown to 11 cited topics and 72 facts; an optimization primer page with three demos.
+
 **Done in v2.2.0:** a 10-minute course for people who know nothing yet: five steps, five pictures, three checks; the first step of the *New here* path.
 
 **Done in v2.1.0:** Controls for regulated industries; Professional mode; executive briefs for banking and insurance; last-reviewed dates.
@@ -554,7 +556,7 @@ He set the product direction, defined the audiences and scope, chose and checked
 
 ## How to cite
 
-> Xu, Daniel Yuanpeng (2026). *IBM webMethods BPMS Academy* (Version 2.2.0) [Interactive course]. https://github.com/xudaniel/webmethods-bpms-academy
+> Xu, Daniel Yuanpeng (2026). *IBM webMethods BPMS Academy* (Version 2.3.0) [Interactive course]. https://github.com/xudaniel/webmethods-bpms-academy
 
 GitHub's **Cite this repository** button (from [`CITATION.cff`](CITATION.cff)) gives the same citation in APA and BibTeX. If you reuse or adapt any material, please credit **Daniel Yuanpeng Xu** and link to this repository.
 

@@ -5,6 +5,10 @@ Versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [2.3.0] — 2026-11-18
+
+The whole site in Chinese, plus search, a review book and on-call drills. **Author: Daniel Yuanpeng Xu.**
+
 ### Added
 - ⚖️ **Optimization page, Demo 3: rules first, then optimization** (#91): a certificate rule decides who may do which work order, then the optimizer picks the cheapest allowed plan; switching the rule off shows its price (375 → 380). Same model in `examples/optimization/rules_plus_optimization.py`, checked with OR-Tools and CPLEX. English and 中文.
 - 🧮 **Optimization primer page** (#89): `optimization.html` turns the examples into a mobile-first page in English and 中文 with the eight algorithms step by step, a branch-and-bound snack demo and a constraint-propagation duty demo that run in the browser. Teaching material; not linked from the course navigation.
