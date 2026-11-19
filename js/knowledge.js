@@ -97,6 +97,23 @@ window.KNOWLEDGE = {
       sources: [21, 22, 23, 24, 25, 26, 27, 28, 29]
     },
     {
+      id: "rules-to-odm", reviewed: "2026-11-19", title: "Moving webMethods Business Rules to IBM ODM",
+      summary: "The concepts map closely, but the two engines order and stop rules differently, so a move is a rebuild with side-by-side testing, not an export.",
+      facts: [
+        "A webMethods rule project holds data models, rule sets, decision entities and actions. In ODM, rules are written against a business object model (BOM) mapped to an execution object model (XOM), packaged as rulesets and deployed to Rule Execution Server as a RuleApp.",
+        "Both products use decision tables in which each row is one rule. In ODM, a decision table runs from the first row to the last, and each row whose conditions are met performs its actions.",
+        "A webMethods rule set is Inferential (the default) or Sequential, and its mode overrides the modes of the decision tables inside it. A decision table can be Inferential, Sequential All, or Sequential First, which stops after the first rule that fires.",
+        "In ODM, order and stopping are set on each rule task of a ruleflow: the execution mode (Fastpath, the default for new rule tasks since V8.6; Sequential; or RetePlus, the only one of the three with inference) and the exit criteria (None runs every applicable rule; Rule runs only the first applicable rule; RuleInstance runs only its first instance).",
+        "webMethods rules can call an Integration Server service, or start or join a process instance, from inside a rule through Service and Process actions.",
+        "My webMethods Server has REST services that list rule projects and return a decision table as JSON. ODM's Business console can import an Excel file into an existing decision table, but the import cannot change the table's structure.",
+        "Integration Server has a REST service that executes a rule set or decision entity and returns the results. ODM's REST execution service runs a deployed ruleset with JSON; execution with XML has been deprecated since V8.11.1.",
+        "Rule Execution Server can generate an OpenAPI description (YAML or JSON) of a deployed ruleset. Integration Server can create a consumer REST API descriptor from a Swagger 2.0 or OpenAPI 3.0.x document, which generates a connector service that a process step can call.",
+        "The public IBM and Software AG documentation reviewed for this site describes no tool that converts a webMethods rule project into an ODM project (checked 19 Nov 2026)."
+      ],
+      practice: "Move one decision table at a time, starting with the one that changes most and is shared by the most processes. Rebuild its structure in ODM, load the rows from Excel, then run the same historical inputs through both REST services and switch only when every outcome matches; keep the old rules for rollback. Keep Service and Process actions in the process and let the ODM rule return only a decision. Leave event rules and inferential rule sets for last: they need RetePlus or a redesign.",
+      sources: [16, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70]
+    },
+    {
       id: "monitor", reviewed: "2026-11-16", title: "Monitor, resubmit and Optimize",
       summary: "Monitor is where operations find, fix and re-run process instances; Optimize for Process adds KPIs and analytics on top.",
       facts: [
@@ -187,7 +204,11 @@ window.KNOWLEDGE = {
     ["Decision tree / event rule", "Other decision entities in webMethods Business Rules."],
     ["Rule Task", "BPMN activity that invokes a webMethods Business Rule or Rule Set at runtime."],
     ["Hot Deploy", "Push an updated rule project to Integration Server without redeploying the process model."],
-    ["Process Aware", "Decision table setting required when the rule contains a manual decision / task action."]
+    ["Process Aware", "Decision table setting required when the rule contains a manual decision / task action."],
+    ["Processing mode (webMethods rules)", "How a rule set or decision table runs: Inferential (the default for rule sets) or Sequential; a decision table can also be Sequential All or Sequential First."],
+    ["BOM / XOM (ODM)", "The business object model is the vocabulary ODM rules are written in; it maps to the execution object model, the Java or XML classes the rules run against."],
+    ["RuleApp", "ODM deployment unit that carries one or more rulesets to Rule Execution Server."],
+    ["Exit criteria (ODM rule task)", "How much a rule task runs before it stops: None (every applicable rule), Rule (the first applicable rule) or RuleInstance (only its first instance)."]
   ],
 
   quiz: [
@@ -206,7 +227,11 @@ window.KNOWLEDGE = {
     { q: "A completed instance must be re-run from step 3, but the button does nothing. Most likely?", a: ["Monitor is offline", "Step 3 was not enabled for resubmission before the instance began", "The process is volatile", "Hot Deploy failed"], c: 1,
       e: "Completed instances can only be resubmitted from steps that were enabled for resubmission before the instance started executing." },
     { q: "When upgrading, you enable the new version of a model that has running instances and are asked to upgrade running processes. What does the upgrade guide say?", a: ["Answer Yes", "Answer No", "Delete the old version first", "Disable Monitor"], c: 1,
-      e: "Raise the model version before regenerating it, enable the new version, and answer No to upgrading running processes." }
+      e: "Raise the model version before regenerating it, enable the new version, and answer No to upgrading running processes." },
+    { q: "A webMethods rule set left at its default processing mode is moved to ODM. Which ODM execution mode supports the same kind of inference?", a: ["Fastpath", "Sequential", "RetePlus", "Literal"], c: 2,
+      e: "webMethods rule sets default to Inferential. In ODM only RetePlus supports inference; Fastpath, the default for new rule tasks, does not." },
+    { q: "How can you load the rows of an existing webMethods decision table into ODM without retyping them?", a: ["Hot Deploy the rule project to Rule Execution Server", "Get the table as JSON from My webMethods Server, turn it into an Excel file, and import it into an ODM decision table that already has the same columns", "Import the rule project into Decision Center", "ODM reads webMethods rule projects directly"], c: 1,
+      e: "My webMethods Server returns decision tables as JSON, and ODM's Business console imports Excel into an existing table; the import cannot change the table's structure, so build the columns first." }
   ],
 
   // Numbered sources referenced by topic.sources
@@ -261,7 +286,24 @@ window.KNOWLEDGE = {
     50: ["Product release: IBM Business Automation Workflow 26.0.0.0 (IBM community)", "https://community.ibm.com/community/user/blogs/aliannah-muzaffar/2026/07/29/product-release-ibm-business-automation-workflow"],
     51: ["Cloud Pak for Business Automation 25.0.1 (IBM community)", "https://community.ibm.com/community/user/blogs/shipra-shaw/2025/12/11/cloud-pak-for-business-automation-2501"],
     52: ["webMethods Integration: what's new (IBM Docs)", "https://www.ibm.com/docs/en/SSGOVO/pembroke_cumulative_whats_new.html"],
-    53: ["Using the Task Engine Web Service API (webMethods BPM 12.1, IBM Docs)", "https://www.ibm.com/docs/en/webmethods-bpm/wte/12.1.0?topic=reference-using-task-engine-web-service-api"]
+    53: ["Using the Task Engine Web Service API (webMethods BPM 12.1, IBM Docs)", "https://www.ibm.com/docs/en/webmethods-bpm/wte/12.1.0?topic=reference-using-task-engine-web-service-api"],
+    54: ["Overview: Decision Server Rules (ODM 8.11)", "https://www.ibm.com/docs/en/SSQP76_8.11.0/com.ibm.odm.dserver.rules.overview/topics/odm_dserver_rules_overview.html"],
+    55: ["Overview: BOM and execution object model (ODM 8.8.1)", "https://www.ibm.com/support/knowledgecenter/SSQP76_8.8.1/com.ibm.odm.dserver.rules.designer.author/designing_bom_topics/con_bom_overview.html"],
+    56: ["Decision tables (ODM 8.10)", "https://www.ibm.com/docs/SSQP76_8.10.x/com.ibm.odm.dserver.rules.designer.author/shared_dtables_topics/tpc_dtables_overview.html"],
+    57: ["About rule set processing modes (Designer 10.7)", "https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/co-about_processing_modes.html"],
+    58: ["Creating a rule set: Inferential is the default (Designer 10.7)", "https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/ta-create_rule_set.html"],
+    59: ["About decision table processing modes (webMethods 9.10)", "https://documentation.softwareag.com/webmethods/wmsuites/wmsuite9-10/Compendium_Building_Your_Event-Driven_Architecture/buildeda-compendium/co-about_processing_modes_2.html"],
+    60: ["Deciding on an execution mode (ODM 8.8.1)", "https://www.ibm.com/support/knowledgecenter/SSQP76_8.8.1/com.ibm.odm.dserver.rules.designer.run/optimizing_topics/tpc_opt_choose_execmode_criteria.html"],
+    61: ["Fastpath mode (ODM on Cloud)", "https://www.ibm.com/docs/SS7J8H/com.ibm.odm.dserver.rules.designer.run/optimizing_topics/con_opt_execmodes_fastpath.html"],
+    62: ["Execution properties for rule tasks: exit criteria (ODM 8.8)", "https://www.ibm.com/docs/en/SSQP76_8.8.0/com.ibm.odm.dserver.rules.designer.dev/orchestrating_topics/tpc_orch_rule_task_execprop.html"],
+    63: ["Sequential algorithm (ODM 8.11.1)", "https://www.ibm.com/docs/en/SSQP76_8.11.1/com.ibm.odm.dserver.rules.designer.run/optimizing_topics/tpc_opt_sequentialalgo.html"],
+    64: ["Business Rules REST services on My webMethods Server (9.12)", "https://documentation.softwareag.com/webmethods/wmsuites/wmsuite9-12/Compendium_Designing_and_Implementing_BPMs/desimplbpm-compendium/re-summary_rest.html"],
+    65: ["GET a decision table in JSON (Business Rules 10.3)", "https://documentation.softwareag.com/webmethods/business_rules/wok10-3/10-3_Business_Rules_webhelp/business-rules-webhelp/re-get_dt_json.html"],
+    66: ["Transferring decision table data to and from Excel (ODM 8.10)", "https://www.ibm.com/support/knowledgecenter/en/SSQP76_8.10.x/com.ibm.odm.dcenter.bu.bconsole/dtables/con_bc_dteditor_excel.dita"],
+    67: ["Business Rules REST services on Integration Server (10.7)", "https://documentation.softwareag.com/webmethods/business_rules/wok10-7/10-7_Business_Rules_webhelp/business-rules-webhelp/co-summary_rest_is.html"],
+    68: ["Executing rules by using the REST service (ODM 9.0)", "https://www.ibm.com/docs/SSQP76_9.0.0/com.ibm.odm.dserver.rules.res.developing/topics/con_res_restapi_rlset_exec_intro.html"],
+    69: ["Generating an OpenAPI representation of a ruleset (ODM 8.9.2)", "https://www.ibm.com/docs/SSQP76_8.9.2/com.ibm.odm.dserver.rules.res.developing/topics/tsk_res_restapi_rlset_exec_opnapi.html"],
+    70: ["Working with REST API descriptors: Swagger 2.0 and OpenAPI 3.0.x (Designer 10.7)", "https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/help_working_with_RAD.html"]
   }
 };
 

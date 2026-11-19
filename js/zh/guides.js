@@ -102,6 +102,20 @@
           "规则任务的高级属性（Process Developer 模式下）包括 Integration Server Name、Allow Parallel Execution 和 Compensating 标记。"
         ],
         practice: "把规则输出设计成清楚的枚举值（APPROVE / REFER / REJECT）。生产环境中把规则引擎放在专用的、或者可以横向扩展的 IS 节点上。把流程审计（走了哪条路、花了多久）和规则决策日志（输入和结果）结合起来，才能把决定完整地解释清楚。" },
+      "rules-to-odm": { title: "把 webMethods Business Rules 迁到 IBM ODM",
+        summary: "两边概念大体对得上，但规则按什么顺序跑、什么时候停不一样，所以迁移是重建加并行对比，不是导出导入。",
+        facts: [
+          "webMethods 的规则项目装着数据模型、规则集、决策实体和动作。ODM 的规则写在业务对象模型（BOM）上，BOM 映射到执行对象模型（XOM）；规则打包成 ruleset，以 RuleApp 的形式部署到 Rule Execution Server。",
+          "两边的决策表都是一行一条规则。ODM 的决策表从第一行跑到最后一行，条件满足的每一行都会执行它的动作。",
+          "webMethods 的规则集是 Inferential（推理，默认）或 Sequential（顺序），规则集的模式会覆盖其中决策表自己的模式。单张决策表可以是 Inferential、Sequential All，或 Sequential First（第一条规则触发后就停）。",
+          "ODM 在规则流的每个规则任务上设定顺序和停止方式：执行模式（Fastpath，自 V8.6 起是新建规则任务的默认值；Sequential；RetePlus，三者中唯一支持推理的）和退出条件（None 执行所有适用的规则；Rule 只执行第一条适用的规则；RuleInstance 只执行它的第一个实例）。",
+          "webMethods 的规则可以通过 Service 和 Process 动作，在规则里直接调用 Integration Server 服务，或者启动、加入一个流程实例。",
+          "My webMethods Server 有 REST 服务，能列出规则项目，并以 JSON 返回一张决策表。ODM 的 Business console 可以把 Excel 文件导入一张已有的决策表，但导入改不了表的结构。",
+          "Integration Server 有一个 REST 服务，可以执行规则集或单个决策实体并返回结果。ODM 的 REST 执行服务用 JSON 运行已部署的 ruleset；用 XML 执行自 V8.11.1 起已弃用。",
+          "Rule Execution Server 能为已部署的 ruleset 生成 OpenAPI 描述（YAML 或 JSON）。Integration Server 能用 Swagger 2.0 或 OpenAPI 3.0.x 文档生成 consumer REST API descriptor，自动生成一个流程步骤可以调用的连接服务。",
+          "本站查阅的 IBM 和 Software AG 公开文档里，没有把 webMethods 规则项目转换成 ODM 项目的工具（2026 年 11 月 19 日核）。"
+        ],
+        practice: "一次搬一张决策表，先搬改得最勤、被最多流程共用的那张。先在 ODM 里重建表结构，再用 Excel 导入行，然后拿同一批历史输入分别调用两边的 REST 服务，结果全部一致才切换，旧规则保留以便回退。Service 和 Process 动作留在流程里，ODM 规则只返回决定。事件规则和推理规则集放到最后：它们需要 RetePlus 或重新设计。" },
       monitor: { title: "Monitor、重新提交和 Optimize",
         summary: "Monitor 是运维查找、修复、重跑流程实例的地方；Optimize for Process 在它之上加了 KPI 和分析。",
         facts: [

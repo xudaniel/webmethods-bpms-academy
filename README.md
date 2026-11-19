@@ -111,7 +111,7 @@ The site is built for phones first. To get the most out of it, save it as an app
 - **Six hands-on steps** for a general audience: before and after a BPMS, who owns which job, and an AI agent governed by a rulebook (see *Start here: the public explainer* below).
 
 ### Learn: a cited knowledge base and diagrams
-**11 topics and 72 facts**, each linked to public IBM or Software AG documentation, plus a practitioner note per topic:
+**12 topics and 81 facts**, each linked to public IBM or Software AG documentation, plus a practitioner note per topic:
 
 - **Releases and lifecycle**: 10.15 (GA Oct 2022; end of support 31 Oct 2027, paid extended support to Oct 2028 and Oct 2030; last release on AIX and z/Linux), 11.1 (Sep 2024), 12.1 (Java 21, Jakarta EE 10, FIPS 140-3, containers)
 - **Process Engine runtime and quality of service**: Transition documents; the speed-versus-guarantee trade-off; **Optimize Locally** (on by default), **Volatile Transition Documents** (on), **Volatile Tracking** (off); Universal Messaging as JMS provider; Broker deprecated
@@ -119,6 +119,7 @@ The site is built for phones first. To get the most out of it, save it as an app
 - **Task Engine and human work**: Inboxes on My webMethods Server, `getTaskAudit`, task archiving
 - **webMethods Business Rules**: Rule projects, rule sets, decision tables, decision trees, event rules; Data/Service/Process actions; deploying to Integration Server and My webMethods Server
 - **Rule Engine configuration and Rule Tasks**: Where the Rules Engine runs (WmBusinessRules) and how to point it at a remote Integration Server (`businessrulesruntime` alias), configuring a Rule Task, Process Aware tables, rule actions and logging level, event rules and JMS triggers, Hot Deploy and its server connections
+- **Moving webMethods Business Rules to IBM ODM**: How rule projects, decision tables and processing modes map to ODM's BOM, rulesets, rule tasks and exit criteria; getting tables out as JSON and into ODM through Excel; calling ODM from a process through OpenAPI; and testing both side by side before switching
 - **Monitor, resubmit and Optimize**: Where Monitor lives, resubmitting failed and completed instances (Resubmit Closest / Earliest, editing the pipeline), the privileges you need, Optimize KPIs and Process Analytics
 - **Upgrading from 10.15**: Side-by-side upgrade: Database Component Configurator, migration utilities or Command Central, keeping in-flight instances, re-versioning models, post-upgrade checks; what the 12.1 Pre-Upgrade Analyzer does and does not cover; license keys and metering after the upgrade
 - **IBM Integration (formerly webMethods Hybrid Integration, IWHI)**: What it is (announced May 2025, renamed IBM Integration in 2026), which runtimes its hybrid control plane manages, how it is sold, its six capability areas (BPM is not one), REST APIs as MCP tools, and why BPMS keeps running in the webMethods estate rather than moving
@@ -195,7 +196,7 @@ The site is built for phones first. To get the most out of it, save it as an app
 - **4. Overview** · Reading + family table\
   The core idea, and IBM webMethods at a glance (9 components)
 - **5. Knowledge base** · Cited reference + interactive diagram\
-  11 topics, 72 facts on how the product behaves
+  12 topics, 81 facts on how the product behaves
 - **6. Controls** · Control map + framework panel\
   For banks and insurers: seven controls, the frameworks that ask for them (SR 11-7, OSFI E-23, EU AI Act, GDPR Art. 22, NAIC, DORA) and the BPMS evidence
 - **7. How to use** · Role guides, cheat sheets, self-checks, demo script\
@@ -640,7 +641,7 @@ GitHub Actions runs the same test (`.github/workflows/smoke-test.yml`) on every 
 
 **Later**
 - [x] Chinese user interface (#68)
-- [ ] Module on moving webMethods Business Rules to IBM ODM decision services
+- [x] Module on moving webMethods Business Rules to IBM ODM decision services (knowledge topic)
 - [ ] Agent Scan Lab: adjustable thresholds and CSV export
 
 **Done in v2.3.0:** the whole site in Chinese (#68); site search; a review book with spaced review; on-call drills, instance time machine and swipe sort; knowledge base grown to 11 cited topics and 72 facts; an optimization primer page with three demos.
