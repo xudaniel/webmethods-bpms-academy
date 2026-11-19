@@ -6,6 +6,7 @@ Versions follow [Semantic Versioning](https://semver.org/).
 ## [Unreleased]
 
 ### Added
+- 🧭 **Knowledge base: what changes for BPM from 10.15 to 12.1**: a new cited topic on the Java path (11 → 17 → 21), Jakarta EE 10, the 11.1 My webMethods Server and Task Engine changes, Business Rules removals and date patterns, deprecated Broker and webMethods subprocesses, and a My webMethods Server security fix; states what the public 12.1 material does not yet list. One glossary term, two quiz questions. English and 中文 (13 topics, 90 facts).
 - 🔁 **Knowledge base: moving webMethods Business Rules to IBM ODM**: a new cited topic that maps rule projects, decision tables and processing modes to ODM's BOM, rulesets, rule tasks and exit criteria; shows how to get tables out of My webMethods Server as JSON and into ODM through Excel, how a process calls ODM through OpenAPI, and why the two engines can give different results for the same table. Adds four glossary terms and two quiz questions. Public sources only, English and 中文 (12 topics, 81 facts).
 - 📱 **Phone-friendly READMEs** (#97, #98): short first screen, lists instead of wide tables, long sections folded; no content removed.
 - 🧪 **15-minute user test kit** (#95): `docs/USER-TESTING.md` gives a session script with three tasks (beginner, practitioner, customer question) and five questions, in English and 中文, plus a GitHub feedback form that collects results without names or customer data.
