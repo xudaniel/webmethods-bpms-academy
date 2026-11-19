@@ -113,19 +113,17 @@ The site is built for phones first. To get the most out of it, save it as an app
 ### Learn: a cited knowledge base and diagrams
 **11 topics and 72 facts**, each linked to public IBM or Software AG documentation, plus a practitioner note per topic:
 
-| Topic | What you learn |
-| --- | --- |
-| Releases and lifecycle | 10.15 (GA Oct 2022; end of support 31 Oct 2027, paid extended support to Oct 2028 and Oct 2030; last release on AIX and z/Linux), 11.1 (Sep 2024), 12.1 (Java 21, Jakarta EE 10, FIPS 140-3, containers) |
-| Process Engine runtime and quality of service | Transition documents; the speed-versus-guarantee trade-off; **Optimize Locally** (on by default), **Volatile Transition Documents** (on), **Volatile Tracking** (off); Universal Messaging as JMS provider; Broker deprecated |
-| Execution history and audit | Process Engine DB versus Process Audit DB (`PRA_*` tables), logging levels, where task history lives in 10.15 |
-| Task Engine and human work | Inboxes on My webMethods Server, `getTaskAudit`, task archiving |
-| webMethods Business Rules | Rule projects, rule sets, decision tables, decision trees, event rules; Data/Service/Process actions; deploying to Integration Server and My webMethods Server |
-| Rule Engine configuration and Rule Tasks | Where the Rules Engine runs (WmBusinessRules) and how to point it at a remote Integration Server (`businessrulesruntime` alias), configuring a Rule Task, Process Aware tables, rule actions and logging level, event rules and JMS triggers, Hot Deploy and its server connections |
-| Monitor, resubmit and Optimize | Where Monitor lives, resubmitting failed and completed instances (Resubmit Closest / Earliest, editing the pipeline), the privileges you need, Optimize KPIs and Process Analytics |
-| Upgrading from 10.15 | Side-by-side upgrade: Database Component Configurator, migration utilities or Command Central, keeping in-flight instances, re-versioning models, post-upgrade checks; what the 12.1 Pre-Upgrade Analyzer does and does not cover; license keys and metering after the upgrade |
-| IBM Integration (formerly webMethods Hybrid Integration, IWHI) | What it is (announced May 2025, renamed IBM Integration in 2026), which runtimes its hybrid control plane manages, how it is sold, its six capability areas (BPM is not one), REST APIs as MCP tools, and why BPMS keeps running in the webMethods estate rather than moving |
-| Agents and human tasks across IBM's process products | Human tasks in watsonx Orchestrate flows, MCP access to workflows, cases and tasks in Business Automation Workflow 26.0, MCP servers in Cloud Pak for Business Automation, MCP tools in webMethods Integration, and what the BPM 12.1 Task Engine API offers today |
-| Practitioner design checklist | Ten checks for design reviews and upgrades |
+- **Releases and lifecycle**: 10.15 (GA Oct 2022; end of support 31 Oct 2027, paid extended support to Oct 2028 and Oct 2030; last release on AIX and z/Linux), 11.1 (Sep 2024), 12.1 (Java 21, Jakarta EE 10, FIPS 140-3, containers)
+- **Process Engine runtime and quality of service**: Transition documents; the speed-versus-guarantee trade-off; **Optimize Locally** (on by default), **Volatile Transition Documents** (on), **Volatile Tracking** (off); Universal Messaging as JMS provider; Broker deprecated
+- **Execution history and audit**: Process Engine DB versus Process Audit DB (`PRA_*` tables), logging levels, where task history lives in 10.15
+- **Task Engine and human work**: Inboxes on My webMethods Server, `getTaskAudit`, task archiving
+- **webMethods Business Rules**: Rule projects, rule sets, decision tables, decision trees, event rules; Data/Service/Process actions; deploying to Integration Server and My webMethods Server
+- **Rule Engine configuration and Rule Tasks**: Where the Rules Engine runs (WmBusinessRules) and how to point it at a remote Integration Server (`businessrulesruntime` alias), configuring a Rule Task, Process Aware tables, rule actions and logging level, event rules and JMS triggers, Hot Deploy and its server connections
+- **Monitor, resubmit and Optimize**: Where Monitor lives, resubmitting failed and completed instances (Resubmit Closest / Earliest, editing the pipeline), the privileges you need, Optimize KPIs and Process Analytics
+- **Upgrading from 10.15**: Side-by-side upgrade: Database Component Configurator, migration utilities or Command Central, keeping in-flight instances, re-versioning models, post-upgrade checks; what the 12.1 Pre-Upgrade Analyzer does and does not cover; license keys and metering after the upgrade
+- **IBM Integration (formerly webMethods Hybrid Integration, IWHI)**: What it is (announced May 2025, renamed IBM Integration in 2026), which runtimes its hybrid control plane manages, how it is sold, its six capability areas (BPM is not one), REST APIs as MCP tools, and why BPMS keeps running in the webMethods estate rather than moving
+- **Agents and human tasks across IBM's process products**: Human tasks in watsonx Orchestrate flows, MCP access to workflows, cases and tasks in Business Automation Workflow 26.0, MCP servers in Cloud Pak for Business Automation, MCP tools in webMethods Integration, and what the BPM 12.1 Task Engine API offers today
+- **Practitioner design checklist**: Ten checks for design reviews and upgrades
 
 **Controls for regulated industries:** seven controls, each with what is expected, how BPMS and rules provide it (cited product docs) and the evidence an auditor sees. The framework panel covers SR 11-7, OSFI E-23 (effective 1 May 2027), EU AI Act Annex III and Articles 12 and 14, GDPR Article 22, the NAIC AI Model Bulletin and DORA (applies from 17 January 2025), each cited to the regulator. Educational mapping, not legal or compliance advice.
 
@@ -144,25 +142,29 @@ The site is built for phones first. To get the most out of it, save it as an app
 
 **How to use**, by role. Each step gives the menu path and an official source, and ends with *how you'll know it worked*. Every role also has a printable **cheat sheet** and a 3-question **self-check**:
 
-| Role | Guide | Key steps |
-| --- | --- | --- |
-| Business user | Work your tasks in My webMethods | My Inbox → find the task → Accept → Submit / Complete → Delegate if needed |
-| Process developer | Model, build and switch on a process | Process Developer mode → draw the BPMN and implement steps (service, user task, rule task) → logging and QoS → Build and upload → **Enable for execution** → test in Monitor |
-| Business analyst | Change a business rule safely | Rule project in the My webMethods Server repository → open and lock → edit the decision table → verify → **Hot Deploy** (no process rebuild) |
-| Operations | Watch, fix and resubmit | Process Instances → Stop / Suspend / Resume → **Resubmit** (optionally after editing pipeline data) → Task List Management → permissions |
+- **Business user**\
+  Guide: Work your tasks in My webMethods\
+  Key steps: My Inbox → find the task → Accept → Submit / Complete → Delegate if needed
+- **Process developer**\
+  Guide: Model, build and switch on a process\
+  Key steps: Process Developer mode → draw the BPMN and implement steps (service, user task, rule task) → logging and QoS → Build and upload → **Enable for execution** → test in Monitor
+- **Business analyst**\
+  Guide: Change a business rule safely\
+  Key steps: Rule project in the My webMethods Server repository → open and lock → edit the decision table → verify → **Hot Deploy** (no process rebuild)
+- **Operations**\
+  Guide: Watch, fix and resubmit\
+  Key steps: Process Instances → Stop / Suspend / Resume → **Resubmit** (optionally after editing pipeline data) → Task List Management → permissions
 
 **Hands-on lab: your first process in 30 minutes.** Build a purchase-approval process with a progress tracker, a pitfalls table, a practice path for learners without an environment, and a printable sheet:
 
-| Stage | Minutes | You'll know it worked when |
-| --- | --- | --- |
-| 1. Create the project and the process | 3 | The process opens on an empty canvas |
-| 2. Start the process with a document | 4 | The start event shows the receive document |
-| 3. Add the approval task | 6 | The step shows a user-task icon |
-| 4. Route on the decision | 4 | Every path reaches an end event |
-| 5. Build, upload and enable | 5 | No build errors; Execution Enabled |
-| 6. Start an instance | 3 | The task appears in the approver's inbox |
-| 7. Work the task as the approver | 3 | The task shows Completed |
-| 8. Follow the instance in Monitor | 2 | The instance is Completed via Approved |
+- **1. Create the project and the process** (3 min): The process opens on an empty canvas
+- **2. Start the process with a document** (4 min): The start event shows the receive document
+- **3. Add the approval task** (6 min): The step shows a user-task icon
+- **4. Route on the decision** (4 min): Every path reaches an end event
+- **5. Build, upload and enable** (5 min): No build errors; Execution Enabled
+- **6. Start an instance** (3 min): The task appears in the approver's inbox
+- **7. Work the task as the approver** (3 min): The task shows Completed
+- **8. Follow the instance in Monitor** (2 min): The instance is Completed via Approved
 
 **Troubleshooting:** 16 searchable problems in four areas (start and deploy, tasks, rules, monitor and operations), each with what to check first, the fix, where to apply it and a source.
 
@@ -184,33 +186,56 @@ The site is built for phones first. To get the most out of it, save it as an app
 <details>
 <summary><b>Curriculum: 25 sections, in site order</b></summary>
 
-| # | Section | Format | What it's for |
-| --- | --- | --- | --- |
-| 1 | **Start here** | Role picker, map, six hands-on steps | Find your path; see the big picture; why process platforms matter for AI agents |
-| 2 | **10-minute course** | 5 steps, 5 pictures, 3 checks | Know nothing? IBM webMethods BPMS from zero in ten minutes |
-| 3 | **Basics 101** | 7 lessons, each with a picture and a check | The ideas behind every process platform, for complete beginners, then the IBM webMethods names |
-| 4 | **Overview** | Reading + family table | The core idea, and IBM webMethods at a glance (9 components) |
-| 5 | **Knowledge base** | Cited reference + interactive diagram | 11 topics, 72 facts on how the product behaves |
-| 6 | **Controls** | Control map + framework panel | For banks and insurers: seven controls, the frameworks that ask for them (SR 11-7, OSFI E-23, EU AI Act, GDPR Art. 22, NAIC, DORA) and the BPMS evidence |
-| 7 | **How to use** | Role guides, cheat sheets, self-checks, demo script | Day-to-day use for four roles, plus presenting to customers |
-| 8 | **Hands-on lab** | 30-minute exercise with a tracker | Build, enable, run and monitor your first process |
-| 9 | **Decision lab** | Interactive decision table + comparison | Change a rule's limits, test an application, see why rules change faster than processes |
-| 10 | **Fix the diagram** | 5 puzzle levels with a running token | Repair broken processes: end event, gateway choice, rule task, timer, exception path |
-| 11 | **Swipe sort** | 20 cards, 60 seconds | Rule, agent or keep human? The agent-era split, judged card by card |
-| 12 | **Troubleshooting** | Search + flowchart | Symptom → check first → fix → where |
-| 13 | **On-call drills** | 3 branching incidents with a clock | Practise the first checks under a little pressure, then read a cited debrief |
-| 14 | **Teach a class** | Workshop plan + timeline | A 3-hour class for users or customers |
-| 15 | **Lifecycle** | Clickable stages + release table | Model → implement → build and upload → execute → monitor → optimize → govern; release dates |
-| 16 | **Architecture** | Clickable component map | Engines, databases and `PRA_*` audit tables |
-| 17 | **BPMN** | Reference tables | Activities, gateways, events, pools and lanes |
-| 18 | **Patterns** | Filterable cards | Four classic and three agent-era patterns |
-| 19 | **Cases** | Flow diagrams | Purchase approval, loan decisioning, logistics exception |
-| 20 | **Simulator** | Interactive | A loan instance through a rule task and an underwriter task, with an audit log |
-| 21 | **Agent Scan Lab** | Interactive | Find rule and agent candidates in process history (synthetic data or your CSV) |
-| 22 | **Market** | Reading + sources | Sizing, analyst views, competitor signals, regulatory dates |
-| 23 | **Glossary** | Searchable | 33 terms; underlined terms anywhere open a plain-English explanation |
-| 24 | **Quiz** | 24 questions | Instant feedback and a score |
-| 25 | **Review book** | Spaced review | Every question you got wrong comes back after 1 and 3 days (and 7 if you miss it again) until it sticks |
+- **1. Start here** · Role picker, map, six hands-on steps\
+  Find your path; see the big picture; why process platforms matter for AI agents
+- **2. 10-minute course** · 5 steps, 5 pictures, 3 checks\
+  Know nothing? IBM webMethods BPMS from zero in ten minutes
+- **3. Basics 101** · 7 lessons, each with a picture and a check\
+  The ideas behind every process platform, for complete beginners, then the IBM webMethods names
+- **4. Overview** · Reading + family table\
+  The core idea, and IBM webMethods at a glance (9 components)
+- **5. Knowledge base** · Cited reference + interactive diagram\
+  11 topics, 72 facts on how the product behaves
+- **6. Controls** · Control map + framework panel\
+  For banks and insurers: seven controls, the frameworks that ask for them (SR 11-7, OSFI E-23, EU AI Act, GDPR Art. 22, NAIC, DORA) and the BPMS evidence
+- **7. How to use** · Role guides, cheat sheets, self-checks, demo script\
+  Day-to-day use for four roles, plus presenting to customers
+- **8. Hands-on lab** · 30-minute exercise with a tracker\
+  Build, enable, run and monitor your first process
+- **9. Decision lab** · Interactive decision table + comparison\
+  Change a rule's limits, test an application, see why rules change faster than processes
+- **10. Fix the diagram** · 5 puzzle levels with a running token\
+  Repair broken processes: end event, gateway choice, rule task, timer, exception path
+- **11. Swipe sort** · 20 cards, 60 seconds\
+  Rule, agent or keep human? The agent-era split, judged card by card
+- **12. Troubleshooting** · Search + flowchart\
+  Symptom → check first → fix → where
+- **13. On-call drills** · 3 branching incidents with a clock\
+  Practise the first checks under a little pressure, then read a cited debrief
+- **14. Teach a class** · Workshop plan + timeline\
+  A 3-hour class for users or customers
+- **15. Lifecycle** · Clickable stages + release table\
+  Model → implement → build and upload → execute → monitor → optimize → govern; release dates
+- **16. Architecture** · Clickable component map\
+  Engines, databases and `PRA_*` audit tables
+- **17. BPMN** · Reference tables\
+  Activities, gateways, events, pools and lanes
+- **18. Patterns** · Filterable cards\
+  Four classic and three agent-era patterns
+- **19. Cases** · Flow diagrams\
+  Purchase approval, loan decisioning, logistics exception
+- **20. Simulator** · Interactive\
+  A loan instance through a rule task and an underwriter task, with an audit log
+- **21. Agent Scan Lab** · Interactive\
+  Find rule and agent candidates in process history (synthetic data or your CSV)
+- **22. Market** · Reading + sources\
+  Sizing, analyst views, competitor signals, regulatory dates
+- **23. Glossary** · Searchable\
+  33 terms; underlined terms anywhere open a plain-English explanation
+- **24. Quiz** · 24 questions\
+  Instant feedback and a score
+- **25. Review book** · Spaced review\
+  Every question you got wrong comes back after 1 and 3 days (and 7 if you miss it again) until it sticks
 
 Every section has its own link (for example [`#lab`](https://xudaniel.github.io/webmethods-bpms-academy/#lab)), plus Previous / Next at the bottom.
 
@@ -260,22 +285,24 @@ flowchart TD
 
 **Where execution history lives**
 
-| Store | Purpose | Typical use |
-| --- | --- | --- |
-| Process Engine database | Private, real-time instance state | Used by the engine only; not for reporting |
-| Process Audit database | Public history: process and step status, transitions, logged fields, errors | Monitor, reporting, process analysis |
-| Task Engine audit / archive | Per-task operations, assignments, outcomes | Human-task analysis |
+- **Process Engine database**\
+  Purpose: Private, real-time instance state\
+  Typical use: Used by the engine only; not for reporting
+- **Process Audit database**\
+  Purpose: Public history: process and step status, transitions, logged fields, errors\
+  Typical use: Monitor, reporting, process analysis
+- **Task Engine audit / archive**\
+  Purpose: Per-task operations, assignments, outcomes\
+  Typical use: Human-task analysis
 
 Key Process Audit tables (9.6 and later use the `PRA_` prefix):
 
-| Table | Holds |
-| --- | --- |
-| `PRA_PROCESS` | A row per process status (if process status logging is on) |
-| `PRA_PROCESS_STEP` | A row per step status (if step logging is on) |
-| `PRA_PROCESS_STEP_LOOP` | Step status with process, step and loop iteration |
-| `PRA_STEP_TRANSITION` | Begin and end step of each transition (if transition logging is on) |
-| `PRA_STEP_LOGGED_FIELD(S)` | Run-time values of fields marked for logging |
-| `PRA_ERROR` | A row for each failed step |
+- `PRA_PROCESS`: A row per process status (if process status logging is on)
+- `PRA_PROCESS_STEP`: A row per step status (if step logging is on)
+- `PRA_PROCESS_STEP_LOOP`: Step status with process, step and loop iteration
+- `PRA_STEP_TRANSITION`: Begin and end step of each transition (if transition logging is on)
+- `PRA_STEP_LOGGED_FIELD(S)`: Run-time values of fields marked for logging
+- `PRA_ERROR`: A row for each failed step
 
 > In 10.15, writing task status into the Process Audit tables is **disabled by default**. Human-task detail usually has to come from the Task Engine audit (`getTaskAudit`) or the task archive.
 
@@ -288,11 +315,9 @@ Key Process Audit tables (9.6 and later use the `PRA_` prefix):
 
 A five-step loan process: *Application received → Fetch credit data → Rule: eligibility → Underwriter review → Send decision*.
 
-| Rule (illustrative) | Outcome |
-| --- | --- |
-| Credit score < 580 | Decline |
-| Score ≥ 720 and loan/income ≤ 35% | Approve |
-| Anything else | Refer to underwriter (user task) |
+- **Credit score < 580**: Decline
+- **Score ≥ 720 and loan/income ≤ 35%**: Approve
+- **Anything else**: Refer to underwriter (user task)
 
 The log panel prints rows shaped like `PRA_PROCESS`, `PRA_PROCESS_STEP` and `PRA_STEP_LOGGED_FIELD` entries, so learners can connect a running instance to the history it leaves behind.
 
@@ -304,40 +329,74 @@ Long-running BPMS estates hold years of evidence about where people approve almo
 
 **Metrics per step**
 
-| Metric | Meaning |
-| --- | --- |
-| Volume per month | Completed instances of the step |
-| Work minutes / wait hours | Human effort and queue time |
-| Top-outcome share | Share of the most common outcome (e.g. "approve") |
-| Determinism | Share of instances whose input group produces one outcome ≥ 95% of the time |
-| Rework, error rate | Loops and failures |
+- **Volume per month**: Completed instances of the step
+- **Work minutes / wait hours**: Human effort and queue time
+- **Top-outcome share**: Share of the most common outcome (e.g. "approve")
+- **Determinism**: Share of instances whose input group produces one outcome ≥ 95% of the time
+- **Rework, error rate**: Loops and failures
 
 **Classification rules**
 
-| Class | Rule | Interpretation |
-| --- | --- | --- |
-| Rule candidate (ODM) | user task, determinism ≥ 80% | A decision already made by rule — just not written down |
-| Agent candidate (rubber-stamp) | ≥ 90% one outcome and ≤ 15 min work | Agent prepares, rule or person confirms |
-| Agent candidate (triage + human approve) | wait ≥ 24 h and ≥ 70% one outcome | Agent triages documents; person approves |
-| Integration fix | service step, error rate ≥ 5% | Fix the integration before adding AI |
-| Keep human | everything else | High variance or high stakes |
+- **Rule candidate (ODM)**\
+  Rule: user task, determinism ≥ 80%\
+  Interpretation: A decision already made by rule — just not written down
+- **Agent candidate (rubber-stamp)**\
+  Rule: ≥ 90% one outcome and ≤ 15 min work\
+  Interpretation: Agent prepares, rule or person confirms
+- **Agent candidate (triage + human approve)**\
+  Rule: wait ≥ 24 h and ≥ 70% one outcome\
+  Interpretation: Agent triages documents; person approves
+- **Integration fix**\
+  Rule: service step, error rate ≥ 5%\
+  Interpretation: Fix the integration before adding AI
+- **Keep human**\
+  Rule: everything else\
+  Interpretation: High variance or high stakes
 
 Estimated hours saved = human hours per month × an assumed automatable share (rules 80%, rubber-stamp 60%, triage 40%). **These thresholds and shares are placeholders** to be calibrated on real data.
 
 **CSV input** — one row per completed step instance:
 
-| Column | Type | Example | Typical source |
-| --- | --- | --- | --- |
-| `process` | text | `Customs hold` | `PRA_PROCESS` / model metadata |
-| `step` | text | `Release approval` | `PRA_PROCESS_STEP` |
-| `step_type` | `user_task` \| `service` \| `gateway` | `user_task` | model metadata |
-| `instance_id` | text | `42` | `PRA_PROCESS_STEP` |
-| `start_ts`, `end_ts` | ISO timestamp | `2026-05-01T09:00:00` | `PRA_PROCESS_STEP` |
-| `wait_min`, `work_min` | number | `30`, `6` | Task Engine audit |
-| `outcome` | text | `approve` | logged field or task data |
-| `input_key` | text (hash) | `k17` | hash of decision-driving fields |
-| `loop_count` | integer | `0` | `PRA_PROCESS_STEP_LOOP` |
-| `error` | 0/1 | `0` | `PRA_ERROR` |
+- `process`\
+  Type: text\
+  Example: `Customs hold`\
+  Typical source: `PRA_PROCESS` / model metadata
+- `step`\
+  Type: text\
+  Example: `Release approval`\
+  Typical source: `PRA_PROCESS_STEP`
+- `step_type`\
+  Type: `user_task` \| `service` \| `gateway`\
+  Example: `user_task`\
+  Typical source: model metadata
+- `instance_id`\
+  Type: text\
+  Example: `42`\
+  Typical source: `PRA_PROCESS_STEP`
+- `start_ts`, `end_ts`\
+  Type: ISO timestamp\
+  Example: `2026-05-01T09:00:00`\
+  Typical source: `PRA_PROCESS_STEP`
+- `wait_min`, `work_min`\
+  Type: number\
+  Example: `30`, `6`\
+  Typical source: Task Engine audit
+- `outcome`\
+  Type: text\
+  Example: `approve`\
+  Typical source: logged field or task data
+- `input_key`\
+  Type: text (hash)\
+  Example: `k17`\
+  Typical source: hash of decision-driving fields
+- `loop_count`\
+  Type: integer\
+  Example: `0`\
+  Typical source: `PRA_PROCESS_STEP_LOOP`
+- `error`\
+  Type: 0/1\
+  Example: `0`\
+  Typical source: `PRA_ERROR`
 
 Use anonymised exports only. Do not include personal data or raw business payloads.
 
@@ -347,7 +406,8 @@ A Python version with the same logic is in [`tools/`](tools/):
 
 ```bash
 cd tools
-python3 make_synthetic.py            # writes synthetic_audit.csv
+# writes synthetic_audit.csv
+python3 make_synthetic.py
 python3 agent_scan.py synthetic_audit.csv
 ```
 
@@ -358,14 +418,24 @@ python3 agent_scan.py synthetic_audit.csv
 
 Below the role picker and the map, six interactive steps explain the "why" for readers with no BPMS background:
 
-| Step | Interaction | Point it makes |
-| --- | --- | --- |
-| 1. One request, two worlds | Toggle without / with a BPMS | Routing, rules, timers and audit replace "someone remembering" |
-| 2. Who should own each job? | Sorting game, 8 jobs | Process orchestrates, rules judge, people handle exceptions, agents propose |
-| 3. Agents need a rulebook | Sliders for auto-approve limit and minimum delay; key-account toggle | An agent proposes credits; rules return allow / refer / deny; each decision is logged with a rule version |
-| 4. The clock that drives this market | Clickable timeline, 2022–2028 | Upgrade deadlines and regulation decide when platforms are re-evaluated |
-| 5. Where the market really is | Tap-to-reveal layers | Analyst category vs where a mature on-premises BPMS actually competes |
-| 6. Five ideas for the agent era | Expandable cards | Mine process history, human-approval inbox, decision flight recorder, build where the base is, maintenance-to-AI credits |
+- **1. One request, two worlds**\
+  Interaction: Toggle without / with a BPMS\
+  Point it makes: Routing, rules, timers and audit replace "someone remembering"
+- **2. Who should own each job?**\
+  Interaction: Sorting game, 8 jobs\
+  Point it makes: Process orchestrates, rules judge, people handle exceptions, agents propose
+- **3. Agents need a rulebook**\
+  Interaction: Sliders for auto-approve limit and minimum delay; key-account toggle\
+  Point it makes: An agent proposes credits; rules return allow / refer / deny; each decision is logged with a rule version
+- **4. The clock that drives this market**\
+  Interaction: Clickable timeline, 2022–2028\
+  Point it makes: Upgrade deadlines and regulation decide when platforms are re-evaluated
+- **5. Where the market really is**\
+  Interaction: Tap-to-reveal layers\
+  Point it makes: Analyst category vs where a mature on-premises BPMS actually competes
+- **6. Five ideas for the agent era**\
+  Interaction: Expandable cards\
+  Point it makes: Mine process history, human-approval inbox, decision flight recorder, build where the base is, maintenance-to-AI credits
 
 Steps 3, 5 and 6 are labelled *Author's view*.
 
@@ -374,11 +444,15 @@ Steps 3, 5 and 6 are labelled *Author's view*.
 <details>
 <summary><b>Agent-era patterns</b></summary>
 
-| Pattern | Problem | Solution |
-| --- | --- | --- |
-| **Agent proposes, rules decide, process executes** | Agents read documents well, but regulated decisions must be explainable and repeatable | Agent extracts facts and proposes; a decision service returns allow / deny / refer; the process executes or escalates to a person; every step is logged |
-| **Human-approval inbox for agents** | Agents on several platforms need a person to approve some actions, with SLAs and audit | Route "needs a human" steps into BPMS user tasks to reuse assignment, delegation, escalation and audit |
-| **Decision log (flight recorder)** | After an incident you must show the rule version, inputs and approver behind an outcome | Log inputs, rule version, outcome and approver for every agent-relevant decision alongside the process audit trail |
+- **Agent proposes, rules decide, process executes**\
+  Problem: Agents read documents well, but regulated decisions must be explainable and repeatable\
+  Solution: Agent extracts facts and proposes; a decision service returns allow / deny / refer; the process executes or escalates to a person; every step is logged
+- **Human-approval inbox for agents**\
+  Problem: Agents on several platforms need a person to approve some actions, with SLAs and audit\
+  Solution: Route "needs a human" steps into BPMS user tasks to reuse assignment, delegation, escalation and audit
+- **Decision log (flight recorder)**\
+  Problem: After an incident you must show the rule version, inputs and approver behind an outcome\
+  Solution: Log inputs, rule version, outcome and approver for every agent-relevant decision alongside the process audit trail
 
 </details>
 
@@ -392,12 +466,10 @@ Summarised from public sources (2026). See the Market page for details.
 - **Growth is in regulated, human-supervised work.** Camunda reported ARR nearing $200M in August 2026, led by insurance, public sector and banking; Appian reports about 80% of ARR from financial services, life sciences and public sector.
 - **Deadlines drive decisions.**
 
-| Date | Event |
-| --- | --- |
-| 18 Oct 2022 | webMethods 10.15 general availability |
-| 31 Oct 2027 | webMethods 10.15 end of support (last release supporting AIX and z/Linux) |
-| 2 Dec 2027 | EU AI Act obligations for Annex III high-risk systems (e.g. credit scoring) |
-| 31 Oct 2028 | webMethods 10.15 initial extended support ends (ongoing extended support, usage and known defects only, to 31 Oct 2030) |
+- **18 Oct 2022**: webMethods 10.15 general availability
+- **31 Oct 2027**: webMethods 10.15 end of support (last release supporting AIX and z/Linux)
+- **2 Dec 2027**: EU AI Act obligations for Annex III high-risk systems (e.g. credit scoring)
+- **31 Oct 2028**: webMethods 10.15 initial extended support ends (ongoing extended support, usage and known defects only, to 31 Oct 2030)
 
 </details>
 
@@ -421,7 +493,7 @@ Opening `index.html` directly also works in most browsers; a local server avoids
 
 1. Repository **Settings → Pages**.
 2. **Source:** Deploy from a branch → `main` / `(root)`.
-3. The site appears at `https://xudaniel.github.io/webmethods-bpms-academy/`.
+3. The site appears at <https://xudaniel.github.io/webmethods-bpms-academy/>.
 
 **Browser support:** current Chrome, Edge, Firefox and Safari, desktop and mobile. No external libraries or fonts are loaded.
 
@@ -430,61 +502,59 @@ Opening `index.html` directly also works in most browsers; a local server avoids
 <details>
 <summary><b>Project structure</b></summary>
 
-```
-webmethods-bpms-academy/
-├── index.html          # interactive version
-├── read.html           # reading version: one page, diagrams, quiz with answer key
-├── optimization.html   # optimization primer page with two demos (EN + 中文)
-├── brief.html          # one-page executive briefs for banking and insurance (print to PDF)
-├── README.md           # English README
-├── README.zh-CN.md     # Chinese README (中文说明)
-├── CHANGELOG.md        # release history
-├── manifest.webmanifest # install as an app (name, icons, theme colour)
-├── sw.js               # offline support (network first, cache fallback)
-├── examples/optimization/ # optimization primer: MIP and CP algorithms, runnable C and Python
-├── assets/             # app icons, QR code, diagrams (SVG), README screenshots
-├── docs/
-│   └── PRD.md          # product requirements document
-├── css/
-│   ├── styles.css      # layout, components, mobile breakpoints
-│   └── read.css        # reading version: diagrams and print styles
-├── js/
-│   ├── content.js      # course content and sources
-│   ├── knowledge.js    # IBM webMethods knowledge base: family, cited topics, extra glossary and quiz
-│   ├── howto.js        # How to use: role guides, beginner path, customer demo script
-│   ├── lab.js          # Hands-on lab: first process in 30 minutes
-│   ├── support.js      # Troubleshooting, role cheat sheets and self-checks, teach a class
-│   ├── diagrams.js     # Original SVG diagrams (interactive QoS, role diagrams, lab BPMN, flowchart, timeline)
-│   ├── path.js         # Role picker with personal paths, clickable one-picture map
-│   ├── i18n.js         # 中文 / English switch (?lang=zh), loaded first
-│   ├── zh/             # Chinese text, one file per area:
-│   │                   #   core.js, beginner.js, guides.js,
-│   │                   #   explore.js, labs.js, read.js
-│   ├── swipe.js        # Swipe sort: rule, agent or human? (#53)
-│   ├── timemachine.js  # Instance time machine under the simulator (#51)
-│   ├── drills.js       # On-call drills with a clock and a cited debrief (#50)
-│   ├── review.js       # Review book: spaced review of wrong answers (#76)
-│   ├── search.js       # Site search in the browser, English and Chinese (#77)
-│   ├── words.js        # Tap-to-explain terms in plain English, Beginner mode
-│   ├── basics.js       # Basics 101: seven fundamental lessons with checks
-│   ├── crash.js        # 10-minute course: five steps and three checks
-│   ├── decision-lab.js # Decision lab: decision table, agility comparison, rules pitfalls
-│   ├── controls.js     # Controls for regulated industries: controls, frameworks, evidence
-│   ├── pro.js          # Professional mode (header switch or ?mode=pro)
-│   ├── brief.js        # Builds the executive briefs from the control map
-│   ├── fun.js          # Reading times, explorer progress, badges, did-you-know
-│   ├── mobile.js       # Phone guide, sections menu, previous/next, back to top, offline registration
-│   ├── explainer.js    # "Start here" content (author's view items labelled)
-│   ├── explainer-app.js# "Start here" interactions: toggle, sorting game, decision guard, timeline
-│   ├── read.js         # renders the reading version from the same content files
-│   └── app.js          # navigation, simulator, scan lab, glossary search, quiz
-├── tools/
-│   ├── build_diagrams.js # writes assets/diagrams/*.svg from js/diagrams.js
-│   ├── agent_scan.py   # Python version of the scan
-│   └── make_synthetic.py
-└── tests/
-    └── smoke_test.py   # headless browser check of every section
-```
+Root folder: `webmethods-bpms-academy/`
+
+- `index.html` — interactive version
+- `read.html` — reading version: one page, diagrams, quiz with answer key
+- `optimization.html` — optimization primer page with two demos (EN + 中文)
+- `brief.html` — one-page executive briefs for banking and insurance (print to PDF)
+- `README.md` — English README
+- `README.zh-CN.md` — Chinese README (中文说明)
+- `CHANGELOG.md` — release history
+- `manifest.webmanifest` — install as an app (name, icons, theme colour)
+- `sw.js` — offline support (network first, cache fallback)
+- `examples/optimization/` — optimization primer: MIP and CP algorithms, runnable C and Python
+- `assets/` — app icons, QR code, diagrams (SVG), README screenshots
+- `docs/`
+  - `PRD.md` — product requirements document
+  - `USER-TESTING.md` — 15-minute user test kit
+- `css/`
+  - `styles.css` — layout, components, mobile breakpoints
+  - `read.css` — reading version: diagrams and print styles
+- `js/`
+  - `content.js` — course content and sources
+  - `knowledge.js` — IBM webMethods knowledge base: family, cited topics, extra glossary and quiz
+  - `howto.js` — How to use: role guides, beginner path, customer demo script
+  - `lab.js` — Hands-on lab: first process in 30 minutes
+  - `support.js` — Troubleshooting, role cheat sheets and self-checks, teach a class
+  - `diagrams.js` — Original SVG diagrams (interactive QoS, role diagrams, lab BPMN, flowchart, timeline)
+  - `path.js` — Role picker with personal paths, clickable one-picture map
+  - `i18n.js` — 中文 / English switch (?lang=zh), loaded first
+  - `zh/` — Chinese text, one file per area: core.js, beginner.js, guides.js, explore.js, labs.js, read.js
+  - `swipe.js` — Swipe sort: rule, agent or human? (#53)
+  - `timemachine.js` — Instance time machine under the simulator (#51)
+  - `drills.js` — On-call drills with a clock and a cited debrief (#50)
+  - `review.js` — Review book: spaced review of wrong answers (#76)
+  - `search.js` — Site search in the browser, English and Chinese (#77)
+  - `words.js` — Tap-to-explain terms in plain English, Beginner mode
+  - `basics.js` — Basics 101: seven fundamental lessons with checks
+  - `crash.js` — 10-minute course: five steps and three checks
+  - `decision-lab.js` — Decision lab: decision table, agility comparison, rules pitfalls
+  - `controls.js` — Controls for regulated industries: controls, frameworks, evidence
+  - `pro.js` — Professional mode (header switch or ?mode=pro)
+  - `brief.js` — Builds the executive briefs from the control map
+  - `fun.js` — Reading times, explorer progress, badges, did-you-know
+  - `mobile.js` — Phone guide, sections menu, previous/next, back to top, offline registration
+  - `explainer.js` — "Start here" content (author's view items labelled)
+  - `explainer-app.js` — "Start here" interactions: toggle, sorting game, decision guard, timeline
+  - `read.js` — renders the reading version from the same content files
+  - `app.js` — navigation, simulator, scan lab, glossary search, quiz
+- `tools/`
+  - `build_diagrams.js` — writes assets/diagrams/*.svg from js/diagrams.js
+  - `agent_scan.py` — Python version of the scan
+  - `make_synthetic.py`
+- `tests/`
+  - `smoke_test.py` — headless browser check of every section
 
 </details>
 
@@ -493,19 +563,39 @@ webmethods-bpms-academy/
 
 All text lives in `js/content.js` in one `window.ACADEMY` object, so content changes rarely touch layout or logic.
 
-| Key | Shape | Rendered in |
-| --- | --- | --- |
-| `architecture` | `{ id, name, role, text, tip }[]` | Architecture tiles |
-| `auditTables` | `[table, description][]` | Architecture → Process Audit tables |
-| `lifecycle` | `[stage, description][]` | Lifecycle tiles |
-| `lifecycleDates` | `[event, date][]` | Lifecycle → release table |
-| `bpmn` | `{ group, items: [name, description][] }[]` | BPMN |
-| `patterns` | `{ name, tag: "classic" \| "agent era", problem, solution, when }[]` | Patterns |
-| `cases` | `{ name, flow: string[], lesson }[]` | Cases |
-| `glossary` | `[term, definition][]` | Glossary |
-| `market` | `{ sizing, signals, takeaways }` | Market |
-| `quiz` | `{ q, a: string[], c: correctIndex, e: explanation }[]` | Quiz |
-| `sources` | `[title, url][]` | Market → Sources |
+- `architecture`\
+  Shape: `{ id, name, role, text, tip }[]`\
+  Rendered in: Architecture tiles
+- `auditTables`\
+  Shape: `[table, description][]`\
+  Rendered in: Architecture → Process Audit tables
+- `lifecycle`\
+  Shape: `[stage, description][]`\
+  Rendered in: Lifecycle tiles
+- `lifecycleDates`\
+  Shape: `[event, date][]`\
+  Rendered in: Lifecycle → release table
+- `bpmn`\
+  Shape: `{ group, items: [name, description][] }[]`\
+  Rendered in: BPMN
+- `patterns`\
+  Shape: `{ name, tag: "classic" \| "agent era", problem, solution, when }[]`\
+  Rendered in: Patterns
+- `cases`\
+  Shape: `{ name, flow: string[], lesson }[]`\
+  Rendered in: Cases
+- `glossary`\
+  Shape: `[term, definition][]`\
+  Rendered in: Glossary
+- `market`\
+  Shape: `{ sizing, signals, takeaways }`\
+  Rendered in: Market
+- `quiz`\
+  Shape: `{ q, a: string[], c: correctIndex, e: explanation }[]`\
+  Rendered in: Quiz
+- `sources`\
+  Shape: `[title, url][]`\
+  Rendered in: Market → Sources
 
 The knowledge base lives in `js/knowledge.js` as `window.KNOWLEDGE`: `family` (`[component, role][]`), `topics` (`{ id, title, summary, facts[], practice, sources: number[] }[]`), `glossary`, `quiz` and numbered `sources`. Its glossary terms, quiz questions and sources are merged into the main course automatically.
 

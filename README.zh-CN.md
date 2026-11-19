@@ -112,19 +112,17 @@
 ### 学：附出处的知识库和示意图
 共 **11 个主题、72 条事实**，每条都链接到 IBM 或 Software AG 的公开文档，每个主题后附一段实践建议：
 
-| 主题 | 学到什么 |
-| --- | --- |
-| 版本与生命周期 | 10.15（2022 年 10 月正式发布；2027 年 10 月 31 日结束支持，可付费延长支持到 2028 年 10 月和 2030 年 10 月；最后一个支持 AIX 和 z/Linux 的版本）、11.1（2024 年 9 月）、12.1（Java 21、Jakarta EE 10、FIPS 140-3、容器化） |
-| Process Engine 运行与服务质量（QoS） | 转移文档；速度与可靠性的取舍；**Optimize Locally**（默认开）、**Volatile Transition Documents**（默认开）、**Volatile Tracking**（默认关）；Universal Messaging 作为 JMS 提供方；Broker 已弃用 |
-| 执行历史与审计 | Process Engine 数据库与 Process Audit 数据库（`PRA_*` 表）、日志级别、10.15 中人工任务历史存在哪里 |
-| Task Engine 与人工工作 | My webMethods Server 上的任务收件箱、`getTaskAudit`、任务归档 |
-| webMethods Business Rules | 规则项目、规则集、决策表、决策树、事件规则；Data/Service/Process 动作；部署到 Integration Server 和 My webMethods Server |
-| 规则引擎配置与 Rule Task | 规则引擎在哪里运行（WmBusinessRules），以及如何指向远程 Integration Server（`businessrulesruntime` 别名）；如何配置 Rule Task、Process Aware 决策表、规则动作与日志级别、事件规则与 JMS 触发器、热部署及其服务器连接 |
-| Monitor、重新提交与 Optimize | Monitor 在哪里、如何重新提交失败或已完成的实例（Resubmit Closest / Earliest、修改 pipeline）、需要哪些权限、Optimize 的 KPI 与流程分析 |
-| 从 10.15 升级 | 新旧版本并行安装：Database Component Configurator、迁移工具或 Command Central、保留进行中的实例、模型升版本号、升级后检查；12.1 升级前分析工具覆盖和不覆盖什么；升级后的许可证密钥与计量 |
-| IBM Integration（原 webMethods Hybrid Integration，IWHI） | 它是什么（2025 年 5 月发布，2026 年改名 IBM Integration）、混合控制平面管理哪些运行时、怎么卖、六组能力（其中没有 BPM）、REST API 变成 MCP 工具，以及为什么 BPMS 继续留在 webMethods 环境里而不是迁走 |
-| IBM 各流程产品里的 agent 与人工任务 | watsonx Orchestrate 流程里的人工任务、Business Automation Workflow 26.0 通过 MCP 开放流程/案例/任务、Cloud Pak for Business Automation 的 MCP 服务器、webMethods Integration 的 MCP 工具，以及 BPM 12.1 的 Task Engine API 目前能做什么 |
-| 实践设计清单 | 设计评审和升级时用的十项检查 |
+- **版本与生命周期**：10.15（2022 年 10 月正式发布；2027 年 10 月 31 日结束支持，可付费延长支持到 2028 年 10 月和 2030 年 10 月；最后一个支持 AIX 和 z/Linux 的版本）、11.1（2024 年 9 月）、12.1（Java 21、Jakarta EE 10、FIPS 140-3、容器化）
+- **Process Engine 运行与服务质量（QoS）**：转移文档；速度与可靠性的取舍；**Optimize Locally**（默认开）、**Volatile Transition Documents**（默认开）、**Volatile Tracking**（默认关）；Universal Messaging 作为 JMS 提供方；Broker 已弃用
+- **执行历史与审计**：Process Engine 数据库与 Process Audit 数据库（`PRA_*` 表）、日志级别、10.15 中人工任务历史存在哪里
+- **Task Engine 与人工工作**：My webMethods Server 上的任务收件箱、`getTaskAudit`、任务归档
+- **webMethods Business Rules**：规则项目、规则集、决策表、决策树、事件规则；Data/Service/Process 动作；部署到 Integration Server 和 My webMethods Server
+- **规则引擎配置与 Rule Task**：规则引擎在哪里运行（WmBusinessRules），以及如何指向远程 Integration Server（`businessrulesruntime` 别名）；如何配置 Rule Task、Process Aware 决策表、规则动作与日志级别、事件规则与 JMS 触发器、热部署及其服务器连接
+- **Monitor、重新提交与 Optimize**：Monitor 在哪里、如何重新提交失败或已完成的实例（Resubmit Closest / Earliest、修改 pipeline）、需要哪些权限、Optimize 的 KPI 与流程分析
+- **从 10.15 升级**：新旧版本并行安装：Database Component Configurator、迁移工具或 Command Central、保留进行中的实例、模型升版本号、升级后检查；12.1 升级前分析工具覆盖和不覆盖什么；升级后的许可证密钥与计量
+- **IBM Integration（原 webMethods Hybrid Integration，IWHI）**：它是什么（2025 年 5 月发布，2026 年改名 IBM Integration）、混合控制平面管理哪些运行时、怎么卖、六组能力（其中没有 BPM）、REST API 变成 MCP 工具，以及为什么 BPMS 继续留在 webMethods 环境里而不是迁走
+- **IBM 各流程产品里的 agent 与人工任务**：watsonx Orchestrate 流程里的人工任务、Business Automation Workflow 26.0 通过 MCP 开放流程/案例/任务、Cloud Pak for Business Automation 的 MCP 服务器、webMethods Integration 的 MCP 工具，以及 BPM 12.1 的 Task Engine API 目前能做什么
+- **实践设计清单**：设计评审和升级时用的十项检查
 
 **面向受监管行业的控制**：七项控制，每项写明监管期望、BPMS 与规则如何实现（附产品文档出处），以及审计时能看到的证据。法规说明涵盖 SR 11-7、OSFI E-23（2027 年 5 月 1 日生效）、欧盟 AI 法案附件三及第 12、14 条、GDPR 第 22 条、NAIC 的 AI 示范公告和 DORA（2025 年 1 月 17 日起适用），全部引用监管机构原文。仅为教育性对照，不构成法律或合规建议。
 
@@ -143,25 +141,29 @@
 
 **如何使用**按角色划分。每一步写明菜单路径并附官方出处，最后告诉你「怎么确认做成了」。每个角色还配有可打印的**速查卡**和 3 道**自测题**：
 
-| 角色 | 教程 | 关键步骤 |
-| --- | --- | --- |
-| 业务用户 | 在 My webMethods 里处理任务 | 打开 My Inbox → 找到任务 → Accept（接受）→ Submit / Complete（提交/完成）→ 需要时 Delegate（转交） |
-| 流程开发人员 | 建模、构建并启用流程 | 切到 Process Developer 模式 → 画 BPMN、为每步选实现方式（服务、人工任务、规则任务）→ 设置日志与 QoS → Build and upload → **启用执行（Execution Enabled）** → 在 Monitor 里测试 |
-| 业务分析师 | 安全地修改业务规则 | My webMethods Server 仓库中的规则项目 → 打开并锁定 → 修改决策表 → 校验 → **Hot Deploy（热部署）**，无需重建流程 |
-| 运维人员 | 监控、修复与重新提交 | Process Instances → 停止/暂停/恢复 → **Resubmit（重新提交）**，必要时先修改 pipeline 数据 → Task List Management → 权限 |
+- **业务用户**\
+  教程：在 My webMethods 里处理任务\
+  关键步骤：打开 My Inbox → 找到任务 → Accept（接受）→ Submit / Complete（提交/完成）→ 需要时 Delegate（转交）
+- **流程开发人员**\
+  教程：建模、构建并启用流程\
+  关键步骤：切到 Process Developer 模式 → 画 BPMN、为每步选实现方式（服务、人工任务、规则任务）→ 设置日志与 QoS → Build and upload → **启用执行（Execution Enabled）** → 在 Monitor 里测试
+- **业务分析师**\
+  教程：安全地修改业务规则\
+  关键步骤：My webMethods Server 仓库中的规则项目 → 打开并锁定 → 修改决策表 → 校验 → **Hot Deploy（热部署）**，无需重建流程
+- **运维人员**\
+  教程：监控、修复与重新提交\
+  关键步骤：Process Instances → 停止/暂停/恢复 → **Resubmit（重新提交）**，必要时先修改 pipeline 数据 → Task List Management → 权限
 
 **动手实验：30 分钟做出第一个流程。** 做一个采购审批流程，带进度记录、常见问题表、给没有环境的学员的练习路线，还可以打印成练习单：
 
-| 阶段 | 分钟 | 怎么确认做成了 |
-| --- | --- | --- |
-| 1. 建项目和流程 | 3 | 流程在空白画布中打开 |
-| 2. 用文档启动流程 | 4 | 开始事件显示接收文档 |
-| 3. 加审批任务 | 6 | 步骤显示人工任务图标 |
-| 4. 按决定分流 | 4 | 每条路径都到达结束事件 |
-| 5. 构建、上传并启用 | 5 | 构建无错误；已勾选 Execution Enabled |
-| 6. 启动一个实例 | 3 | 审批人的收件箱出现任务 |
-| 7. 以审批人身份处理任务 | 3 | 任务状态为 Completed |
-| 8. 在 Monitor 中跟踪实例 | 2 | 实例经 Approved 路径完成 |
+- **1. 建项目和流程**（3 分钟）：流程在空白画布中打开
+- **2. 用文档启动流程**（4 分钟）：开始事件显示接收文档
+- **3. 加审批任务**（6 分钟）：步骤显示人工任务图标
+- **4. 按决定分流**（4 分钟）：每条路径都到达结束事件
+- **5. 构建、上传并启用**（5 分钟）：构建无错误；已勾选 Execution Enabled
+- **6. 启动一个实例**（3 分钟）：审批人的收件箱出现任务
+- **7. 以审批人身份处理任务**（3 分钟）：任务状态为 Completed
+- **8. 在 Monitor 中跟踪实例**（2 分钟）：实例经 Approved 路径完成
 
 **故障排查：** 16 个可搜索的问题，分为四类：启动与部署、任务、规则、监控与运维。每个问题都写明先检查什么、怎么解决、在哪里操作，并附出处。
 
@@ -183,33 +185,56 @@
 <details>
 <summary><b>课程安排：25 个栏目，按网站顺序</b></summary>
 
-| # | 栏目 | 形式 | 用来做什么 |
-| --- | --- | --- | --- |
-| 1 | **从这里开始**（Start here） | 角色选择、总图、六个动手步骤 | 找到你的路线，看懂全局，理解流程平台为什么对 AI agent 很重要 |
-| 2 | **10 分钟速成**（10-minute course） | 5 步、5 张图、3 道题 | 完全零基础，10 分钟看懂 IBM webMethods BPMS |
-| 3 | **基础 101**（Basics 101） | 7 节小课，每节配图和一道题 | 零基础讲清每个流程平台背后的概念，再对应到 IBM webMethods 的名字 |
-| 4 | **概览**（Overview） | 阅读 + 产品家族表 | 核心理念，以及 IBM webMethods 一览（9 个组件） |
-| 5 | **知识库**（Knowledge base） | 附出处的参考 + 互动图 | 11 个主题、72 条事实，讲清产品实际怎么运作 |
-| 6 | **合规控制**（Controls） | 控制对照表 + 法规说明 | 面向银行和保险：七项控制、对应的监管框架（SR 11-7、OSFI E-23、欧盟 AI 法案、GDPR 第 22 条、NAIC、DORA）以及 BPMS 能提供的证据 |
-| 7 | **如何使用**（How to use） | 角色教程、速查卡、自测、演示脚本 | 四类角色的日常操作，以及如何给客户演示 |
-| 8 | **动手实验**（Hands-on lab） | 30 分钟练习，带进度记录 | 构建、启用、运行并监控你的第一个流程 |
-| 9 | **决策实验室**（Decision lab） | 互动决策表 + 对比 | 改规则阈值、测试一笔申请，看规则为什么比流程改得快 |
-| 10 | **修图闯关**（Fix the diagram） | 五关拼图 + 令牌动画 | 修好坏掉的流程：结束事件、网关选择、规则任务、超时提醒、只把例外交给人 |
-| 11 | **刷卡分类**（Swipe sort） | 20 张卡片，60 秒 | 规则、agent 还是留给人？一张张卡片判断 agent 时代的分工 |
-| 12 | **故障排查**（Troubleshooting） | 搜索 + 流程图 | 症状 → 先检查什么 → 怎么解决 → 在哪里操作 |
-| 13 | **值班演练**（On-call drills） | 三个带时钟的分支故障 | 在一点压力下练习先查什么，再看带出处的复盘 |
-| 14 | **讲课**（Teach a class） | 工作坊方案 + 时间轴 | 给用户或客户上的 3 小时课 |
-| 15 | **生命周期**（Lifecycle） | 可点击的阶段 + 版本表 | 建模 → 实现 → 构建上传 → 执行 → 监控 → 优化 → 治理；各版本的支持日期 |
-| 16 | **架构**（Architecture） | 可点击的组件图 | 引擎、数据库和 `PRA_*` 审计表 |
-| 17 | **BPMN** | 参考表 | 活动、网关、事件、池和泳道 |
-| 18 | **设计模式**（Patterns） | 可筛选卡片 | 四个经典模式和三个 agent 时代的模式 |
-| 19 | **实例**（Cases） | 流程图 | 采购审批、贷款决策、物流异常 |
-| 20 | **模拟器**（Simulator） | 互动 | 让一个贷款实例经过规则任务和核保人任务，并查看审计日志 |
-| 21 | **Agent 扫描实验室** | 互动 | 从流程历史里找出适合写成规则或交给 agent 的步骤（模拟数据或你的 CSV） |
-| 22 | **市场**（Market） | 阅读 + 出处 | 市场规模、分析机构观点、竞争信号、监管日期 |
-| 23 | **术语表**（Glossary） | 可搜索 | 33 个术语；全站带下划线的术语都能点开看大白话解释 |
-| 24 | **测验**（Quiz） | 24 道题 | 即时反馈并计分 |
-| 25 | **复习本**（Review book） | 间隔复习 | 答错的题 1 天后、3 天后再考（又错了就 7 天后再考一次），直到记住 |
+- **1. **从这里开始**（Start here）** · 角色选择、总图、六个动手步骤\
+  找到你的路线，看懂全局，理解流程平台为什么对 AI agent 很重要
+- **2. **10 分钟速成**（10-minute course）** · 5 步、5 张图、3 道题\
+  完全零基础，10 分钟看懂 IBM webMethods BPMS
+- **3. **基础 101**（Basics 101）** · 7 节小课，每节配图和一道题\
+  零基础讲清每个流程平台背后的概念，再对应到 IBM webMethods 的名字
+- **4. **概览**（Overview）** · 阅读 + 产品家族表\
+  核心理念，以及 IBM webMethods 一览（9 个组件）
+- **5. **知识库**（Knowledge base）** · 附出处的参考 + 互动图\
+  11 个主题、72 条事实，讲清产品实际怎么运作
+- **6. **合规控制**（Controls）** · 控制对照表 + 法规说明\
+  面向银行和保险：七项控制、对应的监管框架（SR 11-7、OSFI E-23、欧盟 AI 法案、GDPR 第 22 条、NAIC、DORA）以及 BPMS 能提供的证据
+- **7. **如何使用**（How to use）** · 角色教程、速查卡、自测、演示脚本\
+  四类角色的日常操作，以及如何给客户演示
+- **8. **动手实验**（Hands-on lab）** · 30 分钟练习，带进度记录\
+  构建、启用、运行并监控你的第一个流程
+- **9. **决策实验室**（Decision lab）** · 互动决策表 + 对比\
+  改规则阈值、测试一笔申请，看规则为什么比流程改得快
+- **10. **修图闯关**（Fix the diagram）** · 五关拼图 + 令牌动画\
+  修好坏掉的流程：结束事件、网关选择、规则任务、超时提醒、只把例外交给人
+- **11. **刷卡分类**（Swipe sort）** · 20 张卡片，60 秒\
+  规则、agent 还是留给人？一张张卡片判断 agent 时代的分工
+- **12. **故障排查**（Troubleshooting）** · 搜索 + 流程图\
+  症状 → 先检查什么 → 怎么解决 → 在哪里操作
+- **13. **值班演练**（On-call drills）** · 三个带时钟的分支故障\
+  在一点压力下练习先查什么，再看带出处的复盘
+- **14. **讲课**（Teach a class）** · 工作坊方案 + 时间轴\
+  给用户或客户上的 3 小时课
+- **15. **生命周期**（Lifecycle）** · 可点击的阶段 + 版本表\
+  建模 → 实现 → 构建上传 → 执行 → 监控 → 优化 → 治理；各版本的支持日期
+- **16. **架构**（Architecture）** · 可点击的组件图\
+  引擎、数据库和 `PRA_*` 审计表
+- **17. BPMN** · 参考表\
+  活动、网关、事件、池和泳道
+- **18. **设计模式**（Patterns）** · 可筛选卡片\
+  四个经典模式和三个 agent 时代的模式
+- **19. **实例**（Cases）** · 流程图\
+  采购审批、贷款决策、物流异常
+- **20. **模拟器**（Simulator）** · 互动\
+  让一个贷款实例经过规则任务和核保人任务，并查看审计日志
+- **21. Agent 扫描实验室** · 互动\
+  从流程历史里找出适合写成规则或交给 agent 的步骤（模拟数据或你的 CSV）
+- **22. **市场**（Market）** · 阅读 + 出处\
+  市场规模、分析机构观点、竞争信号、监管日期
+- **23. **术语表**（Glossary）** · 可搜索\
+  33 个术语；全站带下划线的术语都能点开看大白话解释
+- **24. **测验**（Quiz）** · 24 道题\
+  即时反馈并计分
+- **25. **复习本**（Review book）** · 间隔复习\
+  答错的题 1 天后、3 天后再考（又错了就 7 天后再考一次），直到记住
 
 每个栏目都有自己的链接（例如 [`#lab`](https://xudaniel.github.io/webmethods-bpms-academy/#lab)），底部还有「上一页 / 下一页」。
 
@@ -257,22 +282,24 @@ flowchart TD
 
 **执行历史存在哪里**
 
-| 存储 | 用途 | 典型用法 |
-| --- | --- | --- |
-| Process Engine 数据库 | 引擎私有的实时实例状态 | 只供引擎使用，不用于报表 |
-| Process Audit 数据库 | 公开的历史：流程和步骤状态、流转、记录的字段、错误 | Monitor、报表、流程分析 |
-| Task Engine 审计 / 归档 | 每个任务的操作、分派和结果 | 人工任务分析 |
+- **Process Engine 数据库**\
+  用途：引擎私有的实时实例状态\
+  典型用法：只供引擎使用，不用于报表
+- **Process Audit 数据库**\
+  用途：公开的历史：流程和步骤状态、流转、记录的字段、错误\
+  典型用法：Monitor、报表、流程分析
+- **Task Engine 审计 / 归档**\
+  用途：每个任务的操作、分派和结果\
+  典型用法：人工任务分析
 
 Process Audit 的关键表（9.6 及以后使用 `PRA_` 前缀）：
 
-| 表 | 存什么 |
-| --- | --- |
-| `PRA_PROCESS` | 每个流程状态一行（需开启流程状态记录） |
-| `PRA_PROCESS_STEP` | 每个步骤状态一行（需开启步骤记录） |
-| `PRA_PROCESS_STEP_LOOP` | 带流程、步骤和循环迭代次数的步骤状态 |
-| `PRA_STEP_TRANSITION` | 每次流转的起止步骤（需开启流转记录） |
-| `PRA_STEP_LOGGED_FIELD(S)` | 标记为需记录的字段的运行时取值 |
-| `PRA_ERROR` | 每个失败步骤一行 |
+- `PRA_PROCESS`：每个流程状态一行（需开启流程状态记录）
+- `PRA_PROCESS_STEP`：每个步骤状态一行（需开启步骤记录）
+- `PRA_PROCESS_STEP_LOOP`：带流程、步骤和循环迭代次数的步骤状态
+- `PRA_STEP_TRANSITION`：每次流转的起止步骤（需开启流转记录）
+- `PRA_STEP_LOGGED_FIELD(S)`：标记为需记录的字段的运行时取值
+- `PRA_ERROR`：每个失败步骤一行
 
 > 在 10.15 中，把任务状态写入 Process Audit 表的功能**默认关闭**。人工任务的明细通常要从 Task Engine 审计（`getTaskAudit`）或任务归档中获取。
 
@@ -285,11 +312,9 @@ Process Audit 的关键表（9.6 及以后使用 `PRA_` 前缀）：
 
 五步贷款流程：*收到申请 → 获取征信数据 → 规则：资格判断 → 核保人员复核 → 发送结果*。
 
-| 规则（仅作示意） | 结果 |
-| --- | --- |
-| 信用分 < 580 | 拒绝 |
-| 信用分 ≥ 720 且 贷款/收入 ≤ 35% | 批准 |
-| 其他情况 | 转核保人员（人工任务） |
+- **信用分 < 580**：拒绝
+- **信用分 ≥ 720 且 贷款/收入 ≤ 35%**：批准
+- **其他情况**：转核保人员（人工任务）
 
 日志面板会打印与 `PRA_PROCESS`、`PRA_PROCESS_STEP`、`PRA_STEP_LOGGED_FIELD` 形式相同的记录，帮助学习者把运行中的实例和它留下的历史对应起来。
 
@@ -301,40 +326,74 @@ Process Audit 的关键表（9.6 及以后使用 `PRA_` 前缀）：
 
 **每个步骤的指标**
 
-| 指标 | 含义 |
-| --- | --- |
-| 每月处理量 | 该步骤完成的实例数 |
-| 工作分钟 / 等待小时 | 人工投入和排队时间 |
-| 最常见结果占比 | 最常见结果（如「批准」）所占比例 |
-| 确定性 | 同组输入下某一结果占比 ≥ 95% 的实例比例 |
-| 返工率、出错率 | 循环和失败的比例 |
+- **每月处理量**：该步骤完成的实例数
+- **工作分钟 / 等待小时**：人工投入和排队时间
+- **最常见结果占比**：最常见结果（如「批准」）所占比例
+- **确定性**：同组输入下某一结果占比 ≥ 95% 的实例比例
+- **返工率、出错率**：循环和失败的比例
 
 **分类规则**
 
-| 类别 | 规则 | 解读 |
-| --- | --- | --- |
-| 规则候选（ODM） | 人工任务，确定性 ≥ 80% | 这个决定其实已经有规则，只是没人写下来 |
-| Agent 候选（盖章式） | 某一结果 ≥ 90% 且工作 ≤ 15 分钟 | agent 准备，规则或人确认 |
-| Agent 候选（分拣 + 人工批准） | 等待 ≥ 24 小时且某一结果 ≥ 70% | agent 分拣材料，人来批准 |
-| 修复集成 | 服务步骤，出错率 ≥ 5% | 先修好集成，再谈 AI |
-| 保留给人 | 其他情况 | 结果差异大或风险高 |
+- **规则候选（ODM）**\
+  规则：人工任务，确定性 ≥ 80%\
+  解读：这个决定其实已经有规则，只是没人写下来
+- **Agent 候选（盖章式）**\
+  规则：某一结果 ≥ 90% 且工作 ≤ 15 分钟\
+  解读：agent 准备，规则或人确认
+- **Agent 候选（分拣 + 人工批准）**\
+  规则：等待 ≥ 24 小时且某一结果 ≥ 70%\
+  解读：agent 分拣材料，人来批准
+- **修复集成**\
+  规则：服务步骤，出错率 ≥ 5%\
+  解读：先修好集成，再谈 AI
+- **保留给人**\
+  规则：其他情况\
+  解读：结果差异大或风险高
 
 预计节省工时 = 每月人工工时 × 假设的可自动化比例（规则 80%、盖章式 60%、分拣 40%）。**这些门槛和比例都是占位假设**，需要用真实数据校准。
 
 **CSV 输入**：每个已完成的步骤实例一行。
 
-| 字段 | 类型 | 示例 | 常见来源 |
-| --- | --- | --- | --- |
-| `process` | 文本 | `Customs hold` | `PRA_PROCESS` / 模型元数据 |
-| `step` | 文本 | `Release approval` | `PRA_PROCESS_STEP` |
-| `step_type` | `user_task` \| `service` \| `gateway` | `user_task` | 模型元数据 |
-| `instance_id` | 文本 | `42` | `PRA_PROCESS_STEP` |
-| `start_ts`、`end_ts` | ISO 时间戳 | `2026-05-01T09:00:00` | `PRA_PROCESS_STEP` |
-| `wait_min`、`work_min` | 数字 | `30`、`6` | Task Engine 审计 |
-| `outcome` | 文本 | `approve` | 记录的字段或任务数据 |
-| `input_key` | 文本（哈希） | `k17` | 决定性业务字段的哈希值 |
-| `loop_count` | 整数 | `0` | `PRA_PROCESS_STEP_LOOP` |
-| `error` | 0/1 | `0` | `PRA_ERROR` |
+- `process`\
+  类型：文本\
+  示例：`Customs hold`\
+  常见来源：`PRA_PROCESS` / 模型元数据
+- `step`\
+  类型：文本\
+  示例：`Release approval`\
+  常见来源：`PRA_PROCESS_STEP`
+- `step_type`\
+  类型：`user_task` \| `service` \| `gateway`\
+  示例：`user_task`\
+  常见来源：模型元数据
+- `instance_id`\
+  类型：文本\
+  示例：`42`\
+  常见来源：`PRA_PROCESS_STEP`
+- `start_ts`、`end_ts`\
+  类型：ISO 时间戳\
+  示例：`2026-05-01T09:00:00`\
+  常见来源：`PRA_PROCESS_STEP`
+- `wait_min`、`work_min`\
+  类型：数字\
+  示例：`30`、`6`\
+  常见来源：Task Engine 审计
+- `outcome`\
+  类型：文本\
+  示例：`approve`\
+  常见来源：记录的字段或任务数据
+- `input_key`\
+  类型：文本（哈希）\
+  示例：`k17`\
+  常见来源：决定性业务字段的哈希值
+- `loop_count`\
+  类型：整数\
+  示例：`0`\
+  常见来源：`PRA_PROCESS_STEP_LOOP`
+- `error`\
+  类型：0/1\
+  示例：`0`\
+  常见来源：`PRA_ERROR`
 
 只使用匿名化导出的数据，不要包含个人信息或原始业务内容。
 
@@ -344,7 +403,8 @@ Process Audit 的关键表（9.6 及以后使用 `PRA_` 前缀）：
 
 ```bash
 cd tools
-python3 make_synthetic.py            # 生成 synthetic_audit.csv
+# 生成 synthetic_audit.csv
+python3 make_synthetic.py
 python3 agent_scan.py synthetic_audit.csv
 ```
 
@@ -355,14 +415,24 @@ python3 agent_scan.py synthetic_audit.csv
 
 在角色选择和总图下面，有六个可以动手的小步骤，为没有 BPMS 背景的读者讲清楚「为什么」：
 
-| 步骤 | 互动方式 | 想说明的道理 |
-| --- | --- | --- |
-| 1. 同一个请求，两种结局 | 切换「没有 BPMS / 有 BPMS」 | 路由、规则、计时和审计，取代了「靠人记得」 |
-| 2. 每项工作该归谁？ | 8 项工作的分类小游戏 | 流程负责编排，规则负责判断，人负责例外，agent 负责提建议 |
-| 3. Agent 需要一本规则手册 | 调整自动批准上限、最短延误时长，切换大客户选项 | agent 提出赔付建议；规则给出批准 / 转人工 / 拒绝；每个决定都带规则版本记入日志 |
-| 4. 驱动这个市场的时钟 | 可点击的时间线（2022–2028） | 升级期限和监管决定了企业何时重新评估平台 |
-| 5. 市场真正在哪里 | 点击逐层展开 | 分析机构的品类口径，与成熟本地部署 BPMS 实际竞争的地方之间的差别 |
-| 6. Agent 时代的五个想法 | 可展开的卡片 | 挖掘流程历史、人工审批入口、决策「黑匣子」、在现有客户群里做方案、把维护费变成 AI 额度 |
+- **1. 同一个请求，两种结局**\
+  互动方式：切换「没有 BPMS / 有 BPMS」\
+  想说明的道理：路由、规则、计时和审计，取代了「靠人记得」
+- **2. 每项工作该归谁？**\
+  互动方式：8 项工作的分类小游戏\
+  想说明的道理：流程负责编排，规则负责判断，人负责例外，agent 负责提建议
+- **3. Agent 需要一本规则手册**\
+  互动方式：调整自动批准上限、最短延误时长，切换大客户选项\
+  想说明的道理：agent 提出赔付建议；规则给出批准 / 转人工 / 拒绝；每个决定都带规则版本记入日志
+- **4. 驱动这个市场的时钟**\
+  互动方式：可点击的时间线（2022–2028）\
+  想说明的道理：升级期限和监管决定了企业何时重新评估平台
+- **5. 市场真正在哪里**\
+  互动方式：点击逐层展开\
+  想说明的道理：分析机构的品类口径，与成熟本地部署 BPMS 实际竞争的地方之间的差别
+- **6. Agent 时代的五个想法**\
+  互动方式：可展开的卡片\
+  想说明的道理：挖掘流程历史、人工审批入口、决策「黑匣子」、在现有客户群里做方案、把维护费变成 AI 额度
 
 第 3、5、6 步标注为「作者观点」。
 
@@ -371,11 +441,15 @@ python3 agent_scan.py synthetic_audit.csv
 <details>
 <summary><b>Agent 时代的设计模式</b></summary>
 
-| 模式 | 问题 | 解法 |
-| --- | --- | --- |
-| **agent 提建议、规则做判断、流程来执行** | agent 擅长读材料，但受监管的决定必须可解释、可重复 | agent 提取事实并提出建议；决策服务返回批准 / 拒绝 / 转人工；流程执行或升级给人；每一步都有记录 |
-| **给 agent 的人工审批入口** | 来自多个平台的 agent 有些操作需要人批准，并且要有时限和审计 | 把「需要人工」的步骤送进 BPMS 人工任务，直接复用分派、委派、升级和审计功能 |
-| **决策日志（「黑匣子」）** | 出了问题后，必须说明是哪个规则版本、什么输入、谁批准导致了这个结果 | 对每个与 agent 有关的决定，记录输入、规则版本、结果和批准人，与流程审计记录放在一起 |
+- **agent 提建议、规则做判断、流程来执行**\
+  问题：agent 擅长读材料，但受监管的决定必须可解释、可重复\
+  解法：agent 提取事实并提出建议；决策服务返回批准 / 拒绝 / 转人工；流程执行或升级给人；每一步都有记录
+- **给 agent 的人工审批入口**\
+  问题：来自多个平台的 agent 有些操作需要人批准，并且要有时限和审计\
+  解法：把「需要人工」的步骤送进 BPMS 人工任务，直接复用分派、委派、升级和审计功能
+- **决策日志（「黑匣子」）**\
+  问题：出了问题后，必须说明是哪个规则版本、什么输入、谁批准导致了这个结果\
+  解法：对每个与 agent 有关的决定，记录输入、规则版本、结果和批准人，与流程审计记录放在一起
 
 </details>
 
@@ -389,12 +463,10 @@ python3 agent_scan.py synthetic_audit.csv
 - **增长来自受监管、需要人工监督的工作。** Camunda 2026 年 8 月称年度经常性收入接近 2 亿美元，增长由保险、公共部门和银行带动；Appian 约 80% 的年度经常性收入来自金融服务、生命科学和公共部门。
 - **期限推动决策。**
 
-| 日期 | 事件 |
-| --- | --- |
-| 2022 年 10 月 18 日 | webMethods 10.15 正式发布 |
-| 2027 年 10 月 31 日 | webMethods 10.15 结束支持（也是最后一个支持 AIX 和 z/Linux 的版本） |
-| 2027 年 12 月 2 日 | 欧盟 AI 法案对附件 III 高风险系统（如信用评分）的义务开始适用 |
-| 2028 年 10 月 31 日 | webMethods 10.15 第一阶段延长支持结束（后续延长支持只含使用咨询和已知缺陷，到 2030 年 10 月 31 日） |
+- **2022 年 10 月 18 日**：webMethods 10.15 正式发布
+- **2027 年 10 月 31 日**：webMethods 10.15 结束支持（也是最后一个支持 AIX 和 z/Linux 的版本）
+- **2027 年 12 月 2 日**：欧盟 AI 法案对附件 III 高风险系统（如信用评分）的义务开始适用
+- **2028 年 10 月 31 日**：webMethods 10.15 第一阶段延长支持结束（后续延长支持只含使用咨询和已知缺陷，到 2030 年 10 月 31 日）
 
 </details>
 
@@ -418,7 +490,7 @@ python3 -m http.server 8000
 
 1. 进入仓库 **Settings → Pages**。
 2. **Source** 选 Deploy from a branch → `main` / `(root)`。
-3. 网站地址为 `https://xudaniel.github.io/webmethods-bpms-academy/`。
+3. 网站地址为 <https://xudaniel.github.io/webmethods-bpms-academy/>。
 
 **浏览器支持：** 最新版 Chrome、Edge、Firefox、Safari，桌面和手机均可。不加载任何外部库或字体。
 
@@ -427,59 +499,57 @@ python3 -m http.server 8000
 <details>
 <summary><b>项目结构</b></summary>
 
-```
-webmethods-bpms-academy/
-├── index.html            # 互动版
-├── read.html             # 阅读版：一页读完，附图和带答案的测验
-├── brief.html            # 银行与保险的一页式高管简报（可打印成 PDF）
-├── README.md             # 英文说明
-├── README.zh-CN.md       # 中文说明（本文件）
-├── CHANGELOG.md          # 版本更新日志
-├── manifest.webmanifest  # 存成 App（名称、图标、主题色）
-├── sw.js                 # 离线支持（优先联网，断网时用缓存）
-├── assets/               # App 图标、二维码、示意图（SVG）、README 截图
-├── docs/
-│   └── PRD.md            # 产品需求文档（英文）
-├── css/
-│   ├── styles.css        # 布局、组件、手机适配
-│   └── read.css          # 阅读版：图示和打印样式
-├── js/
-│   ├── content.js        # 课程内容和资料来源
-│   ├── knowledge.js      # IBM webMethods 知识库：产品家族、附出处的主题、补充术语和测验
-│   ├── howto.js          # 如何使用：角色教程、入门路线、客户演示脚本
-│   ├── lab.js            # 动手实验：30 分钟做出第一个流程
-│   ├── support.js        # 故障排查、角色速查卡与自测、讲课方案
-│   ├── diagrams.js       # 原创 SVG 示意图（服务质量互动图、角色图、实验 BPMN、排查流程图、时间轴）
-│   ├── path.js           # 角色选择与个人路线、可点击的全流程总图
-│   ├── i18n.js           # 中文 / English 切换（?lang=zh），最先加载
-│   ├── zh/               # 中文文本，按区域分文件：
-│   │                     #   core.js、beginner.js、guides.js、
-│   │                     #   explore.js、labs.js、read.js
-│   ├── swipe.js          # 刷卡分类：规则、agent 还是人？（#53）
-│   ├── timemachine.js    # 模拟器下的实例时光机（#51）
-│   ├── drills.js         # 带时钟和出处复盘的值班演练（#50）
-│   ├── review.js         # 复习本：答错的题按时回来（#76）
-│   ├── search.js         # 全站搜索，在浏览器里完成，中英文（#77）
-│   ├── words.js          # 点术语看大白话解释、新手模式
-│   ├── basics.js         # 基础 101：七节基础课和自测
-│   ├── crash.js          # 10 分钟速成：五步和三道自测
-│   ├── decision-lab.js   # 决策实验室：决策表、改规则与改流程对比、规则配置陷阱
-│   ├── controls.js       # 面向受监管行业的控制：控制项、监管框架、证据
-│   ├── pro.js            # 专业模式（页头开关或 ?mode=pro）
-│   ├── brief.js          # 根据控制对照表生成高管简报
-│   ├── fun.js            # 阅读时间、学习进度、徽章、「你知道吗」
-│   ├── mobile.js         # 手机指南、栏目菜单、上一页/下一页、回到顶部、离线支持
-│   ├── explainer.js      # 「从这里开始」的内容（作者观点已标注）
-│   ├── explainer-app.js  # 「从这里开始」的互动逻辑
-│   ├── app.js            # 导航、模拟器、扫描实验室、术语搜索、测验
-│   └── read.js           # 用同一份内容生成阅读版
-├── tools/
-│   ├── build_diagrams.js # 由 js/diagrams.js 生成 assets/diagrams/*.svg
-│   ├── agent_scan.py     # 扫描方法的 Python 版本
-│   └── make_synthetic.py
-└── tests/
-    └── smoke_test.py     # 用无头浏览器检查每个栏目
-```
+根目录：`webmethods-bpms-academy/`
+
+- `index.html` — 互动版
+- `read.html` — 阅读版：一页读完，附图和带答案的测验
+- `brief.html` — 银行与保险的一页式高管简报（可打印成 PDF）
+- `README.md` — 英文说明
+- `README.zh-CN.md` — 中文说明（本文件）
+- `CHANGELOG.md` — 版本更新日志
+- `manifest.webmanifest` — 存成 App（名称、图标、主题色）
+- `sw.js` — 离线支持（优先联网，断网时用缓存）
+- `assets/` — App 图标、二维码、示意图（SVG）、README 截图
+- `docs/`
+  - `PRD.md` — 产品需求文档（英文）
+  - `USER-TESTING.md` — 15 分钟用户测试脚本
+- `css/`
+  - `styles.css` — 布局、组件、手机适配
+  - `read.css` — 阅读版：图示和打印样式
+- `js/`
+  - `content.js` — 课程内容和资料来源
+  - `knowledge.js` — IBM webMethods 知识库：产品家族、附出处的主题、补充术语和测验
+  - `howto.js` — 如何使用：角色教程、入门路线、客户演示脚本
+  - `lab.js` — 动手实验：30 分钟做出第一个流程
+  - `support.js` — 故障排查、角色速查卡与自测、讲课方案
+  - `diagrams.js` — 原创 SVG 示意图（服务质量互动图、角色图、实验 BPMN、排查流程图、时间轴）
+  - `path.js` — 角色选择与个人路线、可点击的全流程总图
+  - `i18n.js` — 中文 / English 切换（?lang=zh），最先加载
+  - `zh/` — 中文文本，按区域分文件： core.js、beginner.js、guides.js、 explore.js、labs.js、read.js
+  - `swipe.js` — 刷卡分类：规则、agent 还是人？（#53）
+  - `timemachine.js` — 模拟器下的实例时光机（#51）
+  - `drills.js` — 带时钟和出处复盘的值班演练（#50）
+  - `review.js` — 复习本：答错的题按时回来（#76）
+  - `search.js` — 全站搜索，在浏览器里完成，中英文（#77）
+  - `words.js` — 点术语看大白话解释、新手模式
+  - `basics.js` — 基础 101：七节基础课和自测
+  - `crash.js` — 10 分钟速成：五步和三道自测
+  - `decision-lab.js` — 决策实验室：决策表、改规则与改流程对比、规则配置陷阱
+  - `controls.js` — 面向受监管行业的控制：控制项、监管框架、证据
+  - `pro.js` — 专业模式（页头开关或 ?mode=pro）
+  - `brief.js` — 根据控制对照表生成高管简报
+  - `fun.js` — 阅读时间、学习进度、徽章、「你知道吗」
+  - `mobile.js` — 手机指南、栏目菜单、上一页/下一页、回到顶部、离线支持
+  - `explainer.js` — 「从这里开始」的内容（作者观点已标注）
+  - `explainer-app.js` — 「从这里开始」的互动逻辑
+  - `app.js` — 导航、模拟器、扫描实验室、术语搜索、测验
+  - `read.js` — 用同一份内容生成阅读版
+- `tools/`
+  - `build_diagrams.js` — 由 js/diagrams.js 生成 assets/diagrams/*.svg
+  - `agent_scan.py` — 扫描方法的 Python 版本
+  - `make_synthetic.py`
+- `tests/`
+  - `smoke_test.py` — 用无头浏览器检查每个栏目
 
 </details>
 
@@ -488,19 +558,39 @@ webmethods-bpms-academy/
 
 课程文字集中在 `js/content.js` 的 `window.ACADEMY` 对象里，「从这里开始」的文字在 `js/explainer.js` 的 `window.EXPLAINER` 里。改内容通常不需要动布局或逻辑。
 
-| 键 | 结构 | 显示位置 |
-| --- | --- | --- |
-| `architecture` | `{ id, name, role, text, tip }[]` | 架构组件 |
-| `auditTables` | `[表名, 说明][]` | 架构 → Process Audit 表 |
-| `lifecycle` | `[阶段, 说明][]` | 生命周期 |
-| `lifecycleDates` | `[事件, 日期][]` | 生命周期 → 版本日期表 |
-| `bpmn` | `{ group, items: [名称, 说明][] }[]` | BPMN |
-| `patterns` | `{ name, tag, problem, solution, when }[]` | 设计模式 |
-| `cases` | `{ name, flow: string[], lesson }[]` | 实例 |
-| `glossary` | `[术语, 定义][]` | 术语表 |
-| `market` | `{ sizing, signals, takeaways }` | 市场 |
-| `quiz` | `{ q, a: string[], c: 正确选项序号, e: 解析 }[]` | 测验 |
-| `sources` | `[标题, 链接][]` | 市场 → 资料来源 |
+- `architecture`\
+  结构：`{ id, name, role, text, tip }[]`\
+  显示位置：架构组件
+- `auditTables`\
+  结构：`[表名, 说明][]`\
+  显示位置：架构 → Process Audit 表
+- `lifecycle`\
+  结构：`[阶段, 说明][]`\
+  显示位置：生命周期
+- `lifecycleDates`\
+  结构：`[事件, 日期][]`\
+  显示位置：生命周期 → 版本日期表
+- `bpmn`\
+  结构：`{ group, items: [名称, 说明][] }[]`\
+  显示位置：BPMN
+- `patterns`\
+  结构：`{ name, tag, problem, solution, when }[]`\
+  显示位置：设计模式
+- `cases`\
+  结构：`{ name, flow: string[], lesson }[]`\
+  显示位置：实例
+- `glossary`\
+  结构：`[术语, 定义][]`\
+  显示位置：术语表
+- `market`\
+  结构：`{ sizing, signals, takeaways }`\
+  显示位置：市场
+- `quiz`\
+  结构：`{ q, a: string[], c: 正确选项序号, e: 解析 }[]`\
+  显示位置：测验
+- `sources`\
+  结构：`[标题, 链接][]`\
+  显示位置：市场 → 资料来源
 
 知识库在 `js/knowledge.js` 的 `window.KNOWLEDGE` 里：`family`（`[组件, 作用][]`）、`topics`（`{ id, title, summary, facts[], practice, sources: 编号[] }[]`）、`glossary`、`quiz` 和带编号的 `sources`。其中的术语、测验题和来源会自动并入主课程。
 
