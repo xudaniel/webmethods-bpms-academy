@@ -1,0 +1,58 @@
+name: Test session feedback / 测试反馈
+description: Results from a 15-minute user test (see docs/USER-TESTING.md). No names or customer data.
+title: "Test session: "
+labels: ["feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: "Use the script in docs/USER-TESTING.md. Do not include names, customer data or internal plans. / 不要填写姓名、客户数据或内部计划。"
+  - type: dropdown
+    id: role
+    attributes:
+      label: Tester's role / 测试者角色
+      options:
+        - New to BPMS / 刚接触 BPMS
+        - Builds or runs processes / 流程开发或运维
+        - Talks to customers / 面向客户
+        - Other / 其他
+    validations:
+      required: true
+  - type: dropdown
+    id: language
+    attributes:
+      label: Language used / 使用语言
+      options:
+        - English
+        - 中文
+  - type: checkboxes
+    id: tasks
+    attributes:
+      label: Tasks completed without help / 无需帮助完成的任务
+      options:
+        - label: "Task 1: finished the 10-minute course / 完成 10 分钟速成"
+        - label: "Task 2: found the fix for a process that does not start / 找到流程启动不了的解决办法"
+        - label: "Task 3: found a page to answer the AI question / 找到回答 AI 问题的页面"
+  - type: textarea
+    id: stuck
+    attributes:
+      label: Where they got stuck, with time taken / 卡在哪里、用了多久
+    validations:
+      required: true
+  - type: textarea
+    id: wrong
+    attributes:
+      label: Anything wrong or out of date / 错误或过时的内容
+      description: Include the section and, if you can, a source. / 写明位置，最好附出处。
+  - type: textarea
+    id: missing
+    attributes:
+      label: What is missing / 缺什么
+  - type: dropdown
+    id: share
+    attributes:
+      label: Likelihood to share with a colleague (0–10) / 推荐给同事的可能性
+      options: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+  - type: textarea
+    id: quote
+    attributes:
+      label: One quote / 一句原话

@@ -5,6 +5,9 @@ Versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- 🧪 **15-minute user test kit** (#95): `docs/USER-TESTING.md` gives a session script with three tasks (beginner, practitioner, customer question) and five questions, in English and 中文, plus a GitHub feedback form that collects results without names or customer data.
+
 ## [2.3.0] — 2026-11-18
 
 The whole site in Chinese, plus search, a review book and on-call drills. **Author: Daniel Yuanpeng Xu.**
