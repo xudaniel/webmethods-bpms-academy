@@ -198,6 +198,11 @@
     "RuleApp": ["RuleApp", "ODM 的部署单位，把一个或多个 ruleset 部署到 Rule Execution Server。"],
     "Exit criteria (ODM rule task)": ["退出条件（ODM 规则任务）", "规则任务跑多少就停：None（所有适用的规则）、Rule（第一条适用的规则）或 RuleInstance（只跑它的第一个实例）。"],
     "Jakarta EE 10": ["Jakarta EE 10", "Java EE 的后继标准，12.1 就基于它；它的接口包名从 javax.* 改成了 jakarta.*，所以自定义的 Java 代码可能要改。"],
+    "Correlation ID": ["关联 ID（Correlation ID）", "把到达的文档和某一个运行中的流程实例对应起来的值；来自文档里的一个字段，或由关联服务返回。"],
+    "External cluster (Process Engine)": ["外部集群（Process Engine）", "几台没有正式组成集群的 Integration Server，各自的 Process Engine 都打开了 External Cluster 设置，共用一个 Process Engine 数据库和同一个消息客户端前缀。"],
+    "Archive database (Monitor)": ["Archive 数据库（Monitor）", "审计数据从 IS Core Audit Log 和 Process Audit Log 表删除之前，先搬进去的独立数据库；Process Audit Log 的数据也可以改用分区。"],
+    "Composite (Deployer)": ["Composite（Deployer）", "一个压缩文件，装着某个运行时组件的资产定义和依赖，由 Asset Build Environment 构建，由 Deployer 部署。"],
+    "Generation receipt": ["生成回执（Generation receipt）", "Designer 记录的、某个流程最近一次构建内容的回执；Deployer 把它复制到目标环境，让重新生成时能清理旧资产。"],
     "Rule task": ["规则任务（Rule task）", "一种 BPMN 任务：评估业务规则，把结果返回给流程。"],
     "Subscription trigger": ["订阅触发器", "自动生成的触发器：根据收到的文档启动一个新的流程实例，或加入一个正在运行的实例。"],
     "Task Engine": ["Task Engine（任务引擎）", "My webMethods Server 上管理人工任务和收件箱的运行时。"],
@@ -208,6 +213,12 @@
 
   // 测验：按英文原题对照
   Z.quiz = {
+    "A document arrives for a process, but its correlation ID matches no running instance. What do the Process Engine tracking pages say happens?": { q: "一份文档到达某个流程，但它的关联 ID 和任何运行中的实例都不匹配。Process Engine 的跟踪页面说会发生什么？", a: ["被丢弃", "引擎新建一个流程实例 ID 并启动一个新流程", "在任务收件箱里等待", "被发给每个节点"], e: "引擎会把一个新的流程实例 ID 和关联 ID 一起存下来，并启动新流程。关闭 Volatile Tracking 时这对值存在 WMPRTXREF 表里；打开时存在服务器内存里。" },
+    "Between two versions of a model that has running instances, someone changes the subscription filter. What is the risk?": { q: "有运行中实例的模型，在两个版本之间有人改了订阅过滤器。风险是什么？", a: ["没有风险，过滤器只在启动时读取", "和运行中的实例失去关联，文档可能找不到触发器", "模型被删除", "Monitor 切换成易失跟踪"], e: "同一个模型的版本之间不能改订阅过滤器或 Integration Server 文档类型；改了过滤器就会和运行中的实例失去关联。" },
+    "Which audit data can use database partitions instead of an Archive database?": { q: "哪种审计数据可以用数据库分区代替 Archive 数据库？", a: ["IS Core Audit Log 数据", "Process Audit Log 数据", "Task Engine 审计数据", "规则项目版本"], e: "分区只管理 Process Audit Log 的数据，适合高交易量系统。IS Core Audit Log 的数据一定要用 Archive 数据库，其他数据也仍然需要它。" },
+    "Which Process Engine setting makes a node that is not in an Integration Server cluster follow cluster rules, such as locking the step context?": { q: "哪个 Process Engine 设置，能让不在 Integration Server 集群里的节点也遵守集群规则，比如锁定步骤上下文？", a: ["Optimize Locally", "External Cluster", "Volatile Tracking", "Process Aware"], e: "在每个 Process Engine 上打开 External Cluster，它就会像在 Integration Server 集群里一样运行；各节点仍然共用一个 Process Engine 数据库。" },
+    "Why does Deployer copy the generation receipt to the target environment?": { q: "Deployer 为什么要把生成回执复制到目标环境？", a: ["为流程授权", "让重新生成时能从上一个逻辑服务器清理旧的流程资产，比如触发器和服务", "归档审计数据", "自动启用新版本"], e: "回执里有逻辑服务器到物理服务器的映射，没有它就没法清理旧资产。部署之后还要在 Monitor 里确认启用的是正确的版本。" },
+    "A task type with date/time events was published months ago. What should an administrator do so reminders fire on the right dates?": { q: "一个带日期/时间事件的任务类型几个月前发布过。管理员要怎么做，提醒才会在正确的日期触发？", a: ["什么都不用做，日期是实时的", "重新计算日期/时间事件", "删掉重建收件箱", "重启 Designer"], e: "任务类型发布时，Task Engine 会存下预先算好的触发时间，这些时间会过时；可以手动、在重新发布时或按计划重新计算。" },
     "Which Java version do all webMethods BPM runtimes support in release 11.1?": { q: "在 11.1 版里，所有 webMethods BPM 运行时都支持哪个 Java 版本？", a: ["Java 8", "Java 11", "Java 17", "Java 21"], e: "BPMS 大约在 10.11 和 10.15 换到 Java 11，11.1 换到 Java 17，12.1 基于 Java 21 和 Jakarta EE 10。" },
     "A 10.15 rule project still uses external event rules. What happens?": { q: "一个 10.15 的规则项目还在用外部事件规则，会怎样？", a: ["照常运行", "已被移除；它依赖的事件驱动架构从 2018 年 4 月起就已弃用", "自动搬到 ODM", "变成决策树"], e: "Business Rules 10.15 移除了外部事件规则的创建、显示和使用；升级前要先规划替代方案。" },
     "A webMethods rule set left at its default processing mode is moved to ODM. Which ODM execution mode supports the same kind of inference?": { q: "一个保持默认处理模式的 webMethods 规则集要迁到 ODM。ODM 里哪种执行模式支持同样的推理？", a: ["Fastpath", "Sequential", "RetePlus", "Literal"], e: "webMethods 规则集默认是 Inferential。ODM 里只有 RetePlus 支持推理；新建规则任务默认的 Fastpath 不支持。" },
