@@ -130,7 +130,7 @@ Because the site collects no analytics by design, success is measured from outsi
 ## 12. Open questions
 
 1. **License:** which open licence to publish under (for example CC BY 4.0 for content and MIT for code)?
-2. **Customer use:** is any internal review needed before the site is used in customer meetings?
+2. **Customer use:** is any internal review needed before the site is used in customer meetings? Before that, three 15-minute user tests with people in different roles ([USER-TESTING.md](USER-TESTING.md), #95).
 3. **Domain:** keep `github.io`, or use a custom domain?
 4. **Chinese interface:** is it needed for v1.2, or are the Chinese READMEs enough for now?
 

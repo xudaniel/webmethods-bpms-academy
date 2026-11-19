@@ -544,6 +544,8 @@ GitHub Actions runs the same test (`.github/workflows/smoke-test.yml`) on every 
 
 Issues and pull requests are welcome. Please keep changes small, cite public sources for any new facts, run `tests/smoke_test.py` before opening a PR, and do not include confidential or customer data.
 
+**Try it with a real user:** run the [15-minute user test](docs/USER-TESTING.md) and file the results with the [feedback form](https://github.com/Xudaniel/webmethods-bpms-academy/issues/new?template=feedback.yml).
+
 ## About the author
 
 **Daniel Yuanpeng Xu** created the IBM webMethods BPMS Academy and is its product owner. He is a product manager in business process and decision automation, based in Toronto.

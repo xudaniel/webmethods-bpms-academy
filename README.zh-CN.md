@@ -540,6 +540,8 @@ GitHub Actions 会在每个 pull request 上自动运行同一个测试（`.gith
 
 欢迎提交 issue 和 pull request。请保持改动小而聚焦，新增事实需附公开出处，提交前运行 `tests/smoke_test.py`，并且不要包含机密或客户数据。
 
+**找真实用户试一试：**按[15 分钟用户测试](docs/USER-TESTING.md#中文15-分钟用户测试)做一次，用[反馈表](https://github.com/Xudaniel/webmethods-bpms-academy/issues/new?template=feedback.yml)提交结果。
+
 ## 关于作者
 
 **Daniel Yuanpeng Xu** 是 IBM webMethods BPMS 学院的作者和产品负责人，也是业务流程与决策自动化领域的产品经理，常驻多伦多。
