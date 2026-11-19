@@ -111,16 +111,21 @@ The site is built for phones first. To get the most out of it, save it as an app
 - **Six hands-on steps** for a general audience: before and after a BPMS, who owns which job, and an AI agent governed by a rulebook (see *Start here: the public explainer* below).
 
 ### Learn: a cited knowledge base and diagrams
-**13 topics and 90 facts**, each linked to public IBM or Software AG documentation, plus a practitioner note per topic:
+**18 topics and 133 facts**, each linked to public IBM or Software AG documentation, plus a practitioner note per topic:
 
 - **Releases and lifecycle**: 10.15 (GA Oct 2022; end of support 31 Oct 2027, paid extended support to Oct 2028 and Oct 2030; last release on AIX and z/Linux), 11.1 (Sep 2024), 12.1 (Java 21, Jakarta EE 10, FIPS 140-3, containers)
 - **Process Engine runtime and quality of service**: Transition documents; the speed-versus-guarantee trade-off; **Optimize Locally** (on by default), **Volatile Transition Documents** (on), **Volatile Tracking** (off); Universal Messaging as JMS provider; Broker deprecated
+- **Running the Process Engine on several servers**: One shared Process Engine database; Integration Server cluster, external cluster (the External Cluster setting) and distributed mode; where Task Engine on My webMethods Server and on Integration Server fit in a cluster; what the 10.4 and 10.5 guides leave to be confirmed for Universal Messaging and 12.1
+- **Correlation: how a message finds its running process**: Correlation field versus correlation service, which steps use it, where correlation IDs are kept (`WMPRTXREF` or memory), what happens on a match and on no match, and why a subscription filter cannot change between versions
 - **Execution history and audit**: Process Engine DB versus Process Audit DB (`PRA_*` tables), logging levels, where task history lives in 10.15
+- **Archiving and deleting audit data**: Archive database versus partitions, what disappears from My webMethods, the four archive stored procedures and their retention, status and batch parameters, and the advice to run small, regular batches
 - **Task Engine and human work**: Inboxes on My webMethods Server, `getTaskAudit`, task archiving
+- **Task rules, events and timers**: Assignments, events, filters, change rules and schedules in a task type; date/time events and why an administrator must recalculate their stored trigger times
 - **webMethods Business Rules**: Rule projects, rule sets, decision tables, decision trees, event rules; Data/Service/Process actions; deploying to Integration Server and My webMethods Server
 - **Rule Engine configuration and Rule Tasks**: Where the Rules Engine runs (WmBusinessRules) and how to point it at a remote Integration Server (`businessrulesruntime` alias), configuring a Rule Task, Process Aware tables, rule actions and logging level, event rules and JMS triggers, Hot Deploy and its server connections
 - **Moving webMethods Business Rules to IBM ODM**: How rule projects, decision tables and processing modes map to ODM's BOM, rulesets, rule tasks and exit criteria; getting tables out as JSON and into ODM through Excel; calling ODM from a process through OpenAPI; and testing both side by side before switching
 - **Monitor, resubmit and Optimize**: Where Monitor lives, resubmitting failed and completed instances (Resubmit Closest / Earliest, editing the pipeline), the privileges you need, Optimize KPIs and Process Analytics
+- **Building, versioning and deploying process models**: Versions and the metadata tables an upload fills, the generation receipt, repository-based deployment with the Asset Build Environment and Deployer, composites, and the limits to plan for
 - **Upgrading from 10.15**: Side-by-side upgrade: Database Component Configurator, migration utilities or Command Central, keeping in-flight instances, re-versioning models, post-upgrade checks; what the 12.1 Pre-Upgrade Analyzer does and does not cover; license keys and metering after the upgrade
 - **What changes for BPM from 10.15 to 12.1**: The Java path (11, 17, 21), Jakarta EE 10, My webMethods Server and Task Engine changes in 11.1, Business Rules removals and date patterns, deprecated Broker and webMethods subprocesses, a security fix to apply, and what the public 12.1 material does not yet say
 - **IBM Integration (formerly webMethods Hybrid Integration, IWHI)**: What it is (announced May 2025, renamed IBM Integration in 2026), which runtimes its hybrid control plane manages, how it is sold, its six capability areas (BPM is not one), REST APIs as MCP tools, and why BPMS keeps running in the webMethods estate rather than moving
@@ -197,7 +202,7 @@ The site is built for phones first. To get the most out of it, save it as an app
 - **4. Overview** · Reading + family table\
   The core idea, and IBM webMethods at a glance (9 components)
 - **5. Knowledge base** · Cited reference + interactive diagram\
-  13 topics, 90 facts on how the product behaves
+  18 topics, 133 facts on how the product behaves
 - **6. Controls** · Control map + framework panel\
   For banks and insurers: seven controls, the frameworks that ask for them (SR 11-7, OSFI E-23, EU AI Act, GDPR Art. 22, NAIC, DORA) and the BPMS evidence
 - **7. How to use** · Role guides, cheat sheets, self-checks, demo script\
@@ -233,8 +238,8 @@ The site is built for phones first. To get the most out of it, save it as an app
 - **22. Market** · Reading + sources\
   Sizing, analyst views, competitor signals, regulatory dates
 - **23. Glossary** · Searchable\
-  33 terms; underlined terms anywhere open a plain-English explanation
-- **24. Quiz** · 24 questions\
+  43 terms; underlined terms anywhere open a plain-English explanation
+- **24. Quiz** · 34 questions\
   Instant feedback and a score
 - **25. Review book** · Spaced review\
   Every question you got wrong comes back after 1 and 3 days (and 7 if you miss it again) until it sticks

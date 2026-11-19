@@ -110,16 +110,21 @@
 - **六个动手小步骤**，面向大众：有无 BPMS 的对比、每项工作该由谁负责、用规则手册管住 AI agent（见下方「从这里开始：面向大众的互动讲解」）。
 
 ### 学：附出处的知识库和示意图
-共 **13 个主题、90 条事实**，每条都链接到 IBM 或 Software AG 的公开文档，每个主题后附一段实践建议：
+共 **18 个主题、133 条事实**，每条都链接到 IBM 或 Software AG 的公开文档，每个主题后附一段实践建议：
 
 - **版本与生命周期**：10.15（2022 年 10 月正式发布；2027 年 10 月 31 日结束支持，可付费延长支持到 2028 年 10 月和 2030 年 10 月；最后一个支持 AIX 和 z/Linux 的版本）、11.1（2024 年 9 月）、12.1（Java 21、Jakarta EE 10、FIPS 140-3、容器化）
 - **Process Engine 运行与服务质量（QoS）**：转移文档；速度与可靠性的取舍；**Optimize Locally**（默认开）、**Volatile Transition Documents**（默认开）、**Volatile Tracking**（默认关）；Universal Messaging 作为 JMS 提供方；Broker 已弃用
+- **让 Process Engine 跑在多台服务器上**：共用一个 Process Engine 数据库；Integration Server 集群、外部集群（External Cluster 设置）和分布式模式；集群里 My webMethods Server 上和 Integration Server 上的 Task Engine 怎么放；10.4、10.5 指南里留待核对的 Universal Messaging 和 12.1 部分
+- **关联：消息怎样找到它的流程实例**：关联字段与关联服务、哪些步骤用关联、关联 ID 存在哪里（`WMPRTXREF` 或内存）、匹配和不匹配时会怎样，以及订阅过滤器为什么不能在版本之间改
 - **执行历史与审计**：Process Engine 数据库与 Process Audit 数据库（`PRA_*` 表）、日志级别、10.15 中人工任务历史存在哪里
+- **审计数据的归档和删除**：Archive 数据库与分区、什么会从 My webMethods 里消失、四个归档存储过程和它们的保留期、状态与批量参数，以及小批量定期运行的建议
 - **Task Engine 与人工工作**：My webMethods Server 上的任务收件箱、`getTaskAudit`、任务归档
+- **任务规则、事件和计时器**：任务类型里的分派、事件、过滤器、变更规则和计划；日期/时间事件，以及管理员为什么要重新计算它们存下的触发时间
 - **webMethods Business Rules**：规则项目、规则集、决策表、决策树、事件规则；Data/Service/Process 动作；部署到 Integration Server 和 My webMethods Server
 - **规则引擎配置与 Rule Task**：规则引擎在哪里运行（WmBusinessRules），以及如何指向远程 Integration Server（`businessrulesruntime` 别名）；如何配置 Rule Task、Process Aware 决策表、规则动作与日志级别、事件规则与 JMS 触发器、热部署及其服务器连接
 - **把 webMethods Business Rules 迁到 IBM ODM**：规则项目、决策表和处理模式怎么对应到 ODM 的 BOM、ruleset、规则任务和退出条件；怎样把表以 JSON 取出、用 Excel 导入 ODM；流程怎样通过 OpenAPI 调用 ODM；切换前怎样两边并行对比
 - **Monitor、重新提交与 Optimize**：Monitor 在哪里、如何重新提交失败或已完成的实例（Resubmit Closest / Earliest、修改 pipeline）、需要哪些权限、Optimize 的 KPI 与流程分析
+- **流程模型的构建、版本和部署**：版本和一次上传会写入的元数据表、生成回执、用 Asset Build Environment 和 Deployer 做基于仓库的部署、composite，以及要预先规划的限制
 - **从 10.15 升级**：新旧版本并行安装：Database Component Configurator、迁移工具或 Command Central、保留进行中的实例、模型升版本号、升级后检查；12.1 升级前分析工具覆盖和不覆盖什么；升级后的许可证密钥与计量
 - **从 10.15 到 12.1，BPM 改了什么**：Java 路线（11、17、21）、Jakarta EE 10、11.1 里 My webMethods Server 和 Task Engine 的变化、Business Rules 的移除项和日期格式、已弃用的 Broker 和 webMethods 子流程、要打的安全补丁，以及 12.1 公开资料还没写的部分
 - **IBM Integration（原 webMethods Hybrid Integration，IWHI）**：它是什么（2025 年 5 月发布，2026 年改名 IBM Integration）、混合控制平面管理哪些运行时、怎么卖、六组能力（其中没有 BPM）、REST API 变成 MCP 工具，以及为什么 BPMS 继续留在 webMethods 环境里而不是迁走
@@ -196,7 +201,7 @@
 - **4. **概览**（Overview）** · 阅读 + 产品家族表\
   核心理念，以及 IBM webMethods 一览（9 个组件）
 - **5. **知识库**（Knowledge base）** · 附出处的参考 + 互动图\
-  13 个主题、90 条事实，讲清产品实际怎么运作
+  18 个主题、133 条事实，讲清产品实际怎么运作
 - **6. **合规控制**（Controls）** · 控制对照表 + 法规说明\
   面向银行和保险：七项控制、对应的监管框架（SR 11-7、OSFI E-23、欧盟 AI 法案、GDPR 第 22 条、NAIC、DORA）以及 BPMS 能提供的证据
 - **7. **如何使用**（How to use）** · 角色教程、速查卡、自测、演示脚本\
@@ -232,8 +237,8 @@
 - **22. **市场**（Market）** · 阅读 + 出处\
   市场规模、分析机构观点、竞争信号、监管日期
 - **23. **术语表**（Glossary）** · 可搜索\
-  33 个术语；全站带下划线的术语都能点开看大白话解释
-- **24. **测验**（Quiz）** · 24 道题\
+  43 个术语；全站带下划线的术语都能点开看大白话解释
+- **24. **测验**（Quiz）** · 34 道题\
   即时反馈并计分
 - **25. **复习本**（Review book）** · 间隔复习\
   答错的题 1 天后、3 天后再考（又错了就 7 天后再考一次），直到记住

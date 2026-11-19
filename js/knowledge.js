@@ -43,6 +43,39 @@ window.KNOWLEDGE = {
       sources: [7, 8, 9]
     },
     {
+      id: "cluster", reviewed: "2026-11-19", title: "Running the Process Engine on several servers",
+      summary: "One Process Engine on one Integration Server is enough for development; production usually runs several. The public guides describe three layouts, and what the servers share decides how they behave.",
+      facts: [
+        "In its simplest form the Process Engine is the WmPRT package on one Integration Server with its own Process Engine database. The guide calls this adequate for model development, testing or very small solutions; most process solutions run two or more Integration Servers.",
+        "Process Engines on clustered Integration Servers share one Process Engine database, which must be an external RDBMS. Software AG does not support a Process Engine reaching or sharing more than one database.",
+        "In an Integration Server cluster every node holds all the steps of a generated and uploaded process model, and the messaging layer delivers each process message to exactly one server, so a step runs once. The page describes webMethods Broker (now deprecated) doing this; how Universal Messaging does it is to be confirmed.",
+        "An external cluster spreads processes over Integration Servers that are not formally clustered. You enable the External Cluster setting on each Process Engine so it follows cluster rules such as locking the step context; the nodes still share one Process Engine database and one messaging client prefix.",
+        "In distributed (non-clustered) mode each server has its own messaging client prefix, and you design the process model so that specific parts of the process run on specific servers; together the servers' steps make up the whole process, and all of them still use one external Process Engine database.",
+        "Task Engine on My webMethods Server can connect to any Process Engine in an Integration Server cluster and communicates with all of them. In a clustered My webMethods Server, apply the Task Engine server role to every node where people work on tasks or where tasks queued by the Process Engine are handled.",
+        "Task Engine on Integration Server needs a separate My webMethods Server or Business Console node to administer tasks and provide task screens, registers as a My webMethods Server cluster node, and needs Universal Messaging for JMS and event synchronization. A cluster cannot mix Task Engines on Integration Server and on My webMethods Server.",
+        "The Process Engine pages reviewed for this topic are from the 10.4 and 10.5 guides, written when Broker was the usual messaging layer; they have not been rechecked against 12.1 (19 Nov 2026)."
+      ],
+      practice: "Choose the layout before you design the models: in distributed mode the model itself is split across servers, while in the other two layouts every node can run every step. Plan for Universal Messaging rather than Broker, give every node the same configuration, enable External Cluster on each node if you use that layout, and apply the Task Engine role on each My webMethods Server node that handles tasks. Test the loss of one node with a running instance in a test environment, and confirm with IBM how these pages apply to 12.1.",
+      sources: [96, 97, 98, 99, 100]
+    },
+    {
+      id: "correlation", reviewed: "2026-11-19", title: "Correlation: how a message finds its running process",
+      summary: "Many instances of many models run at once. Correlation matches an incoming document to the one instance waiting for it, or starts a new one.",
+      facts: [
+        "Instances of many process models run at the same time, so when a document arrives the Process Engine has to decide which running instance it is meant for; correlation does that.",
+        "Any step that receives input can use correlation, set on its Correlation page in Designer's Properties view. Catching message and signal intermediate events, and receive tasks that are not set to start new instances, use it to join a running instance.",
+        "Message start events, signal start events and receive tasks set to Allow this receive task to start new process instance can start a new instance, and the Designer help says they should initiate a correlation.",
+        "You can correlate in two ways: name a field in the incoming document as the correlation key, with no code, or write a correlation service, a flow service built on the pub.prt:CorrelationService specification that returns a ProcessCorrelationID. A step can also use no correlation.",
+        "The Process Engine ties each correlation ID to a process instance ID. With Volatile Tracking off, the pairs are stored in the WMPRTXREF table of the Process Engine database; with it on, they are held in server memory.",
+        "When a document's ID matches a running instance, its content is loaded and the step runs as part of that instance. When it matches none, the tracking pages say the engine creates a new process instance ID, stores it with the correlation ID and starts a new process.",
+        "The Process Engine sets up correlations itself when Trading Networks or Integration Server documents start processes. The services pub.prt.correlate:establishCorrelation, lookupCorrelation and deleteCorrelation let you manage them yourself, for example when a process starts with an Integration Server document and then waits for a Trading Networks document.",
+        "For intermediate receive steps, retry behaviour for correlation is set in the subscription trigger, not in the process model.",
+        "You cannot change a model's subscription filter or its Integration Server document type between versions. Changing the filter stops correlation with running instances and can raise a 'No trigger available for incoming document' error."
+      ],
+      practice: "Use a business key that is unique and stable, such as an order number, as the correlation field, and write a correlation service only when you need logic, for example a key built from two fields. Test the no-match case on purpose: a stray or late message can start a new instance instead of failing. Treat the subscription filter and document type as fixed for any version that still has running instances.",
+      sources: [79, 104, 80, 81, 82, 83, 84, 85]
+    },
+    {
       id: "history", reviewed: "2026-11-15", title: "Execution history and audit",
       summary: "Three stores hold execution data; only two are meant for analysis.",
       facts: [
@@ -55,6 +88,22 @@ window.KNOWLEDGE = {
       sources: [10, 11, 12, 13]
     },
     {
+      id: "audit-retention", reviewed: "2026-11-19", title: "Archiving and deleting audit data",
+      summary: "Monitor reads from audit tables that only grow. Software AG recommends removing data regularly; the choices are an Archive database, partitions or deletion.",
+      facts: [
+        "Software AG recommends removing audit data from the IS Core Audit Log and Process Audit Log databases regularly so that logging stays fast. The pages give no schedule or retention period; you choose them.",
+        "Archive moves audit data to the Archive database and then removes it from the source. Delete removes it from the source and keeps no copy. After either, the data no longer shows in My webMethods, but archived data can still be queried with SQL in the Archive database.",
+        "Monitor's pages sort audit data into two schemas: the IS Core Audit Log tables (documents, processes, services and the server) and the Process Audit Log tables, which hold process and step data such as PRA_PROCESS, PRA_PROCESS_STEP and PRA_STEP_TRANSITION, plus control data such as resubmit actions.",
+        "IS Core Audit Log data can only be archived into an Archive database. Process Audit Log data can go to an Archive database or into database partitions; partitions suit high-volume systems and manage only Process Audit Log data, so you still need an Archive database for everything else.",
+        "You can archive or delete from the Archive Audit Data page in My webMethods (Applications > Administration > Business > Data Management), with the pub.monitor.archive built-in services (which you can schedule on Integration Server), or by running stored procedures from a database client. You set how long to keep data, then choose Archive and Delete or Delete only.",
+        "Four stored procedures do the work: DOCUMENT_ARCHIVE, PROCESS_ARCHIVE, SERVER_ARCHIVE and SERVICE_ARCHIVE. PROCESS_ARCHIVE covers the Process Audit Log process tables listed above plus WMSERVICEACTIVITYLOG and WMERROR in the IS Core Audit Log.",
+        "Each procedure takes p_retaindays or p_retaindate (not both), p_action (ARCHIVE by default, or DELETE) and p_batchsize. PROCESS_ARCHIVE and SERVICE_ARCHIVE also take p_status, where 2 means Completed, 4 Failed, 1024 Stopped (processes only) and 32768 Resubmitted; data in other statuses stays in the source. PROCESS_ARCHIVE also takes p_modelid to limit a run to named process models.",
+        "Integration Server's Service Monitoring guidance for IS Core Audit data is to pick the longest retention period you can for each run so that each run moves less data. Archiving or deleting too much at once makes the operation slower, raises the risk of locking problems and makes the database, transaction log and temp tables grow."
+      ],
+      practice: "Decide before go-live how long people need to see instances in Monitor and how long a regulator needs the history, and archive for the second, not the first. Schedule small, regular runs rather than one yearly purge, use the status filter if support needs failed instances for longer than completed ones, and consider Process Audit partitions for high-volume processes. Test a query against the Archive database and write down who may run it, because archived data no longer appears in My webMethods.",
+      sources: [86, 87, 88, 89, 90]
+    },
+    {
       id: "tasks", reviewed: "2026-11-15", title: "Task Engine and human work",
       summary: "User tasks in a process become task instances in the Task Engine on My webMethods Server.",
       facts: [
@@ -64,6 +113,22 @@ window.KNOWLEDGE = {
       ],
       practice: "Design tasks with the decision context on the form, a clear owner role, a timer escalation and a recorded outcome field — that outcome is what later analysis needs.",
       sources: [12, 14]
+    },
+    {
+      id: "task-rules", reviewed: "2026-11-19", title: "Task rules, events and timers",
+      summary: "A task type carries rules that decide who gets a task, what the inbox shows and what happens as time passes. They are set in Designer, and timed events need upkeep.",
+      facts: [
+        "Rules inside a task type control how a task is assigned and which task events are detected. They appear as rules in My webMethods but are defined and configured in Designer.",
+        "Assignments (routing rules) assign a task to a user, group or role when a condition occurs, for example to a manager when the task is marked for escalation, or to a role when it is activated.",
+        "Events trigger an action at a set point in a task's life cycle, such as when it is accepted, assigned, canceled or suspended. Filters decide which tasks appear in a user's inbox, for example hiding tasks another member of the role has already accepted.",
+        "Change rules act when a task's status or business data changes, for example deleting a task when its status becomes Expired, and can send an e-mail notification to an assigned user or role.",
+        "Schedules act on time or date: for example sending an e-mail if a loan application is not accepted within a set period, or reassigning, escalating or changing the priority of a task after a date or time interval.",
+        "Date/time events use a fixed date or a time interval, and an interval can be calculated from a business calendar or from the output of an Integration Server service.",
+        "When a task type is published to My webMethods Server, the Task Engine stores precalculated trigger times for its date/time events. They can become outdated, so an administrator recalculates them: manually for one task type or for all, when republishing a task type, or on a schedule.",
+        "In My webMethods you cannot edit a task type's rules, but you can view them on the Task Engine Administration page and change the order in which they are evaluated."
+      ],
+      practice: "Give every task with an SLA a schedule rule that first reminds and then escalates, and send it to a role rather than a person. Keep date logic in one place, such as a business calendar, and put recalculating date/time events into your release checklist and your regular operations schedule so that reminders do not fire on stale dates. Store who the task was escalated to and the outcome as task data.",
+      sources: [101, 102, 103]
     },
     {
       id: "rules", reviewed: "2026-11-15", title: "webMethods Business Rules",
@@ -127,6 +192,24 @@ window.KNOWLEDGE = {
       ],
       practice: "Decide which steps must be re-runnable before go-live and enable them for resubmission: you cannot add it to instances already running. Grant Modify and Resubmit sparingly, because it changes live data.",
       sources: [30, 31, 32, 33, 34, 35, 36]
+    },
+    {
+      id: "deploy", reviewed: "2026-11-19", title: "Building, versioning and deploying process models",
+      summary: "A process model reaches a running server as a numbered version, and moves between environments as a composite built by the Asset Build Environment and deployed with Deployer.",
+      facts: [
+        "A new process starts at version 1 and you can create a new version in Designer; the Version value can be up to 50 characters. A version can be uploaded for analysis only, or built and uploaded for execution.",
+        "Both kinds of upload write process information to the Process Audit metadata tables, which you can view in My webMethods Server: WMPROCESSDEFINITION (name, ID, version, quality-of-service settings, BPM or BAM type, enabled status), WMSTEPDEFINITION, WMPROCESSIMAGE, WMSTEPTRANSITIONDEFINITION and WMCUSTOMFIELDDEFINITION.",
+        "For a process built for execution, Designer also records what was last built in a generation receipt (WMGENERATIONRECEIPT). Deployer copies the receipt to the target environment so that regeneration there can remove old assets, such as triggers and services, from the previous logical server; without a receipt that cleanup cannot happen.",
+        "After you build, upload and enable a new version, you can update any or all running instances of the model to use it.",
+        "You cannot change a model's subscription filter or Integration Server document type between versions, and you cannot delete a process model in My webMethods Server once an instance of it has run.",
+        "If one deployment set holds several versions of a model and enables more than one on the target, the version deployed last is the one that ends up enabled; confirm in Monitor that the right version is enabled.",
+        "In repository-based deployment, the Asset Build Environment builds assets from your development environment or version control system into composites stored in a repository, and Deployer deploys them to target servers or groups. Runtime-based deployment has been deprecated since 10.5, and Software AG recommends the repository-based way.",
+        "A composite is a compressed file of asset definitions and dependencies for one runtime component, and every build also writes an ACDL descriptor, an XML manifest that Deployer reads. Deployable components include the Process Engine (BPM Process Development), Task Engine, My webMethods Server, Optimize, Integration Server, Business Rules and Universal Messaging.",
+        "For daily or continuous builds, install the Asset Build Environment on a separate build machine; its build-number.xml numbers assets incrementally and can use a version-control revision number. A BPM build can be limited by process ID, process version or both.",
+        "Deployer cannot work out dependencies for processes that are referenced dynamically, so you deploy those yourself. It also cannot show more than 2,500 assets at once, so Software AG recommends smaller deployment sets, and only models built for execution on Integration Server can be selected."
+      ],
+      practice: "Run one pipeline: commit the process project to version control, build composites with the Asset Build Environment on a build machine, deploy through Deployer to test and then production, and check in Monitor which version is enabled. Raise the version number for every change that reaches a running instance, keep subscription filters and document types stable, and list dynamically referenced processes in your deployment checklist.",
+      sources: [85, 91, 92, 93, 94, 95]
     },
     {
       id: "upgrade", reviewed: "2026-11-17", title: "Upgrading from 10.15",
@@ -226,7 +309,12 @@ window.KNOWLEDGE = {
     ["BOM / XOM (ODM)", "The business object model is the vocabulary ODM rules are written in; it maps to the execution object model, the Java or XML classes the rules run against."],
     ["RuleApp", "ODM deployment unit that carries one or more rulesets to Rule Execution Server."],
     ["Exit criteria (ODM rule task)", "How much a rule task runs before it stops: None (every applicable rule), Rule (the first applicable rule) or RuleInstance (only its first instance)."],
-    ["Jakarta EE 10", "The successor to Java EE that 12.1 is based on; its APIs use jakarta.* package names instead of javax.*, so custom Java code may need updating."]
+    ["Jakarta EE 10", "The successor to Java EE that 12.1 is based on; its APIs use jakarta.* package names instead of javax.*, so custom Java code may need updating."],
+    ["Correlation ID", "Value that ties an incoming document to one running process instance; it comes from a field in the document or from a correlation service."],
+    ["External cluster (Process Engine)", "Several Integration Servers that are not formally clustered but run Process Engines with the External Cluster setting, one shared Process Engine database and one messaging client prefix."],
+    ["Archive database (Monitor)", "Separate database that audit data moves to before it is removed from the IS Core Audit Log and Process Audit Log tables; Process Audit Log data can use partitions instead."],
+    ["Composite (Deployer)", "Compressed file of asset definitions and dependencies for one runtime component, built by the Asset Build Environment and deployed by Deployer."],
+    ["Generation receipt", "Record Designer keeps of what was last built for a process; Deployer copies it to the target so regeneration can remove the old assets."]
   ],
 
   quiz: [
@@ -253,7 +341,19 @@ window.KNOWLEDGE = {
     { q: "Which Java version do all webMethods BPM runtimes support in release 11.1?", a: ["Java 8", "Java 11", "Java 17", "Java 21"], c: 2,
       e: "BPMS moved to Java 11 around 10.11 and 10.15, to Java 17 in 11.1, and 12.1 is based on Java 21 and Jakarta EE 10." },
     { q: "A 10.15 rule project still uses external event rules. What happens?", a: ["They run unchanged", "They were removed; the Event-Driven Architecture behind them has been deprecated since April 2018", "They move to ODM automatically", "They become decision trees"], c: 1,
-      e: "Business Rules 10.15 removed creating, displaying and using external event rules; plan a replacement before upgrading." }
+      e: "Business Rules 10.15 removed creating, displaying and using external event rules; plan a replacement before upgrading." },
+    { q: "A document arrives for a process, but its correlation ID matches no running instance. What do the Process Engine tracking pages say happens?", a: ["It is discarded", "The engine creates a new process instance ID and starts a new process", "It waits in the task inbox", "It is sent to every node"], c: 1,
+      e: "The engine stores a new process instance ID with the correlation ID and starts a new process. With Volatile Tracking off the pair is kept in the WMPRTXREF table; with it on, in server memory." },
+    { q: "Between two versions of a model that has running instances, someone changes the subscription filter. What is the risk?", a: ["None, filters are read only at start", "Correlation with the running instances stops and documents may find no trigger", "The model is deleted", "Monitor switches to volatile tracking"], c: 1,
+      e: "You cannot change the subscription filter or the Integration Server document type between versions; changing the filter stops correlation with running instances." },
+    { q: "Which audit data can use database partitions instead of an Archive database?", a: ["IS Core Audit Log data", "Process Audit Log data", "Task Engine audit data", "Rule project versions"], c: 1,
+      e: "Partitions manage Process Audit Log data only, for high-volume systems. IS Core Audit Log data always needs an Archive database, and you still need one for everything else." },
+    { q: "Which Process Engine setting makes a node that is not in an Integration Server cluster follow cluster rules, such as locking the step context?", a: ["Optimize Locally", "External Cluster", "Volatile Tracking", "Process Aware"], c: 1,
+      e: "Enabling External Cluster on each Process Engine makes it behave as if it were in an Integration Server cluster; the nodes still share one Process Engine database." },
+    { q: "Why does Deployer copy the generation receipt to the target environment?", a: ["To license the process", "So regeneration can remove the old process assets, such as triggers and services, from the previous logical server", "To archive the audit data", "To enable the new version automatically"], c: 1,
+      e: "The receipt holds the logical-to-physical server mapping. Without it the cleanup of old assets cannot happen. Confirm the right version is enabled in Monitor afterwards." },
+    { q: "A task type with date/time events was published months ago. What should an administrator do so reminders fire on the right dates?", a: ["Nothing, the dates are live", "Recalculate the date/time events", "Delete and recreate the inbox", "Restart Designer"], c: 1,
+      e: "The Task Engine stores precalculated trigger times when the task type is published, and they can become outdated; recalculate them manually, on republishing or on a schedule." }
   ],
 
   // Numbered sources referenced by topic.sources
@@ -333,7 +433,33 @@ window.KNOWLEDGE = {
     75: ["Business Rules 10.15 readme: usage notes", "https://documentation.softwareag.com/webmethods/business_rules/wok10-15/readme/readme/usage-notes_2.html"],
     76: ["webMethods BPM Process Development 12.1: deprecation of webMethods Broker (IBM Docs)", "https://www.ibm.com/docs/en/webmethods-bpm/wmpe/12.1.0?topic=help-about-this-guide"],
     77: ["Changing webMethods subprocesses to BPMN subprocesses (Process Development 11.1, IBM Docs)", "https://www.ibm.com/docs/en/webmethods-bpm/wmpe/11.1.0?topic=steps-about-changing-webmethods-subprocesses-bpmn-subprocesses"],
-    78: ["Security bulletin: jackrabbit-spi-commons in IBM webMethods BPM, CVE-2025-53689 (IBM Support)", "https://www.ibm.com/support/pages/node/7250240"]
+    78: ["Security bulletin: jackrabbit-spi-commons in IBM webMethods BPM, CVE-2025-53689 (IBM Support)", "https://www.ibm.com/support/pages/node/7250240"],
+    79: ["About Document Correlation (Designer 10.7)", "https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/proc.about.correlation.html"],
+    80: ["About Correlation Fields (Designer 10.7)", "https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/proc.about.correlation.fields.html"],
+    81: ["About Correlation Services (Designer 10.5)", "https://documentation.softwareag.com/webmethods/designer/sdf10-5/10-5_sdf-webhelp/sdf-webhelp/proc.about.correlation.services.html"],
+    82: ["pub.prt.correlate:establishCorrelation (Designer 10.5)", "https://documentation.softwareag.com/webmethods/designer/sdf10-5/10-5_sdf-webhelp/sdf-webhelp/pub_prt_correlate_establishCorrelation.html"],
+    83: ["Tracking correlation IDs with Volatile Tracking (Designer 10.7)", "https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/proc.tracking.correlation.IDs.with.volatile.tracking.html"],
+    84: ["Tracking correlation IDs with the Process Engine database, Volatile Tracking disabled (Designer 10.7)", "https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/proc.tracking.correlation.IDs.with.volatile.tracking.disabled.html"],
+    85: ["Working with Process Versions (Designer 10.7)", "https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/proc.ww.process.versions..html"],
+    86: ["Archiving or Deleting Data in an Archive Database: overview (Monitor 10.7)", "https://documentation.softwareag.com/webmethods/monitor/wmn10-7/10-7_Monitor_webhelp/wmn-webhelp/to-archive_data_2.html"],
+    87: ["Audit Data Archiving and Deletion in Monitor (Monitor 10.3)", "https://documentation.softwareag.com/webmethods/monitor/wmn10-3/10-3_Monitor_webhelp/monitor-webhelp/to-setup_18.html"],
+    88: ["Archive database stored procedures (Monitor 10.7)", "https://documentation.softwareag.com/webmethods/monitor/wmn10-7/10-7_Monitor_webhelp/wmn-webhelp/to-archive_data_5.html"],
+    89: ["Archiving or deleting data in My webMethods (Monitor 10.7)", "https://documentation.softwareag.com/webmethods/monitor/wmn10-7/10-7_Monitor_webhelp/wmn-webhelp/to-archive_data_3.html"],
+    90: ["Archiving Data (Service Monitoring in Integration Server 10.7)", "https://documentation.softwareag.com/webmethods/integration_server/pie10-7/10-7_Service_Monitoring_in_IS_webhelp/sm-webhelp/ta-archiving_data.html"],
+    91: ["Upgrading Process Model Versions (Running Business Processes 10.3)", "https://documentation.softwareag.com/webmethods/compendiums/v10-3/C_Run_BPs_and_CAs/runbpca-compendium/to-runtime_items_13.html"],
+    92: ["About Repository-Based Deployment (Deployer 10.15)", "https://documentation.softwareag.com/webmethods/deployer/wdy10-15/webhelp/wdy-webhelp/wdy-webhelp/co-repository-based_deployment.html"],
+    93: ["About Runtime-Based Deployment: deprecated from 10.5 (Deployer 10.5)", "https://documentation.softwareag.com/webmethods/deployer/wdy10-5/10-5_Deployer_webhelp/deployer-webhelp/co-runtime-based_deployment.html"],
+    94: ["BPM Process Development assets (Deployer 10.3)", "https://documentation.softwareag.com/webmethods/deployer/wdy10-3/10-3_Deployer_webhelp/deployer-webhelp/re-bpm_process_development.html"],
+    95: ["Adding assets to ProcessModel deployment sets (Deployer 10.15)", "https://documentation.softwareag.com/webmethods/deployer/wdy10-15/webhelp/wdy-webhelp/wdy-webhelp/ta-adding_assets_to_broker_processmodel_mws_or_optimize_deployment_sets.html"],
+    96: ["About the Process Engine and Clustered Operation (Running Business Processes 10.5)", "https://documentation.softwareag.com/webmethods/compendiums/v10-5/C_Run_BPs_and_CAs/runbpca-compendium/to-runtime_items_9.html"],
+    97: ["Operating Process Engine in an Integration Server cluster (10.5)", "https://documentation.softwareag.com/webmethods/compendiums/v10-5/C_Run_BPs_and_CAs/runbpca-compendium/to-runtime_items_10.html"],
+    98: ["Operating Process Engine in an external cluster (10.5)", "https://documentation.softwareag.com/webmethods/compendiums/v10-5/C_Run_BPs_and_CAs/runbpca-compendium/to-runtime_items_12.html"],
+    99: ["Operating Process Engine in distributed cluster mode (10.4)", "https://documentation.softwareag.com/webmethods/compendiums/v10-4/C_Run_BPs_and_CAs/runbpca-compendium/to-runtime_items_11.html"],
+    100: ["Running Task Engine in a clustered environment (10.4)", "https://documentation.softwareag.com/webmethods/compendiums/v10-4/C_Run_BPs_and_CAs/runbpca-compendium/co-te_clustering.html"],
+    101: ["Task Assignments, Events, and Rules (Task Engine 10.4)", "https://documentation.softwareag.com/webmethods/compendiums/v10-4/C_Run_BPs_and_CAs/runbpca-compendium/co-task_assignments_events_and_rules.html"],
+    102: ["Administering Task Types with Date/Time Events (10.3)", "https://documentation.softwareag.com/webmethods/compendiums/v10-3/C_Run_BPs_and_CAs/runbpca-compendium/co-administering_task_types_with_date_time_events.html"],
+    103: ["About Task Type Rules and Events (10.3)", "https://documentation.softwareag.com/webmethods/compendiums/v10-3/C_Run_BPs_and_CAs/runbpca-compendium/co-about_task_type_rules_and_events.html"],
+    104: ["Specifying Correlations (Designer 10.7)", "https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/proc.specifying.correlations.html"]
   }
 };
 
