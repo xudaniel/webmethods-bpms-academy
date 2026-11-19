@@ -110,7 +110,7 @@
 - **六个动手小步骤**，面向大众：有无 BPMS 的对比、每项工作该由谁负责、用规则手册管住 AI agent（见下方「从这里开始：面向大众的互动讲解」）。
 
 ### 学：附出处的知识库和示意图
-共 **12 个主题、81 条事实**，每条都链接到 IBM 或 Software AG 的公开文档，每个主题后附一段实践建议：
+共 **13 个主题、90 条事实**，每条都链接到 IBM 或 Software AG 的公开文档，每个主题后附一段实践建议：
 
 - **版本与生命周期**：10.15（2022 年 10 月正式发布；2027 年 10 月 31 日结束支持，可付费延长支持到 2028 年 10 月和 2030 年 10 月；最后一个支持 AIX 和 z/Linux 的版本）、11.1（2024 年 9 月）、12.1（Java 21、Jakarta EE 10、FIPS 140-3、容器化）
 - **Process Engine 运行与服务质量（QoS）**：转移文档；速度与可靠性的取舍；**Optimize Locally**（默认开）、**Volatile Transition Documents**（默认开）、**Volatile Tracking**（默认关）；Universal Messaging 作为 JMS 提供方；Broker 已弃用
@@ -121,6 +121,7 @@
 - **把 webMethods Business Rules 迁到 IBM ODM**：规则项目、决策表和处理模式怎么对应到 ODM 的 BOM、ruleset、规则任务和退出条件；怎样把表以 JSON 取出、用 Excel 导入 ODM；流程怎样通过 OpenAPI 调用 ODM；切换前怎样两边并行对比
 - **Monitor、重新提交与 Optimize**：Monitor 在哪里、如何重新提交失败或已完成的实例（Resubmit Closest / Earliest、修改 pipeline）、需要哪些权限、Optimize 的 KPI 与流程分析
 - **从 10.15 升级**：新旧版本并行安装：Database Component Configurator、迁移工具或 Command Central、保留进行中的实例、模型升版本号、升级后检查；12.1 升级前分析工具覆盖和不覆盖什么；升级后的许可证密钥与计量
+- **从 10.15 到 12.1，BPM 改了什么**：Java 路线（11、17、21）、Jakarta EE 10、11.1 里 My webMethods Server 和 Task Engine 的变化、Business Rules 的移除项和日期格式、已弃用的 Broker 和 webMethods 子流程、要打的安全补丁，以及 12.1 公开资料还没写的部分
 - **IBM Integration（原 webMethods Hybrid Integration，IWHI）**：它是什么（2025 年 5 月发布，2026 年改名 IBM Integration）、混合控制平面管理哪些运行时、怎么卖、六组能力（其中没有 BPM）、REST API 变成 MCP 工具，以及为什么 BPMS 继续留在 webMethods 环境里而不是迁走
 - **IBM 各流程产品里的 agent 与人工任务**：watsonx Orchestrate 流程里的人工任务、Business Automation Workflow 26.0 通过 MCP 开放流程/案例/任务、Cloud Pak for Business Automation 的 MCP 服务器、webMethods Integration 的 MCP 工具，以及 BPM 12.1 的 Task Engine API 目前能做什么
 - **实践设计清单**：设计评审和升级时用的十项检查
@@ -195,7 +196,7 @@
 - **4. **概览**（Overview）** · 阅读 + 产品家族表\
   核心理念，以及 IBM webMethods 一览（9 个组件）
 - **5. **知识库**（Knowledge base）** · 附出处的参考 + 互动图\
-  12 个主题、81 条事实，讲清产品实际怎么运作
+  13 个主题、90 条事实，讲清产品实际怎么运作
 - **6. **合规控制**（Controls）** · 控制对照表 + 法规说明\
   面向银行和保险：七项控制、对应的监管框架（SR 11-7、OSFI E-23、欧盟 AI 法案、GDPR 第 22 条、NAIC、DORA）以及 BPMS 能提供的证据
 - **7. **如何使用**（How to use）** · 角色教程、速查卡、自测、演示脚本\
@@ -629,7 +630,7 @@ GitHub Actions 会在每个 pull request 上自动运行同一个测试（`.gith
 
 **下一步**
 - [ ] **练习沙盒：** 做几个简化的练习界面，并清楚标注「示意，非官方界面」，不需要安装环境就能练习接受任务、勾选 Execution Enabled 和热部署规则
-- [ ] **知识库：** 逐个版本说明从 10.15 到 12.1 有哪些变化
+- [x] **知识库：** 逐个版本说明从 10.15 到 12.1 有哪些变化
 - [ ] **模拟器：** 增加计时升级和并行网关场景
 
 **以后**

@@ -141,6 +141,20 @@
           "按交易量计费的合同，10.x 在升级前沿用上一份 Software AG 合同里定的交易时长（没写明就是 3 秒）；11.x 及以后一律按 60 秒算一笔交易。"
         ],
         practice: "先在生产环境的副本上演练。盘点正在进行中的实例，决定哪些必须在旧版本上跑完；规则项目、任务应用和 Monitor 权限要和流程模型一起规划。公开的分析工具只能估 Integration Server 那部分，BPM 那部分（流程模型、运行中的实例、任务应用、My webMethods 页面）要自己估；升级后合同类型意味着什么，要找 IBM 确认。" },
+      "bpm-1015-to-121": { title: "从 10.15 到 12.1，BPM 改了什么",
+        summary: "从 10.15 升到 12.1，不只是产品升级，还是两次 Java 平台跳跃：11.1 换到 Java 17 并更新了 My webMethods Server，12.1 换到 Java 21 和 Jakarta EE 10。",
+        facts: [
+          "IBM webMethods BPM 12.1 于 2026 年 5 月 4 日正式发布（GA）。",
+          "各版本的 Java：从 10.11 起 BPMS 组件运行在 Java 11 上，10.15 全部用 Java 11 编译；11.1 所有 webMethods BPM 运行时支持 Java 17；12.1 换到基于 Java 21 和 Jakarta EE 10 的运行时。",
+          "11.1 里，My webMethods Server 升到 Jetty 9.4.x 和 JavaServer Faces 2.3.9，用户目录改用 UnboundID LDAP（取代 Netscape SDK），支持 IPv6，并支持 Exchange Online 和 Microsoft 365 邮件的 OAuth 认证。",
+          "11.1 里，Integration Server 上的 Task Engine 为自动化流程加了轻量的人工任务管理，可以在纯集成场景里运行，所有核心功能都有 REST 接口。",
+          "Business Rules 10.15 把规则审计事件标为弃用（仍可把审计信息写进数据库表），并移除了外部事件规则，因为它依赖的事件驱动架构（EDA）从 2018 年 4 月起就已弃用。现有规则项目会自动升级，也可以在 Designer 或 My webMethods 里手动升级。",
+          "从 10.11 起，Business Rules 运行在 Java 11 上，只接受 ISO 8601 和 Java 预定义的日期时间格式，用了其他日期格式的规则要改。",
+          "webMethods Broker 从 10.2 起已弃用，改用 Universal Messaging；webMethods 子流程（8.2.2 及更早版本的模型在用）也已弃用，改用 BPMN 子流程。",
+          "IBM 关于 CVE-2025-53689（jackrabbit-spi-commons）的安全公告列出受影响的版本：My webMethods Server 10.15 到 Fix 6、11.1 到 Fix 2。",
+          "本站查阅的 12.1 公开资料讲了平台变化（Java 21、Jakarta EE 10、FIPS 140-3、容器），但没有 BPM 专门的新增或移除功能清单（2026 年 11 月 19 日核）。"
+        ],
+        practice: "把这次升级当成平台迁移来规划，而不只是产品升级：Java 从 11 到 17 再到 21；Jakarta EE 10 下自定义 Java 或 CAF 代码要从 javax 改成 jakarta。迁移前先找出用了自定义日期格式或外部事件规则的规则，转换旧的 webMethods 子流程，换掉 Broker，并把 My webMethods Server 打到最新补丁。Integration Server 部分用 12.1 Pre-Upgrade Analyzer 扫描；My webMethods 页面、任务应用和 LDAP 登录要单独测试，因为扫描工具不覆盖它们。" },
       iwhi: { title: "IBM Integration（原 webMethods Hybrid Integration，IWHI）",
         summary: "IWHI 现在以 IBM Integration 的名字销售，是 IBM 的集成产品，有一个统一的混合控制平面。它把各种运行时放在一起集中管理；BPMS 继续在它所管理的 webMethods 环境里运行。",
         facts: [

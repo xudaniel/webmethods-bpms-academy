@@ -145,6 +145,23 @@ window.KNOWLEDGE = {
       sources: [37, 38, 39, 40, 3, 46, 47, 48]
     },
     {
+      id: "bpm-1015-to-121", reviewed: "2026-11-19", title: "What changes for BPM from 10.15 to 12.1",
+      summary: "Moving from 10.15 to 12.1 is two Java platform jumps as well as a product upgrade: 11.1 brings Java 17 and a refreshed My webMethods Server, 12.1 brings Java 21 and Jakarta EE 10.",
+      facts: [
+        "IBM webMethods BPM 12.1 became generally available on 4 May 2026.",
+        "Java runtime by release: BPMS components support Java 11 at runtime from 10.11 and all compile with Java 11 in 10.15; in 11.1 all webMethods BPM runtimes support Java 17; 12.1 moves to a runtime based on Java 21 and Jakarta EE 10.",
+        "In 11.1, My webMethods Server moves to Jetty 9.4.x and JavaServer Faces 2.3.9, replaces the Netscape SDK with UnboundID LDAP for user directories, supports IPv6, and supports OAuth for e-mail with Exchange Online and Microsoft 365.",
+        "In 11.1, the Task Engine on Integration Server adds lightweight user task management for automated processes, can run in pure integration scenarios, and offers a REST layer for all its core functions.",
+        "Business Rules 10.15 deprecates rule audit events (auditing to database tables remains) and has removed external event rules, because the Event-Driven Architecture behind them has been deprecated since April 2018. Existing rule projects are upgraded automatically, or manually in Designer or My webMethods.",
+        "Since 10.11, Business Rules runs on Java 11 and accepts only ISO 8601 and predefined Java date/time patterns, so rules with other date patterns need changing.",
+        "webMethods Broker has been deprecated since 10.2 in favour of Universal Messaging, and webMethods subprocesses (used by models from 8.2.2 and earlier) are deprecated in favour of BPMN subprocesses.",
+        "An IBM security bulletin for CVE-2025-53689 (jackrabbit-spi-commons) lists My webMethods Server 10.15 up to Fix 6 and 11.1 up to Fix 2 as affected.",
+        "The public 12.1 material reviewed for this site describes platform changes (Java 21, Jakarta EE 10, FIPS 140-3, containers) but no BPM-specific list of added or removed features (checked 19 Nov 2026)."
+      ],
+      practice: "Plan the jump as a platform change as well as an upgrade: Java 11 to 17 to 21, and javax to jakarta for any custom Java or CAF code under Jakarta EE 10. Before you migrate, find rules with custom date patterns or external event rules, convert old webMethods subprocesses, move off Broker, and bring My webMethods Server to its latest fix. Run the 12.1 Pre-Upgrade Analyzer for the Integration Server part, and test My webMethods pages, task applications and LDAP login separately, since the analyzer does not cover them.",
+      sources: [71, 72, 73, 74, 6, 75, 76, 77, 78]
+    },
+    {
       id: "iwhi", reviewed: "2026-11-17", title: "IBM Integration (formerly webMethods Hybrid Integration, IWHI)",
       summary: "IWHI, now sold as IBM Integration, is IBM's integration offering with one hybrid control plane. It brings runtimes together under central management; BPMS keeps running in the webMethods estate it manages.",
       facts: [
@@ -208,7 +225,8 @@ window.KNOWLEDGE = {
     ["Processing mode (webMethods rules)", "How a rule set or decision table runs: Inferential (the default for rule sets) or Sequential; a decision table can also be Sequential All or Sequential First."],
     ["BOM / XOM (ODM)", "The business object model is the vocabulary ODM rules are written in; it maps to the execution object model, the Java or XML classes the rules run against."],
     ["RuleApp", "ODM deployment unit that carries one or more rulesets to Rule Execution Server."],
-    ["Exit criteria (ODM rule task)", "How much a rule task runs before it stops: None (every applicable rule), Rule (the first applicable rule) or RuleInstance (only its first instance)."]
+    ["Exit criteria (ODM rule task)", "How much a rule task runs before it stops: None (every applicable rule), Rule (the first applicable rule) or RuleInstance (only its first instance)."],
+    ["Jakarta EE 10", "The successor to Java EE that 12.1 is based on; its APIs use jakarta.* package names instead of javax.*, so custom Java code may need updating."]
   ],
 
   quiz: [
@@ -231,7 +249,11 @@ window.KNOWLEDGE = {
     { q: "A webMethods rule set left at its default processing mode is moved to ODM. Which ODM execution mode supports the same kind of inference?", a: ["Fastpath", "Sequential", "RetePlus", "Literal"], c: 2,
       e: "webMethods rule sets default to Inferential. In ODM only RetePlus supports inference; Fastpath, the default for new rule tasks, does not." },
     { q: "How can you load the rows of an existing webMethods decision table into ODM without retyping them?", a: ["Hot Deploy the rule project to Rule Execution Server", "Get the table as JSON from My webMethods Server, turn it into an Excel file, and import it into an ODM decision table that already has the same columns", "Import the rule project into Decision Center", "ODM reads webMethods rule projects directly"], c: 1,
-      e: "My webMethods Server returns decision tables as JSON, and ODM's Business console imports Excel into an existing table; the import cannot change the table's structure, so build the columns first." }
+      e: "My webMethods Server returns decision tables as JSON, and ODM's Business console imports Excel into an existing table; the import cannot change the table's structure, so build the columns first." },
+    { q: "Which Java version do all webMethods BPM runtimes support in release 11.1?", a: ["Java 8", "Java 11", "Java 17", "Java 21"], c: 2,
+      e: "BPMS moved to Java 11 around 10.11 and 10.15, to Java 17 in 11.1, and 12.1 is based on Java 21 and Jakarta EE 10." },
+    { q: "A 10.15 rule project still uses external event rules. What happens?", a: ["They run unchanged", "They were removed; the Event-Driven Architecture behind them has been deprecated since April 2018", "They move to ODM automatically", "They become decision trees"], c: 1,
+      e: "Business Rules 10.15 removed creating, displaying and using external event rules; plan a replacement before upgrading." }
   ],
 
   // Numbered sources referenced by topic.sources
@@ -303,7 +325,15 @@ window.KNOWLEDGE = {
     67: ["Business Rules REST services on Integration Server (10.7)", "https://documentation.softwareag.com/webmethods/business_rules/wok10-7/10-7_Business_Rules_webhelp/business-rules-webhelp/co-summary_rest_is.html"],
     68: ["Executing rules by using the REST service (ODM 9.0)", "https://www.ibm.com/docs/SSQP76_9.0.0/com.ibm.odm.dserver.rules.res.developing/topics/con_res_restapi_rlset_exec_intro.html"],
     69: ["Generating an OpenAPI representation of a ruleset (ODM 8.9.2)", "https://www.ibm.com/docs/SSQP76_8.9.2/com.ibm.odm.dserver.rules.res.developing/topics/tsk_res_restapi_rlset_exec_opnapi.html"],
-    70: ["Working with REST API descriptors: Swagger 2.0 and OpenAPI 3.0.x (Designer 10.7)", "https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/help_working_with_RAD.html"]
+    70: ["Working with REST API descriptors: Swagger 2.0 and OpenAPI 3.0.x (Designer 10.7)", "https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/help_working_with_RAD.html"],
+    71: ["IBM webMethods BPM 12.1 lifecycle: GA 4 May 2026 (IBM Support)", "https://www.ibm.com/support/pages/ibm-webmethods-bpm121"],
+    72: ["webMethods Product Suite 10.11 Release Notes (IBM)", "https://www.ibm.com/docs/en/SSE9VGQ_10.11.0/webmethods-release-notes.pdf"],
+    73: ["webMethods Product Suite 10.15 Release Notes (IBM)", "https://www.ibm.com/docs/en/SSE9VGQ_10.15.0/webmethods_release_notes.pdf"],
+    74: ["IBM webMethods Release Notes 11.1 (IBM)", "https://www.ibm.com/docs/en/SSE9VGQ_11.1.0/webmethods_release_notes.pdf"],
+    75: ["Business Rules 10.15 readme: usage notes", "https://documentation.softwareag.com/webmethods/business_rules/wok10-15/readme/readme/usage-notes_2.html"],
+    76: ["webMethods BPM Process Development 12.1: deprecation of webMethods Broker (IBM Docs)", "https://www.ibm.com/docs/en/webmethods-bpm/wmpe/12.1.0?topic=help-about-this-guide"],
+    77: ["Changing webMethods subprocesses to BPMN subprocesses (Process Development 11.1, IBM Docs)", "https://www.ibm.com/docs/en/webmethods-bpm/wmpe/11.1.0?topic=steps-about-changing-webmethods-subprocesses-bpmn-subprocesses"],
+    78: ["Security bulletin: jackrabbit-spi-commons in IBM webMethods BPM, CVE-2025-53689 (IBM Support)", "https://www.ibm.com/support/pages/node/7250240"]
   }
 };
 

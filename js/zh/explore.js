@@ -197,6 +197,7 @@
     "BOM / XOM (ODM)": ["BOM / XOM（ODM）", "业务对象模型（BOM）是写 ODM 规则用的词汇；它映射到执行对象模型（XOM），也就是规则真正运行时用的 Java 或 XML 类。"],
     "RuleApp": ["RuleApp", "ODM 的部署单位，把一个或多个 ruleset 部署到 Rule Execution Server。"],
     "Exit criteria (ODM rule task)": ["退出条件（ODM 规则任务）", "规则任务跑多少就停：None（所有适用的规则）、Rule（第一条适用的规则）或 RuleInstance（只跑它的第一个实例）。"],
+    "Jakarta EE 10": ["Jakarta EE 10", "Java EE 的后继标准，12.1 就基于它；它的接口包名从 javax.* 改成了 jakarta.*，所以自定义的 Java 代码可能要改。"],
     "Rule task": ["规则任务（Rule task）", "一种 BPMN 任务：评估业务规则，把结果返回给流程。"],
     "Subscription trigger": ["订阅触发器", "自动生成的触发器：根据收到的文档启动一个新的流程实例，或加入一个正在运行的实例。"],
     "Task Engine": ["Task Engine（任务引擎）", "My webMethods Server 上管理人工任务和收件箱的运行时。"],
@@ -207,6 +208,8 @@
 
   // 测验：按英文原题对照
   Z.quiz = {
+    "Which Java version do all webMethods BPM runtimes support in release 11.1?": { q: "在 11.1 版里，所有 webMethods BPM 运行时都支持哪个 Java 版本？", a: ["Java 8", "Java 11", "Java 17", "Java 21"], e: "BPMS 大约在 10.11 和 10.15 换到 Java 11，11.1 换到 Java 17，12.1 基于 Java 21 和 Jakarta EE 10。" },
+    "A 10.15 rule project still uses external event rules. What happens?": { q: "一个 10.15 的规则项目还在用外部事件规则，会怎样？", a: ["照常运行", "已被移除；它依赖的事件驱动架构从 2018 年 4 月起就已弃用", "自动搬到 ODM", "变成决策树"], e: "Business Rules 10.15 移除了外部事件规则的创建、显示和使用；升级前要先规划替代方案。" },
     "A webMethods rule set left at its default processing mode is moved to ODM. Which ODM execution mode supports the same kind of inference?": { q: "一个保持默认处理模式的 webMethods 规则集要迁到 ODM。ODM 里哪种执行模式支持同样的推理？", a: ["Fastpath", "Sequential", "RetePlus", "Literal"], e: "webMethods 规则集默认是 Inferential。ODM 里只有 RetePlus 支持推理；新建规则任务默认的 Fastpath 不支持。" },
     "How can you load the rows of an existing webMethods decision table into ODM without retyping them?": { q: "怎样不用重新手打，就把一张现有 webMethods 决策表的行搬进 ODM？", a: ["把规则项目 Hot Deploy 到 Rule Execution Server", "从 My webMethods Server 以 JSON 取出这张表，转成 Excel，再导入一张已经建好同样列的 ODM 决策表", "把规则项目导入 Decision Center", "ODM 能直接读取 webMethods 规则项目"], e: "My webMethods Server 能以 JSON 返回决策表，ODM 的 Business console 能把 Excel 导入已有的表；导入改不了表结构，所以要先建好列。" },
     "Where does the webMethods Process Engine run?": { q: "webMethods 的 Process Engine 在哪里运行？", a: ["在 Integration Server 里（WmPRT）", "只在 My webMethods Server 里", "在浏览器里", "在 ODM 里"], e: "Process Engine 就是 Integration Server 里的 WmPRT 包。" },
