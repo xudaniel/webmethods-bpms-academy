@@ -193,6 +193,10 @@
     "Quality of service (Process Engine)": ["服务质量（Process Engine）", "按流程设定的取舍：有保证、持久化的执行，还是更快的易失执行。"],
     "Resubmit": ["重新提交（Resubmit）", "Monitor 里的操作：从一个可重新提交的步骤开始，重跑失败或已完成的流程实例。"],
     "Rule project": ["规则项目（Rule project）", "装数据模型、规则集、决策实体和动作的容器。"],
+    "Processing mode (webMethods rules)": ["处理模式（webMethods 规则）", "规则集或决策表怎么跑：Inferential（推理，规则集默认）或 Sequential（顺序）；决策表还可以是 Sequential All 或 Sequential First。"],
+    "BOM / XOM (ODM)": ["BOM / XOM（ODM）", "业务对象模型（BOM）是写 ODM 规则用的词汇；它映射到执行对象模型（XOM），也就是规则真正运行时用的 Java 或 XML 类。"],
+    "RuleApp": ["RuleApp", "ODM 的部署单位，把一个或多个 ruleset 部署到 Rule Execution Server。"],
+    "Exit criteria (ODM rule task)": ["退出条件（ODM 规则任务）", "规则任务跑多少就停：None（所有适用的规则）、Rule（第一条适用的规则）或 RuleInstance（只跑它的第一个实例）。"],
     "Rule task": ["规则任务（Rule task）", "一种 BPMN 任务：评估业务规则，把结果返回给流程。"],
     "Subscription trigger": ["订阅触发器", "自动生成的触发器：根据收到的文档启动一个新的流程实例，或加入一个正在运行的实例。"],
     "Task Engine": ["Task Engine（任务引擎）", "My webMethods Server 上管理人工任务和收件箱的运行时。"],
@@ -203,6 +207,8 @@
 
   // 测验：按英文原题对照
   Z.quiz = {
+    "A webMethods rule set left at its default processing mode is moved to ODM. Which ODM execution mode supports the same kind of inference?": { q: "一个保持默认处理模式的 webMethods 规则集要迁到 ODM。ODM 里哪种执行模式支持同样的推理？", a: ["Fastpath", "Sequential", "RetePlus", "Literal"], e: "webMethods 规则集默认是 Inferential。ODM 里只有 RetePlus 支持推理；新建规则任务默认的 Fastpath 不支持。" },
+    "How can you load the rows of an existing webMethods decision table into ODM without retyping them?": { q: "怎样不用重新手打，就把一张现有 webMethods 决策表的行搬进 ODM？", a: ["把规则项目 Hot Deploy 到 Rule Execution Server", "从 My webMethods Server 以 JSON 取出这张表，转成 Excel，再导入一张已经建好同样列的 ODM 决策表", "把规则项目导入 Decision Center", "ODM 能直接读取 webMethods 规则项目"], e: "My webMethods Server 能以 JSON 返回决策表，ODM 的 Business console 能把 Excel 导入已有的表；导入改不了表结构，所以要先建好列。" },
     "Where does the webMethods Process Engine run?": { q: "webMethods 的 Process Engine 在哪里运行？", a: ["在 Integration Server 里（WmPRT）", "只在 My webMethods Server 里", "在浏览器里", "在 ODM 里"], e: "Process Engine 就是 Integration Server 里的 WmPRT 包。" },
     "Which store should you query for historical process and step statuses?": { q: "要查流程和步骤的历史状态，应该查哪个存储？", a: ["Process Engine 数据库", "Process Audit 数据库（PRA_ 表）", "IS 仓库", "Task Engine 缓存"], e: "Process Audit 数据库是对外的历史存储；Process Engine 数据库是不对外的运行时状态。" },
     "In 10.15, where is human-task history usually found?": { q: "在 10.15 里，人工任务的历史通常在哪里？", a: ["只在 PRA_PROCESS 里", "Task Engine 审计（getTaskAudit / 归档）", "IS 服务器日志", "根本没有存"], e: "10.15 默认不把任务状态写进 Process Audit；要用 Task Engine 的审计记录。" },
