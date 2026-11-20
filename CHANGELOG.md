@@ -5,6 +5,9 @@ Versions follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- 🧪 **Knowledge base, hands-on** (pilot in two topics, English and 中文): *Process design building blocks* gets a join lab (pick AND or OR, make a path fail, see whether the next step runs and which transition to plan for). *Task Engine and human work* gets a task life-cycle walk-through (start, suspend, complete, expire, seven days later) and a vote calculator (assignees, percentage or fixed threshold, rounded up). Both topics get two "guess first" questions. Every result lights up the cited fact it comes from; no new facts. Hidden in print.
+
 ### Fixed
 - Quiz answers were easy to guess: 32 of the 41 quiz questions had the right answer in second place and none in fourth. The right answer now moves to a fixed, spread-out position per question (11 / 10 / 10 / 10 across the four places), and the other options keep their order. The same order is used in English and 中文, on the page, in the review book and in the printed answer key. Also applies to Basics 101, the 10-minute course and the role self-checks. The smoke test now reads the right answer from the data and checks the spread.
 - Knowledge base, *Process design building blocks*: the call activity fact now follows the Designer 10.7 wording (the callable process automatically returns its resulting pipeline to the parent) instead of a stronger claim, and the boundary event fact quotes the documentation's own statement about unsupported event types. The practice note adds: test on your release how results come back to the parent. English and 中文.
