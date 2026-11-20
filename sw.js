@@ -1,6 +1,6 @@
 // Offline support for the IBM webMethods BPMS Academy.
 // Network first: online visitors always get the latest version; the cache is the fallback when offline.
-const CACHE = "wm-academy-v2.4.0";
+const CACHE = "wm-academy-v2.5.0";
 const CORE = [
   "./", "index.html", "read.html", "brief.html", "optimization.html", "kit.html", "css/brief.css", "css/kit.css", "js/brief.js", "js/kit.js", "js/zh/kit.js", "manifest.webmanifest",
   "css/styles.css", "css/read.css",
