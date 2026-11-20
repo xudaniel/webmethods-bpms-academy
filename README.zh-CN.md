@@ -32,6 +32,7 @@
 - 🧱 **学基础**：7 节 2 分钟小课 → [基础 101](https://xudaniel.github.io/webmethods-bpms-academy/?lang=zh#basics)
 - 🧪 **动手学**：贷款流程模拟器和 30 分钟实验 → [动手实验](https://xudaniel.github.io/webmethods-bpms-academy/?lang=zh#lab)
 - 🛠️ **排查问题**：16 个可搜索的症状 → [故障排查](https://xudaniel.github.io/webmethods-bpms-academy/?lang=zh#trouble)
+- 🎲 **不用电脑上课**：打印棋盘和卡片，围着桌子扮演引擎 → [课堂套件](https://xudaniel.github.io/webmethods-bpms-academy/kit.html?lang=zh)
 
 <details>
 <summary><b>全部功能（20 项）</b></summary>

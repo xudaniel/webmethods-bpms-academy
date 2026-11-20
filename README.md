@@ -32,6 +32,7 @@
 - 🧱 **Learn the basics**: seven 2-minute lessons → [Basics 101](https://xudaniel.github.io/webmethods-bpms-academy/#basics)
 - 🧪 **Learn by doing**: a loan simulator and a 30-minute lab → [Lab](https://xudaniel.github.io/webmethods-bpms-academy/#lab)
 - 🛠️ **Fix a problem**: 16 searchable symptoms → [Troubleshooting](https://xudaniel.github.io/webmethods-bpms-academy/#trouble)
+- 🎲 **Teach without laptops**: print a board and cards and play the engine around a table → [Classroom kit](https://xudaniel.github.io/webmethods-bpms-academy/kit.html)
 - 🌐 **Read it in Chinese** → [中文版](https://xudaniel.github.io/webmethods-bpms-academy/?lang=zh)
 
 <details>
