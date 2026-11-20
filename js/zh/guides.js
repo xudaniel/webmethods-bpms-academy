@@ -132,6 +132,19 @@
           "要把 Business Rules 审计信息写进数据库表，给服务器加 Java 系统属性 RulesAuditingDBOnOff=On（比如在 Command Central 里）；这套做法不适用于 Microservices Runtime。一条「项目已部署」记录包括事件时间、关联 ID、Integration Server 的主机和端口，以及项目名。"
         ],
         practice: "把规则背后的文档类型当成契约：改字段名之前先查哪些规则项目在用，改完同步、修好失效的表、重跑测试。每个项目带一小组保存好的测试输入（每个边界、每种客户类型、一个缺输入），每次热部署前都跑一遍。业务自己改表时，枚举列配 STRICT 下拉，范围重叠这类跨行检查放进校验服务，CSV 只用来追加。给其他系统调用规则时走 REST 服务、保持 createMissingInputs 为 false；在流服务里调用前先校验输入；上线前打开数据库审计。" },
+      "cloud-deploy": { title: "在 IBM Cloud 上部署决策服务：Code Engine、ODM 和 Decision Optimization",
+        summary: "流程周边的规则和优化在 IBM Cloud 上能放在哪：Code Engine 三种形态各有硬性时间上限；ODM 容器只支持认证的 Kubernetes，在 OpenShift 上支持最全；优化模型可以部署成托管的 Decision Optimization 作业。",
+        facts: [
+          "IBM Cloud Code Engine 把容器跑成函数、应用或作业，三者上限不同。函数最长运行 120 秒，请求体和响应体最大 5 MB。应用的超时默认 300 秒，最长 600 秒。作业默认运行 7,200 秒（2 小时），最长 86,400 秒（24 小时）。",
+          "Code Engine 作业失败后默认重试 3 次，最多 5 次。",
+          "应用的配置属性每更新一次，就生成一个新的修订版。Code Engine 除了当前生效的修订版，只保留最近的一个旧修订版，更早的修订版回不去。",
+          "Code Engine 应用默认能接收来自公网、私网和同一项目内组件的请求。可见性可以收窄，比如只让同一项目里的 Code Engine 资源访问，再加上经虚拟私有端点（VPE）的私网访问。",
+          "IBM Operational Decision Manager 容器只支持 CNCF 认证的 Kubernetes 平台，而且要用商用的 Kubernetes 引擎。IBM 只在 Red Hat OpenShift Container Platform 上做兼容性测试，并支持它的网络、负载均衡和安全等平台配置；在其他平台上，IBM 不能协助搭建环境（这份支持说明最后修改于 2020 年 10 月）。",
+          "在 watsonx.ai Runtime 里，Decision Optimization 模型打包成 .tar.gz、.zip 或 .jar 归档，上传到部署空间。选好硬件规格和运行时（do_22.1 基于 CPLEX 22.1.1.0），然后向部署提交作业、查看作业状态。",
+          "Decision Optimization 部署可选的硬件规格是 S（2 个 vCPU、8 GB）、M（4 个 vCPU、16 GB）、L（8 个 vCPU、32 GB）和 XL（16 个 vCPU、64 GB）。",
+          "CPLEX 社区版能求解最多 1,000 个变量、1,000 个约束的问题（约束规划是 1000 × 1000 的搜索空间）。更大的问题要用带完整商用版的运行时或许可。"
+        ],
+        practice: "按最坏情况的求解时间选 Code Engine 形态，不按平均值：120 秒以内用函数，600 秒以内用应用，更长用作业或 Decision Optimization 部署。长作业要调低重试次数：默认 3 次，一直超时的话最多会跑四遍、花四倍的钱。上限、比例这类政策数字放在规则里，政策一改不用重建求解镜像；镜像用版本号打标签，不用 latest，每次更新后重跑一组黄金用例，因为只保留一个旧修订版。求解服务的可见性收窄到项目内，凭据放在 Code Engine 的 secret 里；上线前先数变量个数，免得被社区版的上限卡住。没找到 IBM 支持把 ODM 本体跑在 Code Engine 上的说明；生产环境的 ODM 用 ODM on Cloud 或 OpenShift。" },
       monitor: { title: "Monitor、重新提交和 Optimize",
         summary: "Monitor 是运维查找、修复、重跑流程实例的地方；Optimize for Process 在它之上加了 KPI 和分析。",
         facts: [

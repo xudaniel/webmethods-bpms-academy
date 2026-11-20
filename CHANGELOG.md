@@ -3,6 +3,12 @@
 All notable changes to the IBM webMethods BPMS Academy. Author: **Daniel Yuanpeng Xu**.
 Versions follow [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+- 👗 **Capstone: clothing-store markdown approval** (#106): one request end to end. The agent proposes, three rules (margin floor, age cap, auto-approval line) decide, the regional manager approves or the 24-hour timer escalates, and the process changes the price; every step goes into an audit trail. English and 中文. The curriculum is now 26 sections.
+- 🧩 **Knowledge base: Deploying decision services on IBM Cloud** (19 → 20 topics, 142 → 150 facts): Code Engine limits for functions, applications and jobs, job retries, revisions and endpoint visibility; where ODM containers are supported; Decision Optimization deployments in watsonx.ai and their hardware sizes; the CPLEX Community Edition limit. Glossary 48 terms (IBM Cloud Code Engine, CPLEX Community Edition), quiz 38 questions, 7 new public sources. English and 中文.
+
 ## [2.5.0] — 2026-11-20
 
 Business Rules in practice: what goes wrong around the tables after go-live. **Author: Daniel Yuanpeng Xu.**

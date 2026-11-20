@@ -200,6 +200,8 @@
     "Data model (Business Rules)": ["数据模型（Business Rules）", "规则项目里保存的 Integration Server 文档类型副本；规则写在它上面，文档类型一改就要同步。"],
     "Data provider service": ["数据提供服务", "给决策表某一列填下拉列表的外部 REST 服务；STRICT 模式下只能选它给的值。"],
     "Verification service": ["校验服务", "检查决策表某一列的外部 REST 服务，按行返回 ERROR 或 WARNING 消息。"],
+    "IBM Cloud Code Engine": ["IBM Cloud Code Engine", "IBM Cloud 的无服务器平台，把容器跑成函数（最长 120 秒）、应用（每个请求最长 600 秒）或作业（最长 24 小时）。"],
+    "CPLEX Community Edition": ["CPLEX 社区版", "免费的 CPLEX 求解器版本，限 1,000 个变量和 1,000 个约束；更大的问题要用完整商用版。"],
     "Jakarta EE 10": ["Jakarta EE 10", "Java EE 的后继标准，12.1 就基于它；它的接口包名从 javax.* 改成了 jakarta.*，所以自定义的 Java 代码可能要改。"],
     "Correlation ID": ["关联 ID（Correlation ID）", "把到达的文档和某一个运行中的流程实例对应起来的值；来自文档里的一个字段，或由关联服务返回。"],
     "External cluster (Process Engine)": ["外部集群（Process Engine）", "几台没有正式组成集群的 Integration Server，各自的 Process Engine 都打开了 External Cluster 设置，共用一个 Process Engine 数据库和同一个消息客户端前缀。"],
@@ -216,6 +218,8 @@
 
   // 测验：按英文原题对照
   Z.quiz = {
+    "An optimisation solve takes about 40 minutes. Which IBM Cloud Code Engine workload can run it?": { q: "一次优化求解大约要 40 分钟。IBM Cloud Code Engine 的哪种形态能跑？", a: ["函数", "应用", "作业", "都不行"], e: "40 分钟是 2,400 秒：超过函数的 120 秒，也超过应用最长的 600 秒。作业默认能跑 2 小时，最长 24 小时。" },
+    "A weekly roster has 60 nurses × 7 days × 3 shifts, one yes/no variable each. Can the CPLEX Community Edition solve it?": { q: "一周的排班有 60 个护士 × 7 天 × 3 个班次，每个组合一个是／否变量。CPLEX 社区版能求解吗？", a: ["能", "不能：1,260 个变量超过 1,000 的上限", "只能做成 Code Engine 函数", "约束少一点就能"], e: "60 × 7 × 3 = 1,260 个变量，超过社区版 1,000 个变量和 1,000 个约束的上限。要用带完整商用版的运行时或许可。" },
     "A flow calls a rule set with pub.businessrules.client:invoke and another system calls it through the Integration Server REST invoke service. Both leave out one input. What happens by default?": { q: "一个流服务用 pub.businessrules.client:invoke 调用规则集，另一个系统通过 Integration Server 的 REST invoke 服务调用同一个规则集，两边都少传了一个输入。默认会怎样？", a: ["两边都报错", "流服务自动补上缺的输入继续跑；REST 调用返回错误", "两边都用空输入继续跑", "REST 调用继续跑；流服务失败"], e: "流服务的 Create Missing Inputs 默认为真，REST 服务的 createMissingInputs 默认为 false。" },
     "A business user imports a CSV file of 20 rules into a decision table that has 4 rules. How many rules does the table have afterwards?": { q: "业务用户把一个含 20 条规则的 CSV 文件导入一张已有 4 条规则的决策表。导入后表里有几条规则？", a: ["20", "24", "4", "取决于表头名字"], e: "CSV 导入把行追加在最后一条规则之后，不会覆盖；列按位置对应，不按表头名字。" },
     "A document arrives for a process, but its correlation ID matches no running instance. What do the Process Engine tracking pages say happens?": { q: "一份文档到达某个流程，但它的关联 ID 和任何运行中的实例都不匹配。Process Engine 的跟踪页面说会发生什么？", a: ["被丢弃", "引擎新建一个流程实例 ID 并启动一个新流程", "在任务收件箱里等待", "被发给每个节点"], e: "引擎会把一个新的流程实例 ID 和关联 ID 一起存下来，并启动新流程。关闭 Volatile Tracking 时这对值存在 WMPRTXREF 表里；打开时存在服务器内存里。" },
