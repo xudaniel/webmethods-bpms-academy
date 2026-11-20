@@ -4,7 +4,7 @@
 
 <p>
   <a href="https://xudaniel.github.io/webmethods-bpms-academy/"><img alt="Live site" src="https://img.shields.io/badge/live-open_the_course-8a3ffc"></a>
-  <a href="https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v2.5.0"><img alt="Release v2.5.0" src="https://img.shields.io/badge/release-v2.5.0-24a148"></a>
+  <a href="https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v2.6.0"><img alt="Release v2.6.0" src="https://img.shields.io/badge/release-v2.6.0-24a148"></a>
   <img alt="Works offline" src="https://img.shields.io/badge/phone-installable_·_offline-161616">
   <a href="https://github.com/Xudaniel"><img alt="Author: Daniel Yuanpeng Xu" src="https://img.shields.io/badge/author-Daniel_Yuanpeng_Xu-0f62fe"></a>
 </p>
@@ -13,7 +13,7 @@
 
 ### [▶ Open the course](https://xudaniel.github.io/webmethods-bpms-academy/)
 
-[Reading version](https://xudaniel.github.io/webmethods-bpms-academy/read.html) · [中文版](https://xudaniel.github.io/webmethods-bpms-academy/?lang=zh) · [What's new in v2.5.0](CHANGELOG.md) · [PRD](docs/PRD.md)
+[Reading version](https://xudaniel.github.io/webmethods-bpms-academy/read.html) · [中文版](https://xudaniel.github.io/webmethods-bpms-academy/?lang=zh) · [What's new in v2.6.0](CHANGELOG.md) · [PRD](docs/PRD.md)
 
 <p>
   <img src="assets/screenshots/role-picker.png" width="31%" alt="Who are you? Pick a role and get a personal path">
@@ -664,6 +664,8 @@ GitHub Actions runs the same test (`.github/workflows/smoke-test.yml`) on every 
 - [x] Module on moving webMethods Business Rules to IBM ODM decision services (knowledge topic)
 - [ ] Agent Scan Lab: adjustable thresholds and CSV export
 
+**Done in v2.6.0:** a capstone exercise, *clothing-store markdown approval* (agent proposes, three rules decide, a manager approves or a timer escalates, every step audited; 26 sections), and three new or fuller cited knowledge topics: *Deploying decision services on IBM Cloud*, *Process design building blocks* and a fuller *Task Engine and human work* (21 topics, 165 facts, 50 terms, 41 questions).
+
 **Done in v2.5.0:** a new cited knowledge topic, *Business Rules in practice* (19 topics, 142 facts): data models and Sync Data Model, event rules inside rule sets, local testing with Run As, data provider and verification services, CSV import, the Integration Server REST invoke service and its default for missing inputs, and auditing to the database; glossary 46 terms, quiz 36 questions (#104).
 
 **Done in v2.4.0:** an unplugged classroom kit (#54); knowledge base grown to 18 cited topics and 133 facts, including moving Business Rules to IBM ODM and what changes from 10.15 to 12.1; phone-friendly READMEs; a 15-minute user test kit; the PRD rewritten and published in Chinese.
@@ -705,7 +707,7 @@ He set the product direction, defined the audiences and scope, chose and checked
 
 ### How to cite
 
-> Xu, Daniel Yuanpeng (2026). *IBM webMethods BPMS Academy* (Version 2.5.0) [Interactive course]. https://github.com/xudaniel/webmethods-bpms-academy
+> Xu, Daniel Yuanpeng (2026). *IBM webMethods BPMS Academy* (Version 2.6.0) [Interactive course]. https://github.com/xudaniel/webmethods-bpms-academy
 
 GitHub's **Cite this repository** button (from [`CITATION.cff`](CITATION.cff)) gives the same citation in APA and BibTeX. If you reuse or adapt any material, please credit **Daniel Yuanpeng Xu** and link to this repository.
 
