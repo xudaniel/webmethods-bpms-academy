@@ -439,3 +439,22 @@ body.pro .cc-remember { background: transparent; }
 .search-hit mark { background: #fcf4d6; padding: 0 .1em; border-radius: 2px; }
 .search-none { padding: .6rem; color: var(--muted, #525252); }
 nav .search-btn { z-index: 1; }
+/* Capstone: clothing-store markdown approval */
+.cap-rules { padding-left: 1.1rem; }
+.cap-rules li { margin-bottom: .45rem; }
+.cap-rules input, .cap-inputs input { width: 4.6rem; }
+.cap-inputs label { display: flex; flex-direction: column; font-size: .85rem; gap: .2rem; }
+.cap-flow { list-style: none; padding: 0; margin: .8rem 0; counter-reset: cap; }
+.cap-flow li { position: relative; padding: .45rem .6rem .45rem 2.1rem; margin-bottom: .35rem; border: 1px solid #c6c6c6; border-radius: 8px; color: var(--muted); font-size: .9rem; }
+.cap-flow li::before { counter-increment: cap; content: counter(cap); position: absolute; left: .55rem; top: .45rem; width: 1.2rem; height: 1.2rem; border-radius: 50%; background: #e0e0e0; color: #161616; font-size: .75rem; text-align: center; line-height: 1.2rem; }
+.cap-flow li.on { border-color: #24a148; background: #defbe6; color: #161616; }
+.cap-flow li.on::before { background: #24a148; color: #fff; }
+.cap-flow li.no { border-color: #da1e28; background: #fff1f1; color: #161616; }
+.cap-flow li.no::before { background: #da1e28; color: #fff; }
+.cap-log { padding-left: 0; list-style: none; font-size: .88rem; }
+.cap-log li { padding: .35rem 0; border-bottom: 1px solid #e0e0e0; overflow-wrap: anywhere; }
+.cap-bar { display: flex; height: 1.6rem; border-radius: 6px; overflow: hidden; margin: .4rem 0 .8rem; font-size: .8rem; font-weight: 600; color: #fff; }
+.cap-bar span { display: flex; align-items: center; justify-content: center; }
+.cap-bar .a { background: #24a148; } .cap-bar .m { background: #b28600; } .cap-bar .r { background: #da1e28; }
+.cap-q { margin: .4rem 0; } .cap-q summary { cursor: pointer; } .cap-q p { margin: .3rem 0 .3rem 1rem; }
+#cap-verdict { overflow-wrap: anywhere; }

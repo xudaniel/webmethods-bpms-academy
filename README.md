@@ -50,6 +50,7 @@
 - 🔍 **Find anything**: tap 🔍 next to ☰ (or press `/`) and search knowledge facts, troubleshooting, the glossary, how-to steps and cheat sheets, the lab, Basics 101, controls, patterns, cases and BPMN, in English or Chinese. Tap a result to land on the exact place → Everywhere
 - 📒 **Remember what you got wrong**: every wrong answer anywhere on the site (quiz, Basics 101, the 10-minute course, role self-checks, Swipe sort, on-call drills) goes into a review book and comes back after 1 day and 3 days; two right answers and it leaves. Start here shows how many are due today → [Review book](https://xudaniel.github.io/webmethods-bpms-academy/#review)
 - 🚨 **Practise being on call**: three short incidents (the process never starts, a manual decision is ignored, Monitor shows nothing) with a clock that keeps running. Good checks move you on, wrong ones cost minutes; each ends with a cited debrief → [On-call drills](https://xudaniel.github.io/webmethods-bpms-academy/#drills)
+- 👗 **Put it all together**: follow one markdown request at a fictional clothing store through all three layers. The agent proposes a discount, the rules check the margin floor and the age cap and decide who approves, the manager approves or the timer escalates after 24 hours, and the process changes the price. Change the rules table, pick a style, and watch the audit trail grow; made-up numbers, all hand-checked → [Capstone](https://xudaniel.github.io/webmethods-bpms-academy/#capstone)
 - 👆 **Swipe sort: rule, agent or human?** 20 synthetic steps in 60 seconds; swipe (or tap, or use the arrow keys) and every answer is explained with the same thresholds the Agent Scan Lab uses. Streaks, a best score and a share line → [Swipe sort](https://xudaniel.github.io/webmethods-bpms-academy/#swipe)
 - 🧩 **Repair broken processes**: five tap-to-place puzzles (a missing end event, the wrong gateway, a limit welded into a gateway, a task with no timer, a manager who checks everything); press ▶ Run and watch a token get through, or get stuck and tell you why → [Fix the diagram](https://xudaniel.github.io/webmethods-bpms-academy/#puzzles)
 - 💼 **Present it to a client**: switch on Professional mode (or share a `?mode=pro` link) to hide badges and the story, and print a one-page executive brief for banking or insurance → [Briefs](https://xudaniel.github.io/webmethods-bpms-academy/brief.html)
@@ -150,6 +151,8 @@ The site is built for phones first. To get the most out of it, save it as an app
 
 **Decision lab:** move a decision table's limits and test an application (approve, refer or decline), compare changing a rule with changing the process, and review common rules-configuration pitfalls.
 
+**Capstone:** one markdown request at a fictional clothing store, end to end. Three rules (a margin floor of 1.3 × cost, a discount cap that grows with weeks on the shelf, and a 30% auto-approval line) decide whether the agent's proposal goes through, goes to the regional manager or comes back with the most it may ask for. The manager can approve or reject, or let the 24-hour timer escalate to the buying director. Every step lands in an audit trail. Also: who does what, six design decisions, common mistakes, four metrics, an IBM product mapping (the author's sketch), a 30-second pitch and six self-check questions.
+
 **How to use**, by role. Each step gives the menu path and an official source, and ends with *how you'll know it worked*. Every role also has a printable **cheat sheet** and a 3-question **self-check**:
 
 - **Business user**\
@@ -190,12 +193,12 @@ The site is built for phones first. To get the most out of it, save it as an app
 
 ### Stay motivated
 - **⏱ Reading time** on every section, in the Sections menu and for each chapter of the reading version. The whole course is about 40 minutes of reading.
-- **Progress and badges:** sections explored out of 25, and eleven badges with a small celebration (Explorer, Basics done, Process fixer, Agent tamer, Simulator, Scanner, Fixer, Role ready, Lab finisher, Quiz ace, On-call hero). There's also a **Did you know?** fact. Everything stays in your browser.
+- **Progress and badges:** sections explored out of 26, and eleven badges with a small celebration (Explorer, Basics done, Process fixer, Agent tamer, Simulator, Scanner, Fixer, Role ready, Lab finisher, Quiz ace, On-call hero). There's also a **Did you know?** fact. Everything stays in your browser.
 
 </details>
 
 <details>
-<summary><b>Curriculum: 25 sections, in site order</b></summary>
+<summary><b>Curriculum: 26 sections, in site order</b></summary>
 
 - **1. Start here** · Role picker, map, six hands-on steps\
   Find your path; see the big picture; why process platforms matter for AI agents
@@ -215,37 +218,39 @@ The site is built for phones first. To get the most out of it, save it as an app
   Build, enable, run and monitor your first process
 - **9. Decision lab** · Interactive decision table + comparison\
   Change a rule's limits, test an application, see why rules change faster than processes
-- **10. Fix the diagram** · 5 puzzle levels with a running token\
+- **10. Capstone** · One request end to end, with an audit trail\
+  A clothing-store markdown: the agent proposes, the rules decide, a manager approves, the process changes the price
+- **11. Fix the diagram** · 5 puzzle levels with a running token\
   Repair broken processes: end event, gateway choice, rule task, timer, exception path
-- **11. Swipe sort** · 20 cards, 60 seconds\
+- **12. Swipe sort** · 20 cards, 60 seconds\
   Rule, agent or keep human? The agent-era split, judged card by card
-- **12. Troubleshooting** · Search + flowchart\
+- **13. Troubleshooting** · Search + flowchart\
   Symptom → check first → fix → where
-- **13. On-call drills** · 3 branching incidents with a clock\
+- **14. On-call drills** · 3 branching incidents with a clock\
   Practise the first checks under a little pressure, then read a cited debrief
-- **14. Teach a class** · Workshop plan + timeline\
+- **15. Teach a class** · Workshop plan + timeline\
   A 3-hour class for users or customers
-- **15. Lifecycle** · Clickable stages + release table\
+- **16. Lifecycle** · Clickable stages + release table\
   Model → implement → build and upload → execute → monitor → optimize → govern; release dates
-- **16. Architecture** · Clickable component map\
+- **17. Architecture** · Clickable component map\
   Engines, databases and `PRA_*` audit tables
-- **17. BPMN** · Reference tables\
+- **18. BPMN** · Reference tables\
   Activities, gateways, events, pools and lanes
-- **18. Patterns** · Filterable cards\
+- **19. Patterns** · Filterable cards\
   Four classic and three agent-era patterns
-- **19. Cases** · Flow diagrams\
+- **20. Cases** · Flow diagrams\
   Purchase approval, loan decisioning, logistics exception
-- **20. Simulator** · Interactive\
+- **21. Simulator** · Interactive\
   A loan instance through a rule task and an underwriter task, with an audit log
-- **21. Agent Scan Lab** · Interactive\
+- **22. Agent Scan Lab** · Interactive\
   Find rule and agent candidates in process history (synthetic data or your CSV)
-- **22. Market** · Reading + sources\
+- **23. Market** · Reading + sources\
   Sizing, analyst views, competitor signals, regulatory dates
-- **23. Glossary** · Searchable\
+- **24. Glossary** · Searchable\
   46 terms; underlined terms anywhere open a plain-English explanation
-- **24. Quiz** · 36 questions\
+- **25. Quiz** · 36 questions\
   Instant feedback and a score
-- **25. Review book** · Spaced review\
+- **26. Review book** · Spaced review\
   Every question you got wrong comes back after 1 and 3 days (and 7 if you miss it again) until it sticks
 
 Every section has its own link (for example [`#lab`](https://xudaniel.github.io/webmethods-bpms-academy/#lab)), plus Previous / Next at the bottom.
@@ -552,6 +557,7 @@ Root folder: `webmethods-bpms-academy/`
   - `basics.js` — Basics 101: seven fundamental lessons with checks
   - `crash.js` — 10-minute course: five steps and three checks
   - `decision-lab.js` — Decision lab: decision table, agility comparison, rules pitfalls
+  - `capstone.js` — Capstone: clothing-store markdown approval (agent, rules, manager, process)
   - `controls.js` — Controls for regulated industries: controls, frameworks, evidence
   - `pro.js` — Professional mode (header switch or ?mode=pro)
   - `brief.js` — Builds the executive briefs from the control map

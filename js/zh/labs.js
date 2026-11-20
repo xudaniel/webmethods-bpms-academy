@@ -1,13 +1,14 @@
 // 简体中文：受监管行业的合规控制、决策实验室、修图闯关（#68 第三批 b）。
 // 法规名称保留官方英文缩写（SR 11-7、OSFI E-23、DORA 等），链接指向监管机构的原文。本页是教学用的对照，不是法律或合规意见。
 (function (Z) {
-  Z.done = (Z.done || []).concat(["controls", "decisions", "puzzles", "swipe", "drills", "review"]);
+  Z.done = (Z.done || []).concat(["controls", "decisions", "capstone", "puzzles", "swipe", "drills", "review"]);
 
   Object.assign(Z.page, {
     "ct.h2": "面向受监管行业的合规控制",
     "ct.lead": "银行和保险公司被要求拿出什么，以及 IBM webMethods BPMS 和 Business Rules 怎样提供：七项常见控制、要求它们的法规框架，以及审计人员能看到的证据。",
     "ct.b1": "高管简报：银行", "ct.b2": "高管简报：保险",
     "dl.h2": "决策实验室：可以修改的规则",
+    "dl.next": "准备好把这些串起来了吗？去<a href=\"#capstone\">综合练习</a>，看一条降价申请怎么经过 agent、规则、经理和流程。",
     "dl.lead": "规则任务提一个问题，规则来回答。改一改下面的门槛，测一份申请，再比较一下「改规则」和「改流程」的差别。",
     "pz.h2": "修图闯关：五个坏掉的流程",
     "pz.lead": "每一关都有一处错误。点一个零件放进虚线框，按 ▶ 运行，看令牌怎么走。如果卡住了，你会看到原因。什么都不用安装。",

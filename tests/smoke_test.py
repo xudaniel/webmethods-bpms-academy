@@ -7,7 +7,7 @@ Usage:  pip install playwright && playwright install chromium
 import asyncio, functools, http.server, sys, threading
 from playwright.async_api import async_playwright
 
-SECTIONS = ["start", "crash", "basics", "overview", "knowledge", "controls", "howto", "lab", "decisions", "puzzles", "swipe", "trouble", "drills", "teach", "lifecycle", "architecture", "bpmn", "patterns", "cases",
+SECTIONS = ["start", "crash", "basics", "overview", "knowledge", "controls", "howto", "lab", "decisions", "capstone", "puzzles", "swipe", "trouble", "drills", "teach", "lifecycle", "architecture", "bpmn", "patterns", "cases",
             "simulator", "scan", "market", "glossary", "quiz", "review"]
 
 class QuietHandler(http.server.SimpleHTTPRequestHandler):
@@ -229,6 +229,27 @@ async def main():
         await page.wait_for_timeout(400)
         if "1 /" in await page.inner_text("#sw-card") or not (await page.inner_text("#sw-score")).endswith(("1", "2")) or "✅" not in await page.inner_text("#sw-why") and "❌" not in await page.inner_text("#sw-why"):
             failures.append("swipe sort: buttons or arrow keys did not score and explain")
+        # Capstone: one markdown request through agent, rules, manager and process (hand-checked numbers)
+        await page.evaluate("location.hash='capstone'")
+        await page.wait_for_timeout(120)
+        ev = await page.evaluate("""[[6,15],[12,35],[20,50]].map(([w,d]) => { const e = CAPSTONE_EVAL({price:120, cost:50, weeks:w, disc:d, mult:1.3, auto:30}); return [e.route, e.after, e.floor, e.cap, e.max]; })""")
+        if ev != [["auto", 10200, 6500, 20, 20], ["manager", 7800, 6500, 40, 40], ["return", 6000, 6500, 60, 45]]:
+            failures.append(f"capstone: rule outcomes wrong {ev}")
+        await page.click("#cap-styles [data-i='0']")
+        if "Approved automatically" not in await page.inner_text("#cap-verdict") or "$102" not in await page.inner_text("#cap-log"):
+            failures.append("capstone: W-031 should be approved automatically at $102")
+        await page.click("#cap-styles [data-i='2']")
+        if "at most 45% ($66)" not in await page.inner_text("#cap-verdict"):
+            failures.append("capstone: W-117 should be returned with at most 45% ($66)")
+        await page.click("#cap-actions [data-act='repropose']")
+        await page.click("#cap-actions [data-act='timeout']")
+        logt = await page.inner_text("#cap-log")
+        if "Buying director" not in logt or "$120 → $66" not in logt or await page.locator("#cap-flow li.on").count() < 6:
+            failures.append("capstone: re-proposal, escalation and price change not shown")
+        await page.click("#cap-styles [data-i='1']")
+        await page.click("#cap-actions [data-act='approve']")
+        if "33.3%" not in await page.inner_text("#cap-log") or "25 a week" not in await page.inner_text("#cap-log"):
+            failures.append("capstone: W-204 reason and two-week review missing")
         # On-call drills (issue #50): ideal path, a wrong turn, debrief sources, and the badge for three clean runs
         await page.evaluate("location.hash='drills'")
         await page.wait_for_timeout(120)
@@ -586,6 +607,11 @@ async def main():
         await zp.click("#sw-start")
         if "合成数据" not in await zp.inner_text("#sw-card") or "规则" not in await zp.inner_text("#swipe .sw-btns"):
             failures.append("zh: swipe sort not translated")
+        await zp.evaluate("location.hash='capstone'")
+        await zp.wait_for_timeout(120)
+        await zp.click("#cap-styles [data-i='1']")
+        if "女装店" not in await zp.inner_text("#capstone") or "要区域经理批" not in await zp.inner_text("#cap-verdict") or "综合练习" not in await zp.inner_text("nav"):
+            failures.append("zh: capstone not translated")
         await zp.evaluate("location.hash='drills'")
         await zp.wait_for_timeout(120)
         await zp.click("#drills-body .dr-pick[data-d='start']")
