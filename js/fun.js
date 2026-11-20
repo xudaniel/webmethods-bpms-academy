@@ -30,6 +30,8 @@
     let total = 0;
     document.querySelectorAll("main > .section").forEach((sec) => {
       const m = minutesFor(sec); times[sec.id] = m; total += m;
+      // Knowledge topics get their own time, so a path step that points at one topic does not show the whole section's
+      sec.querySelectorAll(".kb-topic[id]").forEach((t) => { times["kb:" + t.id.replace(/^kb-/, "")] = minutesFor(t); });
       const extra = handsOn[sec.id] ? (ZF ? ` · 动手 ${handsOn[sec.id]()} 分钟` : ` · ${handsOn[sec.id]()} min hands-on`) : "";
       sec.insertAdjacentHTML("afterbegin", `<p class="readtime">⏱ ${ZF ? "阅读 " + fmt(m) : fmt(m) + " read"}${extra}</p>`);
     });

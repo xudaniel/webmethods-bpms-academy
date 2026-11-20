@@ -3,14 +3,23 @@
 All notable changes to the IBM webMethods BPMS Academy. Author: **Daniel Yuanpeng Xu**.
 Versions follow [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [2.4.0] — 2026-11-19
+
+Teach without laptops, a deeper knowledge base, and the docs brought up to date. **Author: Daniel Yuanpeng Xu.**
 
 ### Added
+- 🎲 **Unplugged classroom kit** (#54): `kit.html` is a printable 40-minute table game for teams of 4 to 6. An A3 board of Mia's purchase process with lanes (requesters, rules, Sam, systems) and coin spots; 12 request cards; rule card version 1 and version 2 (for a mid-game Hot Deploy); a four-eyes control card; 8 event cards (timer escalation, Sam on holiday, ordering system down and Resubmit, a new version not enabled, a server restart with Volatile Tracking, Hot Deploy, delegation, Sam's own request); an audit log sheet; facilitator notes for three 10-minute rounds; a debrief that compares the paper log with Monitor; and an answer key. Every product claim on a card links to the section of the course that cites it, and all people and requests are fictional. Prints in black and white (board on A3, the rest on A4 or Letter); no sideways scrolling on a phone. English and 中文. Linked from Teach a class, its print list and Mia's story.
+- 📄 **PRD rewritten for the product as it is today, in English and 中文** (`docs/PRD.md`, `docs/PRD.zh-CN.md`): current scope with an acceptance check for each area, goals mapped to features, new audiences (trainers, banks and insurers, Chinese readers), release criteria for every release, an updated roadmap and risks, and resolved open questions.
 - 🧱 **Knowledge base: five more cited topics** (13 → 18 topics, 90 → 133 facts): running the Process Engine on several servers (Integration Server cluster, external cluster, distributed mode, Task Engine in a cluster); correlation (how a document finds its running instance, `WMPRTXREF`, why the subscription filter cannot change between versions); archiving and deleting audit data (Archive database, partitions, the four stored procedures and their parameters); task rules, events and timers (assignments, filters, change rules, schedules, recalculating date/time events); and building, versioning and deploying process models (generation receipt, Asset Build Environment and Deployer composites). Five glossary terms, six quiz questions and 26 new public sources, English and 中文. Cluster pages are from the 10.4 and 10.5 guides and are marked as not yet rechecked for 12.1. The README counts for glossary terms and quiz questions now match the site (43 and 34).
 - 🧭 **Knowledge base: what changes for BPM from 10.15 to 12.1**: a new cited topic on the Java path (11 → 17 → 21), Jakarta EE 10, the 11.1 My webMethods Server and Task Engine changes, Business Rules removals and date patterns, deprecated Broker and webMethods subprocesses, and a My webMethods Server security fix; states what the public 12.1 material does not yet list. One glossary term, two quiz questions. English and 中文 (13 topics, 90 facts).
 - 🔁 **Knowledge base: moving webMethods Business Rules to IBM ODM**: a new cited topic that maps rule projects, decision tables and processing modes to ODM's BOM, rulesets, rule tasks and exit criteria; shows how to get tables out of My webMethods Server as JSON and into ODM through Excel, how a process calls ODM through OpenAPI, and why the two engines can give different results for the same table. Adds four glossary terms and two quiz questions. Public sources only, English and 中文 (12 topics, 81 facts).
 - 📱 **Phone-friendly READMEs** (#97, #98): short first screen, lists instead of wide tables, long sections folded; no content removed.
 - 🧪 **15-minute user test kit** (#95): `docs/USER-TESTING.md` gives a session script with three tasks (beginner, practitioner, customer question) and five questions, in English and 中文, plus a GitHub feedback form that collects results without names or customer data.
+
+### Fixed
+- Stale numbers: the role picker said “instead of 17 sections” (there are 25); the READMEs said Beginner mode shows 10 or 12 sections (it shows 17), and quoted an old glossary and quiz size (33 terms and 22 or 24 questions; it is 43 and 34). English and 中文.
+- README screenshots retaken from the current site.
+- Role paths: a step that points at one knowledge topic showed the reading time of the whole knowledge base (for example “Process Engine and quality of service · 30 min”); it now shows that topic's own time (2 min).
 
 ## [2.3.0] — 2026-11-18
 

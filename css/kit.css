@@ -1,0 +1,54 @@
+/* Unplugged classroom kit (#54): board, cut-out cards and an audit log sheet. Prints in black and white. */
+.kit-buttons { display: flex; flex-wrap: wrap; gap: .4rem; }
+.kit .brief { max-width: 980px; }
+.kit h3 { font-size: 1rem; margin: 1rem 0 .3rem; }
+.kit-roles li, .kit-rounds li { margin: .35rem 0; }
+.kit-board { width: 100%; height: auto; display: block; background: #fff; }
+.kit-board text { fill: #161616; font-family: "IBM Plex Sans", system-ui, sans-serif; }
+.kit-board .lane { fill: #fff; stroke: #161616; stroke-width: 2; }
+.kit-board .lane.alt { fill: #f4f4f4; }
+.kit-board .sep { stroke: #161616; stroke-width: 2; }
+.kit-board .task { fill: #fff; stroke: #161616; stroke-width: 3; }
+.kit-board .ev { fill: #fff; stroke: #161616; stroke-width: 3; }
+.kit-board .ev.end { stroke-width: 7; }
+.kit-board .gw { fill: #fff; stroke: #161616; stroke-width: 3; }
+.kit-board .timer { fill: #fff; stroke: #161616; stroke-width: 2; }
+.kit-board .ln { fill: none; stroke: #161616; stroke-width: 2.5; }
+.kit-board .coin { fill: none; stroke: #6f6f6f; stroke-width: 2; stroke-dasharray: 5 4; }
+.kit-board .auditbar { fill: #fff; stroke: #161616; stroke-width: 2; stroke-dasharray: 8 5; }
+.kit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: .6rem; margin: .6rem 0 1rem; }
+.kcard { border: 2px dashed #6f6f6f; border-radius: 10px; padding: .6rem .7rem; background: #fff; font-size: .86rem; line-height: 1.35; break-inside: avoid; page-break-inside: avoid; }
+.kcard p { margin: .25rem 0; }
+.kc-top { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #161616; padding-bottom: .2rem; margin-bottom: .3rem; }
+.kc-who { font-size: 1.15rem; font-weight: 700; }
+.kc-item { min-height: 2.4em; }
+.kcard dl { display: grid; grid-template-columns: auto 1fr; gap: .1rem .6rem; margin: .3rem 0; }
+.kcard dt { color: #525252; } .kcard dd { margin: 0; font-weight: 600; }
+.kc-amt { font-size: 1.1rem; }
+.kc-note { border-top: 1px dotted #6f6f6f; margin-top: .4rem; padding-top: .3rem; }
+.kc-note small { color: #525252; }
+.kc-title { font-weight: 700; font-size: 1rem; }
+.kc-log { font-style: italic; }
+.kc-foot { font-size: .75rem; color: #525252; }
+.kcard.rule ul { padding-left: 1.1rem; margin: .3rem 0; }
+.kcard.rule { border-style: solid; border-color: #161616; }
+.kit-log th, .kit-log td { border: 1px solid #161616; height: 1.9rem; }
+.kit-log td:first-child { width: 2.2rem; text-align: center; }
+.kit-key td, .kit-key th { font-size: .85rem; }
+@media print {
+  body.kit-page { background: #fff; }
+  .kit .brief { box-shadow: none; margin: 0; padding: 0; max-width: none; font-size: 9pt; page-break-after: always; break-after: page; }
+  .kit .brief:last-child { page-break-after: auto; break-after: auto; }
+  .kit a { color: inherit; text-decoration: none; }
+  .kit-grid { grid-template-columns: repeat(3, 1fr); gap: 4mm; }
+  .kcard { font-size: 8.4pt; }
+  body[data-print="board"] .kit-part:not(#kit-board) { display: none; }
+  body[data-print="board"] .no-print-board { display: none; }
+  body[data-print="board"] #kit-board { page-break-after: auto; }
+  body[data-print="cards"] #kit-board, body[data-print="cards"] #kit-intro { display: none; }
+}
+@media (max-width: 640px) {
+  .kit-page .brief-bar { position: static; }
+  .kit-page .brief-bar .btn { padding: .35rem .65rem; font-size: .85rem; }
+  .kit-buttons { gap: .3rem; }
+}
