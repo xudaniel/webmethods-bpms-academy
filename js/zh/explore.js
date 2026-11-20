@@ -202,6 +202,8 @@
     "Verification service": ["校验服务", "检查决策表某一列的外部 REST 服务，按行返回 ERROR 或 WARNING 消息。"],
     "IBM Cloud Code Engine": ["IBM Cloud Code Engine", "IBM Cloud 的无服务器平台，把容器跑成函数（最长 120 秒）、应用（每个请求最长 600 秒）或作业（最长 24 小时）。"],
     "CPLEX Community Edition": ["CPLEX 社区版", "免费的 CPLEX 求解器版本，限 1,000 个变量和 1,000 个约束；更大的问题要用完整商用版。"],
+    "Join (process step)": ["合流（流程步骤）", "有多条进来转移的步骤什么时候执行的规则：OR（任一）、AND（全部）或 COMPLEX（自定义逻辑）；未完成的转移按 false 计。"],
+    "Votable task": ["投票任务", "由被分配人投票决定状态的任务类型；默认阈值是被分配人的 51%，向上取整。"],
     "Jakarta EE 10": ["Jakarta EE 10", "Java EE 的后继标准，12.1 就基于它；它的接口包名从 javax.* 改成了 jakarta.*，所以自定义的 Java 代码可能要改。"],
     "Correlation ID": ["关联 ID（Correlation ID）", "把到达的文档和某一个运行中的流程实例对应起来的值；来自文档里的一个字段，或由关联服务返回。"],
     "External cluster (Process Engine)": ["外部集群（Process Engine）", "几台没有正式组成集群的 Integration Server，各自的 Process Engine 都打开了 External Cluster 设置，共用一个 Process Engine 数据库和同一个消息客户端前缀。"],
@@ -218,6 +220,9 @@
 
   // 测验：按英文原题对照
   Z.quiz = {
+    "An AND join has two incoming transitions. The step on one of them fails. What happens at the join?": { q: "一个 AND 合流有两条进来的转移，其中一条上的步骤失败了。合流会怎样？", a: ["另一条路走完后就执行", "永远满足不了", "等运维重新提交后执行", "变成 OR 合流"], e: "失败的路径留下未完成的转移，Process Engine 把它当作 false，所以 AND 合流永远满足不了。要加合流超时或未满足合流处理。" },
+    "A votable task has 30 assignees and the default 51% threshold. How many matching votes change its status?": { q: "一个投票任务有 30 个被分配人，用默认的 51% 阈值。要多少张相同的票才能改变它的状态？", a: ["15", "16", "51", "30"], e: "30 的 51% 是 15.3，Task Engine 向上取整，所以要 16 个被分配人投同一个状态。" },
+    "A task was completed on Monday. Under My webMethods' default Delete Task rule, when is it deleted?": { q: "一个任务周一完成了。按 My webMethods 默认的 Delete Task 规则，它什么时候被删除？", a: ["马上", "24 小时后", "七天后", "永不删除"], e: "全局 Delete Task 规则默认把处于 Completed、Canceled、Expired 和 Error 状态满七天的任务删除，每天运行一次。" },
     "An optimisation solve takes about 40 minutes. Which IBM Cloud Code Engine workload can run it?": { q: "一次优化求解大约要 40 分钟。IBM Cloud Code Engine 的哪种形态能跑？", a: ["函数", "应用", "作业", "都不行"], e: "40 分钟是 2,400 秒：超过函数的 120 秒，也超过应用最长的 600 秒。作业默认能跑 2 小时，最长 24 小时。" },
     "A weekly roster has 60 nurses × 7 days × 3 shifts, one yes/no variable each. Can the CPLEX Community Edition solve it?": { q: "一周的排班有 60 个护士 × 7 天 × 3 个班次，每个组合一个是／否变量。CPLEX 社区版能求解吗？", a: ["能", "不能：1,260 个变量超过 1,000 的上限", "只能做成 Code Engine 函数", "约束少一点就能"], e: "60 × 7 × 3 = 1,260 个变量，超过社区版 1,000 个变量和 1,000 个约束的上限。要用带完整商用版的运行时或许可。" },
     "A flow calls a rule set with pub.businessrules.client:invoke and another system calls it through the Integration Server REST invoke service. Both leave out one input. What happens by default?": { q: "一个流服务用 pub.businessrules.client:invoke 调用规则集，另一个系统通过 Integration Server 的 REST invoke 服务调用同一个规则集，两边都少传了一个输入。默认会怎样？", a: ["两边都报错", "流服务自动补上缺的输入继续跑；REST 调用返回错误", "两边都用空输入继续跑", "REST 调用继续跑；流服务失败"], e: "流服务的 Create Missing Inputs 默认为真，REST 服务的 createMissingInputs 默认为 false。" },

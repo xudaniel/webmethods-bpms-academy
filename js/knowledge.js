@@ -104,15 +104,21 @@ window.KNOWLEDGE = {
       sources: [86, 87, 88, 89, 90]
     },
     {
-      id: "tasks", reviewed: "2026-11-15", title: "Task Engine and human work",
-      summary: "User tasks in a process become task instances in the Task Engine on My webMethods Server.",
+      id: "tasks", reviewed: "2026-11-20", title: "Task Engine and human work",
+      summary: "User tasks in a process become task instances in the Task Engine on My webMethods Server. Each task moves through a set of statuses, can expire, can be decided by a vote and can be assigned by a decision table.",
       facts: [
         "Tasks appear in inboxes in My webMethods; the audit view shows every operation performed on a task.",
         "The Task Engine web service getTaskAudit returns the audit history of a task instance.",
-        "Task instances can be archived to a separate data source for long-term audit."
+        "Task instances can be archived to a separate data source for long-term audit.",
+        "A task is New before it starts, Scheduled when it is set to start at a given time, then Active. Only Active tasks appear in user inboxes. A Suspended task is hidden from users, shows only on the Task List Management page, and no events or assignments are evaluated for it until it is resumed.",
+        "Completed, Canceled and Error are terminal statuses: the only thing left to do with such a task is delete it. A task can also be set to Expired. Scheduled tasks are created and changed only in Business Console or with Task Engine services.",
+        "My webMethods ships a global Delete Task rule that deletes tasks that have been Completed, Canceled, Expired or in Error for seven days (the default). It runs once a day.",
+        "A task's priority is optional and takes one of the case-sensitive values none, low, medium, high or critical. When its optional expireDate is reached, the Task Engine sets the task to expired; a task without an expire date never expires.",
+        "A votable task (enabled on My webMethods Server) lets several assignees decide its status together. The threshold is a percentage (51% by default, rounded up) or a fixed number, groups and roles count each member, and it can only be changed at design time. With 30 assignees, 51% is 15.3, so 16 matching votes are needed; the status does not change until then.",
+        "A task assignment can come from a Business Rules decision table: add a Business Rule assignee on the task's Assignments tab, map the table's inputs to task data and pick the outputs that supply the assignee. Changing the table then changes assignment for every task that uses it; export the rule project to the runtime before the task runs."
       ],
-      practice: "Design tasks with the decision context on the form, a clear owner role, a timer escalation and a recorded outcome field — that outcome is what later analysis needs.",
-      sources: [12, 14]
+      practice: "Design tasks with the decision context on the form, a clear owner role, a timer escalation and a recorded outcome field. Write the outcome back to the process or the business system, because a finished task is deleted after seven days by default; archive tasks if auditors need them. Give time-bound tasks an expire date plus a rule that escalates on expiry, use a votable task for committee decisions, and keep approver routing in one shared decision table so the business can change it without touching the process.",
+      sources: [12, 14, 126, 127, 128, 129, 130]
     },
     {
       id: "task-rules", reviewed: "2026-11-19", title: "Task rules, events and timers",
@@ -129,6 +135,23 @@ window.KNOWLEDGE = {
       ],
       practice: "Give every task with an SLA a schedule rule that first reminds and then escalates, and send it to a role rather than a person. Keep date logic in one place, such as a business calendar, and put recalculating date/time events into your release checklist and your regular operations schedule so that reminders do not fire on stale dates. Store who the task was escalated to and the outcome as task data.",
       sources: [101, 102, 103]
+    },
+    {
+      id: "process-design", reviewed: "2026-11-20", title: "Process design building blocks: joins, timeouts, loops and reuse",
+      summary: "Most stuck or runaway processes come down to a few modelling choices: how a step joins incoming paths, what happens on a timeout, how many times a step may loop, and how one process reuses another.",
+      facts: [
+        "A join decides when a step with several incoming transitions runs. OR runs when any incoming transition is satisfied, AND when all are, and COMPLEX follows custom join logic. The standard (synchronized) OR is the default from Process Engine 8.0; the unsynchronized OR is kept only for compatibility with 7.x.",
+        "When an upstream step cannot finish, for example because it failed, its transition is incomplete (a dead path). The Process Engine treats an incomplete input as false, so an AND join with two incoming transitions can never be satisfied if one of them is incomplete; an OR join stays unsatisfied only when every input is incomplete.",
+        "Process Engine 7.x did not evaluate incomplete transitions, so a join could wait forever and every join step needed a join timeout. From 8.0 join timeouts are optional. The process debugger does not support unsatisfied AND joins.",
+        "When a process-wide timeout is reached, the Process Engine runs the process's timeout handler step; if there is none, it invokes the process error handler task; if there is none of those either, the instance fails.",
+        "A timeout can be a fixed period, a value from a process pipeline field or a business calendar that counts only business days and hours, though not every option is available everywhere. A Join Timeout transition is supported only on AND and COMPLEX joins; timeout transitions from releases before 8.2 are migrated to boundary timer events or join timeouts.",
+        "A Step Iterations Exceeded transition is taken when a step runs more times than its Maximum Iterations property. It ends a loop built from transitions and overrides every other transition, whatever their conditions. An Unsatisfied Join transition is taken when a join expression fails at run time; from 9.7 it is not escalated unless the step has an unsatisfied join handler.",
+        "A boundary event on an activity can interrupt the step or let it continue. The option to let an event interrupt the step appears only for boundary timer, message and signal events, and Designer does not support every combination of event and activity.",
+        "A call activity reuses another process model. A callable process starts with a none start event and defines its inputs and outputs in a global process specification; the pipeline returned to the call activity is the child's pipeline at the moment it ends.",
+        "Subprocesses sit inside the same model. New subprocesses are BPMN subprocesses; webMethods subprocesses are deprecated. A BPMN subprocess passes on only the output of the last branch to finish, so branches must be merged explicitly."
+      ],
+      practice: "Prefer an OR join unless every path must really finish, and for each AND join decide what happens if one upstream path fails: a join timeout or an unsatisfied join handler. Give processes with a deadline their own timeout handler step rather than letting them fall into the general error handler, and calculate SLAs from a business calendar. Every retry loop drawn with transitions needs a Maximum Iterations value and a Step Iterations Exceeded path to a person. Reuse logic through callable processes with a clear signature, and merge branches before a BPMN subprocess ends.",
+      sources: [131, 132, 133, 134, 135, 136, 139, 137, 138]
     },
     {
       id: "rules", reviewed: "2026-11-15", title: "webMethods Business Rules",
@@ -347,6 +370,8 @@ window.KNOWLEDGE = {
     ["Verification service", "External REST service that checks a decision table column and returns ERROR or WARNING messages by row."],
     ["IBM Cloud Code Engine", "Serverless IBM Cloud platform that runs containers as functions (up to 120 seconds), applications (up to 600 seconds per request) or jobs (up to 24 hours)."],
     ["CPLEX Community Edition", "Free edition of the CPLEX optimisers, limited to 1,000 variables and 1,000 constraints; larger problems need the full commercial edition."],
+    ["Join (process step)", "Rule for when a step with several incoming transitions runs: OR (any), AND (all) or COMPLEX (custom logic); an incomplete transition counts as false."],
+    ["Votable task", "Task type whose status is decided by assignees voting; the default threshold is 51% of assignees, rounded up."],
     ["Jakarta EE 10", "The successor to Java EE that 12.1 is based on; its APIs use jakarta.* package names instead of javax.*, so custom Java code may need updating."],
     ["Correlation ID", "Value that ties an incoming document to one running process instance; it comes from a field in the document or from a correlation service."],
     ["External cluster (Process Engine)", "Several Integration Servers that are not formally clustered but run Process Engines with the External Cluster setting, one shared Process Engine database and one messaging client prefix."],
@@ -396,6 +421,12 @@ window.KNOWLEDGE = {
       e: "The flow service's Create Missing Inputs defaults to true, while the REST service's createMissingInputs defaults to false." },
     { q: "A business user imports a CSV file of 20 rules into a decision table that has 4 rules. How many rules does the table have afterwards?", a: ["20", "24", "4", "It depends on the header names"], c: 1,
       e: "CSV import appends rows after the last rule and never overwrites; columns map by position, not by header name." },
+    { q: "An AND join has two incoming transitions. The step on one of them fails. What happens at the join?", a: ["It runs once the other path finishes", "It can never be satisfied", "It waits for an operator to resubmit, then runs", "It behaves like an OR join"], c: 1,
+      e: "The failed path leaves an incomplete transition, which the Process Engine treats as false, so the AND join can never be satisfied. Add a join timeout or an unsatisfied join handler." },
+    { q: "A votable task has 30 assignees and the default 51% threshold. How many matching votes change its status?", a: ["15", "16", "51", "30"], c: 1,
+      e: "51% of 30 is 15.3, and the Task Engine rounds up, so 16 assignees must vote for the same status." },
+    { q: "A task was completed on Monday. Under My webMethods' default Delete Task rule, when is it deleted?", a: ["Immediately", "After 24 hours", "After seven days", "Never"], c: 2,
+      e: "The global Delete Task rule deletes Completed, Canceled, Expired and Error tasks after seven days in that status by default, running once a day." },
     { q: "An optimisation solve takes about 40 minutes. Which IBM Cloud Code Engine workload can run it?", a: ["A function", "An application", "A job", "None of them"], c: 2,
       e: "40 minutes is 2,400 seconds: more than a function's 120 seconds and an application's 600-second maximum. A job runs for 2 hours by default and up to 24 hours." },
     { q: "A weekly roster has 60 nurses × 7 days × 3 shifts, one yes/no variable each. Can the CPLEX Community Edition solve it?", a: ["Yes", "No: 1,260 variables is over the 1,000 limit", "Only as a Code Engine function", "Only with fewer constraints"], c: 1,
@@ -526,7 +557,21 @@ window.KNOWLEDGE = {
     122: ["Deploying a Decision Optimization model (watsonx.ai)", "https://dataplatform.cloud.ibm.com/docs/content/DO/WML_Deployment/ModelDeploymentTaskCloud.html?context=wx"],
     123: ["Managing hardware specifications for deployments (watsonx.ai)", "https://www.ibm.com/docs/en/DSXDOC/wsj/analyze-data/ml-hardware-configs.html"],
     124: ["Decision Optimization notebooks: Community Edition limits", "https://www.ibm.com/docs/en/DSXDOC/DO/DODS_Introduction/DONotebooks.html"],
-    125: ["IBM ILOG CPLEX Optimization Studio editions", "https://www.ibm.com/products/ilog-cplex-optimization-studio"]
+    125: ["IBM ILOG CPLEX Optimization Studio editions", "https://www.ibm.com/products/ilog-cplex-optimization-studio"],
+    126: ["Task Status and Life Cycle (Running Business Processes 10.3)", "https://documentation.softwareag.com/webmethods/compendiums/v10-3/C_Run_BPs_and_CAs/runbpca-compendium/co-task_status_and_life_cycle.html"],
+    127: ["TaskInfo: priority and expireDate (Task Engine 10.5)", "https://documentation.softwareag.com/webmethods/task_engine/wtn10-5/10-5_Task_Engine_webhelp/task-engine-webhelp/te_web_services_taskinfo.html"],
+    128: ["About Votable Tasks (Designer 10.7)", "https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/co-about_votable_tasks.html"],
+    129: ["About Voting Strategies (Designer 10.5)", "https://documentation.softwareag.com/webmethods/designer/sdf10-5/10-5_sdf-webhelp/sdf-webhelp/co-about_voting_strategies.html"],
+    130: ["Configuring Task Assignment with a Decision Table (Designer 10.5)", "https://documentation.softwareag.com/webmethods/designer/sdf10-5/10-5_sdf-webhelp/sdf-webhelp/te_configuring_task_assgnmt_with_decision_table.html"],
+    131: ["About Joins (Designer 10.5)", "https://documentation.softwareag.com/webmethods/designer/sdf10-5/10-5_sdf-webhelp/sdf-webhelp/proc.about.joins.html"],
+    132: ["How Incomplete Transitions Affect Join Steps and Gateways (Designer 10.7)", "https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/proc.how.incomplete.transitions.affect.join.steps.and.gateways.html"],
+    133: ["About Join Timeouts (Designer 10.15)", "https://documentation.softwareag.com/webmethods/designer/sdf10-15/webhelp/sdf-webhelp/sdf-webhelp/proc.about.join.timeouts.html"],
+    134: ["About Process and Step Timeouts (Designer 10.7)", "https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/proc.about.process.and.step.timeouts.html"],
+    135: ["About Transition Types (Designer 10.15)", "https://documentation.softwareag.com/webmethods/designer/sdf10-15/webhelp/sdf-webhelp/sdf-webhelp/proc.about.transition.types.html"],
+    136: ["About Interrupting Behavior for Boundary Intermediate Events (Designer 10.15)", "https://documentation.softwareag.com/webmethods/designer/sdf10-15/webhelp/sdf-webhelp/sdf-webhelp/proc.about.interrupting.behavior.for.intermediate.events.html"],
+    137: ["Call Activity Concepts (Designer 10.7)", "https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/proc.call.activity.concepts.html"],
+    138: ["About Subprocess Types (Designer 10.5)", "https://documentation.softwareag.com/webmethods/designer/sdf10-5/10-5_sdf-webhelp/sdf-webhelp/proc.about.subprocess.types.html"],
+    139: ["Basic Event Properties (Designer 10.5)", "https://documentation.softwareag.com/webmethods/designer/sdf10-5/10-5_sdf-webhelp/sdf-webhelp/proc.basic.event.properties.html"]
   }
 };
 
