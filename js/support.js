@@ -145,3 +145,9 @@ window.SUPPORT.src = function (k) {
   const have = new Set(A.sources.map((s) => s[1]));
   Object.values(S.sources).forEach((s) => { if (!have.has(s[1])) { A.sources.push(s); have.add(s[1]); } });
 })();
+
+// Answer order for the role self-checks, after the 中文 swap above (see MIX in i18n.js)
+(function () {
+  if (!window.MIX) return;
+  window.SUPPORT.cheats.forEach((c) => { if (c.check) c.check = c.check.map((q, i) => window.MIX(q, "cheat:" + c.id + ":" + i)); });
+})();

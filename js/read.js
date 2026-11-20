@@ -8,6 +8,7 @@
   const A = window.ACADEMY, X = (ZH && ZH.explainer) || window.EXPLAINER;
   if (ZH && ZH.gloss) A.glossary = A.glossary.map(([t, d]) => ZH.gloss[t] ? [ZH.gloss[t][0], ZH.gloss[t][1]] : [t, d]);
   if (ZH && ZH.quiz) A.quiz = A.quiz.map((q) => ZH.quiz[q.q] ? Object.assign({}, q, ZH.quiz[q.q]) : q);
+  if (window.MIX) A.quiz = A.quiz.map((q, i) => window.MIX(q, "quiz:" + i));
   const day = (iso) => new Date(iso + "T12:00:00").toLocaleDateString(ZH ? "zh-CN" : "en-GB", { day: "numeric", month: ZH ? "long" : "short", year: "numeric" });
   // Sub-sections are numbered from their chapter heading, so moving a chapter never breaks them
   const chap = (id) => { const m = ((document.querySelector(`#${id} h2`) || {}).textContent || "").match(/^(\d+)\./); return m ? m[1] + "." : ""; };

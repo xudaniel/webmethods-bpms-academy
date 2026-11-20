@@ -235,6 +235,7 @@
   // ---------- quiz ----------
   const ZQ = window.LANG === "zh" && window.ZH && window.ZH.quiz;
   if (ZQ) A.quiz = A.quiz.map((q) => ZQ[q.q] ? Object.assign({}, q, ZQ[q.q]) : q);
+  if (window.MIX) A.quiz = A.quiz.map((q, i) => window.MIX(q, "quiz:" + i));
   let answered = 0, correct = 0;
   $("quiz-list").innerHTML = A.quiz
     .map((q, i) => `<div class="quiz-q" data-i="${i}"><strong>${i + 1}. ${esc(q.q)}</strong>${q.a.map((a, j) => `<button data-j="${j}">${esc(a)}</button>`).join("")}<div class="explain"></div></div>`)
