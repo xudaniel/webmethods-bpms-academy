@@ -179,6 +179,23 @@ window.KNOWLEDGE = {
       sources: [16, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70]
     },
     {
+      id: "rules-in-practice", reviewed: "2026-11-20", title: "Business Rules in practice: data models, tests, guardrails and REST",
+      summary: "Most problems after go-live sit around the tables, not in them: document types that change, untested edge cases, business edits without checks, and two ways to call the same rule with different defaults.",
+      facts: [
+        "Rules are written against Integration Server document types. Each document type is mapped to a data model that is stored in the rule project, and the Rules Engine uses instances of that data model at run time.",
+        "When the document type changes, right-click the data model in Rules Explorer and choose Sync Data Model. The documentation warns that changes to the document type's fields may make decision entities invalid.",
+        "An event rule is an event plus one or more results. For internal events it reads WHENEVER an event source CHANGED THEN a result, where the change comes from another event rule or a decision table; a result assigns a value or runs an action. Event rules work properly only inside a rule set.",
+        "Rules can be tested locally in Designer before they are exported: Run As runs a decision table, decision tree, event rule or rule set and shows the outcome in the Results view. Test input values can be saved and loaded again, and a launch configuration can prompt for data at launch.",
+        "A data provider service is an external REST service assigned to one decision table column. It supplies the values and descriptions for the cell's drop-down list; in STRICT mode only the listed values can be entered.",
+        "A verification service receives a decision table column as JSON over POST and returns messages, each with a description, a row number and a severity of ERROR or WARNING.",
+        "CSV import in My webMethods adds rules to an existing decision table. Imported rows are appended after the last rule and never overwrite it; columns map by position, the column count must match the table apart from In Effect, imported rules are always in effect, and action result columns cannot be imported.",
+        "Integration Server's REST service POST …/businessrules/projects/invoke takes projectName, invocationTarget (RS/, DT/ or D3/), inputs, desiredOutputs and createMissingInputs, which defaults to false; an unknown project returns a 404 in the error field. The pub.businessrules.client:invoke service used in flows creates missing inputs by default.",
+        "To write Business Rules auditing to database tables, add the Java system property RulesAuditingDBOnOff=On to the servers, for example in Command Central; the procedure does not apply to Microservices Runtime. A Project Deployed record holds the event time, correlation ID, Integration Server host and port, and project name."
+      ],
+      practice: "Treat the document types behind rules as contracts: before renaming a field, find which rule projects use it, then sync, fix invalid tables and rerun the tests. Keep a small set of saved test inputs with each project (every boundary, every customer type, one missing input) and run them before every hot deploy. When the business edits tables, give enumerated columns a STRICT drop-down, put cross-row checks such as overlapping ranges in a verification service, and use CSV only to append. Expose rules to other systems through the REST service with createMissingInputs left at false, validate inputs before calling the flow service, and switch on database auditing before go-live.",
+      sources: [105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118]
+    },
+    {
       id: "monitor", reviewed: "2026-11-16", title: "Monitor, resubmit and Optimize",
       summary: "Monitor is where operations find, fix and re-run process instances; Optimize for Process adds KPIs and analytics on top.",
       facts: [
@@ -309,6 +326,9 @@ window.KNOWLEDGE = {
     ["BOM / XOM (ODM)", "The business object model is the vocabulary ODM rules are written in; it maps to the execution object model, the Java or XML classes the rules run against."],
     ["RuleApp", "ODM deployment unit that carries one or more rulesets to Rule Execution Server."],
     ["Exit criteria (ODM rule task)", "How much a rule task runs before it stops: None (every applicable rule), Rule (the first applicable rule) or RuleInstance (only its first instance)."],
+    ["Data model (Business Rules)", "The copy of an Integration Server document type stored in a rule project; rules are written against it, and it must be synced when the document type changes."],
+    ["Data provider service", "External REST service that fills the drop-down list of one decision table column; in STRICT mode only its values can be entered."],
+    ["Verification service", "External REST service that checks a decision table column and returns ERROR or WARNING messages by row."],
     ["Jakarta EE 10", "The successor to Java EE that 12.1 is based on; its APIs use jakarta.* package names instead of javax.*, so custom Java code may need updating."],
     ["Correlation ID", "Value that ties an incoming document to one running process instance; it comes from a field in the document or from a correlation service."],
     ["External cluster (Process Engine)", "Several Integration Servers that are not formally clustered but run Process Engines with the External Cluster setting, one shared Process Engine database and one messaging client prefix."],
@@ -353,7 +373,11 @@ window.KNOWLEDGE = {
     { q: "Why does Deployer copy the generation receipt to the target environment?", a: ["To license the process", "So regeneration can remove the old process assets, such as triggers and services, from the previous logical server", "To archive the audit data", "To enable the new version automatically"], c: 1,
       e: "The receipt holds the logical-to-physical server mapping. Without it the cleanup of old assets cannot happen. Confirm the right version is enabled in Monitor afterwards." },
     { q: "A task type with date/time events was published months ago. What should an administrator do so reminders fire on the right dates?", a: ["Nothing, the dates are live", "Recalculate the date/time events", "Delete and recreate the inbox", "Restart Designer"], c: 1,
-      e: "The Task Engine stores precalculated trigger times when the task type is published, and they can become outdated; recalculate them manually, on republishing or on a schedule." }
+      e: "The Task Engine stores precalculated trigger times when the task type is published, and they can become outdated; recalculate them manually, on republishing or on a schedule." },
+    { q: "A flow calls a rule set with pub.businessrules.client:invoke and another system calls it through the Integration Server REST invoke service. Both leave out one input. What happens by default?", a: ["Both return an error", "The flow service creates the missing input and runs; the REST call returns an error", "Both run with an empty input", "The REST call runs; the flow service fails"], c: 1,
+      e: "The flow service's Create Missing Inputs defaults to true, while the REST service's createMissingInputs defaults to false." },
+    { q: "A business user imports a CSV file of 20 rules into a decision table that has 4 rules. How many rules does the table have afterwards?", a: ["20", "24", "4", "It depends on the header names"], c: 1,
+      e: "CSV import appends rows after the last rule and never overwrites; columns map by position, not by header name." }
   ],
 
   // Numbered sources referenced by topic.sources
@@ -459,7 +483,21 @@ window.KNOWLEDGE = {
     101: ["Task Assignments, Events, and Rules (Task Engine 10.4)", "https://documentation.softwareag.com/webmethods/compendiums/v10-4/C_Run_BPs_and_CAs/runbpca-compendium/co-task_assignments_events_and_rules.html"],
     102: ["Administering Task Types with Date/Time Events (10.3)", "https://documentation.softwareag.com/webmethods/compendiums/v10-3/C_Run_BPs_and_CAs/runbpca-compendium/co-administering_task_types_with_date_time_events.html"],
     103: ["About Task Type Rules and Events (10.3)", "https://documentation.softwareag.com/webmethods/compendiums/v10-3/C_Run_BPs_and_CAs/runbpca-compendium/co-about_task_type_rules_and_events.html"],
-    104: ["Specifying Correlations (Designer 10.7)", "https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/proc.specifying.correlations.html"]
+    104: ["Specifying Correlations (Designer 10.7)", "https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/proc.specifying.correlations.html"],
+    105: ["Working with Data Models and Parameters (Designer 10.7)", "https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/co-about_data_models.html"],
+    106: ["Synchronizing a Data Model with the Underlying IS Document Type (Designer 10.7)", "https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/ta-synchronize_data_model.html"],
+    107: ["Working with Event Rules (Business Rules in My webMethods, 10.7)", "https://documentation.softwareag.com/webmethods/compendiums/v10-7/C_Digital_Event_Comm/intsagdes-compendium/co-about_event_rules.html"],
+    108: ["Working with Event Rules (Business Rules 10.11)", "https://documentation.softwareag.com/webmethods/business_rules/wok10-11/10-11_Business_Rules_webhelp/business-rules-webhelp/co-about_event_rules_2.html"],
+    109: ["Local Rule Testing Overview (Designer 10.15)", "https://documentation.softwareag.com/webmethods/designer/sdf10-15/webhelp/sdf-webhelp/sdf-webhelp/co-about_testing.html"],
+    110: ["Testing a Decision Table Locally (Designer 10.5)", "https://documentation.softwareag.com/webmethods/designer/sdf10-5/10-5_sdf-webhelp/sdf-webhelp/ta-test_dt.html"],
+    111: ["Creating a Launch Configuration for Local Testing (Designer 10.7)", "https://documentation.softwareag.com/webmethods/designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/ta-launch_configuration.html"],
+    112: ["Technical Details for Preconfigured Data Provider Services (10.4)", "https://documentation.softwareag.com/webmethods/compendiums/v10-4/C_Design_and_Implement_BPMs/desimplbpm-compendium/co-about_data_provider_service.html"],
+    113: ["Technical Details for Preconfigured Verification Services (10.4)", "https://documentation.softwareag.com/webmethods/compendiums/v10-4/C_Design_and_Implement_BPMs/desimplbpm-compendium/co-about_business_verification.html"],
+    114: ["Using CSV Import (Business Rules in My webMethods, 10.7)", "https://documentation.softwareag.com/webmethods/compendiums/v10-7/C_Digital_Event_Comm/intsagdes-compendium/co-about_csv_import.html"],
+    115: ["POST …/businessrules/projects/invoke (Business Rules 10.11)", "https://documentation.softwareag.com/webmethods/business_rules/wok10-11/10-11_Business_Rules_webhelp/business-rules-webhelp/re-post_clientinvoke.html"],
+    116: ["pub.businessrules.client:invoke (10.4)", "https://documentation.softwareag.com/webmethods/compendiums/v10-4/C_Design_and_Implement_BPMs/desimplbpm-compendium/re-clientinvoke.html"],
+    117: ["Writing Business Rules Auditing Information to the Database (Business Rules 10.7)", "https://documentation.softwareag.com/webmethods/business_rules/wok10-7/10-7_Business_Rules_webhelp/business-rules-webhelp/ta-writing_audit_information_to_db.html"],
+    118: ["Summary of Business Rules Auditing Information (10.5)", "https://documentation.softwareag.com/webmethods/compendiums/v10-5/C_Design_and_Implement_BPMs/desimplbpm-compendium/co-summary_audit_information.html"]
   }
 };
 
