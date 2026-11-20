@@ -507,5 +507,7 @@ nav .search-btn { z-index: 1; }
 .kbp-fit li.q-note { list-style: none; margin-left: -1.1rem; color: var(--muted); }
 .kbp-sort .kbp-acts .kbp-btn { padding: .4rem .65rem; min-height: 40px; }
 .kbp-score { float: right; font-size: .9rem; color: var(--primary-dark); }
+.kbp-quest { display: flex; gap: .8rem; align-items: center; margin: .8rem 0; padding: .8rem 1rem; border-radius: var(--radius); background: linear-gradient(135deg, #0f62fe, #8a3ffc); color: #fff; text-decoration: none; }
+.kbp-quest > span:first-child { font-size: 1.8rem; } .kbp-quest > span:nth-child(2) { flex: 1; } .kbp-quest strong { display: block; } .kbp-quest small { opacity: .92; }
 .kb-facts li.kb-hit { background: #fcf4d6; outline: 2px solid #f1c21b; border-radius: 6px; transition: background .3s; }
 @media print { .kbp { display: none !important; } }

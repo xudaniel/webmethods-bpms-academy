@@ -487,6 +487,8 @@ async def main():
         await page.click("#kb-monitor .kbp-rs [data-en='3']")
         if "re-runs from Book, the failed step" not in await page.inner_text("#kb-monitor .kbp-rs .kbp-fit"):
             failures.append("resubmit lab: an enabled failed step should be where Closest starts")
+        if await page.locator("#knowledge a.kbp-quest[href='play.html']").count() != 1 or await page.locator("a.kbp-quest[href='play.html']").count() != 2:
+            failures.append("knowledge base should link to BPMS Quest")
         rel = page.locator("#kb-releases .kbp-rel [data-v=m]")
         await rel.fill("60")  # Nov 2022 + 60 months = Nov 2027
         if "Paid extended support" not in await page.inner_text("#kb-releases .kbp-rel .kbp-big"):
@@ -811,6 +813,38 @@ async def main():
             failures.append("optimization: Chinese demo output missing")
         await op.close()
         # Unplugged classroom kit (#54): board, cards and log sheet in English and Chinese, linked from Teach a class
+        # BPMS Quest (play.html): self-contained game course, both languages, all six levels to the certificate
+        for lang in ["en", "zh"]:
+            qp = await browser.new_page(viewport={"width": 360, "height": 780})
+            qp.on("pageerror", lambda e: errors.append(f"play.html: {e}"))
+            await qp.goto(f"http://127.0.0.1:8765/play.html?lang={lang}")
+            await qp.evaluate("localStorage.clear()")
+            await qp.goto(f"http://127.0.0.1:8765/play.html?lang={lang}")
+            await qp.click("#app .btn[data-lvl='0']")
+            async def qpick(j):
+                await qp.click(f"#stage .opt[data-j='{j}']"); await qp.click("#next")
+            await qpick(1); await qpick(2); await qp.click("#stage .btn")
+            await qpick(1); await qp.click("#j-go")
+            if await qp.locator("#next").count() != 0:
+                failures.append(f"play.html ({lang}): an AND join with a failed path should not pass")
+            await qp.click("#j-to"); await qp.click("#j-go"); await qp.click("#next"); await qp.click("#stage .btn")
+            await qp.locator("#v-r").fill("16"); await qp.click("#v-go"); await qp.click("#next"); await qpick(1); await qp.click("#stage .btn")
+            await qpick(1)
+            for to in ["Suspended", "Active", "Completed", "Deleted"]:
+                await qp.click(f"#stage [data-to='{to}']")
+            await qp.click("#next"); await qp.click("#stage .btn")
+            await qpick(1); await qp.click("#stage [data-en='3']"); await qp.click("#r-go"); await qp.click("#next"); await qp.click("#stage .btn")
+            await qpick(0); await qp.click("input[name=ord][value=up]"); await qp.click("#d-go"); await qp.click("#next"); await qp.click("#stage .btn")
+            if await qp.evaluate("Object.values(QUEST.state.stars).reduce((a, b) => a + b, 0)") != 18 or await qp.locator(".cert").count() != 1:
+                failures.append(f"play.html ({lang}): a perfect run should earn 18 stars and a certificate")
+            if lang == "zh" and "流程引擎读心师" not in await qp.inner_text(".cert"):
+                failures.append("play.html: certificate not translated")
+            if await qp.evaluate("document.documentElement.scrollWidth") > 360:
+                failures.append(f"play.html ({lang}): page scrolls sideways at 360 px")
+            if await qp.locator("link[rel=stylesheet], script[src]").count() != 0:
+                failures.append("play.html must stay self-contained (no external CSS or JS)")
+            await qp.close()
+
         for lang, word in [("en", "Unplugged classroom kit"), ("zh", "不插电课堂套件")]:
             kp = await browser.new_page(viewport={"width": 390, "height": 844})
             kp.on("pageerror", lambda e: errors.append(f"kit.html: {e}"))

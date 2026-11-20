@@ -33,6 +33,7 @@
 - 🧪 **Learn by doing**: a loan simulator and a 30-minute lab → [Lab](https://xudaniel.github.io/webmethods-bpms-academy/#lab)
 - 🛠️ **Fix a problem**: 16 searchable symptoms → [Troubleshooting](https://xudaniel.github.io/webmethods-bpms-academy/#trouble)
 - 🎲 **Teach without laptops**: print a board and cards and play the engine around a table → [Classroom kit](https://xudaniel.github.io/webmethods-bpms-academy/kit.html)
+- 🎮 **Play it**: follow one purchase order through six levels in 15 minutes, earn stars and a certificate → [BPMS Quest](https://xudaniel.github.io/webmethods-bpms-academy/play.html)
 - 🌐 **Read it in Chinese** → [中文版](https://xudaniel.github.io/webmethods-bpms-academy/?lang=zh)
 
 <details>
@@ -527,6 +528,7 @@ Root folder: `webmethods-bpms-academy/`
 - `optimization.html` — optimization primer page with two demos (EN + 中文)
 - `brief.html` — one-page executive briefs for banking and insurance (print to PDF)
 - `kit.html` — unplugged classroom kit: board, cards, audit log sheet and facilitator notes (print)
+- `play.html` — BPMS Quest: a self-contained six-level game course (one file, works offline, EN + 中文)
 - `README.md` — English README
 - `README.zh-CN.md` — Chinese README (中文说明)
 - `CHANGELOG.md` — release history

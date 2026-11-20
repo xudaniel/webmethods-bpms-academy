@@ -448,7 +448,19 @@
     });
   }
 
+  function questLink() {
+    const make = () => {
+      const a = document.createElement("a"); a.className = "kbp-quest"; a.href = "play.html" + (zh ? "?lang=zh" : "");
+      a.innerHTML = `<span>🎮</span><span><strong>${T("New: BPMS Quest", "新：BPMS 闯关")}</strong><small>${T("Follow one order through six levels in 15 minutes. Guess, fix the process, earn stars and a certificate.", "15 分钟跟一张订单闯六关：先猜、再修流程，拿星星和证书。")}</small></span><span>→</span>`;
+      return a;
+    };
+    const home = document.getElementById("kb-counter"), kb = document.getElementById("kb-tabs");
+    if (home) home.after(make());
+    if (kb) kb.before(make());
+  }
+
   function init() {
+    questLink();
     const pd = mount("process-design", joinLab() + guess("process-design", PD_GUESS));
     if (pd) { wireJoin(pd); wireGuess(pd, "process-design", PD_GUESS); }
     const tk = mount("tasks", statusMachine() + voteCalc() + guess("tasks", TK_GUESS));
