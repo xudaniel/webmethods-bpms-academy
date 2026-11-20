@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BPMS Quest · IBM webMethods BPMS Academy</title>
+<meta name="description" content="A fun, self-contained interactive course: follow one purchase order through IBM webMethods BPMS in six levels. Every rule in the game comes from public Software AG and IBM documentation. By Daniel Yuanpeng Xu.">
+<meta name="theme-color" content="#0f62fe">
+<style>
+:root { --blue: #0f62fe; --blue-d: #0043ce; --blue-l: #edf5ff; --bg: #f4f4f4; --card: #fff; --text: #161616; --muted: #525252; --line: #e0e0e0;
+  --ok: #24a148; --ok-l: #defbe6; --bad: #da1e28; --bad-l: #fff1f1; --warn: #8e6a00; --warn-l: #fcf4d6; --purple: #8a3ffc; --r: 14px; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: "IBM Plex Sans", -apple-system, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
+header { position: sticky; top: 0; z-index: 5; background: #161616; color: #fff; padding: .55rem .9rem; display: flex; align-items: center; gap: .6rem; }
+header h1 { font-size: 1rem; margin: 0; flex: 1; }
+header .xp { font-size: .85rem; background: #393939; border-radius: 999px; padding: .15rem .6rem; white-space: nowrap; }
+header button { background: none; border: 1px solid #6f6f6f; color: #fff; border-radius: 8px; padding: .25rem .55rem; font: inherit; font-size: .85rem; cursor: pointer; min-height: 36px; }
+main { max-width: 680px; margin: 0 auto; padding: 1rem .9rem 3rem; }
+.card { background: var(--card); border-radius: var(--r); padding: 1rem; margin: .8rem 0; box-shadow: 0 1px 2px rgba(0,0,0,.06); }
+.hero { background: linear-gradient(135deg, #0f62fe, #8a3ffc); color: #fff; }
+.hero h2 { margin: .2rem 0 .4rem; font-size: 1.45rem; } .hero p { margin: .3rem 0; opacity: .95; }
+.bar { height: 10px; background: rgba(255,255,255,.3); border-radius: 999px; overflow: hidden; margin: .6rem 0 .2rem; }
+.bar i { display: block; height: 100%; background: #fff; transition: width .4s; }
+.map { display: grid; gap: .6rem; }
+.lvl { display: flex; align-items: center; gap: .8rem; width: 100%; text-align: left; border: 2px solid var(--line); background: #fff; border-radius: var(--r); padding: .75rem .85rem; font: inherit; cursor: pointer; min-height: 64px; }
+.lvl .em { font-size: 1.8rem; width: 2.2rem; text-align: center; }
+.lvl .t { flex: 1; } .lvl .t strong { display: block; } .lvl .t small { color: var(--muted); }
+.lvl .st { font-size: 1.05rem; letter-spacing: 1px; white-space: nowrap; }
+.lvl.done { border-color: var(--ok); } .lvl.next { border-color: var(--blue); box-shadow: 0 0 0 3px var(--blue-l); }
+.lvl[disabled] { opacity: .5; cursor: not-allowed; }
+.kicker { color: var(--blue-d); font-weight: 700; font-size: .85rem; text-transform: uppercase; letter-spacing: .04em; margin: 0; }
+h2 { margin: .2rem 0 .5rem; font-size: 1.3rem; } h3 { margin: .2rem 0 .5rem; font-size: 1.05rem; }
+.story { background: var(--blue-l); border-left: 4px solid var(--blue); border-radius: 8px; padding: .6rem .8rem; margin: .5rem 0 .8rem; }
+.goal { font-weight: 700; margin: .4rem 0 .6rem; } .goal::before { content: "🎯 "; }
+.opt { display: block; width: 100%; text-align: left; margin: .35rem 0; padding: .65rem .8rem; border: 2px solid var(--line); border-radius: 10px; background: #fff; font: inherit; cursor: pointer; min-height: 48px; transition: transform .1s; }
+.opt:active { transform: scale(.98); }
+.opt.ok { border-color: var(--ok); background: var(--ok-l); } .opt.no { border-color: var(--bad); background: var(--bad-l); }
+.feedback { margin: .5rem 0 0; padding: .6rem .8rem; border-radius: 10px; }
+.feedback.ok { background: var(--ok-l); } .feedback.no { background: var(--bad-l); } .feedback.info { background: var(--warn-l); }
+.row { display: flex; flex-wrap: wrap; gap: .35rem 1rem; margin: .3rem 0; }
+.chk { display: flex; gap: .5rem; align-items: center; padding: .35rem .1rem; cursor: pointer; }
+.chk input { width: 1.25rem; height: 1.25rem; }
+.btn { display: inline-block; background: var(--blue); color: #fff; border: 0; border-radius: 10px; padding: .7rem 1.1rem; font: inherit; font-weight: 700; cursor: pointer; min-height: 48px; margin: .5rem .4rem 0 0; }
+.btn.ghost { background: #fff; color: var(--blue-d); border: 2px solid var(--blue); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.chips { display: flex; flex-wrap: wrap; gap: .35rem; align-items: center; margin: .6rem 0; }
+.chip { padding: .4rem .65rem; border-radius: 10px; border: 2px solid var(--line); background: #fff; font-size: .95rem; }
+.chip.on { border-color: var(--blue); background: var(--blue-l); } .chip.fail { border-color: var(--bad); background: var(--bad-l); } .chip.dim { opacity: .45; }
+.chip b { margin-left: .3rem; background: var(--blue); color: #fff; border-radius: 5px; padding: 0 .3rem; font-size: .8rem; }
+.arrow { color: var(--muted); }
+svg.dg { width: 100%; max-width: 440px; display: block; margin: .5rem 0; } svg.dg text { font-size: 12px; fill: var(--text); }
+.n-ok { fill: var(--ok-l); stroke: var(--ok); stroke-width: 2; } .n-dead { fill: var(--bad-l); stroke: var(--bad); stroke-width: 2; stroke-dasharray: 5 4; }
+.n-wait { fill: #f4f4f4; stroke: #8d8d8d; stroke-width: 2; } .n-stuck { fill: var(--warn-l); stroke: #b28600; stroke-width: 2; }
+.l-ok { stroke: var(--ok); stroke-width: 2.5; } .l-dead { stroke: var(--bad); stroke-width: 2; stroke-dasharray: 5 4; }
+input[type=range] { width: 100%; height: 32px; }
+.big { font-size: 2rem; font-weight: 800; color: var(--blue-d); margin: .2rem 0; }
+.state { font-size: 1.1rem; margin: .3rem 0; } .pill { display: inline-block; border-radius: 999px; padding: .15rem .7rem; font-weight: 700; background: #e0e0e0; }
+.pill.Active { background: var(--ok-l); color: #0e6027; } .pill.Suspended { background: var(--warn-l); color: var(--warn); } .pill.Completed { background: #e8daff; color: #491d8b; } .pill.Deleted { background: var(--bad-l); color: #a2191f; }
+.todo { list-style: none; padding: 0; margin: .4rem 0; } .todo li { padding: .15rem 0; } .todo li::before { content: "⬜ "; } .todo li.done::before { content: "✅ "; }
+.src { font-size: .82rem; color: var(--muted); margin-top: .8rem; } .src a { color: var(--blue-d); }
+.stars { font-size: 2.2rem; letter-spacing: 4px; margin: .3rem 0; }
+.cert { border: 6px double var(--blue); text-align: center; padding: 1.4rem 1rem; }
+.cert .name { font-size: 1.6rem; font-weight: 800; margin: .3rem 0; border-bottom: 2px solid var(--line); display: inline-block; min-width: 60%; }
+.cert input { font: inherit; font-size: 1.1rem; padding: .5rem; border: 2px solid var(--line); border-radius: 8px; width: 100%; max-width: 320px; text-align: center; }
+footer { text-align: center; font-size: .8rem; color: var(--muted); padding: 1rem; } footer a { color: var(--blue-d); }
+.confetti { position: fixed; top: -12px; width: 10px; height: 14px; z-index: 50; pointer-events: none; animation: fall 1.8s linear forwards; }
+@keyframes fall { to { transform: translateY(105vh) rotate(540deg); opacity: .7; } }
+@keyframes pop { 0% { transform: scale(.6); } 60% { transform: scale(1.15); } 100% { transform: scale(1); } }
+.pop { animation: pop .4s ease; }
+@media (prefers-reduced-motion: reduce) { .confetti { display: none; } .pop, .opt { animation: none; transition: none; } }
+@media print { header, footer, .btn, .noprint { display: none !important; } body { background: #fff; } .card { box-shadow: none; } }
+</style>
+</head>
+<body>
+<header><h1 id="h-title">🎮 BPMS Quest</h1><span class="xp" id="xp">⭐ 0 / 18</span><button type="button" id="lang-btn">中文</button></header>
+<main id="app" aria-live="polite"></main>
+<footer id="foot"></footer>
+<script>
+(function () {
+  "use strict";
+  // ---------- language ----------
+  const qs = new URLSearchParams(location.search);
+  let saved = {}; try { saved = JSON.parse(localStorage.getItem("wm-quest-v1") || "{}"); } catch (e) { saved = {}; }
+  let zh = qs.get("lang") ? qs.get("lang") === "zh" : saved.lang ? saved.lang === "zh" : /^zh/i.test(navigator.language || "");
+  const T = (en, z) => (zh ? z : en);
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const state = { stars: saved.stars || {}, name: saved.name || "" };
+  function save() { try { localStorage.setItem("wm-quest-v1", JSON.stringify({ stars: state.stars, name: state.name, lang: zh ? "zh" : "en" })); } catch (e) { /* private mode: progress lives only in this tab */ } }
+  const $ = (id) => document.getElementById(id);
+  const app = $("app");
+  const D = "https://documentation.softwareag.com/webmethods/";
+  const SRC = {
+    corr: [["About Document Correlation (Designer 10.7)", D + "designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/proc.about.correlation.html"],
+           ["Tracking correlation IDs, Volatile Tracking disabled (Designer 10.7)", D + "designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/proc.tracking.correlation.IDs.with.volatile.tracking.disabled.html"]],
+    join: [["About Joins (Designer 10.5)", D + "designer/sdf10-5/10-5_sdf-webhelp/sdf-webhelp/proc.about.joins.html"],
+           ["How Incomplete Transitions Affect Join Steps and Gateways (Designer 10.7)", D + "designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/proc.how.incomplete.transitions.affect.join.steps.and.gateways.html"],
+           ["About Transition Types (Designer 10.15)", D + "designer/sdf10-15/webhelp/sdf-webhelp/sdf-webhelp/proc.about.transition.types.html"]],
+    vote: [["About Voting Strategies (Designer 10.5)", D + "designer/sdf10-5/10-5_sdf-webhelp/sdf-webhelp/co-about_voting_strategies.html"],
+           ["About Votable Tasks (Designer 10.7)", D + "designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/co-about_votable_tasks.html"]],
+    task: [["Task Status and Life Cycle (Running Business Processes 10.3)", D + "compendiums/v10-3/C_Run_BPs_and_CAs/runbpca-compendium/co-task_status_and_life_cycle.html"]],
+    resub: [["About resubmitting process instances and steps (Monitor 10.5)", D + "monitor/wmn10-5/10-5_Monitor_webhelp/monitor-webhelp/to-processes_25.html"],
+            ["Resubmit Closest and Resubmit Earliest (Monitor 10.7)", D + "monitor/wmn10-7/10-7_Monitor_webhelp/wmn-webhelp/to-processes_25.html"]],
+    dep: [["Adding assets to ProcessModel deployment sets (Deployer 10.15)", D + "deployer/wdy10-15/webhelp/wdy-webhelp/wdy-webhelp/ta-adding_assets_to_broker_processmodel_mws_or_optimize_deployment_sets.html"],
+          ["Working with Process Versions (Designer 10.7)", D + "designer/sdf10-7/10-7_sdf-webhelp/sdf-webhelp/proc.ww.process.versions..html"]]
+  };
+  const srcHtml = (k) => `<p class="src">${T("Rules in this level come from: ", "这一关的规则出自：")}${SRC[k].map(([t, u]) => `<a href="${u}" target="_blank" rel="noopener">${esc(t)}</a>`).join(" · ")}</p>`;
+
+  // ---------- small UI kit ----------
+  function confetti() {
+    if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const colors = ["#0f62fe", "#8a3ffc", "#24a148", "#f1c21b", "#da1e28"];
+    for (let i = 0; i < 40; i++) {
+      const c = document.createElement("i"); c.className = "confetti";
+      c.style.left = Math.random() * 100 + "vw"; c.style.background = colors[i % colors.length]; c.style.animationDelay = Math.random() * .5 + "s";
+      document.body.appendChild(c); setTimeout(() => c.remove(), 2600);
+    }
+  }
+  const total = () => Object.values(state.stars).reduce((a, b) => a + b, 0);
+  function paintHeader() {
+    $("h-title").textContent = T("🎮 BPMS Quest", "🎮 BPMS 闯关");
+    $("xp").textContent = `⭐ ${total()} / ${LEVELS.length * 3}`;
+    $("lang-btn").textContent = zh ? "EN" : "中文";
+    document.documentElement.lang = zh ? "zh-CN" : "en";
+    document.title = T("BPMS Quest · IBM webMethods BPMS Academy", "BPMS 闯关 · IBM webMethods BPMS 学院");
+    $("foot").innerHTML = T(
+      `By <strong>Daniel Yuanpeng Xu</strong> · part of the <a href="./">IBM webMethods BPMS Academy</a> · independent, not affiliated with IBM. Names and numbers in the story are made up; every rule comes from the public documentation linked in each level.`,
+      `作者 <strong>徐远鹏 Daniel Yuanpeng Xu</strong> · <a href="./?lang=zh">IBM webMethods BPMS 学院</a>的一部分 · 独立制作，与 IBM 无关。故事里的人名和数字是编的；每条规则都出自每关下面链接的公开文档。`);
+  }
+
+  // A level = a story, then stages. A "pick" stage is a multiple-choice question; a "do" stage is a small mission
+  // that renders its own controls and reports when its goal is met. Wrong picks cost one star (minimum one).
+  function pick(q, opts, right, why) { return { kind: "pick", q, opts, right, why }; }
+
+  const LEVELS = [
+    { id: "corr", em: "📨", title: () => T("The invoice arrives", "发票到了"),
+      sub: () => T("Correlation", "消息关联"),
+      story: () => T("Mia ordered a laptop: purchase order PO-102. Three orders are waiting for their supplier's invoice, and the order number is the correlation key.",
+                     "Mia 订了一台笔记本电脑：采购单 PO-102。有三张采购单在等供应商的发票，关联键是订单号。"),
+      stages: () => [
+        pick(T("The invoice for PO-102 arrives. Where does it go?", "PO-102 的发票到了。它会去哪里？"),
+          [T("Into the running instance for PO-101", "进 PO-101 的实例"), T("Into the running instance for PO-102", "进 PO-102 的实例"), T("Into a brand-new instance", "进一个全新的实例"), T("Into the running instance for PO-103", "进 PO-103 的实例")], 1,
+          T("Its correlation ID matches a running instance, so the document's content is loaded and the waiting step runs as part of that instance.", "它的关联 ID 对上了一个正在跑的实例，文档内容被载入，等待的那一步在这个实例里执行。")),
+        pick(T("Next, an invoice for PO-104 arrives. No running instance has that number. What do the Process Engine tracking pages say happens?", "接着来了一张 PO-104 的发票，没有哪个正在跑的实例有这个号。Process Engine 的跟踪页面怎么说？"),
+          [T("It waits in a queue until PO-104 exists", "排队等，直到 PO-104 出现"), T("It is dropped with an error", "报错后丢掉"), T("The engine creates a new process instance ID, stores it with the correlation ID and starts a new process", "引擎新建一个流程实例 ID，和关联 ID 一起存下，启动一个新流程")], 2,
+          T("That is what the tracking pages describe. With Volatile Tracking off, the ID pairs live in the WMPRTXREF table; with it on, in server memory.", "跟踪页面就是这么写的。Volatile Tracking 关闭时，ID 对应关系存在 WMPRTXREF 表里；打开时放在服务器内存里。"))
+      ] },
+    { id: "join", em: "🔀", title: () => T("Two paths meet", "两条路汇合"),
+      sub: () => T("Joins", "合流"),
+      story: () => T("Before Mia's laptop ships, two things run in parallel: the manager's approval (A) and a stock check (B). They meet at a join in front of Ship.",
+                     "Mia 的电脑发货前，两件事并行：经理审批（A）和库存检查（B）。两条路在「发货」前面的合流处汇合。"),
+      stages: () => [
+        pick(T("The join is AND. The stock check fails. What happens at the join?", "合流是 AND。库存检查失败了。合流会怎样？"),
+          [T("It runs as soon as the approval finishes", "审批一完成就执行"), T("It can never be satisfied", "永远满足不了"), T("It waits for someone to resubmit, then runs", "等人重新提交后执行")], 1,
+          T("A failed path leaves an incomplete transition, and the Process Engine counts an incomplete input as false. An AND join with two inputs can never be satisfied if one of them is incomplete.", "失败的路径留下未完成的转移，Process Engine 把未完成的输入当作 false。两个输入的 AND 合流，只要一个未完成就永远满足不了。")),
+        { kind: "do", render: joinMission }
+      ] },
+    { id: "vote", em: "🗳️", title: () => T("The committee votes", "委员会投票"),
+      sub: () => T("Votable tasks", "投票任务"),
+      story: () => T("Mia's order is above the spending limit, so a committee of 30 must approve it. The approval is a votable task with the default threshold of 51%.",
+                     "Mia 的订单超过了支出上限，要 30 人的委员会批。审批是一个投票任务，用默认的 51% 阈值。"),
+      stages: () => [{ kind: "do", render: voteMission },
+        pick(T("The committee grows to 300 people. How many matching votes now?", "委员会扩大到 300 人。现在要几张相同的票？"),
+          ["151", "153", "154"], 1, T("300 × 51% is exactly 153, so no rounding is needed.", "300 × 51% 正好是 153，不用取整。"))] },
+    { id: "task", em: "🏖️", title: () => T("The approver goes on holiday", "审批人去度假"),
+      sub: () => T("Task life cycle", "任务生命周期"),
+      story: () => T("Sam, the manager, has Mia's approval task Active in his inbox. Then he goes on holiday for a week.",
+                     "经理 Sam 的收件箱里有 Mia 这单的审批任务，状态是 Active。然后他去度假一周。"),
+      stages: () => [
+        pick(T("Sam's task is Suspended while he is away. Is it in his inbox?", "Sam 不在时任务被暂停（Suspended）了。它还在他的收件箱里吗？"),
+          [T("Yes, marked as paused", "在，标着已暂停"), T("No: it is visible only on the Task List Management page", "不在：只在 Task List Management 页面可见"), T("Only in an administrator's inbox", "只在管理员的收件箱里")], 1,
+          T("Only Active tasks appear in inboxes. A Suspended task is hidden from users, and no events or assignments are evaluated for it until it is resumed.", "只有 Active 的任务进收件箱。暂停的任务对用户隐藏，恢复之前不评估事件和分配。")),
+        { kind: "do", render: taskMission }
+      ] },
+    { id: "resub", em: "🔁", title: () => T("Booking failed", "记账失败了"),
+      sub: () => T("Resubmitting", "重新提交"),
+      story: () => T("The finance system was down, so the Book step failed. The process has five steps, and only Check was enabled for resubmission.",
+                     "财务系统宕机，「记账」这一步失败了。流程有五步，只有「检查」启用了重新提交。"),
+      stages: () => [
+        pick(T("Where does Resubmit Closest re-run from?", "Resubmit Closest 从哪一步重跑？"),
+          [T("Book, the step that failed", "失败的「记账」"), T("Check", "「检查」"), T("Receive, the first step", "第一步「收单」")], 1,
+          T("Book is not resubmit-enabled, so Resubmit Closest goes back to the closest resubmit-enabled step that ran before it: Check.", "「记账」没有启用重新提交，所以 Resubmit Closest 退回到它之前最近的、启用了的那一步：「检查」。")),
+        { kind: "do", render: resubMission }
+      ] },
+    { id: "dep", em: "🚀", title: () => T("Shipping version 3", "发布第 3 版"),
+      sub: () => T("Versions and deployment", "版本和部署"),
+      story: () => T("The purchase process got a fix in v3. One deployment set holds v1, v2 and v3, all marked to be enabled on the target, and they are deployed in the order v3 → v2 → v1.",
+                     "采购流程在 v3 里修了个问题。一个部署集里有 v1、v2、v3，三个都标成在目标环境启用，部署顺序是 v3 → v2 → v1。"),
+      stages: () => [
+        pick(T("Which version ends up enabled?", "最后启用的是哪个版本？"), ["v1", "v2", "v3"], 0,
+          T("When one deployment set enables more than one version, the version deployed last ends up enabled: here v1, not the newest.", "一个部署集启用了不止一个版本时，最后部署的那个生效：这里是 v1，不是最新的。")),
+        { kind: "do", render: depMission }
+      ] }
+  ];
+
+  // ---------- missions ----------
+  function joinMission(box, done) {
+    box.innerHTML = `<p class="goal">${T("Change the model so this instance does not wait forever.", "改一下模型，让这个实例不会永远等下去。")}</p>
+      <div class="row" role="radiogroup"><label class="chk"><input type="radio" name="jt" value="AND" checked> AND</label><label class="chk"><input type="radio" name="jt" value="OR"> OR</label></div>
+      <label class="chk"><input type="checkbox" id="j-to"> ${T("Set a join timeout", "设合流超时")}</label>
+      <label class="chk"><input type="checkbox" id="j-uh"> ${T("Add an Unsatisfied Join path with a handler step", "加 Unsatisfied Join 转移和处理步骤")}</label>
+      <svg class="dg" viewBox="0 0 330 150" role="img" aria-label="${T("Join diagram", "合流示意图")}"></svg>
+      <button type="button" class="btn" id="j-go">${T("Run the instance", "跑一下实例")}</button><div id="j-fb"></div>`;
+    const svg = box.querySelector("svg");
+    const node = (x, y, w, l, c) => `<rect x="${x}" y="${y}" width="${w}" height="34" rx="7" class="${c}"/><text x="${x + w / 2}" y="${y + 21}" text-anchor="middle">${esc(l)}</text>`;
+    function draw() {
+      const or = box.querySelector("input[name=jt]:checked").value === "OR";
+      const goes = or;
+      svg.innerHTML = node(6, 14, 96, T("A: approval", "A：审批"), "n-ok") + node(6, 102, 96, T("B: stock ✗", "B：库存 ✗"), "n-dead") +
+        `<line x1="102" y1="31" x2="160" y2="70" class="l-ok"/><line x1="102" y1="119" x2="160" y2="80" class="l-dead"/>` +
+        `<polygon points="182,52 208,75 182,98 156,75" class="${goes ? "n-ok" : "n-stuck"}"/><text x="182" y="80" text-anchor="middle" font-weight="700">${or ? "OR" : "AND"}</text>` +
+        `<line x1="208" y1="75" x2="232" y2="75" class="${goes ? "l-ok" : "l-dead"}"/>` + node(232, 58, 92, T("Ship", "发货"), goes ? "n-ok" : "n-wait");
+    }
+    box.addEventListener("change", draw); draw();
+    box.querySelector("#j-go").addEventListener("click", () => {
+      const or = box.querySelector("input[name=jt]:checked").value === "OR", to = box.querySelector("#j-to").checked, uh = box.querySelector("#j-uh").checked;
+      const fb = box.querySelector("#j-fb");
+      if (or) { fb.innerHTML = `<p class="feedback info">✅ ${T("No more waiting: an OR join runs when any input finishes. But look closely: the laptop now ships without a stock check. Only do this if that is acceptable.", "不会再卡住：OR 合流只要一个输入完成就执行。但注意：电脑现在没做库存检查就发货了。只有业务能接受时才这么改。")}</p>`; done(); }
+      else if (to || uh) { fb.innerHTML = `<p class="feedback ok">✅ ${to ? T("With a join timeout, the Join Timeout transition is taken when the wait runs out (AND and COMPLEX joins only).", "设了合流超时，等待时间一到就走 Join Timeout 转移（只对 AND 和 COMPLEX 合流）。") : ""} ${uh ? T("The Unsatisfied Join path gives the failure somewhere to go; from 9.7 it is not escalated unless the step has an unsatisfied join handler.", "Unsatisfied Join 转移让失败有路可走；9.7 起，步骤没有未满足合流处理就不会升级。") : ""}</p>`; done(); }
+      else fb.innerHTML = `<p class="feedback no">⏳ ${T("Still stuck: the AND join waits for B, and B will never finish. Plan for the failure.", "还是卡住：AND 合流在等 B，可 B 永远完不成。要为失败做设计。")}</p>`;
+    });
+  }
+
+  function voteMission(box, done, lose) {
+    box.innerHTML = `<p class="goal">${T("Guess first: how many matching votes change the task's status?", "先猜：要几张相同的票，任务状态才会变？")}</p>
+      <label>${T("Your guess", "你的猜测")}: <strong id="v-g">10</strong><input type="range" min="1" max="30" value="10" id="v-r"></label>
+      <button type="button" class="btn" id="v-go">${T("Lock in my guess", "就猜这个")}</button><div id="v-fb"></div>`;
+    const r = box.querySelector("#v-r"); r.addEventListener("input", () => { box.querySelector("#v-g").textContent = r.value; });
+    box.querySelector("#v-go").addEventListener("click", (e) => {
+      const g = +r.value, off = Math.abs(g - 16); e.target.disabled = true; r.disabled = true;
+      if (off > 1) lose(2); else if (off === 1) lose(1);
+      box.querySelector("#v-fb").innerHTML = `<p class="big pop">16</p><p class="feedback ${off === 0 ? "ok" : off === 1 ? "info" : "no"}">${off === 0 ? "🎯 " + T("Spot on!", "正中！") : T(`You guessed ${g}.`, `你猜的是 ${g}。`)} ${T("30 × 51% = 15.3, and the Task Engine rounds up, so 16. Until 16 people vote for the same status, the status does not change.", "30 × 51% = 15.3，Task Engine 向上取整，所以是 16。在 16 个人投同一个状态之前，状态不变。")}</p>`;
+      done();
+    });
+  }
+
+  function taskMission(box, done) {
+    const GO = { Active: [["Suspended", T("⏸ Suspend (Sam leaves)", "⏸ 暂停（Sam 走了）")], ["Completed", T("✔ Complete", "✔ 完成")]],
+                 Suspended: [["Active", T("▶ Resume (Sam is back)", "▶ 恢复（Sam 回来了）")]],
+                 Completed: [["Deleted", T("⏩ Seven days pass", "⏩ 过了七天")]], Deleted: [] };
+    const NOTE = { Active: T("📥 In Sam's inbox. Only Active tasks appear in inboxes.", "📥 在 Sam 的收件箱里。只有 Active 的任务进收件箱。"),
+                   Suspended: T("🙈 Not in any inbox; only on the Task List Management page. No events or assignments are evaluated.", "🙈 不在任何收件箱里，只在 Task List Management 页面。不评估事件和分配。"),
+                   Completed: T("🏁 Terminal: the only thing left is deletion.", "🏁 终止状态：只剩删除。"),
+                   Deleted: T("🗑️ Removed by the global Delete Task rule (default seven days, runs once a day). Archive tasks and record the outcome if auditors need them.", "🗑️ 被全局 Delete Task 规则删掉（默认七天，每天跑一次）。审计要用就归档任务、把结果记下来。") };
+    const path = ["Active"];
+    box.innerHTML = `<p class="goal">${T("Walk the task: suspend it while Sam is away, resume it, complete it, then let seven days pass.", "带任务走一遍：Sam 不在时暂停，回来后恢复，完成，再过七天。")}</p>
+      <ul class="todo" id="t-todo"></ul><p class="state" id="t-s"></p><p id="t-n"></p><div id="t-b"></div>`;
+    function goals() {
+      const p = path.join(">");
+      return [[T("Suspend it", "暂停"), p.includes("Suspended")], [T("Resume it", "恢复"), p.includes("Suspended>Active")],
+              [T("Complete it", "完成"), p.includes("Suspended>Active>Completed")], [T("Seven days later", "七天后"), p.endsWith("Completed>Deleted") && p.includes("Suspended>Active")]];
+    }
+    function show() {
+      const s = path[path.length - 1];
+      box.querySelector("#t-s").innerHTML = `<span class="pill ${s} pop">${s}</span> <small>${esc(path.join(" → "))}</small>`;
+      box.querySelector("#t-n").textContent = NOTE[s];
+      const g = goals(); box.querySelector("#t-todo").innerHTML = g.map(([t, ok]) => `<li class="${ok ? "done" : ""}">${esc(t)}</li>`).join("");
+      box.querySelector("#t-b").innerHTML = GO[s].map(([to, l]) => `<button type="button" class="opt" data-to="${to}">${esc(l)}</button>`).join("") +
+        (s === "Deleted" && !g[3][1] ? `<button type="button" class="btn ghost" data-reset="1">${T("Start again", "重来")}</button>` : "");
+      if (g.every(([, ok]) => ok)) done();
+    }
+    box.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-to]"); if (b) { path.push(b.dataset.to); show(); return; }
+      if (e.target.closest("[data-reset]")) { path.length = 1; show(); }
+    });
+    show();
+  }
+
+  function resubMission(box, done) {
+    const S = [T("Receive", "收单"), T("Check", "检查"), T("Approve", "审批"), T("Book", "记账"), T("Notify", "通知")];
+    box.innerHTML = `<p class="goal">${T("Next time, the team wants Resubmit Closest to restart right at Book. Tick the steps that should be enabled for resubmission.", "下次团队希望 Resubmit Closest 直接从「记账」重跑。勾选哪些步骤该启用重新提交。")}</p>
+      <div class="row">${S.map((s, i) => `<label class="chk"><input type="checkbox" data-en="${i}"${i === 1 ? " checked" : ""}> ${esc(s)}</label>`).join("")}</div>
+      <div class="chips" id="r-c"></div><p id="r-t"></p><button type="button" class="btn" id="r-go">${T("Fail at Book again", "让「记账」再失败一次")}</button><div id="r-fb"></div>`;
+    const en = () => S.map((_, i) => box.querySelector(`[data-en="${i}"]`).checked);
+    function draw() {
+      const e = en(), f = 3, cl = e[f] ? f : [2, 1, 0].find((i) => e[i]), ea = [0, 1, 2, 3].find((i) => e[i]);
+      box.querySelector("#r-c").innerHTML = S.map((s, i) => `<span class="chip${i === f ? " fail" : ""}${e[i] ? " on" : ""}${i > f ? " dim" : ""}">${e[i] ? "🔁 " : ""}${esc(s)}${i === cl ? "<b>C</b>" : ""}${i === ea ? "<b>E</b>" : ""}</span>`).join("<span class='arrow'>→</span>");
+      box.querySelector("#r-t").textContent = cl === undefined ? T("No resubmit-enabled step at or before Book.", "「记账」及之前都没有启用重新提交的步骤。")
+        : T(`C = Resubmit Closest starts at ${S[cl]}. E = Resubmit Earliest starts at ${S[ea]}.`, `C = Resubmit Closest 从「${S[cl]}」开始；E = Resubmit Earliest 从「${S[ea]}」开始。`);
+    }
+    box.addEventListener("change", draw); draw();
+    box.querySelector("#r-go").addEventListener("click", () => {
+      const ok = en()[3], fb = box.querySelector("#r-fb");
+      fb.innerHTML = ok ? `<p class="feedback ok">✅ ${T("Book is resubmit-enabled, so Resubmit Closest re-runs from Book. Decide this before go-live: a completed instance can only be resubmitted from steps that were enabled before it began.", "「记账」启用了重新提交，Resubmit Closest 就从它重跑。上线前就要定：已完成的实例，只能从它开始前就启用了的步骤重跑。")}</p>`
+        : `<p class="feedback no">↩️ ${T("Closest still goes back to an earlier step. Which step has to be resubmit-enabled for Closest to start at the failed step itself?", "Closest 还是退回到前面的步骤。要让它从失败那一步本身开始，哪一步得启用重新提交？")}</p>`;
+      if (ok) done();
+    });
+  }
+
+  function depMission(box, done) {
+    box.innerHTML = `<p class="goal">${T("Fix the deployment so v3 ends up enabled.", "改一下部署，让最后启用的是 v3。")}</p>
+      <div class="row">${["v1", "v2", "v3"].map((v) => `<label class="chk"><input type="checkbox" data-d="${v}" checked> ${T("enable", "启用")} ${v}</label>`).join("")}</div>
+      <div class="row" role="radiogroup"><label class="chk"><input type="radio" name="ord" value="down" checked> v3 → v2 → v1</label><label class="chk"><input type="radio" name="ord" value="up"> v1 → v2 → v3</label></div>
+      <div class="chips" id="d-c"></div><button type="button" class="btn" id="d-go">${T("Deploy", "部署")}</button><div id="d-fb"></div>`;
+    function win() {
+      const order = box.querySelector("input[name=ord]:checked").value === "up" ? ["v1", "v2", "v3"] : ["v3", "v2", "v1"];
+      const on = order.filter((v) => box.querySelector(`[data-d=${v}]`).checked);
+      return { order, on, w: on[on.length - 1] };
+    }
+    function draw() { const { order, on, w } = win(); box.querySelector("#d-c").innerHTML = order.map((v) => `<span class="chip${v === w ? " on" : ""}${on.includes(v) ? "" : " dim"}">${v}${v === w ? "<b>✓</b>" : ""}</span>`).join("<span class='arrow'>→</span>"); }
+    box.addEventListener("change", draw); draw();
+    box.querySelector("#d-go").addEventListener("click", () => {
+      const { w } = win(), fb = box.querySelector("#d-fb");
+      if (w === "v3") { fb.innerHTML = `<p class="feedback ok">✅ ${T("v3 ends up enabled. Still check in Monitor that the right version is enabled. Running instances keep their version unless you update them to the new one.", "最后启用的是 v3。还是要到 Monitor 里确认启用的是对的版本。正在跑的实例保持原版本，除非你把它们升级到新版本。")}</p>`; done(); }
+      else fb.innerHTML = `<p class="feedback no">${w ? T(`${w} ends up enabled. The version deployed last wins.`, `最后启用的是 ${w}。最后部署的那个生效。`) : T("Nothing is enabled now.", "现在什么都没启用。")}</p>`;
+    });
+  }
+
+  // ---------- screens ----------
+  function home() {
+    paintHeader();
+    const next = LEVELS.findIndex((l) => !state.stars[l.id]);
+    const pct = Math.round(100 * Object.keys(state.stars).length / LEVELS.length);
+    app.innerHTML = `<section class="card hero"><p class="kicker" style="color:#fff">${T("A 15-minute course", "15 分钟小课")}</p>
+      <h2>${T("Follow Mia's order through the process engine", "跟着 Mia 的订单走一遍流程引擎")}</h2>
+      <p>${T("Six levels, one purchase order. Guess first, then fix the process. Every rule comes from the official documentation.", "六关，一张采购单。先猜，再动手修流程。每条规则都来自官方文档。")}</p>
+      <div class="bar"><i style="width:${pct}%"></i></div><small>${T(`${Object.keys(state.stars).length} of ${LEVELS.length} levels`, `已过 ${Object.keys(state.stars).length} / ${LEVELS.length} 关`)}</small></section>
+      <div class="map">${LEVELS.map((l, i) => {
+        const s = state.stars[l.id], locked = next >= 0 && i > next;
+        return `<button type="button" class="lvl${s ? " done" : ""}${i === next ? " next" : ""}" data-lvl="${i}"${locked ? " disabled" : ""}>
+          <span class="em">${locked ? "🔒" : l.em}</span><span class="t"><strong>${i + 1}. ${esc(l.title())}</strong><small>${esc(l.sub())}</small></span>
+          <span class="st">${s ? "⭐".repeat(s) + "☆".repeat(3 - s) : ""}</span></button>`;
+      }).join("")}</div>
+      ${next < 0 ? `<button type="button" class="btn" id="to-cert">${T("🏆 See your certificate", "🏆 看你的证书")}</button>` : `<button type="button" class="btn" data-lvl="${next}">${next === 0 ? T("▶ Start", "▶ 开始") : T("▶ Continue", "▶ 继续")}</button>`}
+      ${Object.keys(state.stars).length ? `<button type="button" class="btn ghost" id="reset">${T("Reset progress", "清空进度")}</button>` : ""}`;
+    window.scrollTo(0, 0);
+  }
+
+  function level(i) {
+    paintHeader();
+    const L = LEVELS[i], stages = L.stages();
+    let stage = 0, stars = 3;
+    const lose = (n) => { stars = Math.max(1, stars - n); };
+    app.innerHTML = `<section class="card"><p class="kicker">${T("Level", "第")} ${i + 1}${T("", " 关")} · ${esc(L.sub())}</p>
+      <h2>${L.em} ${esc(L.title())}</h2><div class="story">${esc(L.story())}</div><div id="stage"></div>${srcHtml(L.id)}</section>
+      <button type="button" class="btn ghost" id="to-map">${T("← Map", "← 地图")}</button>`;
+    const box = $("stage");
+    function nextBtn() {
+      const last = stage === stages.length - 1;
+      const b = document.createElement("button"); b.type = "button"; b.className = "btn"; b.id = "next";
+      b.textContent = last ? T("Finish level ✨", "过关 ✨") : T("Next →", "下一步 →");
+      b.addEventListener("click", () => { if (last) finish(); else { stage++; show(); } });
+      box.appendChild(b); b.focus();
+    }
+    function show() {
+      const S = stages[stage];
+      box.innerHTML = `<p class="kicker">${T("Step", "步骤")} ${stage + 1} / ${stages.length}</p>`;
+      const inner = document.createElement("div"); box.appendChild(inner);
+      if (S.kind === "pick") {
+        inner.innerHTML = `<h3>${esc(S.q)}</h3>${S.opts.map((o, j) => `<button type="button" class="opt" data-j="${j}">${esc(o)}</button>`).join("")}<div class="fb"></div>`;
+        let solved = false;
+        inner.addEventListener("click", (e) => {
+          const b = e.target.closest(".opt"); if (!b || solved || b.classList.contains("no")) return;
+          const j = +b.dataset.j;
+          if (j === S.right) { solved = true; b.classList.add("ok", "pop"); inner.querySelector(".fb").innerHTML = `<p class="feedback ok">✅ ${esc(S.why)}</p>`; nextBtn(); }
+          else { lose(1); b.classList.add("no"); inner.querySelector(".fb").innerHTML = `<p class="feedback no">${T("❌ Not that one. Try again.", "❌ 不是这个，再试试。")}</p>`; }
+        });
+      } else {
+        let fired = false;
+        S.render(inner, () => { if (!fired) { fired = true; nextBtn(); } }, lose);
+      }
+    }
+    function finish() {
+      const best = Math.max(stars, state.stars[L.id] || 0); state.stars[L.id] = best; save(); paintHeader(); confetti();
+      box.innerHTML = `<div class="pop" style="text-align:center"><p class="stars">${"⭐".repeat(stars)}${"☆".repeat(3 - stars)}</p>
+        <h3>${stars === 3 ? T("Perfect!", "满分！") : stars === 2 ? T("Nicely done!", "干得好！") : T("Level cleared!", "过关了！")}</h3></div>`;
+      const b = document.createElement("button"); b.type = "button"; b.className = "btn";
+      const last = i === LEVELS.length - 1;
+      b.textContent = last ? T("🏆 Get your certificate", "🏆 领取证书") : T(`Next level: ${LEVELS[i + 1].title()} →`, `下一关：${LEVELS[i + 1].title()} →`);
+      b.addEventListener("click", () => (last ? cert() : level(i + 1)));
+      box.appendChild(b); b.focus();
+    }
+    show(); window.scrollTo(0, 0);
+  }
+
+  function cert() {
+    paintHeader();
+    const s = total(), max = LEVELS.length * 3;
+    const title = s >= 16 ? T("Process Engine Whisperer", "流程引擎读心师") : s >= 11 ? T("Flow Master", "流程高手") : T("Brave Apprentice", "勇敢的学徒");
+    const date = new Date().toLocaleDateString(zh ? "zh-CN" : "en-GB", { day: "numeric", month: "long", year: "numeric" });
+    app.innerHTML = `<section class="card cert"><p class="kicker">${T("Certificate of completion", "结业证书")}</p>
+      <h2>🏆 ${esc(title)}</h2><p>${T("This certifies that", "兹证明")}</p><p class="name" id="c-name">${esc(state.name) || "&nbsp;"}</p>
+      <p>${T(`followed Mia's order through six levels of IBM webMethods BPMS and earned ${s} of ${max} stars.`, `跟着 Mia 的订单闯过 IBM webMethods BPMS 六关，获得 ${s} / ${max} 颗星。`)}</p>
+      <p class="stars">${"⭐".repeat(Math.round(s / 3))}</p><p><small>${esc(date)} · BPMS Quest · xudaniel.github.io/webmethods-bpms-academy</small></p></section>
+      <div class="card noprint"><label for="c-in"><strong>${T("Your name on the certificate", "证书上的名字")}</strong></label><br>
+      <input id="c-in" value="${esc(state.name)}" maxlength="40" autocomplete="name"><br>
+      <button type="button" class="btn" id="c-print">${T("🖨️ Print or save as PDF", "🖨️ 打印或存成 PDF")}</button>
+      <button type="button" class="btn ghost" id="to-map">${T("← Map", "← 地图")}</button>
+      <p><a href="./${zh ? "?lang=zh" : ""}#knowledge">${T("Want the facts behind the game? Open the knowledge base →", "想看游戏背后的事实？打开知识库 →")}</a></p></div>`;
+    $("c-in").addEventListener("input", (e) => { state.name = e.target.value; $("c-name").innerHTML = esc(state.name) || "&nbsp;"; save(); });
+    $("c-print").addEventListener("click", () => window.print());
+    confetti(); window.scrollTo(0, 0);
+  }
+
+  app.addEventListener("click", (e) => {
+    const l = e.target.closest("[data-lvl]"); if (l && !l.disabled) { level(+l.dataset.lvl); return; }
+    if (e.target.closest("#to-map")) home();
+    else if (e.target.closest("#to-cert")) cert();
+    else if (e.target.closest("#reset")) { state.stars = {}; save(); home(); }
+  });
+  $("lang-btn").addEventListener("click", () => { zh = !zh; save(); home(); });
+  window.QUEST = { LEVELS, state, level, home, cert };
+  home();
+})();
+</script>
+</body>
+</html>

@@ -33,6 +33,7 @@
 - 🧪 **动手学**：贷款流程模拟器和 30 分钟实验 → [动手实验](https://xudaniel.github.io/webmethods-bpms-academy/?lang=zh#lab)
 - 🛠️ **排查问题**：16 个可搜索的症状 → [故障排查](https://xudaniel.github.io/webmethods-bpms-academy/?lang=zh#trouble)
 - 🎲 **不用电脑上课**：打印棋盘和卡片，围着桌子扮演引擎 → [课堂套件](https://xudaniel.github.io/webmethods-bpms-academy/kit.html?lang=zh)
+- 🎮 **边玩边学**：15 分钟跟一张采购单闯六关，拿星星和证书 → [BPMS 闯关](https://xudaniel.github.io/webmethods-bpms-academy/play.html?lang=zh)
 
 <details>
 <summary><b>全部功能（20 项）</b></summary>
@@ -523,6 +524,7 @@ python3 -m http.server 8000
 - `read.html` — 阅读版：一页读完，附图和带答案的测验
 - `brief.html` — 银行与保险的一页式高管简报（可打印成 PDF）
 - `kit.html` — 不插电课堂套件：棋盘、卡片、审计日志表和主持人说明（打印用）
+- `play.html` — BPMS 闯关：独立的六关小游戏课程（单个文件，可离线，中英文）
 - `README.md` — 英文说明
 - `README.zh-CN.md` — 中文说明（本文件）
 - `CHANGELOG.md` — 版本更新日志
