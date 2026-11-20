@@ -3,6 +3,11 @@
 All notable changes to the IBM webMethods BPMS Academy. Author: **Daniel Yuanpeng Xu**.
 Versions follow [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Fixed
+- Knowledge base, *Process design building blocks*: the call activity fact now follows the Designer 10.7 wording (the callable process automatically returns its resulting pipeline to the parent) instead of a stronger claim, and the boundary event fact quotes the documentation's own statement about unsupported event types. The practice note adds: test on your release how results come back to the parent. English and 中文.
+
 ## [2.6.0] — 2026-11-20
 
 A capstone you can play end to end, and a deeper knowledge base on process design and human tasks. **Author: Daniel Yuanpeng Xu.**
