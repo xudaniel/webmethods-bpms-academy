@@ -500,5 +500,12 @@ nav .search-btn { z-index: 1; }
 .kbp-step.en { border-color: var(--primary); } .kbp-step.fail { background: #fff1f1; border-color: var(--danger); } .kbp-step.todo { opacity: .45; }
 .kbp-step b { margin-left: .35rem; padding: 0 .3rem; border-radius: 4px; background: var(--primary); color: #fff; font-size: .78rem; }
 .kbp-arrow { color: var(--muted); }
+.kbp-bar { position: relative; display: grid; grid-template-columns: 59fr 12fr 24fr 8fr; margin: .5rem 0 .3rem; border-radius: 6px; overflow: hidden; font-size: .72rem; font-weight: 600; text-align: center; }
+.kbp-bar span { padding: .35rem .1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.b-std { background: #defbe6; color: #0e6027; } .b-ext1 { background: #fcf4d6; color: #8e6a00; } .b-ext2 { background: #fdeac8; color: #8a3800; } .b-end { background: #fff1f1; color: #a2191f; }
+.kbp-pin { position: absolute; top: 0; bottom: 0; width: 3px; margin-left: -1px; background: var(--text); transition: left .2s; }
+.kbp-fit li.q-note { list-style: none; margin-left: -1.1rem; color: var(--muted); }
+.kbp-sort .kbp-acts .kbp-btn { padding: .4rem .65rem; min-height: 40px; }
+.kbp-score { float: right; font-size: .9rem; color: var(--primary-dark); }
 .kb-facts li.kb-hit { background: #fcf4d6; outline: 2px solid #f1c21b; border-radius: 6px; transition: background .3s; }
 @media print { .kbp { display: none !important; } }

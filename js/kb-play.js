@@ -286,7 +286,7 @@
         li.push([earliest < 0 ? "q-bad" : "q-ok", earliest < 0 ? T("Resubmit Earliest: no resubmit-enabled step has run yet.", "Resubmit Earliest：还没有跑过的、启用了重新提交的步骤。")
           : T(`Resubmit Earliest re-runs the rest of the instance from ${STEPS[earliest]}, the first resubmit-enabled step.`, `Resubmit Earliest 从第一个启用了重新提交的「${STEPS[earliest]}」起，重跑实例剩下的部分。`)]);
       }
-      li.push(["q-tip", T("Bad data? Edit the step's pipeline before resubmitting; that needs the Modify and Resubmit privilege.", "数据错了？重新提交前可以改这一步的 pipeline；这要有 Modify and Resubmit 权限。")]);
+      li.push(["q-note", T("Bad data? Edit the step's pipeline before resubmitting; that needs the Modify and Resubmit privilege.", "数据错了？重新提交前可以改这一步的 pipeline；这要有 Modify and Resubmit 权限。")]);
       strip.innerHTML = STEPS.map((s, i) => {
         const tags = (i === closest ? "C" : "") + (i === earliest ? "E" : "");
         const cls = at !== "done" && i === +at ? "fail" : at !== "done" && i > +at ? "todo" : "ran";
@@ -297,6 +297,157 @@
     el.addEventListener("change", () => draw(true)); draw(false);
   }
 
+  // ---------- Releases: where is 10.15 on a given date? ----------
+  const MONTHS0 = Date.UTC(2022, 10, 1); // Nov 2022, the first month after 10.15 GA
+  const monthAt = (i) => new Date(Date.UTC(2022, 10 + i, 15));
+  const fmtM = (d) => d.toLocaleDateString(zh ? "zh-CN" : "en-GB", { month: "long", year: "numeric", timeZone: "UTC" });
+  function releaseLab() {
+    const now = new Date(), idx = Math.max(0, Math.min(103, (now.getUTCFullYear() - 2022) * 12 + now.getUTCMonth() - 10));
+    return `<div class="kbp-block kbp-rel"><h4>📅 ${T("Try it: where is 10.15 on a given date?", "动手试试：某一天 10.15 处在哪个阶段？")}</h4>
+      <p class="kbp-hint">${T("Drag to a month, for example when a customer plans to upgrade.", "拖到某个月，比如客户计划升级的时间。")}</p>
+      <label class="kbp-range">${T("Month", "月份")} <strong data-o="m"></strong><input type="range" min="0" max="103" value="${idx}" data-v="m" data-today="${idx}"></label>
+      <div class="kbp-bar" aria-hidden="true"><span class="b-std">${T("Standard", "标准")}</span><span class="b-ext1">${T("Paid", "延长")}</span><span class="b-ext2">${T("Limited", "有限")}</span><span class="b-end">…</span><i class="kbp-pin"></i></div>
+      <label class="kbp-opt"><input type="checkbox" data-r="aix"> ${T("The customer runs it on AIX or z/Linux", "客户跑在 AIX 或 z/Linux 上")}</label>
+      <p class="kbp-big" aria-live="polite"></p><ul class="kbp-fit"></ul>
+      <button type="button" class="link kbp-today">${T("Back to today", "回到今天")}</button></div>`;
+  }
+  function wireRel(box) {
+    const el = box.querySelector(".kbp-rel"), r = el.querySelector("[data-v=m]"), big = el.querySelector(".kbp-big"), out = el.querySelector(".kbp-fit"), pin = el.querySelector(".kbp-pin");
+    const END = [[2027, 9], [2028, 9], [2030, 9]]; // last month of each phase (Oct)
+    const before = (d, [y, m]) => d.getUTCFullYear() < y || (d.getUTCFullYear() === y && d.getUTCMonth() <= m);
+    function draw(light) {
+      const i = +r.value, d = monthAt(i);
+      el.querySelector("[data-o=m]").textContent = fmtM(d);
+      pin.style.left = (100 * i / 103) + "%";
+      const left = (2027 - d.getUTCFullYear()) * 12 + (9 - d.getUTCMonth());
+      let phase, li = [];
+      if (before(d, END[0])) { phase = T("Standard support", "标准支持"); li.push(["q-ok", T(`Standard support runs to 31 Oct 2027: ${left + 1} month${left ? "s" : ""} including this one.`, `标准支持到 2027 年 10 月 31 日：算上这个月还有 ${left + 1} 个月。`)]); }
+      else if (before(d, END[1])) { phase = T("Paid extended support", "付费延长支持"); li.push(["q-warn", T("Standard support ended on 31 Oct 2027. Initial paid extended support runs to 31 Oct 2028.", "标准支持已在 2027 年 10 月 31 日结束。初期付费延长支持到 2028 年 10 月 31 日。")]); }
+      else if (before(d, END[2])) { phase = T("Paid extended support, limited", "付费延长支持（有限）"); li.push(["q-warn", T("Ongoing paid extended support to 31 Oct 2030 covers usage questions and known defects only.", "持续的付费延长支持到 2030 年 10 月 31 日，只管使用咨询和已知缺陷。")]); }
+      else { phase = T("Past every date in the sources", "已过来源里的所有日期"); li.push(["q-bad", T("The last date in this topic's sources is 31 Oct 2030, the end of ongoing paid extended support.", "本主题来源里最后的日期是 2030 年 10 月 31 日，即持续付费延长支持结束。")]); }
+      if (el.querySelector("[data-r=aix]").checked) li.push(["q-bad", T("10.15 is the last release supported on AIX and z/Linux, so a later release also means moving platform.", "10.15 是最后一个支持 AIX 和 z/Linux 的版本，升到后面的版本还要换平台。")]);
+      big.textContent = "10.15: " + phase;
+      out.innerHTML = li.map(([c, t]) => `<li class="${c}">${esc(t)}</li>`).join("") + (light ? `<li class="q-tip"><em>${hit("releases", 1)}</em></li>` : "");
+    }
+    el.addEventListener("input", () => draw(true)); el.addEventListener("change", () => draw(true));
+    el.querySelector(".kbp-today").addEventListener("click", () => { r.value = r.dataset.today; draw(true); });
+    draw(false);
+  }
+
+  // ---------- Correlation: which instance does a document join? ----------
+  const RUNNING = ["PO-101", "PO-102", "PO-103"];
+  function corrLab() {
+    return `<div class="kbp-block kbp-corr"><h4>🔗 ${T("Try it: which instance does this document join?", "动手试试：这份文档该进哪个实例？")}</h4>
+      <p class="kbp-hint">${T("Three purchase orders are waiting for their invoice. The correlation key is the order number (example data).", "三张采购单正在等发票。关联键是订单号（示例数据）。")}</p>
+      <div class="kbp-strip">${RUNNING.map((id) => `<span class="kbp-step" data-inst="${id}">⏳ ${id}</span>`).join("")}</div>
+      <label class="kbp-num">${T("Invoice for order", "发票上的订单号")} <select data-k="id">${RUNNING.concat(["PO-104"]).map((id, i) => `<option${i === 1 ? " selected" : ""}>${id}</option>`).join("")}</select></label>
+      <label class="kbp-opt"><input type="checkbox" data-k="vt"> ${T("Volatile Tracking on", "打开 Volatile Tracking")}</label>
+      <label class="kbp-opt"><input type="checkbox" data-k="flt"> ${T("The new version changed the subscription filter", "新版本改了订阅过滤器")}</label>
+      <ul class="kbp-fit" aria-live="polite"></ul></div>`;
+  }
+  function wireCorr(box) {
+    const el = box.querySelector(".kbp-corr"), out = el.querySelector(".kbp-fit");
+    function draw(light) {
+      const id = el.querySelector("[data-k=id]").value, vt = el.querySelector("[data-k=vt]").checked, flt = el.querySelector("[data-k=flt]").checked;
+      const match = !flt && RUNNING.includes(id);
+      el.querySelectorAll("[data-inst]").forEach((s) => { const on = match && s.dataset.inst === id; s.classList.toggle("en", on); s.textContent = (on ? "📨 " : "⏳ ") + s.dataset.inst; });
+      const li = [];
+      if (flt) li.push(["q-bad", T("Changing a model's subscription filter between versions stops correlation with running instances and can raise a ‘No trigger available for incoming document’ error. It is not allowed.", "在版本之间改订阅过滤器，会让关联对不上正在跑的实例，还可能报「No trigger available for incoming document」。这是不允许的。")]);
+      else if (match) li.push(["q-ok", T(`${id} matches a running instance, so the invoice's content is loaded and the waiting step runs as part of that instance.`, `${id} 对上了一个正在跑的实例，发票内容被载入，等待的那一步在这个实例里执行。`)]);
+      else li.push(["q-warn", T(`${id} matches no running instance. The tracking pages say the engine then creates a new process instance ID, stores it with the correlation ID and starts a new process.`, `${id} 对不上任何正在跑的实例。跟踪页面的说法是：引擎会新建一个流程实例 ID，和关联 ID 一起存下，并启动一个新流程。`)]);
+      li.push(["q-note", vt ? T("With Volatile Tracking on, the correlation ID and instance ID pairs are held in server memory.", "Volatile Tracking 打开时，关联 ID 和实例 ID 的对应关系放在服务器内存里。")
+                           : T("With Volatile Tracking off, the pairs are stored in the WMPRTXREF table of the Process Engine database.", "Volatile Tracking 关闭时，这些对应关系存在 Process Engine 数据库的 WMPRTXREF 表里。")]);
+      out.innerHTML = li.map(([c, t]) => `<li class="${c}">${esc(t)}</li>`).join("") + (light ? `<li class="q-tip"><em>${hit("correlation", flt ? 8 : 5)}</em></li>` : "");
+    }
+    el.addEventListener("change", () => draw(true)); draw(false);
+  }
+
+  // ---------- Archiving audit data: what does this run do? ----------
+  const PROCS = { PROCESS_ARCHIVE: true, SERVICE_ARCHIVE: true, DOCUMENT_ARCHIVE: false, SERVER_ARCHIVE: false };
+  const STATUS = [["2", T("Completed", "已完成")], ["4", T("Failed", "失败")], ["1024", T("Stopped", "已停止")], ["32768", T("Resubmitted", "已重新提交")]];
+  function archLab() {
+    return `<div class="kbp-block kbp-arch"><h4>🗄️ ${T("Try it: what does this archive run do?", "动手试试：这次归档会做什么？")}</h4>
+      <label class="kbp-num">${T("Procedure", "存储过程")} <select data-a="p">${Object.keys(PROCS).map((p) => `<option>${p}</option>`).join("")}</select></label>
+      <label class="kbp-range">p_retaindays <strong data-o="d">90</strong><input type="range" min="1" max="730" value="90" data-a="d"></label>
+      <div class="kbp-row" role="radiogroup" aria-label="p_action"><label class="kbp-opt"><input type="radio" name="kbp-act" value="ARCHIVE" checked> ARCHIVE</label><label class="kbp-opt"><input type="radio" name="kbp-act" value="DELETE"> DELETE</label></div>
+      <label class="kbp-num kbp-st">p_status <select data-a="s">${STATUS.map(([v, n]) => `<option value="${v}">${v} · ${esc(n)}</option>`).join("")}</select></label>
+      <ul class="kbp-fit" aria-live="polite"></ul></div>`;
+  }
+  function wireArch(box) {
+    const el = box.querySelector(".kbp-arch"), out = el.querySelector(".kbp-fit"), st = el.querySelector(".kbp-st"), sSel = el.querySelector("[data-a=s]");
+    function draw(light) {
+      const p = el.querySelector("[data-a=p]").value, d = +el.querySelector("[data-a=d]").value, del = el.querySelector("input[name=kbp-act]:checked").value === "DELETE";
+      el.querySelector("[data-o=d]").textContent = d;
+      st.hidden = !PROCS[p];
+      const stop = sSel.querySelector("option[value='1024']"); stop.disabled = p !== "PROCESS_ARCHIVE"; if (stop.disabled && sSel.value === "1024") sSel.value = "2";
+      const sName = (STATUS.find(([v]) => v === sSel.value) || [])[1];
+      const what = PROCS[p] ? T(`${sName} data older than ${d} days`, `超过 ${d} 天的「${sName}」数据`) : T(`data older than ${d} days`, `超过 ${d} 天的数据`);
+      const li = [[del ? "q-bad" : "q-ok", del ? T(`Deletes ${what} from the source and keeps no copy.`, `把${what}从源库删掉，不留副本。`)
+                                              : T(`Moves ${what} to the Archive database, then removes it from the source.`, `把${what}搬进 Archive 数据库，再从源库删掉。`)]];
+      if (PROCS[p]) li.push(["q-note", T("Data in other statuses stays in the source.", "其他状态的数据留在源库。")]);
+      if (p === "PROCESS_ARCHIVE") li.push(["q-note", T("Covers the Process Audit Log process tables (PRA_PROCESS, PRA_PROCESS_STEP, PRA_STEP_TRANSITION …) plus WMSERVICEACTIVITYLOG and WMERROR; p_modelid can limit it to named models.", "覆盖 Process Audit Log 的流程表（PRA_PROCESS、PRA_PROCESS_STEP、PRA_STEP_TRANSITION 等）以及 WMSERVICEACTIVITYLOG 和 WMERROR；p_modelid 可以只跑指定模型。")]);
+      li.push(["q-warn", del ? T("Afterwards it no longer shows in My webMethods, and there is nothing left to query.", "之后 My webMethods 里看不到，也没有地方能再查。")
+                             : T("Afterwards it no longer shows in My webMethods, but you can still query it with SQL in the Archive database.", "之后 My webMethods 里看不到，但还能在 Archive 数据库里用 SQL 查。")]);
+      li.push(["q-note", T("Use p_retaindays or p_retaindate, not both. Keep each run small: archiving too much at once is slower and risks locks and growing logs.", "p_retaindays 和 p_retaindate 二选一。每次少搬一点：一次搬太多会更慢，还可能锁表、撑大日志。")]);
+      out.innerHTML = li.map(([c, t]) => `<li class="${c}">${esc(t)}</li>`).join("") + (light ? `<li class="q-tip"><em>${hit("audit-retention", 6)}</em></li>` : "");
+    }
+    el.addEventListener("input", () => draw(true)); el.addEventListener("change", () => draw(true)); draw(false);
+  }
+
+  // ---------- Deploying: which version ends up enabled? ----------
+  function depLab() {
+    return `<div class="kbp-block kbp-dep"><h4>🚀 ${T("Try it: which version ends up enabled?", "动手试试：最后启用的是哪个版本？")}</h4>
+      <p class="kbp-hint">${T("One deployment set holds three versions of the same model. Tick the ones it enables on the target, and pick the order they are deployed in.", "一个部署集里有同一个模型的三个版本。勾选哪些要在目标环境启用，再选部署的先后顺序。")}</p>
+      <div class="kbp-row">${["v1", "v2", "v3"].map((v) => `<label class="kbp-opt"><input type="checkbox" data-d="${v}" checked> ${T("enable", "启用")} ${v}</label>`).join("")}</div>
+      <div class="kbp-row" role="radiogroup" aria-label="${T("Deployment order", "部署顺序")}">
+        <label class="kbp-opt"><input type="radio" name="kbp-ord" value="up" checked> v1 → v2 → v3</label>
+        <label class="kbp-opt"><input type="radio" name="kbp-ord" value="down"> v3 → v2 → v1</label></div>
+      <div class="kbp-strip" aria-hidden="true"></div><p class="kbp-big" aria-live="polite"></p><ul class="kbp-fit"></ul></div>`;
+  }
+  function wireDep(box) {
+    const el = box.querySelector(".kbp-dep"), strip = el.querySelector(".kbp-strip"), big = el.querySelector(".kbp-big"), out = el.querySelector(".kbp-fit");
+    function draw(light) {
+      const order = el.querySelector("input[name=kbp-ord]:checked").value === "up" ? ["v1", "v2", "v3"] : ["v3", "v2", "v1"];
+      const on = order.filter((v) => el.querySelector(`[data-d=${v}]`).checked), win = on[on.length - 1];
+      strip.innerHTML = order.map((v) => `<span class="kbp-step${v === win ? " en" : ""}${on.includes(v) ? "" : " todo"}">${v}${v === win ? "<b>✓</b>" : ""}</span>`).join("<span class='kbp-arrow'>→</span>");
+      big.textContent = win ? T(`${win} ends up enabled`, `最后启用的是 ${win}`) : T("No version is enabled", "没有启用任何版本");
+      const li = [];
+      if (on.length > 1) li.push([win === "v3" ? "q-ok" : "q-warn", T(`More than one version is enabled, so the one deployed last wins: ${win}${win !== "v3" ? ", not the newest" : ""}.`, `启用了不止一个版本，最后部署的那个生效：${win}${win !== "v3" ? "，不是最新的那个" : ""}。`)]);
+      li.push(["q-note", T("Check in Monitor that the right version is enabled.", "到 Monitor 里确认启用的是对的版本。")]);
+      li.push(["q-note", T("Running instances keep their version unless you update them to the new one.", "正在跑的实例保持原版本，除非你把它们升级到新版本。")]);
+      out.innerHTML = li.map(([c, t]) => `<li class="${c}">${esc(t)}</li>`).join("") + (light ? `<li class="q-tip"><em>${hit("deploy", 5)}</em></li>` : "");
+    }
+    el.addEventListener("change", () => draw(true)); draw(false);
+  }
+
+  // ---------- Task rules: sort the job into the right kind of rule ----------
+  const KINDS = [T("Assignment", "分配"), T("Event", "事件"), T("Filter", "过滤"), T("Change rule", "变更规则"), T("Schedule", "计划")];
+  const CARDS = [
+    [T("When the task is marked for escalation, give it to the manager.", "任务被标成需要升级时，交给经理。"), 0, 1],
+    [T("Hide tasks that another member of the role has already accepted.", "别人已经接受的任务，不再出现在同角色其他人的收件箱里。"), 2, 2],
+    [T("Delete the task when its status becomes Expired.", "任务状态变成 Expired 时，把它删掉。"), 3, 3],
+    [T("Send an e-mail if a loan application is not accepted within a set period.", "贷款申请在规定时间内没人接受，就发邮件。"), 4, 4],
+    [T("Do something at the moment the task is assigned.", "任务被分派的那一刻，触发一个动作。"), 1, 2],
+    [T("When the task is activated, give it to a role.", "任务被激活时，分给一个角色。"), 0, 1]
+  ];
+  function ruleSort() {
+    return `<div class="kbp-block kbp-sort"><h4>🗂️ ${T("Try it: which kind of rule is this?", "动手试试：这该用哪种规则？")} <span class="kbp-score">0 / ${CARDS.length}</span></h4>
+      ${CARDS.map(([q], n) => `<div class="kbp-guess" data-n="${n}"><p><strong>${n + 1}. ${esc(q)}</strong></p><div class="kbp-acts">${KINDS.map((k, j) => `<button type="button" class="kbp-btn" data-j="${j}">${esc(k)}</button>`).join("")}</div><p class="kbp-why" aria-live="polite"></p></div>`).join("")}</div>`;
+  }
+  function wireSort(box) {
+    const el = box.querySelector(".kbp-sort"), score = el.querySelector(".kbp-score");
+    let right = 0;
+    el.addEventListener("click", (e) => {
+      const b = e.target.closest(".kbp-btn"); if (!b) return;
+      const g = b.closest(".kbp-guess"); if (g.dataset.done) return; g.dataset.done = "1";
+      const [, c, f] = CARDS[+g.dataset.n], j = +b.dataset.j;
+      g.querySelectorAll(".kbp-btn").forEach((x, k) => { x.classList.toggle("ok", k === c); x.classList.toggle("no", k === j && j !== c); });
+      if (j === c) right++;
+      score.textContent = `${right} / ${CARDS.length}`;
+      g.querySelector(".kbp-why").innerHTML = `${j === c ? "✅ " + T("Right.", "答对了。") : "❌ " + T(`The documentation lists this as: ${KINDS[c]}.`, `文档把它归为：${KINDS[c]}。`)} <em>${hit("task-rules", f)}</em>`;
+    });
+  }
+
   function init() {
     const pd = mount("process-design", joinLab() + guess("process-design", PD_GUESS));
     if (pd) { wireJoin(pd); wireGuess(pd, "process-design", PD_GUESS); }
@@ -305,8 +456,13 @@
     const ce = mount("cloud-deploy", ceFit()); if (ce) wireCe(ce);
     const csv = mount("rules-in-practice", csvLab()); if (csv) wireCsv(csv);
     const rs = mount("monitor", resubmitLab()); if (rs) wireRs(rs);
-    ["cloud-deploy", "rules-in-practice", "monitor"].forEach(clearHits);
+    const rel = mount("releases", releaseLab()); if (rel) wireRel(rel);
+    const co = mount("correlation", corrLab()); if (co) wireCorr(co);
+    const ar = mount("audit-retention", archLab()); if (ar) wireArch(ar);
+    const dp = mount("deploy", depLab()); if (dp) wireDep(dp);
+    const tr = mount("task-rules", ruleSort()); if (tr) wireSort(tr);
+    ["cloud-deploy", "rules-in-practice", "monitor", "releases", "correlation", "audit-retention", "deploy", "task-rules"].forEach(clearHits);
   }
-  window.KB_PLAY = { ST, PD_GUESS, TK_GUESS };
+  window.KB_PLAY = { ST, PD_GUESS, TK_GUESS, CARDS };
   init();
 })();
