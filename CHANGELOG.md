@@ -3,7 +3,9 @@
 All notable changes to the IBM webMethods BPMS Academy. Author: **Daniel Yuanpeng Xu**.
 Versions follow [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [2.6.0] — 2026-11-20
+
+A capstone you can play end to end, and a deeper knowledge base on process design and human tasks. **Author: Daniel Yuanpeng Xu.**
 
 ### Added
 - 👗 **Capstone: clothing-store markdown approval** (#106): one request end to end. The agent proposes, three rules (margin floor, age cap, auto-approval line) decide, the regional manager approves or the 24-hour timer escalates, and the process changes the price; every step goes into an audit trail. English and 中文. The curriculum is now 26 sections.

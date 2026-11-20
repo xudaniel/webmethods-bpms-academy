@@ -5,7 +5,7 @@
 > ### ✍️ Author and product owner: **Daniel Yuanpeng Xu**
 > Daniel created the IBM webMethods BPMS Academy. He conceived, designed, directed, reviewed and published the curriculum, the knowledge base, the guides, the diagrams, the lab, this PRD and every *Author's view*, and he maintains every release. [GitHub @Xudaniel](https://github.com/Xudaniel) · [LinkedIn](https://www.linkedin.com/in/danielxuvision/)
 
-**Status:** live · **Current release:** [v2.5.0](https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v2.5.0), 20 Nov 2026 · **First release:** v1.0.0, 15 Nov 2026
+**Status:** live · **Current release:** [v2.6.0](https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v2.6.0), 20 Nov 2026 · **First release:** v1.0.0, 15 Nov 2026
 **Live site:** <https://xudaniel.github.io/webmethods-bpms-academy/> · **Changelog:** [CHANGELOG.md](../CHANGELOG.md)
 
 > Independent learning resource. Not an official IBM site, and not affiliated with or endorsed by IBM. This document uses public information only.
@@ -14,7 +14,7 @@
 
 - **What:** A free, phone-first website that teaches IBM webMethods BPMS: what it is, how it behaves, how to use it day to day, and why process platforms matter now that AI agents are arriving. Fully bilingual (English and Simplified Chinese), installable, works offline and prints cleanly.
 - **For whom:** First for **beginners** and **customers**. Then for the **people who use the product every day** (business users, process developers, business analysts, operations) and the **trainers and presenters** who teach it.
-- **What it includes today (v2.5.0):** 25 course sections; a cited knowledge base of 19 topics and 142 facts; role paths, how-to guides, cheat sheets and self-checks; a 10-minute course and Basics 101; a hands-on lab; simulators, puzzles, drills and games; controls for regulated industries with executive briefs; a reading version of 23 chapters; an optimization primer; and an unplugged classroom kit for teaching without laptops.
+- **What it includes today (v2.6.0):** 26 course sections; a cited knowledge base of 21 topics and 165 facts; role paths, how-to guides, cheat sheets and self-checks; a 10-minute course and Basics 101; a hands-on lab; simulators, puzzles, drills and games; controls for regulated industries with executive briefs; a reading version of 23 chapters; an optimization primer; and an unplugged classroom kit for teaching without laptops.
 
 ## 2. Problem
 
@@ -74,7 +74,7 @@
 
 ## 6. Scope and acceptance criteria
 
-### 6.1 What the product includes (v2.5.0)
+### 6.1 What the product includes (v2.6.0)
 
 Every item below is checked by the smoke test on each pull request, at phone width (390 × 844), with no JavaScript errors.
 
@@ -82,12 +82,12 @@ Every item below is checked by the smoke test on each pull request, at phone wid
 | --- | --- | --- |
 | Start | Role picker with seven 3–5 step paths; one-picture map; Mia's story across 17 sections | Each role shows its path; the map links to guides; story cards render |
 | Learn first | 10-minute course (5 steps, 3 checks); Basics 101 (7 lessons) | Steps advance; checks answer; progress saved |
-| Knowledge | 19 cited topics, 142 facts, 9-component family table, interactive quality-of-service diagram, last-reviewed dates | Counter shows the numbers; every topic cites sources |
+| Knowledge | 21 cited topics, 165 facts, 9-component family table, interactive quality-of-service diagram, last-reviewed dates | Counter shows the numbers; every topic cites sources |
 | Controls | 7 controls mapped to SR 11-7, OSFI E-23, EU AI Act, GDPR Art. 22, NAIC, DORA; executive briefs for banking and insurance | Rows and frameworks render; briefs print on one A4 page each |
 | How to use | 4 role guides, cheat sheets, self-checks, beginner path, demo script | Each guide contains its key step (Accept, Execution Enabled, Hot Deploy, Resubmit) |
-| Practise | Hands-on lab (8 stages), decision lab, Fix the diagram (5 levels), Swipe sort, on-call drills (3), simulator with time machine, Agent Scan Lab | Each tool runs end to end in the test |
+| Practise | Hands-on lab (8 stages), decision lab, Fix the diagram (5 levels), Swipe sort, on-call drills (3), simulator with time machine, Agent Scan Lab, capstone (clothing-store markdown approval) | Each tool runs end to end in the test |
 | Fix | 16 troubleshooting entries, flowchart, site search in both languages | Search opens the right fact, symptom and term |
-| Remember | Glossary (46 terms), quiz (36 questions), review book with spaced review | Wrong answers reappear |
+| Remember | Glossary (50 terms), quiz (41 questions), review book with spaced review | Wrong answers reappear |
 | Teach | 3-hour workshop plan; unplugged classroom kit with board, 12 request cards, rule and control cards, 8 event cards, audit log sheet and answer key | Kit renders in both languages without sideways scrolling; Teach links to it |
 | Read and print | Reading version (23 chapters, figures, answer keys); optimization primer page | Pages load in both languages |
 | Languages | English and Simplified Chinese everywhere | Every section, page and diagram has Chinese text |
@@ -168,12 +168,13 @@ Because the site collects no analytics by design, success is measured from outsi
 **Daniel Yuanpeng Xu** is the author and product owner. He is a product manager in business process and decision automation, based in Toronto. He set the product direction, defined the audiences and scope, chose and verified the public sources, wrote the *Author's view* frameworks, directed and reviewed every change, and decides each release. The academy is his independent work and is not affiliated with or endorsed by IBM.
 
 - **Contact:** [GitHub @Xudaniel](https://github.com/Xudaniel) · [LinkedIn](https://www.linkedin.com/in/danielxuvision/)
-- **Cite as:** Xu, Daniel Yuanpeng (2026). *IBM webMethods BPMS Academy* (v2.5.0). https://github.com/xudaniel/webmethods-bpms-academy
+- **Cite as:** Xu, Daniel Yuanpeng (2026). *IBM webMethods BPMS Academy* (v2.6.0). https://github.com/xudaniel/webmethods-bpms-academy
 
 ## 14. Release history
 
 | Version | Date | What shipped |
 | --- | --- | --- |
+| 2.6.0 | 2026-11-20 | Capstone: clothing-store markdown approval, one request end to end (#106; 26 sections). Knowledge base: *Deploying decision services on IBM Cloud* (#107), *Process design building blocks* and a fuller *Task Engine* topic (#108): 21 topics, 165 facts, 50 terms, 41 questions |
 | 2.5.0 | 2026-11-20 | Knowledge base: *Business Rules in practice* (data models, event rules, local testing, data provider and verification services, CSV import, REST invoke, auditing to the database), EN + 中文; 19 topics, 142 facts; glossary 46, quiz 36 (#104) |
 | 2.4.0 | 2026-11-19 | Unplugged classroom kit (kit.html): A3 board, 12 request cards, rule and control cards, 8 event cards, audit log sheet, facilitator notes and answer key, EN + 中文 (#54); knowledge base grown to 18 topics and 133 facts (#99, #100, #101); phone-friendly READMEs (#97, #98); 15-minute user test kit (#95); this PRD rewritten for the current product and published in Chinese; stale counts fixed; screenshots refreshed |
 | 2.3.0 | 2026-11-18 | Release v2.3.0 published; version bumped everywhere (#93) |
