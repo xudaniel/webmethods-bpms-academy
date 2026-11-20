@@ -487,6 +487,33 @@ async def main():
         await page.click("#kb-monitor .kbp-rs [data-en='3']")
         if "re-runs from Book, the failed step" not in await page.inner_text("#kb-monitor .kbp-rs .kbp-fit"):
             failures.append("resubmit lab: an enabled failed step should be where Closest starts")
+        rel = page.locator("#kb-releases .kbp-rel [data-v=m]")
+        await rel.fill("60")  # Nov 2022 + 60 months = Nov 2027
+        if "Paid extended support" not in await page.inner_text("#kb-releases .kbp-rel .kbp-big"):
+            failures.append("release lab: November 2027 should be in paid extended support")
+        await rel.fill("59")  # Oct 2027, the last month of standard support
+        if "Standard support" not in await page.inner_text("#kb-releases .kbp-rel .kbp-big") or "1 month including" not in await page.inner_text("#kb-releases .kbp-rel"):
+            failures.append("release lab: October 2027 should be the last month of standard support")
+        await page.select_option("#kb-correlation .kbp-corr [data-k=id]", "PO-104")
+        if "matches no running instance" not in await page.inner_text("#kb-correlation .kbp-corr"):
+            failures.append("correlation lab: PO-104 should match no running instance")
+        await page.click("#kb-correlation .kbp-corr [data-k=flt]")
+        if "No trigger available" not in await page.inner_text("#kb-correlation .kbp-corr"):
+            failures.append("correlation lab: a changed subscription filter should warn about the trigger error")
+        await page.click("#kb-audit-retention .kbp-arch input[value=DELETE]")
+        if "keeps no copy" not in await page.inner_text("#kb-audit-retention .kbp-arch"):
+            failures.append("archive lab: DELETE should keep no copy")
+        await page.select_option("#kb-audit-retention .kbp-arch [data-a=p]", "SERVICE_ARCHIVE")
+        if not await page.evaluate("document.querySelector(\"#kb-audit-retention .kbp-arch option[value='1024']\").disabled"):
+            failures.append("archive lab: Stopped (1024) applies to processes only")
+        await page.click("#kb-deploy .kbp-dep input[value=down]")
+        if "v1 ends up enabled" not in await page.inner_text("#kb-deploy .kbp-dep .kbp-big"):
+            failures.append("deploy lab: deploying v3, v2, v1 with all enabled should leave v1 enabled")
+        for n in range(6):
+            c = await page.evaluate(f"KB_PLAY.CARDS[{n}][1]")
+            await page.locator(f"#kb-task-rules .kbp-sort .kbp-guess[data-n='{n}'] button[data-j='{c}']").click()
+        if "6 / 6" not in await page.inner_text("#kb-task-rules .kbp-score"):
+            failures.append("task rule sorter: six right answers should score 6 / 6")
         for kid in ["process-design", "tasks"]:
             g = page.locator(f"#kb-{kid} .kbp-guess").first
             right = await page.evaluate(f"KB_PLAY.{'PD' if kid == 'process-design' else 'TK'}_GUESS[0].c")
@@ -742,7 +769,7 @@ async def main():
         if "合流" not in await cp.inner_text("#kb-process-design") or "16 张相同的票" not in await cp.inner_text("#kb-tasks"):
             failures.append("zh: process design or task topic not translated")
         await cp.click("#kb-process-design .kbp-join [data-p=b]")
-        zh_play = [await cp.inner_text(f"#kb-{k}") for k in ["tasks", "cloud-deploy", "rules-in-practice", "monitor"]]
+        zh_play = [await cp.inner_text(f"#kb-{k}") for k in ["tasks", "cloud-deploy", "rules-in-practice", "monitor", "releases", "correlation", "audit-retention", "deploy", "task-rules"]]
         if "永远满足不了" not in await cp.inner_text("#kb-process-design .kbp-join .kbp-out") or any("动手试试" not in t for t in zh_play):
             failures.append("zh: knowledge base hands-on blocks not translated")
         if "部署决策服务" not in await cp.inner_text("#kb-cloud-deploy") or "86,400 秒" not in await cp.inner_text("#kb-cloud-deploy"):
