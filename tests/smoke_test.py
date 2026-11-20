@@ -443,6 +443,36 @@ async def main():
             failures.append("knowledge: Code Engine and Decision Optimization topic missing")
         if "Step Iterations Exceeded" not in await page.inner_text("#kb-process-design") or "16 matching votes" not in await page.inner_text("#kb-tasks"):
             failures.append("knowledge: process design topic or task voting fact missing")
+        # Knowledge base, hands-on (kb-play.js): join lab, vote calculator, task life cycle, guess-first questions
+        await page.evaluate("location.hash='knowledge'")
+        await page.wait_for_timeout(200)
+        await page.click("#kb-process-design .kbp-join [data-p=b]")
+        if "never be satisfied" not in await page.inner_text("#kb-process-design .kbp-join .kbp-out") or await page.locator("#kb-process-design .kb-facts li.kb-hit").count() != 1:
+            failures.append("join lab: an AND join with a failed path should say it can never be satisfied and light up its fact")
+        await page.click("#kb-process-design .kbp-join input[value=OR]")
+        if "still runs" not in await page.inner_text("#kb-process-design .kbp-join .kbp-out"):
+            failures.append("join lab: an OR join with one path left should still run")
+        await page.locator("#kb-tasks .kbp-vote [data-v=n]").fill("30")
+        if "16" not in await page.inner_text("#kb-tasks .kbp-vote .kbp-big"):
+            failures.append("vote calculator: 30 assignees at 51% should need 16 votes")
+        await page.locator("#kb-tasks .kbp-vote [data-v=n]").fill("300")
+        if "153" not in await page.inner_text("#kb-tasks .kbp-vote .kbp-big"):
+            failures.append("vote calculator: 300 assignees at 51% should need 153 votes")
+        await page.click("#kb-tasks .kbp-life [data-to=Active]")
+        await page.click("#kb-tasks .kbp-life [data-to=Suspended]")
+        if "Task List Management" not in await page.inner_text("#kb-tasks .kbp-life"):
+            failures.append("task life cycle: a suspended task should be shown only on Task List Management")
+        await page.click("#kb-tasks .kbp-life [data-to=Active]")
+        await page.click("#kb-tasks .kbp-life [data-to=Completed]")
+        await page.click("#kb-tasks .kbp-life [data-to=Deleted]")
+        if "Delete Task" not in await page.inner_text("#kb-tasks .kbp-life") or await page.locator("#kb-tasks .kbp-life [data-to]").count() != 0:
+            failures.append("task life cycle: seven days after completion the Delete Task rule should remove it")
+        for kid in ["process-design", "tasks"]:
+            g = page.locator(f"#kb-{kid} .kbp-guess").first
+            right = await page.evaluate(f"KB_PLAY.{'PD' if kid == 'process-design' else 'TK'}_GUESS[0].c")
+            await g.locator(f"button[data-j='{right}']").click()
+            if "Right" not in await g.inner_text() or await g.locator(".kbp-btn.ok").count() != 1:
+                failures.append(f"guess-first question in {kid} did not mark the right answer")
         for kb in ["monitor", "upgrade", "agents", "cloud-deploy", "process-design", "tasks"]:
             if await page.locator(f"#kb-{kb} .sources a").count() < 4:
                 failures.append(f"knowledge topic {kb} missing or uncited")
@@ -691,6 +721,9 @@ async def main():
             failures.append("zh: agents knowledge topic not translated")
         if "合流" not in await cp.inner_text("#kb-process-design") or "16 张相同的票" not in await cp.inner_text("#kb-tasks"):
             failures.append("zh: process design or task topic not translated")
+        await cp.click("#kb-process-design .kbp-join [data-p=b]")
+        if "永远满足不了" not in await cp.inner_text("#kb-process-design .kbp-join .kbp-out") or "动手试试" not in await cp.inner_text("#kb-tasks"):
+            failures.append("zh: knowledge base hands-on blocks not translated")
         if "部署决策服务" not in await cp.inner_text("#kb-cloud-deploy") or "86,400 秒" not in await cp.inner_text("#kb-cloud-deploy"):
             failures.append("zh: Code Engine knowledge topic not translated")
         await cp.goto("http://127.0.0.1:8765/brief.html")
