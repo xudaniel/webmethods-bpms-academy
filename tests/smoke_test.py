@@ -467,6 +467,26 @@ async def main():
         await page.click("#kb-tasks .kbp-life [data-to=Deleted]")
         if "Delete Task" not in await page.inner_text("#kb-tasks .kbp-life") or await page.locator("#kb-tasks .kbp-life [data-to]").count() != 0:
             failures.append("task life cycle: seven days after completion the Delete Task rule should remove it")
+        await page.click("#kb-cloud-deploy .kbp-ce [data-ce='40|min']")
+        ce = await page.inner_text("#kb-cloud-deploy .kbp-ce .kbp-fit")
+        if "too long: at most 120" not in ce or "too long: 600" not in ce or "raise the time limit" in ce or "only a job fits" not in await page.inner_text("#kb-cloud-deploy .kbp-pick"):
+            failures.append("Code Engine picker: a 40-minute run should fit only a job, within its default limit")
+        await page.locator("#kb-cloud-deploy .kbp-ce [data-c=v]").fill("1260")
+        if "over the Community Edition limit" not in await page.inner_text("#kb-cloud-deploy .kbp-cplex"):
+            failures.append("Code Engine picker: 1,260 variables should be over the Community Edition limit")
+        await page.locator("#kb-rules-in-practice .kbp-csv [data-v=r]").fill("20")
+        if "4 + 20 = 24" not in await page.inner_text("#kb-rules-in-practice .kbp-csv"):
+            failures.append("CSV import: 4 rules plus 20 imported should make 24")
+        await page.click("#kb-rules-in-practice .kbp-csv [data-x=order]")
+        if await page.locator("#kb-rules-in-practice .kbp-csv tr.kbp-wrong").count() == 0 or "by position" not in await page.inner_text("#kb-rules-in-practice .kbp-csv"):
+            failures.append("CSV import: columns in another order should land in the wrong columns")
+        await page.select_option("#kb-monitor .kbp-rs [data-r=at]", "3")
+        rs = await page.inner_text("#kb-monitor .kbp-rs .kbp-fit")
+        if "re-runs from Check" not in rs or "first resubmit-enabled step" not in rs:
+            failures.append("resubmit lab: Book failed and only Check enabled, so Closest and Earliest should start at Check")
+        await page.click("#kb-monitor .kbp-rs [data-en='3']")
+        if "re-runs from Book, the failed step" not in await page.inner_text("#kb-monitor .kbp-rs .kbp-fit"):
+            failures.append("resubmit lab: an enabled failed step should be where Closest starts")
         for kid in ["process-design", "tasks"]:
             g = page.locator(f"#kb-{kid} .kbp-guess").first
             right = await page.evaluate(f"KB_PLAY.{'PD' if kid == 'process-design' else 'TK'}_GUESS[0].c")
@@ -722,7 +742,8 @@ async def main():
         if "合流" not in await cp.inner_text("#kb-process-design") or "16 张相同的票" not in await cp.inner_text("#kb-tasks"):
             failures.append("zh: process design or task topic not translated")
         await cp.click("#kb-process-design .kbp-join [data-p=b]")
-        if "永远满足不了" not in await cp.inner_text("#kb-process-design .kbp-join .kbp-out") or "动手试试" not in await cp.inner_text("#kb-tasks"):
+        zh_play = [await cp.inner_text(f"#kb-{k}") for k in ["tasks", "cloud-deploy", "rules-in-practice", "monitor"]]
+        if "永远满足不了" not in await cp.inner_text("#kb-process-design .kbp-join .kbp-out") or any("动手试试" not in t for t in zh_play):
             failures.append("zh: knowledge base hands-on blocks not translated")
         if "部署决策服务" not in await cp.inner_text("#kb-cloud-deploy") or "86,400 秒" not in await cp.inner_text("#kb-cloud-deploy"):
             failures.append("zh: Code Engine knowledge topic not translated")
