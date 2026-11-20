@@ -51,6 +51,7 @@ window.WORDS = {
     howto: "Choose your role to get step-by-step instructions, like a recipe.",
     lab: "Build your first process yourself in about 30 minutes. Tick each step as you go.",
     decisions: "Play with a real-looking decision table: move the limits, test an application, and see why rules change faster than processes.",
+    capstone: "Follow one markdown request at a clothing store: the agent proposes, the rules decide, a manager approves, the process changes the price and records every step.",
     swipe: "Look at a card, swipe left for a rule, right for an agent, up to keep a person. 60 seconds, and every answer says why.",
     puzzles: "Five small broken processes. Put the missing piece in place and press Run to see if the token gets through.",
     drills: "Like a real on-call shift: something breaks, you pick what to check. A good check moves you on, a wrong one costs time, and a debrief follows.",

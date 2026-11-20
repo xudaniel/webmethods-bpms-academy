@@ -31,6 +31,7 @@
   <button data-section="howto">How to use</button>
   <button data-section="lab">Hands-on lab</button>
   <button data-section="decisions">Decision lab</button>
+  <button data-section="capstone">Capstone</button>
   <button data-section="puzzles">Fix the diagram</button>
   <button data-section="swipe">Swipe sort</button>
   <button data-section="trouble">Troubleshooting</button>
@@ -61,7 +62,7 @@
 
     <div class="card beginner" id="path-card">
       <h3 data-i18n="p.h3">👋 Who are you? Get your own path</h3>
-      <p data-i18n="p.p">Pick one. You'll get 3–5 steps instead of 25 sections, and each step ticks itself off as you go.</p>
+      <p data-i18n="p.p">Pick one. You'll get 3–5 steps instead of 26 sections, and each step ticks itself off as you go.</p>
       <div class="role-chips" id="role-chips" role="radiogroup" aria-label="Choose your role" data-i18n-attr="aria-label:p.aria"></div>
       <p class="path-intro" id="path-intro"></p>
       <ol class="path" id="beginner-path"></ol>
@@ -233,7 +234,10 @@
     <div class="card" id="decision-table-lab"></div>
     <div class="card" id="agility-compare"></div>
     <div class="card" id="rules-pitfalls"></div>
+    <div class="card"><p data-i18n="dl.next">Ready to put it all together? Follow one markdown request through an agent, the rules, a manager and the process in the <a href="#capstone">capstone</a>.</p></div>
   </section>
+
+  <section id="capstone" class="section"><div id="capstone-app"></div></section>
 
   <section id="puzzles" class="section">
     <div class="card"><h2 data-i18n="pz.h2">Fix the diagram: five broken processes</h2>
@@ -376,6 +380,7 @@
 <script src="js/controls.js"></script>
 <script src="js/app.js"></script>
 <script src="js/decision-lab.js"></script>
+<script src="js/capstone.js"></script>
 <script src="js/mobile.js"></script>
 <script src="js/diagrams.js"></script>
 <script src="js/puzzles.js"></script>
