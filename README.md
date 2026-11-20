@@ -113,7 +113,7 @@ The site is built for phones first. To get the most out of it, save it as an app
 - **Six hands-on steps** for a general audience: before and after a BPMS, who owns which job, and an AI agent governed by a rulebook (see *Start here: the public explainer* below).
 
 ### Learn: a cited knowledge base and diagrams
-**18 topics and 133 facts**, each linked to public IBM or Software AG documentation, plus a practitioner note per topic:
+**19 topics and 142 facts**, each linked to public IBM or Software AG documentation, plus a practitioner note per topic:
 
 - **Releases and lifecycle**: 10.15 (GA Oct 2022; end of support 31 Oct 2027, paid extended support to Oct 2028 and Oct 2030; last release on AIX and z/Linux), 11.1 (Sep 2024), 12.1 (Java 21, Jakarta EE 10, FIPS 140-3, containers)
 - **Process Engine runtime and quality of service**: Transition documents; the speed-versus-guarantee trade-off; **Optimize Locally** (on by default), **Volatile Transition Documents** (on), **Volatile Tracking** (off); Universal Messaging as JMS provider; Broker deprecated
@@ -126,6 +126,7 @@ The site is built for phones first. To get the most out of it, save it as an app
 - **webMethods Business Rules**: Rule projects, rule sets, decision tables, decision trees, event rules; Data/Service/Process actions; deploying to Integration Server and My webMethods Server
 - **Rule Engine configuration and Rule Tasks**: Where the Rules Engine runs (WmBusinessRules) and how to point it at a remote Integration Server (`businessrulesruntime` alias), configuring a Rule Task, Process Aware tables, rule actions and logging level, event rules and JMS triggers, Hot Deploy and its server connections
 - **Moving webMethods Business Rules to IBM ODM**: How rule projects, decision tables and processing modes map to ODM's BOM, rulesets, rule tasks and exit criteria; getting tables out as JSON and into ODM through Excel; calling ODM from a process through OpenAPI; and testing both side by side before switching
+- **Business Rules in practice**: Data models and Sync Data Model, event rules inside rule sets, local testing with Run As, data provider and verification services, CSV import, the Integration Server REST invoke service (and its different default for missing inputs), and auditing to the database
 - **Monitor, resubmit and Optimize**: Where Monitor lives, resubmitting failed and completed instances (Resubmit Closest / Earliest, editing the pipeline), the privileges you need, Optimize KPIs and Process Analytics
 - **Building, versioning and deploying process models**: Versions and the metadata tables an upload fills, the generation receipt, repository-based deployment with the Asset Build Environment and Deployer, composites, and the limits to plan for
 - **Upgrading from 10.15**: Side-by-side upgrade: Database Component Configurator, migration utilities or Command Central, keeping in-flight instances, re-versioning models, post-upgrade checks; what the 12.1 Pre-Upgrade Analyzer does and does not cover; license keys and metering after the upgrade
@@ -138,7 +139,7 @@ The site is built for phones first. To get the most out of it, save it as an app
 
 **Professional mode and executive briefs:** a 💼 header switch, or a `?mode=pro` link, gives a calmer presentation for client meetings. It hides badges, progress, confetti, *Did you know?* and Mia's story, and keeps diagrams, sources and facts. [`brief.html`](https://xudaniel.github.io/webmethods-bpms-academy/brief.html) prints one A4 page each for banking and insurance: the problem, where process plus rules help, the controls that matter, the dates on the horizon and numbered sources. Every knowledge topic shows when it was last reviewed against its sources.
 
-**Diagrams** (original SVG, no IBM artwork; 26, in both the course and the reading version), including: where each part runs (architecture); the lifecycle loop; BPMN gateways and lanes; agent proposes, rules decide, process executes; one flow per worked case; the simulator's loan process; a decision table's anatomy; how the Agent Scan Lab sorts steps; four Basics 101 pictures (model vs instances, who does each step, five BPMN shapes, engine and audit trail); an **interactive quality-of-service** diagram; process vs rules; the Hot Deploy path; task lifecycle; build pipeline; instance states; the lab process with an **animated token**; a "process won't start" flowchart; and the workshop timeline. There are also architecture, BPMN, patterns, worked cases, market, a 43-term glossary and a 34-question quiz.
+**Diagrams** (original SVG, no IBM artwork; 26, in both the course and the reading version), including: where each part runs (architecture); the lifecycle loop; BPMN gateways and lanes; agent proposes, rules decide, process executes; one flow per worked case; the simulator's loan process; a decision table's anatomy; how the Agent Scan Lab sorts steps; four Basics 101 pictures (model vs instances, who does each step, five BPMN shapes, engine and audit trail); an **interactive quality-of-service** diagram; process vs rules; the Hot Deploy path; task lifecycle; build pipeline; instance states; the lab process with an **animated token**; a "process won't start" flowchart; and the workshop timeline. There are also architecture, BPMN, patterns, worked cases, market, a 46-term glossary and a 36-question quiz.
 
 ### Do: step-by-step guides, a lab and troubleshooting
 **Fix the diagram:** five puzzle levels, each with one broken piece. Tap a piece into the dashed slot, press ▶ Run, and a token animates through the process. A wrong piece explains why it fails and links the lesson that covers it. Progress is saved in your browser, and fixing all five earns the 🧩 *Process fixer* badge.
@@ -184,7 +185,7 @@ The site is built for phones first. To get the most out of it, save it as an app
 
 ### Plain words for beginners
 - **Tap any underlined term** in the course or the reading version for a one-line plain-English explanation, the technical definition and a link to the glossary. On a phone it opens as a sheet at the bottom of the screen. Quizzes are never underlined, so they still test you.
-- **🌐 中文 / English** (switch in the header, remembered on your device, or `?lang=zh` / `?lang=en`): a Simplified Chinese version, as detailed as the English one. Product and screen names stay in English so you can match the real product and IBM documentation. Translated in batches ([#68](https://github.com/Xudaniel/webmethods-bpms-academy/issues/68)): every section of the interactive course is done, including the glossary (43 terms), the quiz (34 questions), the controls for regulated industries, the decision lab, Fix the diagram and every diagram, plus the reading version (all 23 chapters) and both executive briefs. A browser whose first language is Chinese opens in Chinese until you pick a language.
+- **🌐 中文 / English** (switch in the header, remembered on your device, or `?lang=zh` / `?lang=en`): a Simplified Chinese version, as detailed as the English one. Product and screen names stay in English so you can match the real product and IBM documentation. Translated in batches ([#68](https://github.com/Xudaniel/webmethods-bpms-academy/issues/68)): every section of the interactive course is done, including the glossary (46 terms), the quiz (36 questions), the controls for regulated industries, the decision lab, Fix the diagram and every diagram, plus the reading version (all 23 chapters) and both executive briefs. A browser whose first language is Chinese opens in Chinese until you pick a language.
 - **🌱 Beginner mode** (switch in the header, remembered on your device): the tab bar and ☰ menu show the 17 beginner sections, each section opens with an *In plain words* box, advanced sections say they can wait, and Previous / Next skip them.
 
 ### Stay motivated
@@ -205,7 +206,7 @@ The site is built for phones first. To get the most out of it, save it as an app
 - **4. Overview** · Reading + family table\
   The core idea, and IBM webMethods at a glance (9 components)
 - **5. Knowledge base** · Cited reference + interactive diagram\
-  18 topics, 133 facts on how the product behaves
+  19 topics, 142 facts on how the product behaves
 - **6. Controls** · Control map + framework panel\
   For banks and insurers: seven controls, the frameworks that ask for them (SR 11-7, OSFI E-23, EU AI Act, GDPR Art. 22, NAIC, DORA) and the BPMS evidence
 - **7. How to use** · Role guides, cheat sheets, self-checks, demo script\
@@ -241,8 +242,8 @@ The site is built for phones first. To get the most out of it, save it as an app
 - **22. Market** · Reading + sources\
   Sizing, analyst views, competitor signals, regulatory dates
 - **23. Glossary** · Searchable\
-  43 terms; underlined terms anywhere open a plain-English explanation
-- **24. Quiz** · 34 questions\
+  46 terms; underlined terms anywhere open a plain-English explanation
+- **24. Quiz** · 36 questions\
   Instant feedback and a score
 - **25. Review book** · Spaced review\
   Every question you got wrong comes back after 1 and 3 days (and 7 if you miss it again) until it sticks

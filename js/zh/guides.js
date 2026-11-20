@@ -118,6 +118,20 @@
           "本站查阅的 IBM 和 Software AG 公开文档里，没有把 webMethods 规则项目转换成 ODM 项目的工具（2026 年 11 月 19 日核）。"
         ],
         practice: "一次搬一张决策表，先搬改得最勤、被最多流程共用的那张。先在 ODM 里重建表结构，再用 Excel 导入行，然后拿同一批历史输入分别调用两边的 REST 服务，结果全部一致才切换，旧规则保留以便回退。Service 和 Process 动作留在流程里，ODM 规则只返回决定。事件规则和推理规则集放到最后：它们需要 RetePlus 或重新设计。" },
+      "rules-in-practice": { title: "Business Rules 实战：数据模型、测试、护栏和 REST",
+        summary: "上线后的问题多半出在表外面：文档类型改了、边界没测、业务改表没有检查，以及同一条规则两种调用方式的默认值不同。",
+        facts: [
+          "规则是在 Integration Server 文档类型上写的。每个文档类型映射成一个数据模型，存在规则项目里；运行时，规则引擎用这个数据模型的实例。",
+          "文档类型改了以后，在 Rules Explorer 里右键数据模型，选 Sync Data Model。文档提醒：文档类型的字段改动可能让决策实体失效。",
+          "事件规则由一个事件和一个或多个结果组成。内部事件的写法是 WHENEVER 某个事件源 CHANGED THEN 结果，变化来自其他事件规则或决策表；结果可以赋值，也可以执行动作。事件规则必须放在规则集里才能正常工作。",
+          "规则可以在导出前在 Designer 里本地测试：用 Run As 运行决策表、决策树、事件规则或规则集，结果显示在 Results 视图。测试输入可以保存、再加载；启动配置可以设成启动时提示输入数据。",
+          "数据提供服务是一个外部 REST 服务，分配给决策表的某一列，为单元格的下拉列表提供值和说明；STRICT 模式下只能选列表里的值。",
+          "校验服务通过 POST 收到决策表的一列（JSON），返回若干条消息，每条带说明、行号，以及 ERROR 或 WARNING 两种严重程度之一。",
+          "My webMethods 的 CSV 导入给已有决策表加规则：导入的行追加在最后一条规则之后，不会覆盖；列按位置对应，列数要和表一致（In Effect 列除外），导入的规则一律始终生效，动作结果列不能导入。",
+          "Integration Server 的 REST 服务 POST …/businessrules/projects/invoke 接收 projectName、invocationTarget（RS/、DT/ 或 D3/）、inputs、desiredOutputs 和 createMissingInputs，后者默认为 false；项目不存在时 error 字段返回 404。流服务里用的 pub.businessrules.client:invoke 则默认会自动补上缺的输入。",
+          "要把 Business Rules 审计信息写进数据库表，给服务器加 Java 系统属性 RulesAuditingDBOnOff=On（比如在 Command Central 里）；这套做法不适用于 Microservices Runtime。一条「项目已部署」记录包括事件时间、关联 ID、Integration Server 的主机和端口，以及项目名。"
+        ],
+        practice: "把规则背后的文档类型当成契约：改字段名之前先查哪些规则项目在用，改完同步、修好失效的表、重跑测试。每个项目带一小组保存好的测试输入（每个边界、每种客户类型、一个缺输入），每次热部署前都跑一遍。业务自己改表时，枚举列配 STRICT 下拉，范围重叠这类跨行检查放进校验服务，CSV 只用来追加。给其他系统调用规则时走 REST 服务、保持 createMissingInputs 为 false；在流服务里调用前先校验输入；上线前打开数据库审计。" },
       monitor: { title: "Monitor、重新提交和 Optimize",
         summary: "Monitor 是运维查找、修复、重跑流程实例的地方；Optimize for Process 在它之上加了 KPI 和分析。",
         facts: [

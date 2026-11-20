@@ -3,6 +3,11 @@
 All notable changes to the IBM webMethods BPMS Academy. Author: **Daniel Yuanpeng Xu**.
 Versions follow [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+- 🧩 **Knowledge base: Business Rules in practice** (18 → 19 topics, 133 → 142 facts): data models and Sync Data Model when an Integration Server document type changes; event rules (WHENEVER … CHANGED THEN …) and why they must sit in a rule set; local testing with Run As and saved inputs; data provider services (STRICT drop-downs), verification services (ERROR or WARNING by row) and CSV import (appends, maps by position); the Integration Server REST invoke service, whose `createMissingInputs` defaults to false while the flow service creates missing inputs; and writing rules auditing to the database. Three glossary terms (46), two quiz questions (36) and 14 public sources, English and 中文.
+
 ## [2.4.0] — 2026-11-19
 
 Teach without laptops, a deeper knowledge base, and the docs brought up to date. **Author: Daniel Yuanpeng Xu.**
