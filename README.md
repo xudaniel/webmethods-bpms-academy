@@ -114,7 +114,7 @@ The site is built for phones first. To get the most out of it, save it as an app
 - **Six hands-on steps** for a general audience: before and after a BPMS, who owns which job, and an AI agent governed by a rulebook (see *Start here: the public explainer* below).
 
 ### Learn: a cited knowledge base and diagrams
-**19 topics and 142 facts**, each linked to public IBM or Software AG documentation, plus a practitioner note per topic:
+**20 topics and 150 facts**, each linked to public IBM or Software AG documentation, plus a practitioner note per topic:
 
 - **Releases and lifecycle**: 10.15 (GA Oct 2022; end of support 31 Oct 2027, paid extended support to Oct 2028 and Oct 2030; last release on AIX and z/Linux), 11.1 (Sep 2024), 12.1 (Java 21, Jakarta EE 10, FIPS 140-3, containers)
 - **Process Engine runtime and quality of service**: Transition documents; the speed-versus-guarantee trade-off; **Optimize Locally** (on by default), **Volatile Transition Documents** (on), **Volatile Tracking** (off); Universal Messaging as JMS provider; Broker deprecated
@@ -128,6 +128,7 @@ The site is built for phones first. To get the most out of it, save it as an app
 - **Rule Engine configuration and Rule Tasks**: Where the Rules Engine runs (WmBusinessRules) and how to point it at a remote Integration Server (`businessrulesruntime` alias), configuring a Rule Task, Process Aware tables, rule actions and logging level, event rules and JMS triggers, Hot Deploy and its server connections
 - **Moving webMethods Business Rules to IBM ODM**: How rule projects, decision tables and processing modes map to ODM's BOM, rulesets, rule tasks and exit criteria; getting tables out as JSON and into ODM through Excel; calling ODM from a process through OpenAPI; and testing both side by side before switching
 - **Business Rules in practice**: Data models and Sync Data Model, event rules inside rule sets, local testing with Run As, data provider and verification services, CSV import, the Integration Server REST invoke service (and its different default for missing inputs), and auditing to the database
+- **Deploying decision services on IBM Cloud**: Code Engine's limits for functions (120 seconds), applications (600 seconds) and jobs (24 hours) and job retries, revisions and endpoint visibility, where ODM containers are supported (certified Kubernetes, fully on OpenShift), Decision Optimization deployments in watsonx.ai (S to XL), and the CPLEX Community Edition limit of 1,000 variables and 1,000 constraints.
 - **Monitor, resubmit and Optimize**: Where Monitor lives, resubmitting failed and completed instances (Resubmit Closest / Earliest, editing the pipeline), the privileges you need, Optimize KPIs and Process Analytics
 - **Building, versioning and deploying process models**: Versions and the metadata tables an upload fills, the generation receipt, repository-based deployment with the Asset Build Environment and Deployer, composites, and the limits to plan for
 - **Upgrading from 10.15**: Side-by-side upgrade: Database Component Configurator, migration utilities or Command Central, keeping in-flight instances, re-versioning models, post-upgrade checks; what the 12.1 Pre-Upgrade Analyzer does and does not cover; license keys and metering after the upgrade
@@ -209,7 +210,7 @@ The site is built for phones first. To get the most out of it, save it as an app
 - **4. Overview** · Reading + family table\
   The core idea, and IBM webMethods at a glance (9 components)
 - **5. Knowledge base** · Cited reference + interactive diagram\
-  19 topics, 142 facts on how the product behaves
+  20 topics, 150 facts on how the product behaves
 - **6. Controls** · Control map + framework panel\
   For banks and insurers: seven controls, the frameworks that ask for them (SR 11-7, OSFI E-23, EU AI Act, GDPR Art. 22, NAIC, DORA) and the BPMS evidence
 - **7. How to use** · Role guides, cheat sheets, self-checks, demo script\
@@ -247,8 +248,8 @@ The site is built for phones first. To get the most out of it, save it as an app
 - **23. Market** · Reading + sources\
   Sizing, analyst views, competitor signals, regulatory dates
 - **24. Glossary** · Searchable\
-  46 terms; underlined terms anywhere open a plain-English explanation
-- **25. Quiz** · 36 questions\
+  48 terms; underlined terms anywhere open a plain-English explanation
+- **25. Quiz** · 38 questions\
   Instant feedback and a score
 - **26. Review book** · Spaced review\
   Every question you got wrong comes back after 1 and 3 days (and 7 if you miss it again) until it sticks

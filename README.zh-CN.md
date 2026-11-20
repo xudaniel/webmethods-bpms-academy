@@ -113,7 +113,7 @@
 - **六个动手小步骤**，面向大众：有无 BPMS 的对比、每项工作该由谁负责、用规则手册管住 AI agent（见下方「从这里开始：面向大众的互动讲解」）。
 
 ### 学：附出处的知识库和示意图
-共 **19 个主题、142 条事实**，每条都链接到 IBM 或 Software AG 的公开文档，每个主题后附一段实践建议：
+共 **20 个主题、150 条事实**，每条都链接到 IBM 或 Software AG 的公开文档，每个主题后附一段实践建议：
 
 - **版本与生命周期**：10.15（2022 年 10 月正式发布；2027 年 10 月 31 日结束支持，可付费延长支持到 2028 年 10 月和 2030 年 10 月；最后一个支持 AIX 和 z/Linux 的版本）、11.1（2024 年 9 月）、12.1（Java 21、Jakarta EE 10、FIPS 140-3、容器化）
 - **Process Engine 运行与服务质量（QoS）**：转移文档；速度与可靠性的取舍；**Optimize Locally**（默认开）、**Volatile Transition Documents**（默认开）、**Volatile Tracking**（默认关）；Universal Messaging 作为 JMS 提供方；Broker 已弃用
@@ -127,6 +127,7 @@
 - **规则引擎配置与 Rule Task**：规则引擎在哪里运行（WmBusinessRules），以及如何指向远程 Integration Server（`businessrulesruntime` 别名）；如何配置 Rule Task、Process Aware 决策表、规则动作与日志级别、事件规则与 JMS 触发器、热部署及其服务器连接
 - **把 webMethods Business Rules 迁到 IBM ODM**：规则项目、决策表和处理模式怎么对应到 ODM 的 BOM、ruleset、规则任务和退出条件；怎样把表以 JSON 取出、用 Excel 导入 ODM；流程怎样通过 OpenAPI 调用 ODM；切换前怎样两边并行对比
 - **Business Rules 实战**：数据模型和 Sync Data Model、事件规则要放进规则集、用 Run As 本地测试、数据提供服务和校验服务、CSV 导入、Integration Server 的 REST invoke 服务（缺输入的默认处理和流服务不同），以及把审计写进数据库
+- **在 IBM Cloud 上部署决策服务**：Code Engine 函数（120 秒）、应用（600 秒）、作业（24 小时）的上限和作业重试、修订版和端点可见性；ODM 容器支持哪些平台（认证的 Kubernetes，OpenShift 上支持最全）；watsonx.ai 里的 Decision Optimization 部署（S 到 XL）；CPLEX 社区版 1,000 个变量和 1,000 个约束的上限。
 - **Monitor、重新提交与 Optimize**：Monitor 在哪里、如何重新提交失败或已完成的实例（Resubmit Closest / Earliest、修改 pipeline）、需要哪些权限、Optimize 的 KPI 与流程分析
 - **流程模型的构建、版本和部署**：版本和一次上传会写入的元数据表、生成回执、用 Asset Build Environment 和 Deployer 做基于仓库的部署、composite，以及要预先规划的限制
 - **从 10.15 升级**：新旧版本并行安装：Database Component Configurator、迁移工具或 Command Central、保留进行中的实例、模型升版本号、升级后检查；12.1 升级前分析工具覆盖和不覆盖什么；升级后的许可证密钥与计量
@@ -208,7 +209,7 @@
 - **4. **概览**（Overview）** · 阅读 + 产品家族表\
   核心理念，以及 IBM webMethods 一览（9 个组件）
 - **5. **知识库**（Knowledge base）** · 附出处的参考 + 互动图\
-  19 个主题、142 条事实，讲清产品实际怎么运作
+  20 个主题、150 条事实，讲清产品实际怎么运作
 - **6. **合规控制**（Controls）** · 控制对照表 + 法规说明\
   面向银行和保险：七项控制、对应的监管框架（SR 11-7、OSFI E-23、欧盟 AI 法案、GDPR 第 22 条、NAIC、DORA）以及 BPMS 能提供的证据
 - **7. **如何使用**（How to use）** · 角色教程、速查卡、自测、演示脚本\
@@ -246,8 +247,8 @@
 - **23. **市场**（Market）** · 阅读 + 出处\
   市场规模、分析机构观点、竞争信号、监管日期
 - **24. **术语表**（Glossary）** · 可搜索\
-  46 个术语；全站带下划线的术语都能点开看大白话解释
-- **25. **测验**（Quiz）** · 36 道题\
+  48 个术语；全站带下划线的术语都能点开看大白话解释
+- **25. **测验**（Quiz）** · 38 道题\
   即时反馈并计分
 - **26. **复习本**（Review book）** · 间隔复习\
   答错的题 1 天后、3 天后再考（又错了就 7 天后再考一次），直到记住

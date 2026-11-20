@@ -196,6 +196,22 @@ window.KNOWLEDGE = {
       sources: [105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118]
     },
     {
+      id: "cloud-deploy", reviewed: "2026-11-20", title: "Deploying decision services on IBM Cloud: Code Engine, ODM and Decision Optimization",
+      summary: "Where the rules and optimisation around a process can run on IBM Cloud: Code Engine's three workload types have hard time limits, ODM containers are supported on certified Kubernetes (with full support on OpenShift), and optimisation models can run as managed Decision Optimization jobs.",
+      facts: [
+        "IBM Cloud Code Engine runs functions, applications and jobs with different limits. A function runs for at most 120 seconds, with request and response bodies of up to 5 MB. An application's timeout is 300 seconds by default and 600 seconds at most. A job runs for 7,200 seconds (2 hours) by default and 86,400 seconds (24 hours) at most.",
+        "A Code Engine job retries a failed run 3 times by default, and at most 5 times.",
+        "Each update of an application configuration property creates a new revision of the application. Code Engine keeps only the latest inactive revision in addition to the active one, so older revisions are not available to go back to.",
+        "By default a Code Engine application can receive requests from the public internet, from a private network and from components in the same project. Its visibility can be narrowed, for example to other Code Engine resources in the same project plus the private network through Virtual Private Endpoints.",
+        "IBM Operational Decision Manager containers are supported only on CNCF Certified Kubernetes platforms, using the commercially available Kubernetes engine. IBM runs compatibility tests only on Red Hat OpenShift Container Platform and supports its platform configuration, such as networking, load balancing and security; on other platforms IBM cannot assist with environment setup (support note last modified in October 2020).",
+        "In watsonx.ai Runtime, a Decision Optimization model is packaged as a .tar.gz, .zip or .jar archive and uploaded to a deployment space. You choose a hardware specification and a runtime (do_22.1 is based on CPLEX 22.1.1.0), then submit jobs to the deployment and monitor their states.",
+        "Decision Optimization deployments use the S (2 vCPU, 8 GB), M (4 vCPU, 16 GB), L (8 vCPU, 32 GB) or XL (16 vCPU, 64 GB) hardware specifications.",
+        "The Community Edition of CPLEX solves problems with up to 1,000 variables and 1,000 constraints (or a 1000 × 1000 search space for constraint programming). Larger problems need a runtime or licence with the full commercial edition."
+      ],
+      practice: "Pick the Code Engine workload by the worst-case solve time, not the average: up to 120 seconds a function, up to 600 seconds an application, longer a job or a Decision Optimization deployment. Lower the retries on long jobs, because with the default of 3 a run that keeps timing out costs up to four times as much. Keep policy values such as limits and shares in the rules, so a policy change does not rebuild the solver image; tag images with versions rather than latest and rerun a set of golden test cases after every update, since only one earlier revision is kept. Narrow the solver's visibility to the project, keep credentials in Code Engine secrets, and count variables before production so the Community Edition limit does not surprise you. No IBM statement was found that supports running ODM itself on Code Engine; for production ODM use ODM on Cloud or OpenShift.",
+      sources: [119, 120, 121, 122, 123, 124, 125]
+    },
+    {
       id: "monitor", reviewed: "2026-11-16", title: "Monitor, resubmit and Optimize",
       summary: "Monitor is where operations find, fix and re-run process instances; Optimize for Process adds KPIs and analytics on top.",
       facts: [
@@ -329,6 +345,8 @@ window.KNOWLEDGE = {
     ["Data model (Business Rules)", "The copy of an Integration Server document type stored in a rule project; rules are written against it, and it must be synced when the document type changes."],
     ["Data provider service", "External REST service that fills the drop-down list of one decision table column; in STRICT mode only its values can be entered."],
     ["Verification service", "External REST service that checks a decision table column and returns ERROR or WARNING messages by row."],
+    ["IBM Cloud Code Engine", "Serverless IBM Cloud platform that runs containers as functions (up to 120 seconds), applications (up to 600 seconds per request) or jobs (up to 24 hours)."],
+    ["CPLEX Community Edition", "Free edition of the CPLEX optimisers, limited to 1,000 variables and 1,000 constraints; larger problems need the full commercial edition."],
     ["Jakarta EE 10", "The successor to Java EE that 12.1 is based on; its APIs use jakarta.* package names instead of javax.*, so custom Java code may need updating."],
     ["Correlation ID", "Value that ties an incoming document to one running process instance; it comes from a field in the document or from a correlation service."],
     ["External cluster (Process Engine)", "Several Integration Servers that are not formally clustered but run Process Engines with the External Cluster setting, one shared Process Engine database and one messaging client prefix."],
@@ -377,7 +395,11 @@ window.KNOWLEDGE = {
     { q: "A flow calls a rule set with pub.businessrules.client:invoke and another system calls it through the Integration Server REST invoke service. Both leave out one input. What happens by default?", a: ["Both return an error", "The flow service creates the missing input and runs; the REST call returns an error", "Both run with an empty input", "The REST call runs; the flow service fails"], c: 1,
       e: "The flow service's Create Missing Inputs defaults to true, while the REST service's createMissingInputs defaults to false." },
     { q: "A business user imports a CSV file of 20 rules into a decision table that has 4 rules. How many rules does the table have afterwards?", a: ["20", "24", "4", "It depends on the header names"], c: 1,
-      e: "CSV import appends rows after the last rule and never overwrites; columns map by position, not by header name." }
+      e: "CSV import appends rows after the last rule and never overwrites; columns map by position, not by header name." },
+    { q: "An optimisation solve takes about 40 minutes. Which IBM Cloud Code Engine workload can run it?", a: ["A function", "An application", "A job", "None of them"], c: 2,
+      e: "40 minutes is 2,400 seconds: more than a function's 120 seconds and an application's 600-second maximum. A job runs for 2 hours by default and up to 24 hours." },
+    { q: "A weekly roster has 60 nurses × 7 days × 3 shifts, one yes/no variable each. Can the CPLEX Community Edition solve it?", a: ["Yes", "No: 1,260 variables is over the 1,000 limit", "Only as a Code Engine function", "Only with fewer constraints"], c: 1,
+      e: "60 × 7 × 3 = 1,260 variables, above the Community Edition limit of 1,000 variables and 1,000 constraints. Use a runtime or licence with the full commercial edition." }
   ],
 
   // Numbered sources referenced by topic.sources
@@ -497,7 +519,14 @@ window.KNOWLEDGE = {
     115: ["POST …/businessrules/projects/invoke (Business Rules 10.11)", "https://documentation.softwareag.com/webmethods/business_rules/wok10-11/10-11_Business_Rules_webhelp/business-rules-webhelp/re-post_clientinvoke.html"],
     116: ["pub.businessrules.client:invoke (10.4)", "https://documentation.softwareag.com/webmethods/compendiums/v10-4/C_Design_and_Implement_BPMs/desimplbpm-compendium/re-clientinvoke.html"],
     117: ["Writing Business Rules Auditing Information to the Database (Business Rules 10.7)", "https://documentation.softwareag.com/webmethods/business_rules/wok10-7/10-7_Business_Rules_webhelp/business-rules-webhelp/ta-writing_audit_information_to_db.html"],
-    118: ["Summary of Business Rules Auditing Information (10.5)", "https://documentation.softwareag.com/webmethods/compendiums/v10-5/C_Design_and_Implement_BPMs/desimplbpm-compendium/co-summary_audit_information.html"]
+    118: ["Summary of Business Rules Auditing Information (10.5)", "https://documentation.softwareag.com/webmethods/compendiums/v10-5/C_Design_and_Implement_BPMs/desimplbpm-compendium/co-summary_audit_information.html"],
+    119: ["Code Engine limits and quotas (IBM Cloud docs)", "https://cloud.ibm.com/docs/codeengine?topic=codeengine-limits"],
+    120: ["Updating your app (Code Engine documentation source)", "https://github.com/ibm-cloud-docs/codeengine/blob/master/appdeploy-update.md"],
+    121: ["IBM ODM containers: supported Kubernetes platforms (IBM support)", "https://www.ibm.com/support/pages/node/5691956"],
+    122: ["Deploying a Decision Optimization model (watsonx.ai)", "https://dataplatform.cloud.ibm.com/docs/content/DO/WML_Deployment/ModelDeploymentTaskCloud.html?context=wx"],
+    123: ["Managing hardware specifications for deployments (watsonx.ai)", "https://www.ibm.com/docs/en/DSXDOC/wsj/analyze-data/ml-hardware-configs.html"],
+    124: ["Decision Optimization notebooks: Community Edition limits", "https://www.ibm.com/docs/en/DSXDOC/DO/DODS_Introduction/DONotebooks.html"],
+    125: ["IBM ILOG CPLEX Optimization Studio editions", "https://www.ibm.com/products/ilog-cplex-optimization-studio"]
   }
 };
 
