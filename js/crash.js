@@ -38,6 +38,7 @@ window.CRASH = {
   const ZC = window.LANG === "zh" && window.ZH && window.ZH.crash;
   const X = ZC || window.CRASH, $ = (id) => document.getElementById(id);
   window.CRASH_LIVE = X; // the checks in the language on screen (used by the review book)
+  if (window.MIX) X.checks = X.checks.map((c, i) => window.MIX(c, "crash:" + i));
   const U = ZC ? ZC.ui : { kicker: (a, b, i, n) => `Minutes ${a}–${b} · step ${i} of ${n}`, remember: "Remember:", deeper: "Go deeper later:", lastKicker: "Final minute · check yourself",
     three: "Three quick questions", left: (i, n, m) => `Step ${i} of ${n} · about ${m} min left`, last: "Last step: check yourself", next: "Next →", toCheck: "Check yourself →",
     allRight: "🎉 You know the core of IBM webMethods BPMS.", good: "👍 Good start.", score: (r, n, m) => `${r} / ${n} right, in about ${m} min. Next, pick one:`,

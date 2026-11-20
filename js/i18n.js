@@ -68,5 +68,17 @@
     });
   }
 
+  // Answer order: move the right answer to a fixed, spread-out position for each question; the other options keep
+  // their order. The position depends only on the key, so it is the same in English and 中文, on the page, in the
+  // review book and in the printed answer key.
+  function mix(q, key) {
+    if (!q || !Array.isArray(q.a) || q.a.length < 2 || typeof q.c !== "number" || q.mixed) return q;
+    let h = 2166136261;
+    for (const ch of "order-v1:" + key) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619) >>> 0; }
+    const t = h % q.a.length, rest = q.a.filter((_, j) => j !== q.c);
+    return Object.assign({}, q, { a: rest.slice(0, t).concat([q.a[q.c]], rest.slice(t)), c: t, mixed: true });
+  }
+  window.MIX = mix;
+
   window.I18N = { lang, switchTo, page };
 })();

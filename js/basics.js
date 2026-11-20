@@ -108,6 +108,7 @@ window.BASICS = {
   const ZB = window.LANG === "zh" && window.ZH && window.ZH.basics;
   const B = ZB || window.BASICS;
   window.BASICS_LIVE = B; // the lessons in the language on screen (used by the review book)
+  if (window.MIX) B.lessons.forEach((l) => { if (l.check) l.check = window.MIX(l.check, "basics:" + l.id); });
   const U = ZB ? ZB.ui : { mapH: "The same ideas, with IBM webMethods names", idea: "The idea", inWm: "In IBM webMethods", min: "min", check: "Check yourself: ",
     deeper: "Go deeper:", nextLesson: "Next lesson: ", right: "Right.", notQuite: "Not quite.", retry: "Try again",
     count: (n, m) => `${n} / ${m} checks passed`, all: (n, m) => `${n} / ${m} checks passed: you know the basics! 🎉`, checkR: "Check:", key: "Answer key" };

@@ -87,7 +87,8 @@ async def main():
         await page.click("#howto-tabs [data-role=ops]")
         if await page.locator("#howto-body .cheat-sheet").count() != 1:
             failures.append("cheat sheet missing under role guide")
-        await page.click("#howto-body .self-check .quiz-q >> nth=0 >> button >> nth=1")
+        sc_right = await page.evaluate("SUPPORT.cheats.find(c => c.id === 'ops').check[0].c")
+        await page.click(f"#howto-body .self-check .quiz-q >> nth=0 >> button >> nth={sc_right}")
         if "1 / 3" not in await page.inner_text("#sc-score"):
             failures.append("role self-check did not score")
         await page.click("nav button[data-section=teach]")
@@ -205,7 +206,8 @@ async def main():
         if not await page.is_visible("#crash .cc-step[data-i='5']") or await page.is_visible("#crash-nav .cc-next"):
             failures.append("Next should reach the checks and then hide")
         for i in range(3):
-            await page.click(f"#crash .cc-check[data-i='{i}'] button[data-j='1']")
+            cc_right = await page.evaluate(f"CRASH_LIVE.checks[{i}].c")
+            await page.click(f"#crash .cc-check[data-i='{i}'] button[data-j='{cc_right}']")
         if "3 / 3" not in await page.inner_text("#cc-done"):
             failures.append("10-minute course finish card should show 3 / 3")
         await page.click("#crash-nav .cc-back")
@@ -279,11 +281,12 @@ async def main():
         await page.wait_for_timeout(150)
         if await page.locator("#basics .basics-lesson").count() != 7 or await page.locator("#basics figure.dg").count() != 7:
             failures.append("Basics 101 should have 7 lessons, each with a picture")
-        await page.click("#b-process .basics-check button[data-j='0']")
+        b_right = await page.evaluate("BASICS_LIVE.lessons.find(l => l.id === 'process').check.c")
+        await page.click(f"#b-process .basics-check button[data-j='{(b_right + 1) % 3}']")
         if "Not quite" not in await page.inner_text("#b-process .explain") or not (await page.inner_text("#basics-count")).startswith("0 /"):
             failures.append("a wrong Basics answer should explain and not count")
         await page.click("#b-process .b-retry")
-        await page.click("#b-process .basics-check button[data-j='1']")
+        await page.click(f"#b-process .basics-check button[data-j='{b_right}']")
         if not (await page.inner_text("#basics-count")).startswith("1 / 7"):
             failures.append("a right Basics answer should count")
         await page.click("#b-process .b-next")
@@ -511,6 +514,11 @@ async def main():
             failures.append("read.html reading times missing")
         if await page2.locator("#r-q > li").count() != await page2.locator("#r-a > li").count() or await page2.locator("#r-a > li").count() < 10:
             failures.append("read.html quiz and answer key mismatch")
+        read_key = await page2.evaluate("ACADEMY.quiz.map(q => q.c).join(',')")
+        site_key = await page.evaluate("ACADEMY.quiz.map(q => q.c).join(',')")
+        spread = [read_key.split(',').count(str(k)) for k in range(4)]
+        if read_key != site_key or max(spread) > 2 * min(spread) or min(spread) == 0:
+            failures.append(f"quiz answers should be spread over all four positions and match the printed key, got {spread}")
         if await page2.locator("#r-ch h3").count() != 4 or await page2.locator("#r-tr h3").count() != 4 or await page2.locator("#r-teach-agenda tr").count() < 9:
             failures.append("read.html troubleshooting, cheat sheets or teach section missing")
         if await page2.locator("#r-lab-stages h3").count() != 8:
@@ -556,7 +564,8 @@ async def main():
         for _ in range(5):
             await zp.click("#crash-nav .cc-next")
         for i in range(3):
-            await zp.click(f"#crash .cc-check[data-i='{i}'] button[data-j='1']")
+            cc_right = await zp.evaluate(f"CRASH_LIVE.checks[{i}].c")
+            await zp.click(f"#crash .cc-check[data-i='{i}'] button[data-j='{cc_right}']")
         if "答对 3 / 3" not in await zp.inner_text("#cc-done"):
             failures.append("zh: 10-minute course finish card")
         await zp.evaluate("location.hash='basics'")
