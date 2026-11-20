@@ -114,7 +114,7 @@ The site is built for phones first. To get the most out of it, save it as an app
 - **Six hands-on steps** for a general audience: before and after a BPMS, who owns which job, and an AI agent governed by a rulebook (see *Start here: the public explainer* below).
 
 ### Learn: a cited knowledge base and diagrams
-**20 topics and 150 facts**, each linked to public IBM or Software AG documentation, plus a practitioner note per topic:
+**21 topics and 165 facts**, each linked to public IBM or Software AG documentation, plus a practitioner note per topic:
 
 - **Releases and lifecycle**: 10.15 (GA Oct 2022; end of support 31 Oct 2027, paid extended support to Oct 2028 and Oct 2030; last release on AIX and z/Linux), 11.1 (Sep 2024), 12.1 (Java 21, Jakarta EE 10, FIPS 140-3, containers)
 - **Process Engine runtime and quality of service**: Transition documents; the speed-versus-guarantee trade-off; **Optimize Locally** (on by default), **Volatile Transition Documents** (on), **Volatile Tracking** (off); Universal Messaging as JMS provider; Broker deprecated
@@ -122,8 +122,9 @@ The site is built for phones first. To get the most out of it, save it as an app
 - **Correlation: how a message finds its running process**: Correlation field versus correlation service, which steps use it, where correlation IDs are kept (`WMPRTXREF` or memory), what happens on a match and on no match, and why a subscription filter cannot change between versions
 - **Execution history and audit**: Process Engine DB versus Process Audit DB (`PRA_*` tables), logging levels, where task history lives in 10.15
 - **Archiving and deleting audit data**: Archive database versus partitions, what disappears from My webMethods, the four archive stored procedures and their retention, status and batch parameters, and the advice to run small, regular batches
-- **Task Engine and human work**: Inboxes on My webMethods Server, `getTaskAudit`, task archiving
+- **Task Engine and human work**: Inboxes on My webMethods Server, `getTaskAudit`, task archiving; task statuses and the seven-day Delete Task rule, priority and expiry, votable tasks (51%, rounded up) and assignment from a decision table
 - **Task rules, events and timers**: Assignments, events, filters, change rules and schedules in a task type; date/time events and why an administrator must recalculate their stored trigger times
+- **Process design building blocks**: OR, AND and COMPLEX joins and why a dead path blocks an AND join, process and join timeouts, Step Iterations Exceeded and Unsatisfied Join transitions, interrupting boundary events, callable processes and BPMN subprocesses
 - **webMethods Business Rules**: Rule projects, rule sets, decision tables, decision trees, event rules; Data/Service/Process actions; deploying to Integration Server and My webMethods Server
 - **Rule Engine configuration and Rule Tasks**: Where the Rules Engine runs (WmBusinessRules) and how to point it at a remote Integration Server (`businessrulesruntime` alias), configuring a Rule Task, Process Aware tables, rule actions and logging level, event rules and JMS triggers, Hot Deploy and its server connections
 - **Moving webMethods Business Rules to IBM ODM**: How rule projects, decision tables and processing modes map to ODM's BOM, rulesets, rule tasks and exit criteria; getting tables out as JSON and into ODM through Excel; calling ODM from a process through OpenAPI; and testing both side by side before switching
@@ -210,7 +211,7 @@ The site is built for phones first. To get the most out of it, save it as an app
 - **4. Overview** · Reading + family table\
   The core idea, and IBM webMethods at a glance (9 components)
 - **5. Knowledge base** · Cited reference + interactive diagram\
-  20 topics, 150 facts on how the product behaves
+  21 topics, 165 facts on how the product behaves
 - **6. Controls** · Control map + framework panel\
   For banks and insurers: seven controls, the frameworks that ask for them (SR 11-7, OSFI E-23, EU AI Act, GDPR Art. 22, NAIC, DORA) and the BPMS evidence
 - **7. How to use** · Role guides, cheat sheets, self-checks, demo script\
@@ -248,8 +249,8 @@ The site is built for phones first. To get the most out of it, save it as an app
 - **23. Market** · Reading + sources\
   Sizing, analyst views, competitor signals, regulatory dates
 - **24. Glossary** · Searchable\
-  48 terms; underlined terms anywhere open a plain-English explanation
-- **25. Quiz** · 38 questions\
+  50 terms; underlined terms anywhere open a plain-English explanation
+- **25. Quiz** · 41 questions\
   Instant feedback and a score
 - **26. Review book** · Spaced review\
   Every question you got wrong comes back after 1 and 3 days (and 7 if you miss it again) until it sticks
