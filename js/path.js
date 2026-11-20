@@ -157,7 +157,7 @@ window.PATHS = {
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) { /* this visit only */ } };
   const role = () => P.roles.find((r) => r.id === st.role) || P.roles[0];
   const stepKey = (r, i) => `${r.id}:${i}`;
-  const mins = (s) => { const t = window.READTIMES || {}; return s.go === "lab" ? 30 : (t[s.go] || ""); };
+  const mins = (s) => { const t = window.READTIMES || {}; return s.go === "lab" ? 30 : (s.kb && t["kb:" + s.kb]) || t[s.go] || ""; };
 
   $("role-chips").innerHTML = P.roles.map((r) => `<button type="button" class="role-chip" role="radio" data-r="${r.id}"><span>${r.icon}</span> ${esc(r.name)}</button>`).join("");
   function paint() {

@@ -34,7 +34,7 @@ async def main():
             if not await page.is_visible(f"#{s}") or len(await page.inner_text(f"#{s}")) < 200:
                 failures.append(f"section {s} empty or hidden")
         # Knowledge base (issues #7, #8): IBM branding, counter, family, cited topics
-        if "v2.3.0" not in await page.inner_text("#version"):
+        if "v2.4.0" not in await page.inner_text("#version"):
             failures.append("footer should show the release version")
         if not (await page.title()).startswith("IBM webMethods"):
             failures.append("title should lead with IBM webMethods")
@@ -686,6 +686,31 @@ async def main():
         if "最大开心 12" not in await op.inner_text("#bb-out") or "解出来了" not in await op.inner_text("#cp-out"):
             failures.append("optimization: Chinese demo output missing")
         await op.close()
+        # Unplugged classroom kit (#54): board, cards and log sheet in English and Chinese, linked from Teach a class
+        for lang, word in [("en", "Unplugged classroom kit"), ("zh", "不插电课堂套件")]:
+            kp = await browser.new_page(viewport={"width": 390, "height": 844})
+            kp.on("pageerror", lambda e: errors.append(f"kit.html: {e}"))
+            await kp.goto(f"http://127.0.0.1:8765/kit.html?lang={lang}")
+            if word not in await kp.inner_text("#kit-intro"):
+                failures.append(f"kit ({lang}): title missing")
+            if await kp.locator("svg.kit-board").count() != 1:
+                failures.append(f"kit ({lang}): board missing")
+            if await kp.locator(".kcard.req").count() != 12 or await kp.locator(".kcard.event").count() != 8 or await kp.locator(".kcard.rule").count() != 3:
+                failures.append(f"kit ({lang}): expected 12 request cards, 8 event cards and 3 rule/control cards")
+            if await kp.locator(".kit-log tr").count() < 15:
+                failures.append(f"kit ({lang}): audit log sheet missing")
+            if await kp.evaluate("document.documentElement.scrollWidth") > 392:
+                failures.append(f"kit ({lang}): page scrolls sideways at 390 px")
+            key = await kp.inner_text(".kit-key")
+            if ("v2" not in key) or (("four-eyes" if lang == "en" else "四眼原则") not in key):
+                failures.append(f"kit ({lang}): answer key should cover rule version 2 and the four-eyes case")
+            await kp.close()
+        tp = await browser.new_page(viewport={"width": 390, "height": 844})
+        await tp.goto("http://127.0.0.1:8765/index.html?lang=en#teach")
+        await tp.click("nav button[data-section=teach]")
+        if await tp.locator('#teach a[href="kit.html"]').count() != 1:
+            failures.append("Teach a class should link to the classroom kit")
+        await tp.close()
         await browser.close()
     srv.shutdown()
     # Diagram images referenced by knowledge topics must exist (missing ones are hidden on the page, but reported here)

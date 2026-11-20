@@ -103,7 +103,8 @@ window.SUPPORT = {
       ["2:35", 15, "Everyday use by role", "howto", "Each pair picks a role guide and shares one tip."],
       ["2:50", 10, "Check and close", "quiz", "Role self-checks or the quiz; hand out cheat sheets."]
     ],
-    print: ["Reading version → chapter 7 lab sheet (one per pair)", "One role cheat sheet per participant (How to use → cheat sheet → Print)", "Troubleshooting table for the trainer"],
+    print: ["Unplugged classroom kit (kit.html): the board on A3, the cards and an audit log sheet on A4, one set per team",
+      "Reading version → chapter 7 lab sheet (one per pair)", "One role cheat sheet per participant (How to use → cheat sheet → Print)", "Troubleshooting table for the trainer"],
     tips: [
       "Ask each team which process it actually runs, and use it as the example all morning.",
       "For customers, use the 10-minute demo script as the opening, and spend longer on the knowledge base than on the lab.",
