@@ -4,7 +4,7 @@
 
 <p>
   <a href="https://xudaniel.github.io/webmethods-bpms-academy/"><img alt="Live site" src="https://img.shields.io/badge/live-open_the_course-8a3ffc"></a>
-  <a href="https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v2.6.0"><img alt="Release v2.6.0" src="https://img.shields.io/badge/release-v2.6.0-24a148"></a>
+  <a href="https://github.com/Xudaniel/webmethods-bpms-academy/releases/tag/v2.7.0"><img alt="Release v2.7.0" src="https://img.shields.io/badge/release-v2.7.0-24a148"></a>
   <img alt="Works offline" src="https://img.shields.io/badge/phone-installable_·_offline-161616">
   <a href="https://github.com/Xudaniel"><img alt="Author: Daniel Yuanpeng Xu" src="https://img.shields.io/badge/author-Daniel_Yuanpeng_Xu-0f62fe"></a>
 </p>
@@ -13,7 +13,7 @@
 
 ### [▶ 打开课程（中文版）](https://xudaniel.github.io/webmethods-bpms-academy/?lang=zh)
 
-[阅读版](https://xudaniel.github.io/webmethods-bpms-academy/read.html) · [English site](https://xudaniel.github.io/webmethods-bpms-academy/) · [v2.6.0 更新日志](CHANGELOG.md) · [PRD](docs/PRD.zh-CN.md)
+[阅读版](https://xudaniel.github.io/webmethods-bpms-academy/read.html) · [English site](https://xudaniel.github.io/webmethods-bpms-academy/) · [v2.7.0 更新日志](CHANGELOG.md) · [PRD](docs/PRD.zh-CN.md)
 
 <p>
   <img src="assets/screenshots/role-picker.png" width="31%" alt="选择角色，获得专属学习路线">
@@ -659,6 +659,8 @@ GitHub Actions 会在每个 pull request 上自动运行同一个测试（`.gith
 - [x] 从 webMethods Business Rules 迁移到 IBM ODM 决策服务的模块（知识库主题）
 - [ ] 扫描实验室：可调整门槛，可导出 CSV
 
+**v2.7.0 已完成：** 新增游戏课程「BPMS Quest」（`play.html`），一个文件离线可玩，六关、星级和证书；十个知识库主题加了动手小工具（汇合实验、任务生命周期、投票计算器、Code Engine 选择器、CSV 导入实验、重提交实验、支持期时间线、发票匹配器、归档运行说明、哪个版本生效、任务规则小游戏）和「先猜再看」题；测验正确答案均匀分布到四个位置；调用活动和边界事件两条事实改按文档原话。
+
 **v2.6.0 已完成：** 新增综合练习「女装店换季打折审批」（agent 提建议、三条规则判断、经理批或计时升级、每一步留审计记录；共 26 个栏目），以及三个新增或扩充的知识库主题：「在 IBM Cloud 上部署决策服务」「流程设计构件」和扩充后的「Task Engine 和人的工作」（21 个主题、165 条事实、50 个术语、41 道题）。
 
 **v2.5.0 已完成：** 新增有出处的知识库主题「Business Rules 实战」（19 个主题、142 条事实）：数据模型和 Sync Data Model、事件规则要放进规则集、用 Run As 本地测试、数据提供服务和校验服务、CSV 导入、Integration Server 的 REST invoke 服务及其缺输入的默认处理、把审计写进数据库；术语表 46 个，测验 36 题（#104）。
@@ -702,7 +704,7 @@ GitHub Actions 会在每个 pull request 上自动运行同一个测试（`.gith
 
 ### 如何引用
 
-> Xu, Daniel Yuanpeng (2026). *IBM webMethods BPMS Academy* (Version 2.6.0) [Interactive course]. https://github.com/xudaniel/webmethods-bpms-academy
+> Xu, Daniel Yuanpeng (2026). *IBM webMethods BPMS Academy* (Version 2.7.0) [Interactive course]. https://github.com/xudaniel/webmethods-bpms-academy
 
 点 GitHub 页面上的 **Cite this repository** 按钮（来自 [`CITATION.cff`](CITATION.cff)），就能拿到 APA 和 BibTeX 格式的引用。复用或改编本项目内容时，请注明作者 **Daniel Yuanpeng Xu**，并附上本仓库链接。
 
