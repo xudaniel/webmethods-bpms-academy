@@ -3,7 +3,9 @@
 All notable changes to the IBM webMethods BPMS Academy. Author: **Daniel Yuanpeng Xu**.
 Versions follow [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [2.7.0] — 2026-11-23
+
+Learn by playing: a game course in one file, and hands-on tools inside the knowledge base. **Author: Daniel Yuanpeng Xu.**
 
 ### Added
 - 🎮 **BPMS Quest** (`play.html`): a self-contained game course in one HTML file (no other files needed, works offline, English and 中文). Follow Mia's purchase order through six levels: the invoice arrives (correlation), two paths meet (joins), the committee votes (votable tasks), the approver goes on holiday (task life cycle), booking failed (resubmit) and shipping version 3 (which version ends up enabled). Each level is guess first, then fix the process; up to three stars per level, a printable certificate, progress kept in the browser. Every rule links to its public source. Linked from the knowledge base and the READMEs.
